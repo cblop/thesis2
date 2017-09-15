@@ -1,0 +1,16 @@
+digraph G {
+  rankdir=LR;
+  start -> go_hero_house -> meet_hero_villain;
+  meet_hero_villain -> kill_hero_villain;
+  kill_hero_villain -> kill_villain_hero;
+  kill_villain_hero -> end_story;
+  kill_hero_villain -> go_hero_wayOut;
+  kill_hero_villain -> go_hero_darkPit;
+  go_hero_darkPit -> eat_crocodile_hero;
+  eat_crocodile_hero -> end_story;
+  kill_hero_villain -> go_hero_darkRoom;
+  go_hero_darkRoom -> escape_hero;
+  go_hero_darkRoom -> eat_grue_hero -> end_story;
+  escape_hero -> find_hero_treasure;
+  go_hero_wayOut -> find_hero_treasure;
+}

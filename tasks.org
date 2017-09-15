@@ -1,0 +1,170 @@
+* Information and Tasks for Participant
+
+** Introduction to TropICAL
+*** Declarations
+    A trope has three types of entities:
+
+- *Roles* (characters)
+- *Places*
+- *Objects*
+
+Before you use any of these in a story, you must declare it at the top of the file. For example:
+
+#+BEGIN_SRC python
+The Hero is a role
+The Knife is an object
+The Land of Adventure is a place
+#+END_SRC
+
+The first letter of each entity name must be capitalised.
+
+*** Sequencing
+The simplest type of story is one where things occur one after another. You would express this using the /Then/ keyword. For example:
+
+
+#+BEGIN_SRC python
+The Hero goes Home
+Then the Hero finds a Sword
+Then the Hero goes to the Land of Adventure
+#+END_SRC
+
+Note again that the first letter of any role, object or place name is capitalised.
+
+*** Branches
+Branching paths through a story are expressed with the *or* keyword. For example:
+
+
+#+BEGIN_SRC python
+The Hero goes Home
+  Or the Hero finds a Sword
+  Or the Hero dies
+#+END_SRC
+
+Please note that you *must* indent "Or" statements with two spaces. This presents them as alternative events to the unindented line above.
+
+Sequences and branches can of course be chained together:
+
+#+BEGIN_SRC python
+The Hero goes Home
+Then the Hero finds a Sword
+  Or the Hero goes to the Land of Adventure
+  Or the Hero kills the Villain
+Then the Hero meets the Mentor
+  Or the Hero goes Home
+#+END_SRC
+
+** Subtropes (abstraction)
+
+You can nest tropes inside of other tropes as a way of creating abstractions. For example, take these two tropes:
+
+
+#+BEGIN_SRC python
+"Item Search" is a trope where:
+   The Macguffin is an object
+   The Hero is a role
+   Home is a place
+   The Hero chases the Macguffin
+   Then the Hero finds the Macguffin
+     Or the Hero goes Home
+
+"Kill then Search" is a trope where:
+  Away is a place
+  The Hero is a role
+  The Villain is a role
+  The Hero goes Away
+  Then the Hero kills the Villain
+  Then the "Item Search" trope happens
+#+END_SRC
+
+The first trope is embedded inside the second trope in the last line. This is our means of abstraction: we can re-use tropes that we've already created inside new tropes.
+
+
+That's all the information you need. If you have any more questions, please ask Matt for help!
+
+** Task 1: Edit an Existing Trope
+At first, please get a feel for the language by browsing through the examples provided.
+
+In the 'edit' tab, select an existing trope from the dropdown box. Edit its text on the left, and then save it. Again, Matt will give you advice to make sure it compiles correctly. Once this is done, check to see that the visualisation seems to be as expected.
+
+** Task 2: Create a Trope
+Given the following character roles:
+
+- Hero
+- Villain
+- Mentor
+
+And the following places:
+
+- Home
+- Evil Lair
+- Land of Adventure
+
+Construct a trope using Tropical. Your statements will be simple sequences at first, i.e:
+
+
+#+BEGIN_SRC python
+The Hero goes home
+Then the Hero goes away
+Then the Villain kills the Hero
+#+END_SRC
+
+Matt will help you to make sure it compiles! Make sure to declare your roles and objects first.
+
+
+** Task 3: Adding objects to your trope
+
+Add the following objects to your trope:
+
+- Weapon
+- Evil Plan
+
+For example:
+
+
+#+BEGIN_SRC python
+The Hero takes the Weapon
+Then the Villain makes an Evil Plan
+#+END_SRC
+
+** Task 4: Add branches to your trope
+
+Using the "Or" keyword, add branches to your story. For example:
+
+
+#+BEGIN_SRC python
+The Hero goes to the Land of Adventure
+Then the Hero kills the Villain
+  Or the Villain kills the Mentor
+  Or the Mentor goes home
+#+END_SRC
+
+** Task 5: Put two tropes into a story
+
+Using the "Arrange" tab in Storybuilder, select two (or more) tropes from the dropdown boxes to visualise all the possible paths through a story with those tropes.
+
+** Task 6: Tropes within Tropes
+
+Create a new trope that uses an existing trope as a "subtrope". For example:
+
+#+BEGIN_SRC python
+"Hero May Leave" is a trope where:
+   The Hero is a role
+   Away is a place
+   Home is a place
+   The Hero goes Away
+     Or the Hero stays at Home
+
+"Crime Flee Dilemma" is a trope where:
+  The Hero is a role
+  The Puppy is a role
+  The Hero kills the Puppy
+  Then the Hero panics
+  Then the "Hero May Leave" trope happens
+#+END_SRC
+
+In the above example, the first trope is used inside the second trope.
+
+** Task 7: Free Story Creation
+Using a combination of the techniques learned up until now, please create a story of your own, using any combination of characters, places, objects, and subtropes.
+
+Once you have created the story, you can explore the possible paths through it with the tree visualisation.

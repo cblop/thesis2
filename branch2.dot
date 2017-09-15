@@ -1,0 +1,8 @@
+digraph G {
+  rankdir=LR;
+  start -> go_hero_landOfAdventure;
+  start -> find_hero_sword;
+  start -> meet_hero_villain;
+  start -> kill_hero_villain;
+  start -> return_hero_home;
+}

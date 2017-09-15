@@ -1,0 +1,84 @@
+\chapter{Describing Story Worlds with Tropes and Institutions}
+\label{cha:tropes-and-institutions}
+
+\subsection{Building a Text Adventure with Tropes} % 1/2
+\label{sec:tropes-text}
+
+\begin{figure}[!t]
+%% \begin{align}
+%%   \texttt{You are Luke Skywalker}\qquad
+%%   &\texttt{Luke Skywalker is the Hero}\nonumber\\
+%%   \texttt{Tatooine is Home}\qquad
+%%   &\texttt{Obi Wan is the Dispatcher}\nonumber\\
+%%   \texttt{Space is The Land of Adventure}\qquad
+%%   &\texttt{Darth Vader is the Villain}\nonumber\\
+%%   \texttt{The Imperial Forces are the Empire}\qquad
+%%   &\texttt{Princess Leia is the Victim}\nonumber\\
+%% \end{align}
+%% \begin{align}
+%%   &\texttt{> meet obi wan} \nonumber\\
+%% &&\text{Luke Skywalker must go to space before Darth Vader kills Princess Leia}\nonumber\\
+%%   &&\text{Darth Vader may kill Luke Skywalker}\nonumber\\
+%%   &&\text{Darth Vader may kill Princess Leia}\label{eq:text2}\\
+%%   &\texttt{> go to space} \nonumber\\
+%% &&\text{Luke Skywalker may rescue Princess Leia}\nonumber\\
+%% &&\text{Luke Skywalker may kill Darth Vader}\nonumber\\
+%%   &&\text{Darth Vader may kill Luke Skywalker} \label{eq:text3}\\
+%%   &\texttt{> rescue princess leia} \nonumber\\
+%% &&\text{Luke Skywalker may kill Darth Vader}\nonumber\\
+%%   &&\text{Darth Vader may kill Luke Skywalker} \label{eq:text4}\\
+%%   &\texttt{> kill darth vader} \nonumber\\
+%% &&\text{Luke Skywalker may go to Tatooine} \label{eq:text5}
+%% \end{align}
+\fbox{
+\begin{minipage}{0.95\columnwidth}
+\begin{flushleft}\small
+You are Luke Skywalker\\
+Luke Skywalker is the Hero\\
+Tatooine is Home\\
+Obi Wan is the Dispatcher\\
+Space is The Land of Adventure\\
+Darth Vader is the Villain\\
+The Imperial Forces are the Empire\\
+Princess Leia is the Victim
+\end{flushleft}
+
+\begin{flushleft}\tt\small
+> meet obi wan\\\smallskip
+\hfill\begin{minipage}{0.95\columnwidth}\flushright\rm\noindent
+Luke Skywalker must go to space before Darth Vader kills Princess Leia\\
+Darth Vader may kill Luke Skywalker\\
+Darth Vader may kill Princess Leia
+\end{minipage}\\
+> go to space\\\smallskip
+\hfill\begin{minipage}{\columnwidth}\flushright\rm
+Luke Skywalker may rescue Princess Leia\\
+Luke Skywalker may kill Darth Vader\\
+Darth Vader may kill Luke Skywalker
+\end{minipage}
+> rescue princess leia\\\smallskip
+\hfill\begin{minipage}{\columnwidth}\flushright\rm
+Luke Skywalker may kill Darth Vader\\
+Darth Vader may kill Luke Skywalker
+\end{minipage}
+> kill darth vader\\\smallskip
+\hfill\begin{minipage}{\columnwidth}\flushright\rm
+Luke Skywalker may go to Tatooine
+\end{minipage}
+\end{flushleft}
+\end{minipage}
+}
+\caption{Text adventure interface example for a story built with TropICAL and StoryBuilder; user input in {\tt typewriter} and trope state in Roman} \label{fig:text}
+\end{figure}
+
+In practice, an interactive story author writes their story tropes using the TropICAL language. The TropICAL code is compiled into InstAL institutions, then to AnsProlog code to be used in an ASP solver. When a player or agent action occurs, we run one cycle of the ASP solver\footnote{We use clingo, available from \url{http://potassco.sourceforge.net}, accessed 20160608.}, with that action to determine the permissions and obligations that hold on each character at the next point in the story.
+
+TropICAL is designed to be used inside \textbf{StoryBuilder}, a browser-based user interface for interactive story creation. StoryBuilder allows authors to write their own tropes, select pre-written tropes and combine these tropes into a story timeline. The interface provides drop-down boxes to select characters, objects and places to fulfil abstract roles, object types and locations within the selected tropes. Once completed, the InstAL institutions are generated and the game can be played, with player and agent actions passed to the answer-set solver as they occur.
+
+Figure~\ref{fig:text} shows how a user interacts with a text adventure game\footnote{This simplistic interface is used purely for the purpose of compact illustration of the interaction in this paper.} built using TropICAL and StoryBuilder. At the start of the game, the user may choose which character they would like to be (in this case, Luke Skywalker). Once a user performs an action by typing it into the text parser (as shown on the left side of the figure), this is sent as an event to the ASP solver, which updates the norms that apply to both the player and the character agents. The agents are then free to carry out their plans with these new norms in mind. The player can attempt to perform any action, but non-permitted actions result in a a message such as ``You cannot do that''.
+
+% In the text adventure, the tropes are used as a means of governing the character agents in the story. The agents themselves must still have goals and dialogue to fit their character roles. For this reason, figure~\ref{fig:text} only lists the permissions and obligations that are governing the agents at each step.
+
+\subsection{Making Tropes Abstractable}
+
+% Explain use of bridge institutions to nest tropes

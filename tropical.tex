@@ -1,0 +1,387 @@
+% HACK: predicted poms remaining: 73 / 79
+
+\chapter{TropICAL: A DSL for Story Tropes}
+\label{cha:tropical}
+% DONE introduction: 1
+% DONE motivation: 1
+
+This chapter describes the design and implementation of TropICAL (the TROPe
+Interactive Chronical Action Language), our Domain Specific Language for
+describing story tropes. The purpose of this language is to allow for the
+creation of interactive narratives through the description of tropes in a
+constrained natural language. The tropes created through the language are
+designed to be reusable components that can go into a ``library'', from which
+story authors can choose the tropes best suited to the particular story that they
+are creating.
+
+The motivation for the creation of TropICAL is the lack of any methods of
+creating interactive narrative that are suitable for non-programmers to use. The
+systems described in the literature review in
+chapter~\ref{cha:literature-review}, such as any using the Mimesis
+architecture~\cite{young2004architecture}, a drama manager and planner such as
+in Fa\c{c}ade's system~\cite{mateas2003faccade}, or linear logic as in Ceptre's
+system~\ref{martens2015ceptre}, all require the story author to be familiar with
+planner-based systems or the description of formal logics. The purpose of
+TropICAL is to greatly reduce the barrier to the creation of interactive stories
+by allowing authors to describe the components of their story using constrained
+natural language. In fact, many authors using our system may not even need to
+write their own tropes using TropICAL, and will instead simply select the tropes
+that they need for their story from a pre-created ``library'' of tropes. This
+process is facilitated through the ``StoryBuilder'' user interface described in
+chapter~\ref{cha:storybuilder}
+
+This section describes TropICAL's constrained natural
+language syntax in section~\ref{sec:t-constrained}, the features of the language in section~\ref{sec:t-features}, 
+the formal grammar used to
+describe its syntax in section~\ref{sec:t-grammar}, how ``nested
+tropes'' are created in section~\ref{sec:t-nested}, the intermediate data structure used between parsing and
+code generation steps (section~\ref{sec:t-intermediate}), its compilation
+to InstAL code (section~\ref{sec:t-codegen}), some samples of generated InstAL
+institutions (section ~\ref{sec:t-tropes}), answer set
+generation (section~\ref{sec:t-asp}), and finally its extension for the description of legal policies
+(section~\ref{sec:t-legal}).
+
+
+\section{Controlled Natural Language Syntax}
+\label{sec:t-constrained}
+% DONE intro: 1
+% DONE describe ACE: 2
+% DONE describe Inform 7: 2
+
+TropICAL uses a \emph{Controlled Natural Language} (also referred to as
+\emph{Constrained Natural Language}) syntax, which means that it superficially
+resembles natural language English, but is only a subset.
+
+There are two types of Controlled Natural Language (CNL). The first type are \emph{naturalistic} languages
+such as ASD Simplified Technical English~\cite{asd2007simplified}, designed to
+be used in documentation for technical industries such as aerospace or defense,
+or Ogden Basic English~\cite{ogden1944basic}, a simplified language for teaching
+English as a second language. This type of Controlled Natural Language merely
+describe a subset of the parent language. The other type of CNL are
+\emph{formalistic}, with a formal
+syntax and semantics, which can be mapped to rules in other formal languages
+such as first-order logic. Attempto Controlled English~\cite{fuchs1996attempto}
+is an example of this formal type of CNL, and the one which forms the basis of
+our syntax for TropICAL.
+
+\subsection{Attempto Controlled English}
+
+Attempto Controlled English (ACE) is a controlled natural language that is also
+a formal language, and was created by the University of Zurich in 1995. It is
+still under development, with version 6.7 of the language announced in 2013. ACE
+has been used in a wide variety of fields, such as software specifications,
+ontologies, medical documentation and planning.
+
+ACE's vocabulary has three components:
+
+\begin{compactitem}
+  \item predefined function words
+  \item predefined fixed phrases (\emph{there is}, \emph{it is false that}, ...)
+  \item content words (nouns, proper nouns, verbs, adjectives, adverbs)
+\end{compactitem}
+
+The Attempto Parsing Engine (APE) has a lexicon of content words, and users can
+define their own content words. User-defined content words take precedence over
+the built-in lexicon.
+
+ACE's syntax is expressed as a set of construction rules (admissible ACE
+sentence structures), with syntactically
+correct sentences described as a set of interpretation rules, which contain the
+actual semantics of the sentences.
+
+The simplest ACE sentences follow a \emph{subject + verb + complements +
+  adjuncts} structure:
+
+\begin{lstlisting}
+  A dragon sleeps.
+  The sky is blue.
+  A princess owns a castle.
+  A king gives a sword to a knight.
+\end{lstlisting}
+
+In this structure, every sentence must have a subject and a verb. Sentences that
+do not contain a verb are expressed with the \emph{there is} structure:
+
+\begin{lstlisting}
+  There is a kettle.
+  There are 3 balls.
+\end{lstlisting}
+
+Details can be added to these sentences through the use of adjectives, and the
+sentences can be joined together with the \emph{and} and \emph{then} keywords.
+
+Other ways of modifying the sentences include \emph{negation}, adding
+\emph{quantifiers}, or making the sentences \emph{interrogative} or
+\emph{imperative}. We do not go into further details in this thesis, as we are
+using ACE simply as an inspiration for our syntax, rather than following its
+design entirely. For more details, see the ``ACE in a Nutshell'' page of its
+documentation for an overview of the language~\cite{ace-nutshell}.
+
+\subsection{Inform 7}
+
+Inform is a programming language for the creation of Interactive Fiction (also
+called \emph{text adventure games}). All versions of Inform generate
+\emph{Z-code}, which is interpreted by the \emph{Z-machine} virtual machine for
+interactive fiction.
+
+The syntax of the language has changed multiple times since its creation in
+1993. The version of the language that we are most interested in is Inform 7~\cite{reed2010creating},
+which is its most recent incarnation. Prior to Inform 7, the language used
+traditional programming models such as procedural and object-oriented paradigms.
+With version 7, however, its creator Graham Nelson redesigned its
+syntax completely to allow authors to create their stories using controlled
+natural language, so that the experience of story creation became closer to that
+of writing a book.
+
+The simplest possible game authored with Inform 7 would be:
+
+\begin{lstlisting}
+"Hello World" by "I.F. Author"
+
+The world is a room.
+
+When play begins, say "Hello, world."
+\end{lstlisting}
+
+An extended example, Will Crowther's cave exploration simulation, would be
+described like this:
+
+\begin{lstlisting}
+"Cave Entrance"
+
+The Cobble Crawl is a room. "You are crawling over cobbles in a low passage. There is a dim light at the east end of the passage."
+
+A wicker cage is here. "There is a small wicker cage discarded nearby."
+
+The Debris Room is west of the Crawl. "You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west. A note on the wall says, 'Magic word XYZZY'."
+
+The black rod is here. "A three foot black rod with a rusty star on one end lies nearby."
+
+Above the Debris Room is the Sloping E/W Canyon. West of the Canyon is the Orange River Chamber.
+\end{lstlisting}
+
+Although Inform 7 is not based directly on ACE, we can see many of ACE's
+features in it. For example, it uses the same syntax for simple statements such
+as \emph{X is a Y}. Most statements in the listing above are pairs of sentences,
+with the first in each pair declaring the existence of an object or room, and
+the second being an uninterpreted string that is printed out as the description
+of the defined object.
+
+Before version 7, Inform was already widely used as a language for the creation
+of Interactive Fiction. Given its continued popularity after the switch to
+a controlled natural language syntax, it appears that the new programming
+paradigm has been successful.
+
+The wide adoption of Inform 7 by story authors with no other programming
+experience motivates our decision to create a controlled natural language syntax
+for TropICAL, our own trope-based programming language. The intended audience is
+the same, so an additional benefit would be that story authors who can code with
+Inform 7 would also be able to use TropICAL.
+
+\section{Features}
+\label{sec:t-features}
+% TODO intro: 1
+% TODO list features: 1
+% TODO tech used: 1
+% TODO relate features to the requirements: 2
+
+The way in which our TropICAL language is used is as follows:
+
+\begin{compactitem}
+  \item It is based around the idea of using \emph{story tropes} as reusable
+    components that can be combined to create stories
+  \item It uses \emph{controlled natural language} to describe these tropes
+  \item The controlled natural language is then parsed and compiled to a data
+    structure that describes the formal features of each trope
+  \item The intermediate data structure is then used to generate InstAL code
+  \item The InstAL code is compiled to AnsProlog, an Answer Set Programming
+    language
+  \item The AnsProlog code is then run through
+    \emph{clingo}~\cite{gebser2011potassco}, an answer set solver, to generate
+    all the possible sequences of events that can occur in the story.
+\end{compactitem}
+
+
+\section{EBNF Grammar}
+\label{sec:t-grammar}
+% TODO intro: 1
+% TODO instaparse description: 1
+% TODO simplified grammar from code: 2
+% TODO format grammar: 2
+
+\begin{lstlisting}
+trope = (tropedef (<whitespace> (situationdef / alias / sequence))+ <'\\n'?>) | ((situationdef / alias / sequence)+ <'\\n'?>)
+
+<tropedef> = label <' is a ' ('trope' / 'policy') ' where:\\n'>
+
+alias =
+    (character <' is also '> character <'\\n'?>) | (object <' is '> object <'\\n'?>)
+
+situation =
+    <'When '> event <':'>
+
+fluent =
+    object <' is '> adjective
+
+adjective = word
+
+object = name
+
+outcome =
+    (<'\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'\\n'?>)+
+
+happens =
+    <the?> subtrope <(' happens' / ' policy applies') '.'?>
+
+
+block =
+    <the?> subtrope <' policy does not apply' / ' does not happen'> <'.'?>
+
+
+sequence =
+    ((event | norms | happens | block)  <'\\n'?> (or* | if*)) | ((event | norms | happens | block) (<'\\n' whitespace+ 'Then '> (block / norms / event / obligation / happens) (or* | if*))*)*
+
+situationdef = situation (<'\\n'> <whitespace> norms | <'\\n'> <whitespace whitespace> consequence)+ <'\\n'?>
+
+or =
+    <'\\n' whitespace+ 'Or '> (event | norms)
+
+if =
+    <'\\n' whitespace+ 'If '> (event | norms)
+
+event =
+    (<'The '>? character <' is'>? <' '> (move / task)) / give / sell / tverb / meet / kill / pay
+
+
+give =
+    character <' gives ' ('the ' / 'a ' / 'an ')?> item <' to '>? <'a ' / 'an '>? character
+
+sell =
+    character <' sells ' ('the ' / 'a ' / 'an ')?> item <' to '>? <'a ' / 'an '>? character
+
+tverb =
+    character <' '> verb <(' the ' / ' a ' / ' an ')?> item <' to '>? <'a ' / 'an '>? character
+
+bverb =
+    verb <(' the ' / ' a ' / ' an ')?> item <' to '>? <'a ' / 'an '>? character
+
+cverb =
+    words <' the ' / ' a ' / ' an '> (object / character)
+
+meet =
+    character <' meets '> character
+kill =
+    character <' kills '> character
+pay =
+    <'pay '> character
+
+norms = permission | rempermission | obligation
+
+violation = norms
+
+character = name
+
+subtrope = <'\"'> words <'\"'>
+
+label = <'\"'> words <'\"'>
+
+move = mverb <' '> <'to '?> place
+mverb = 'go' / 'goes' / 'leave' / 'leaves' / ('return' <!' the'>) / 'returns' <!' the'> / 'at' / 'come' / 'comes'
+verb = word
+place = name
+
+<pverb> = verb (<' '> verb)*
+
+rempermission = character <' may not '> (move / pay / bverb / cverb / task) <'\\n'?>
+permission = character <' may '> (move / pay / bverb / cverb / task) <'\\n'?>
+obligation = character <' must '> (move / pay / bverb / cverb / pverb / task) (<' before '> deadline)? (<'\\n' whitespace+ 'Otherwise, '> <'the '?> violation)? <'.'?> <'\\n'?>
+
+deadline = consequence
+
+task = pverb <' '> role-b / verb / (verb <(' the ' / ' a ' / ' an ')> item) / (verb <' '> item)
+role-b = name
+
+pverb = 'kill' / 'kill'<'s'> / 'refund'<'s'> / 'refund'
+
+consequence =
+    [<'The ' / 'the '>] character <' will '>? <' '> (move / bverb / cverb / item)
+    | [<'The ' / 'the '>] item <' '> verb
+
+item = [<'The ' / 'the '>] word
+
+<whitespace> = #'\\s\\s'
+
+<name> = [<'The ' / 'the '>] cwords
+<words> = word (<' '> word)*
+<cwords> = cword (<' '> ['of'<' '>] cword)*
+<cword> = #'[A-Z][0-9a-zA-Z\\-\\_\\']*'
+<the> = <'The ' | 'the '>
+<word> = #'[0-9a-zA-Z\\-\\_\\']*'
+\end{lstlisting}
+
+\section{Nested Tropes via Bridge Institution}
+\label{sec:t-nested}
+% TODO why nested tropes: 1
+% TODO explanation of bridge institutions: 2
+
+\section{Intermediate Data Structure}
+\label{sec:t-intermediate}
+% TODO why do we have an intermediate data structure? (possible other uses,
+% different parsers): 1
+% TODO describe the hash map: 2
+
+\section{InstAL Code Generation}
+\label{sec:t-codegen}
+% TODO intro: 1
+% TODO tech discussion: 1
+
+\subsection{Initiation}
+% TODO before / after snippets: 2
+% TODO explanation: 2
+
+\subsection{Termination}
+% TODO before / after snippets: 2
+% TODO explanation: 2
+
+\subsection{Generation}
+% TODO before / after snippets: 2
+% TODO explanation: 2
+
+\subsection{Initial Conditions}
+% TODO before / after snippets: 2
+% TODO explanation: 2
+
+\subsection{Bridge Institution}
+% TODO before / after snippets: 2
+% TODO explanation: 2
+
+\section{Generated Trope Samples}
+\label{sec:t-tropes}
+% TODO intro for heros journey trope: 1
+% TODO run through generated code: 3
+
+% TODO intro for evil empire trope: 1
+% TODO run through generated code: 3
+
+\section{Adding Constraints}
+\label{sec:t-constraints}
+% TODO ASP intro: 1
+% TODO constraints explanation: 2
+% TODO output: 2
+
+\section{Answer Set Generation}
+\label{sec:t-asp}
+% TODO instalquery intro & explanation: 2
+% TODO generate for hero's journey: 4
+% TODO generate for evil empire: 4
+% TODO generate for both: 4
+
+\section{Extending for Legal Policies}
+\label{sec:t-legal}
+% TODO intro: 1
+% TODO explanation from JURIX: 2
+
+\subsection{Example Policies}
+% TODO examples from JURIX: 2
+
+% TODO outro: 1

@@ -1,0 +1,7 @@
+digraph G {
+  rankdir=LR;
+  start -> go_hero_away -> kill_hero_villain;
+  kill_hero_villain -> chase_hero_macguffin;
+  chase_hero_macguffin -> find_hero_macguffin;
+  chase_hero_macguffin -> go_hero_home;
+}

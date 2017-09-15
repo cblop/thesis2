@@ -1,0 +1,89 @@
+\chapter{Introduction}
+\label{cha:introduction}
+The central contribution of this thesis is the use of story tropes for the
+generation of structured, interactive narratives for use in games, training
+simulations or other playable experiences. In order to introduce the research
+described in later sections, this introduction will first explain the concepts of story
+tropes and interactive narrative.
+
+\section{Story Tropes}
+
+Story tropes are recurring motifs in the narratives of media, which allow for a more expressive manner of describing stories than existing narrative formalisms. Authors can use them to build new story components and re-use existing tropes to make hierarchical story arcs.
+
+Tropes describe commonly-seen themes and elements of stories. In a sense, they are similar to clich\'es, in that an audience becomes familiar with them through repeated exposure. However, tropes are not clich\'es. Clich\'es are story elements that have been repeated ad nauseum, that are so often used and unoriginal that they evoke tedium from their audience. Tropes may perhaps become clich\'es if they are used to the point of becoming tiresome, though some are so embedded into the collective subconscious that their presence is taken for granted. Joseph Campbell argues that \emph{The Hero's Journey} is a trope that transcends time and culture, representing a shared human blueprint for the rite-of-passage into adulthood~\cite{campbell2008hero}. In this way, stories and tropes could be considered a cultural language for describing common human themes. Clich\'es could not be described as such: they are simply overexploited ideas.
+
+The themes, scenes, characters and structure of a story can be described in terms of tropes. Even individual lines of dialogue can be a trope, such as James Bond's witty put-downs when he defeats an enemy. Tropes describe parts of a story in an abstract way, which means that they can be easily identified in multiple stories.
+
+Examples of tropes are:
+
+\begin{compactitem}
+\item \textbf{The Hero's Journey}: A hero answers a call to adventure, and leaves home to go on a journey. They defeat the villain along the way, returning back home triumphant.
+\item \textbf{The Evil Empire}: The villain is part of an empire, which tries to stop the hero at all costs.
+\item \textbf{The MacGuffin}: There is an object that the hero needs, the search for which is used to drive the plot.
+\item \textbf{Chekhov's Gun}: If a gun appears somewhere in the first act, it must be fired by the end of the third.
+\end{compactitem}
+
+Tropes can describe a story at several layers of abstraction, meaning that tropes can contain other tropes as sub-tropes. For example, \emph{The Hero's Journey} can contain the \emph{Hero}, \emph{Quest}, and \emph{Call to Adventure} sub-tropes. This allows a degree of expressivity unavailable in other narrative models described in the \emph{Related Work} section.
+
+In interactive narrative generation, where a player may take one of many possible paths through a story, parts of the story are often procedurally generated in order to save an author the time and effort of manually writing out all the branches of the narrative. However, this means that the author must give up some control over the structure and content of the story. By describing the intended contents of the story in an abstract manner using tropes, an author is able to give it structure. In our case, the procedural generation occurs through the use of intelligent agents to model story characters. These character agents are guided towards pursuing actions that fit the tropes in the authored narrative, thus gently making sure they meet the expectations of the author while allowing them some degree of freedom with which to pursue their own goals.
+
+\section{Interactive Narrative}
+Interactive narratives have the potential to transform two major fields: games
+and training simulations. These are the applications for which the use of
+interactive narrative can benefit Sysemia. The main part of the research examines the state of the art in interactive narrative primarily in computer games research, but then adapts techniques from that field for the purpose of interactive exhibitions. By implementing research ideas into `toy' game projects (such as an interactive Punch and Judy show in section \ref{sec:pj}), I then take components from these projects and implement them into practical exhibition-based projects for Sysemia (such as the Every Object Tells a Story project described in section \ref{sec:every}).
+
+Though media such as computer games allow a player to influence events through interaction with its characters and objects, the story of the game itself is usually predetermined. In order to create media in which the narrative is shaped by a person's interactions, one two approaches are usually taken: emergent narratives or branching narratives.
+
+\textbf{Emergent narratives} occur when a story (of sorts) unfolds as a result of a player's interactions with the rules of the game world. Examples of this appear in the games \emph{Minecraft}, \emph{Civilisation}, \emph{Dwarf Fortress} and \emph{The Sims}. In these cases, no author has sat down and written a branching narrative for every eventuality in the game. Instead, the narrative is created by the story world itself in response to a player's actions.
+
+The advantage of this type of narrative is easily apparent from an author's point of view: it saves them the work of having to write all the branches of a story. In a story with any nontrivial amount of branching, the author would have to spend a great many hours writing down all of the alternative paths through it. In the end, a player might not even see the result of a fraction of the effort put into a game's writing. An emergent story solves this problem by procedurally generating a narrative.
+
+However, it could be argued that these emergent stories are only ``stories'' in the loosest possible sense --- they have no shape or structure, no recurring motifs, and nothing like a climax near the end. They do not take the player on an emotional ride, but merely describe a sequence of events. Indeed, it greatly decreases the influence of the writer as an artist, leaving a story totally in the hands of the player. If a game author has a certain story they want to tell in a non-linear fashion, or a message that they wish to convey, they must resign themselves to hoping that it somehow emerges from the unscripted interactions of a player with the game.
+
+\textbf{Branching Narratives}, on the other hand, give authors total control over what happens in a non-linear story. They are able to structure each possible branch of the narrative, ensuring some branches terminate in climaxes while others lead to despair. They can insert artistic themes into their stories, and put their own personal flourishes into every single aspect of it. The price of this control is the amount of work it requires for the creation of each story branch, as well as the limited amount of branching an author's time constrains them to write.
+
+Ideally, we could combine the best features of both type of non-linear narrative: the labour-saving generative element of emergent narratives and the structural control of the branching narratives.
+
+\section{Interactive narrative for games}
+Computer games are a new medium for artistic expression. The element of interactivity, combined with visual art, music and storytelling, allows the creation of ever more fantastic worlds. This combination of previous art forms isn't enough, though. Game creators are now experimenting with ways to make a narrative itself interactive. Imagine playing through a version of Romeo and Juliet where there is a possibility that the characters could escape their fates. Or playing a detective in a game where the story changes depending on how quickly you can piece together clues.
+
+This is the new frontier that we are exploring with this research: the as-yet unconquered domain of \emph{interactive} storytelling.
+
+We are defined by the choices we make throughout our lives. These choices form a story that describes our own personal history. If a player can watch somebody's life unfold and witness the choices that they made, and those that were forced upon them, they would have a deep understanding of how they came to be who they are.
+
+This kind of deep understanding is only possible through experiencing a story where the decisions made have real consequences. Traditional fiction, and perhaps computer games, enable this to some extent. But the story is still experienced passively by the consumer in these media. A truly interactive narrative would go deeper, as though you had truly lived as another person.
+
+For this reason, interactive narrative for games is worth exploring: it would
+enable a player to truly understand other people's lives and situations, and why they became the people they are.
+
+% Put a bit about what you did to explore the potential of interactive narrative
+% for games
+
+\section{Interactive narrative for education}
+Stories are a powerful way for humans to understand and remember facts and events. Making these stories interactive could lead the way to even more effective learning methods.
+
+\citet{schank1990tell} argues that stories may be a useful way for humans to better remember a series of events, when compared to simply reciting them as a list of facts. Mentalists and creative students use storytelling mnemonic techniques to help them memorise large lists of difficult-to-remember facts with perfect recall.
+
+Training simulations make the use of stories taking place in immersive environments to help trainees to master new routines and techniques. These stories always follow a fixed pattern, however, unlike the mnemonic stories that people create to memorise information, which are highly personalised to the practitioner.
+
+A narrative that dynamically reacts to the decisions of the audience could better enable them to remember information when compared with a static, unpersonalised narrative.
+
+With this in mind, it is worth constructing an interactive narrative system and applying it to both entertainment and learning contexts. Some evaluation still needs to be carried out in order to determine how much more effective (if at all) interactive narrative could be for education, so this is proposed as part of this report.
+
+Preliminary work has been done in collaboration with the Bishop's Palace in Wells to create an exhibition incorporating interactive narrative. Using a combination of Semantic Web data formats and an event calculus-based reasoner, the system will be able to infer future actions for recommendation to visitors. Description of the work done so far is in section \ref{sec:nthsn}.
+
+Both the game-based and education-based projects have a common thread: reasoning
+over temporal data in order to predict future events, or constrain possible
+future actions to conform to a narrative domain. Section \ref{sec:nthsnt}
+describes the direction the research has taken, and how the use of techniques such as hierarchical institutions and the creation of an ontology for narrative might develop these ideas further.
+
+
+\section{Outline}
+% Outline of sections goes here
+This thesis begins with a review of the literature in Section~\ref{cha:literature-review}. This review covers two main fields of research: narrative research from social science (Section~\ref{sec:narratology}), and interactive narrative research from computer science (Section~\ref{sec:implementations}).
+The ``Institutions as Story Worlds'' chapter (\ref{cha:institutions}) describes the theory and research behind instituitions, and discusses the merit of their use for describing story, comparing their use against other logics and planner-based systems.
+The ``Tropes as Story Components'' chapter (\ref{cha:tropes}), discusses the use
+of \emph{tropes} as story components, and why they improve upon existing narrative formalisms.
+Chapter~\ref{cha:tropes-and-institutions} describes how to use institutions to define tropes, and how to combine them to describe the story world for an interactive narrative. The section also describes the use of this technique to build a number of different narratives, contrasting the approach with using other techniques such as planners to build interactive narratives.
+The final chapter looks back at the research done, evaluating its potential impact and discussing possible future work. 
+

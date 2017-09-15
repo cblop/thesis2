@@ -1,0 +1,47 @@
+* DONE storybuilder: discussion
+  CLOSED: [2017-08-26 Sat 10:32]
+* DONE storybuilder: design justification
+  CLOSED: [2017-08-26 Sat 11:18]
+* DONE vis.js link
+  CLOSED: [2017-08-26 Sat 17:47]
+* DONE storybuilder: change bit about Punch and Judy subtrope
+  CLOSED: [2017-08-26 Sat 11:02]
+* DONE storybuilder: different colour background for task descriptions
+  CLOSED: [2017-08-26 Sat 17:47]
+* TODO redo subtrope3.dot graph visualisation (pg 94)
+* TODO go through mnotes and delete old ones
+* TODO consider adding detail to compilation strategy
+* TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
+* TODO generate trace visualisations with Julian
+* TODO move legal application to future work section
+* TODO go through TropICAL figures and put compiled InstAL side by side with source
+** Notes
+*** Compilation Strategy
+
+1. Parse entity definitions
+2. Parse rest of trope, inserting entity defs
+3. Transform parse tree into hash map (examples of both in appendix)
+4. Generate code from hash map
+
+So, I think for each thing that is compiled (inits, terms, gens, etc), best to list the steps the code goes through. The key process is to describe the extraction of parameters into letters.
+
+**** Get-params
+1. Find all the events that can happen in the trope (including branches, etc): {:event {:verb go :role hero :object home}}
+2. Get all of the roles, objects and places from the trope (from the defs)
+3. Assign unique alphabet letters to all roles, objects and places (in that order)
+**** Fluent decs
+**** Initiates
+**** Terminates
+**** Generates
+1. Get mapping of alphabetical letters to entities (this must always be the same)
+2. Get events (minus obligations) that occur in the trope
+3. Get obligations that happen
+4. 
+**** Initially
+* TODO check for citet and citep usage
+* TODO fix broken refs
+* TODO add visualisation of adding audience participation trope (near fig:audience-participation)
+* TODO revise presentation of StoryBuilder chapter (messy with floats and listings)
+* TODO fix all figures so that they float
+* TODO un-delete old version of Institutions chapter
+* TODO ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?

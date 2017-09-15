@@ -1,0 +1,63 @@
+* Evaluation plan
+** Meeting with Leon
+Assess or evaluate rather than measure. Explore the UX.
+
+Primarily about authoring.
+
+Qual. questionnaire is one with _words_. Open-ended questions.
+
+Understanding and supporting a _thought process_.
+
+Asking questions as they are creating. What words to use?
+
+Whenever a user doesn't explain what they're doing for 2 mins, prompt them. Also do this whenever the user seems uncomfortable.
+
+Example questions:
+
+- why are you stuck?
+- can you explain ___?
+- what are you thinking now?
+- how do you think this is contributing to your narrative?
+
+Best to have about 12 sessions. Actually, 8 - 16 is a reasonable amount.
+
+Saturation: the point when you stop seeing new things.
+
+Thematic analysis. Start from low-level and look for organisation, features of interest.
+
+Create transcripts of the sessions and read through them. This ensures that you don't overcommit to early ideas.
+
+Look for "themes": e.g. narrative readjustment (or some feature you're looking for).
+
+Then look back for connections. Clustering. One more time: clusters of clusters (themes).
+
+More inferences giving evidence for themes, and cite quotes for the transcript.
+
+- How to set the session up
+- Questions to ask
+- Screen capture would be great too
+
+** People to ask
+- Sysemia (?)
+- London IF meetup (ask who's available, talk to a collection of people on one day)
+- Bath Spa creative writing group (this is the most likely one)
+- Ask CDE students if they know anyone
+- Bristol Games Hub
+- Ethics form needs to be approved by Bath
+- Store all this as research daat: researchdata.bath.ac.uk
+
+** Next steps
+- Ethics form from Bath (template will probably do)
+- Finish the tool implementation (see next section)
+- Find a room (in Bath Spa, London and maybe Bath too) suggestions: Goldsmiths, library meeting rooms
+- Do Bath Spa first, as it's easiest and probably enough if I get creative writers on board
+- Make an online timetable thing & send link to people (email them if they don't respond)
+- Book room for those times
+- Do the sessions & record screen & audio
+- Type up transcripts
+- Conduct thematic analysis
+
+** Authoring tool implementation
+- Grouping tropes into scenes
+- Scene pre- and post- conditions
+- Tool for arranging scenes in a graph

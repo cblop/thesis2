@@ -1,0 +1,4 @@
+digraph G {
+  rankdir=LR;
+  go_hero_landOfAdventure -> find_hero_sword;
+}

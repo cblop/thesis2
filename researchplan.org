@@ -1,0 +1,38 @@
+* Research Plan
+
+** Task 1: Create a Trope
+Given the following character roles:
+
+- Hero
+- Villain
+- Mentor
+
+The following objects:
+
+- Weapon
+- Evil Plan
+
+And the following places:
+
+- Hero's Home
+- Evil Lair
+- Land of Adventure
+
+Construct a trope using Tropical. Matt will help you to make sure it compiles!
+
+** Task 2: Make a Story with the Created Trope
+Click on the 'arrange' tab to add specific instances of characters, objects and places to the trope you created. Once this is done, you can click on the 'play' tab to explore the possibilities that can occur as you play through the story.
+
+** Task 3: Edit an Existing Trope
+Return to the 'edit' tab, and select an existing trope from the dropdown box on the right. Edit its text on the left, and then save it. Again, Matt will give you advice to make sure it compiles correctly. Once this is done, go through the 'arrange' and 'play' tabs to explore the changes you have made.
+
+** Task 4: Make a Story with Two Tropes from the Library
+In the 'arrange' tab, select two tropes to use from the library and fill in their 'character', 'object', and 'place' instances. Then use the 'play' tab to visualise the different paths through the game, and which path corresponds to which trope.
+
+** Task 5: Make a Trope with Nested Tropes
+   Repeat task 2, but create a trope that includes another trope at some point, using "The X Trope Happens" keywords. Then arrange, play and explore the resulting story, noting when the nested trope comes into play.
+
+** Task 6: Make Your Own Story
+Using a combination of the techniques learned up until now, please create, edit and mix multiple tropes together to make a story.
+
+Once you have added the story tropes, you can explore the story space with the tree visualisation.

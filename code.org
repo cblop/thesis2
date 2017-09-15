@@ -1,0 +1,88 @@
+#+PROPERTY: Effort_ALL 1d 2d 3d 4d 5d 6d 7d 8d 9d 10d
+#+COLUMNS: %70ITEM(Task) %Effort %BLOCKER %ORDERED
+
+
+* Code                                                     :taskjuggler_project:
+:PROPERTIES:
+:ORDERED: t
+:END:
+:PROPERTIES:
+:Ordered:   t
+:END:
+
+** Subtropes using bridge institutions
+:PROPERTIES:
+:Effort:   1d
+:END:
+** Dialogue DSL (TopICAL)
+:PROPERTIES:
+:Ordered:   t
+:END:
+*** Parser
+:PROPERTIES:
+:Effort:   2d
+:END:
+*** Intermediate data structure
+:PROPERTIES:
+:Effort:   1d
+:END:
+*** Translation to institutions
+:PROPERTIES:
+:Effort:   3d
+:END:
+*** Integration with story insts via bridge
+:PROPERTIES:
+:Effort:   3d
+:END:
+** Integrate with Agents
+:PROPERTIES:
+:Ordered:   t
+:END:
+*** Mimic basic agent behaviour in Clojurescript
+:PROPERTIES:
+:Effort:   4d
+:END:
+*** Re-use Punch and Judy code to send norms to JASON
+:PROPERTIES:
+:Effort:   4d
+:END:
+*** Compile (basic) TopICAL goals to AgentSpeak
+:PROPERTIES:
+:Effort:   5d
+:END:
+** Extend StoryBuilder for dialogue/agent goals
+:PROPERTIES:
+:Effort:   2d
+:END:
+** Output Visual Novels
+:PROPERTIES:
+:Ordered:   t
+:END:
+*** Choose between Novellette, js-vine, re-frame, phaser engines
+:PROPERTIES:
+:Effort:   1d
+:END:
+*** Render visuals from agent actions 
+:PROPERTIES:
+:Effort:   7d
+:END:
+** Evaluate Online
+:PROPERTIES:
+:Ordered:   t
+:END:
+*** Create questionnaire & tasks
+:PROPERTIES:
+:Effort:   1d
+:END:
+*** Create non-trope implementation (Propp?)
+:PROPERTIES:
+:Effort:   7d
+:END:
+*** Put web page on server
+:PROPERTIES:
+:Effort:   2d
+:END:
+*** Send out links & run stats
+:PROPERTIES:
+:Effort: 7d
+:END:

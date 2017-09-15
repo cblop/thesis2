@@ -1,0 +1,6 @@
+digraph G {
+  rankdir=LR;
+  start -> chase_hero_macguffin;
+  chase_hero_macguffin -> find_hero_macguffin;
+  chase_hero_macguffin -> go_hero_home;
+}

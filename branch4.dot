@@ -1,0 +1,12 @@
+digraph G {
+  rankdir=LR;
+  start -> go_hero_home;
+  go_hero_home -> find_hero_sword -> meet_hero_mentor;
+  go_hero_home -> go_hero_landOfAdventure -> find_hero_treasure -> drown_hero;
+  go_hero_home -> kill_hero_villain -> run_hero_home -> meet_hero_mentor;
+  kill_hero_villain -> cry_hero;
+  cry_hero -> meet_hero_mentor;
+  drown_hero -> meet_hero_mentor;
+  cry_hero -> go_hero_realmOfMystery;
+  drown_hero -> go_hero_realmOfMystery -> meet_hero_wizard -> cast_wizard_spell;
+}

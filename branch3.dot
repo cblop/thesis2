@@ -1,0 +1,12 @@
+digraph G {
+  rankdir=LR;
+  start -> go_hero_home -> find_hero_sword;
+  go_hero_home -> go_hero_landOfAdventure;
+  go_hero_home -> kill_hero_villain;
+  find_hero_sword -> meet_hero_mentor;
+  go_hero_landOfAdventure -> meet_hero_mentor;
+  kill_hero_villain -> meet_hero_mentor;
+  find_hero_sword -> go_hero_realmOfMystery;
+  go_hero_landOfAdventure -> go_hero_realmOfMystery;
+  kill_hero_villain -> go_hero_realmOfMystery;
+}
