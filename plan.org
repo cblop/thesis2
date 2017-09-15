@@ -45,3 +45,5 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO fix all figures so that they float
 * TODO un-delete old version of Institutions chapter
 * TODO ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?
+* TODO relate tasks to requirements at start of eval section
+* TODO try replacing compactenum and compactitem

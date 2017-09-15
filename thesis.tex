@@ -5451,6 +5451,53 @@ construction of tropes and nonlinear stories, we carried out a usability study,
 evaluated qualitatively through a thematic analysis (described
 by~\citet{clarke2014thematic}, and in Section~\ref{sec:sb-analysis}).
 
+The StoryBuilder tool is not integrated into a multi-agent system. This is due
+to its focus on story structure design and visualisation using tropes, rather
+than for the creation of the character agents themselves. For this reason, the
+analysis is not designed to evaluate requirements~\ref{req:agents},
+\ref{req:direct} and \ref{req:norm} from Section~\ref{sec:requirements}, only
+those related to the use of tropes for story construction:
+
+\begin{enumerate}[R1.]
+  \setcounter{enumi}{2}
+  \item\label{req:components} The user must be able to write and re-use
+    existing story components (from a library)
+  \item\label{req:sequences} The components must be able to express sequences of
+    events
+  \item\label{req:branches} The components must be able to express branching
+    (diverging) events
+  \item\label{req:subtropes} The user must have the ability to nest existing
+    components inside new components
+  \item\label{req:vis} The user must be able to visualise the branches of the
+    story that result in the addition or modification of components to the
+    story
+\end{enumerate}
+
+Additionally, the study aims to examine the user experience of using tropes to
+construct stories in StoryBuilder with the following supplemental requirements:
+
+\begin{enumerate}[S1.]
+  \item\label{req:tropes-natural} To evaluate the suitability of TropICAL's controlled natural language
+    syntax for non-programmer story authors
+  \item\label{req:tropes-reusable} To examine the use of tropes as reusable story components
+  \item\label{req:tropes-abstractions} To see if tropes allow a natural means of creating abstractions of story patterns
+  \item\label{req:tropes-vis} To study whether the story tree visualisations
+    generated from the answer set solver output assists in non-linear story creation
+\end{enumerate}
+
+These requirements are difficult to measure compared to those described in
+Section~\ref{sec:requirements}, and so are used as the basis of the questions
+asked throughout the thematic analysis:
+
+\begin{itemize}
+  \item How easy or difficult did you find the language to learn? (Requirement~\ref{req:tropes-natural})
+  \item Could you create the story you wanted by combining tropes together? (Requirement~\ref{req:tropes-reusable})
+  \item Were you able to create the abstractions you wanted using subtropes? (Requirement~\ref{req:tropes-abstractions})
+  \item Did the visualisations assist you in the creation of tropes and stories? (Requirement~\ref{req:tropes-vis})
+\end{itemize}
+
+The aim of the thematic analysis is to identify themes that emerge from the participants' answers to these questions.
+
 \subsection{Procedure}
 % TODO explain the process: 3
 
@@ -5662,20 +5709,30 @@ applied to the participants' use of the software:
     answer set solver when combining multiple complicated tropes together.
   \item Subtropes must go at the end of a trope. This limitation is due to time
     limitations in institutional bridge generation.
-  \item Branches cannot be extended beyond one event, again due to time
+  \item Branches cannot be extended beyond one event (as described by indenting
+    an extra level after an \emph{Or} statement, described in
+    Listing~\ref{lst:branch4} of Section~\ref{sec:branch-code}), again due to time
     limitations and the combinatorial explosion this would introduce. Fluents
     would need to be added to each trope's InstAL institution to track the state
     of each branch, adding much complexity to the code generation process.
-  \item Branches cannot be cut off (by writing ``Then the story ends''), and so
+  \item Branches cannot be cut off (by writing ``Then the story ends'', shown in
+    Listing~\ref{lst:branch5}), and so
     always merge back into the main story. Omitted due to the same reasons as above.
   \item The tropes must be event-based. This means that updating the state of
     entities by writing statements such as ``The Hero has an Apple'', or ``The
     Apple is in the Barn'' does not work. Verbs other than \emph{has} or
     \emph{is} must be used in these cases, for example: ``The Hero takes the
     Apple'' or ``The Apple rests in the Barn''. This would introduce complexity in
-    code generation due to 
-  \item Though the parser can translate obligations, deadlines and violation
-    events from TropICAL to InstAL and ASP, the participants were not asked to
+    code generation due to the need to understand the meaning of certain verbs.
+    For example, if the Apple is in the Barn, and then the Hero takes the Apple,
+    this means that the Hero must have the Apple. In order for a fluent such as
+    \emph{has(R, S) if role(R, hero), object(S, apple)} to track the state of
+    the apple, the semantics of verbs such as \emph{take}, \emph{give} and
+    \emph{drop} would have to be understood by the system. This could be
+    achieved with the aid of libraries such as \emph{WordNet}, but would be out
+    of the scope of this dissertation.
+  \item Though the TropICAL parser can translate obligations, deadlines and
+    violation events, the participants were not asked to
     test this due to the complexity that it would add. The aim of the study was
     to examine the use of tropes as reusable story components, and teaching the
     complexity of obligations with deadlines and consequences would have
@@ -5764,7 +5821,7 @@ For example, if there are two tropes active in one story, such as \emph{The
 in them. Does our system allow us to use two different characters for each hero
 role, one per trope?
 
-This feature is very possible to implement. In fact, it was featured in an early
+This feature is present in an earlier
 version of StoryBuilder, but not included in the prototype. Its implementation
 in TropICAL is described in Section~\ref{sec:entity-instances}. The user was able to select named characters to fulfil
 roles. In this case, they could select (for example) ``Luke Skywalker'' to be
@@ -5824,7 +5881,8 @@ This introduces another question: how complex do we want statements to be? Would
 it be useful to allow events involving four entities, such as ``The Hero frees
 the Princess by giving the Sausages to the Dog''? The fact that no participants
 tried to enter statements with more than three entities indicates that this kind
-of event would be more complex than most users need.
+of event might be more complex than most users need, though further studies
+would be needed to determine if this is the case.
 
   This theme appears in these lines of the transcript:
 
@@ -5881,10 +5939,8 @@ This theme appears in these lines of the transcript:
   There were users who wanted objects to be able to perform actions. For
   example, Participant B wanted to be able to write ``The Sun is an object, The
   Sun shines'', but had to define the Sun as a role rather than an object. This
-  is an unavoidable constraint due to the fact that TropICAL describes social
-  norms. Unless we allow objects to be simulated by agents in addition to roles,
-  it would not make sense to give them permission to carry out actions.
-
+  constraint is due to the fact that TropICAL describes social
+  norms. This could be addressed by allowing objects to be simulated by agents in addition to roles.
   
 This theme appears in these lines of the transcript:
 
@@ -5918,7 +5974,13 @@ certain level of abstraction, as it could only describe things that happen in
 terms of character actions, and could not describe changes in the abstract shape of the
 story. For example, TropICAL forces users to describe specific actions and
 events such as ``The Hero fights the Villain'', but cannot express that some
-kind of climactic scene happens in an abstract way.
+kind of climactic scene happens in an abstract way. The participant wanted to be
+able to express tropes such as Vonnegut's ``Man In Hole'' described in
+Section~\ref{sec:structure}: ``Things are good, then things are bad, then things
+are good again''. To be able to express tropes at this level of abstraction,
+subtropes or events would have to be tagged with their level of ``drama''. This
+could perhaps be achieved through sentiment analysis, but this would be outside
+the scope of this work.
 
 This theme appears in these lines of the transcript:
 
@@ -5980,7 +6042,7 @@ And the Villain is dead
 \end{verbatim}
 
 These preconditions, while enabling the user to express new combinations of
-events, add an extra complexity to the language that was not needed during the
+events, add extra complexity to the language that was not needed during the
 evaluation of the suitability of tropes as re-usable story components. This is
 the reason for its omission during the study.
 
@@ -6014,8 +6076,8 @@ This theme appears in these lines of the transcript:
 This was another issue where users were confused by the parser being ``too
 clever''. Many users started writing their tropes with the assumption that only
 a restricted subset of verbs were permitted. In fact, any English-language verb
-is allowed by the parser, due to the fact that the verbs are fed into WordNet to
-be interpreted. Once users were told this fact, they had no problem choosing
+is allowed by the parser, due to the fact that the verbs are fed into WordNet~\citep{miller1995wordnet} to
+be interpreted (as described in Section~\ref{sec:seq-code}). Once users were told this fact, they had no problem choosing
 their own verbs to use in their tropes.
 
 This theme appears in these lines of the transcript:
@@ -6096,8 +6158,8 @@ twenty events long, even with multiple branches. When multiple such tropes are
 fed as inputs into the solver, however, it may take some time to process.
 
 Since many users found the five-event limit too constraining, it would be a
-worthwhile exercise to find ways to optimise the answer-set solver so that it
-can produce its output more efficiently.
+worthwhile exercise to find ways to refine the queries that are input into the
+answer-set solver so that it can return fewer results in the answer sets.
 
 This theme appears in these lines of the transcript:
 
@@ -6132,8 +6194,8 @@ This theme appears in these lines of the transcript:
 
 Again, this was another limitation of the proof-of-concept prototype. Embedding
 subtropes inside a trope only worked with the answer-set solver if they were
-embedded as the very last event of the trope. The eventual fully-implemented
-system would allow subtropes to be embedded at any point in its parent trope.
+embedded as the very last event of the trope. A more complete implementation
+could allow subtropes to be embedded at any point in its parent trope.
 
 This theme appears in these lines of the transcript:
   
@@ -7029,7 +7091,7 @@ label = <'\"'> words <'\"'>
 \begin{lstlisting}[showstringspaces=false,label={lst:ebnf2},caption={EBNF
 grammar for the main trope definitions in TropICAL}]
 trope = (<whitespace> sequence)+ <'\\n'?>
-(str "label = '" label "'")
+(str "label = '''" label "'")
 fluent = object <' is '> adjective
 adjective = word
 outcome =
@@ -7037,7 +7099,7 @@ outcome =
 happens =
 <the?> subtrope <(' happens' / ' trope happens' / ' policy applies') '.'?>
 block =
-<the?> subtrope <' policy does not apply' / ' does not happen' / ' trope does not happen'> <'.'?>
+<the?> subtrope <' policy does not apply' / ' does not happen' / ' trope does not happen''> <'.'?>
 sequence =
 ((fluent | event | norms | happens | block) (or* | if*)) | ((fluent | event | norms | happens | block) (<whitespace+ 'Then '> (block / norms / event / fluent / obligation / happens) (or* | if*))*)*
 or =
