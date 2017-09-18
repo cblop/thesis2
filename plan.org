@@ -48,6 +48,10 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO relate tasks to requirements at start of eval section
 * TODO try replacing compactenum and compactitem
 * TODO tropes: set up "this is the problem / what are the options / choose this" argument
-* TODO tropes: archetypical institutional model for a trope
+* TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * TODO tropes: crop periodic table as suggested
+* TODO revise the explanation of converting tropes to institutions (section 1.3)
+* TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
 * TODO capitalise all figs, sections, chapters, listings
+* TODO finish full sausages institution in appendix
+* TODO remove "The Owner has an Object" from example PJ trope

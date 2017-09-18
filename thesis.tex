@@ -2264,8 +2264,11 @@ For more details on InstAL, social institutions, and the formalism in
 figures~\ref{fig:events} and~\ref{fig:term}, refer to
 Chapter~\ref{cha:institutions} and~\citep{cliffe2007specifying}.
 
-Figure~\ref{fig:events} lists some external ($\mathcal{E}_{external}$) and institutional (internal, $\mathcal{E}_{internal}$) events for the \emph{Hero's Journey} trope. A wide range of external events such as \emph{go}, \emph{meet}, \emph{kill}, \emph{escape} generate the \emph{intHerosJourney} internal event, but only if the external event meets certain criteria. These criteria could be whether or not an agent fulfils a certain role, for example. Figure~\ref{fig:gen} shows examples of such internal event generation ($\mathcal{G}$). In the first example (rule~\ref{eq:tatooine}), the \emph{intHerosJourney} event is generated when Luke Skywalker goes to Tatooine, but only if Luke has the role of \emph{hero}, and Tatooine's location is \emph{home}.
-Figure~\ref{fig:init} shows how internal events initiate ($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a trope. Because the \emph{Hero's Journey} trope has several stages, this example only shows the first two phases of the trope (this is explained further in the ``Sequencing'' part of the ``TropICAL: a DSL for Tropes'' section). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
+Using the same notation introduced in Chapter~\ref{cha:institutions}, Figure~\ref{fig:events} lists some external ($\mathcal{E}_{external}$) and institutional (internal, $\mathcal{E}_{internal}$) events for the \emph{Hero's Journey} trope. A wide range of external events such as \emph{go}, \emph{meet}, \emph{kill}, \emph{escape} generate the \emph{intHerosJourney} internal event, but only if the external event meets certain criteria. These criteria could be whether or not an agent fulfils a certain role, for example. Figure~\ref{fig:gen} shows examples of such internal event generation ($\mathcal{G}$). In the first example (rule~\ref{eq:tatooine}), the \emph{intHerosJourney} event is generated when Luke Skywalker goes to Tatooine, but only if Luke has the role of \emph{hero}, and Tatooine's location is \emph{home}.
+Figure~\ref{fig:init} shows how internal events initiate
+($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a
+trope. Because the \emph{Hero's Journey} trope has several stages, this example
+only shows the first two events of the trope (the \emph{phase} keywords are explained further in Section~\ref{sec:trope-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
 Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in figure~\ref{fig:term}.
 
 While InstAL allows us to express tropes as social institutions, it would be difficult to use for non-programmers who are unfamiliar with logic programming paradigms. In order for story authors to be able to create their own tropes, a much more user-friendly language is needed. This is the motivation for TropICAL, the domain specific language we describe in the next section.
@@ -2391,12 +2394,13 @@ way, by building up a scene description in terms of tropes. Then, as in
 section~\ref{sec:pjexample-insts}, we create an institution out of the scene we
 have described with our formalism. 
 
-On the TV Tropes page for Punch and Judy, it lists the following tropes (quoted
+On the TV Tropes page for Punch and Judy~\citep{pj-tropes}, the following tropes
+are listed (quoted
 directly from the site):
 
 \begin{itemize}
   \item \textbf{Amusing Injuries}: People are often beaten up.
-  \item \textbf{Audience Participation}: The children are expected to reply to Mr. Punch's Catch Phrase, "That's the way to do it" with a shout of "Oh no, it isn't!"
+  \item \textbf{Audience Participation}: The children are expected to reply to Mr. Punch's Catch Phrase, ``That's the way to do it'' with a shout of ``Oh no, it isn't!''
   \item \textbf{Black Comedy}: So black that many modern versions are often heavily censored compared to more historical stagings.
   \item \textbf{Catch Phrase}: ``That's the way to do it!'', ``HE'S BEHIND
     YOU!'', etc.
@@ -2406,7 +2410,7 @@ directly from the site):
   \item \textbf{Hand Puppet}: All of the characters, except the baby, are
     puppets (though originally marionettes).
   \item \textbf{Head Bob}: Traditionally the puppets don't have articulated mouths, and use head bobbing to indicate which one is speaking.
-  \item \textbf{Ironic Echo}: There's at least one rendition of the act where Punch ends up playing one trick too many on Snap the Crocodile, who promptly eats him (off-stage, of course) and returns repeating Mr Punch's "da-da-da" sound, culminating in a mock belch.
+  \item \textbf{Ironic Echo}: There's at least one rendition of the act where Punch ends up playing one trick too many on Snap the Crocodile, who promptly eats him (off-stage, of course) and returns repeating Mr Punch's ``da-da-da'' sound, culminating in a mock belch.
   \item \textbf{Karma Houdini}: In many versions, Punch is a psychopath who kills his own baby by throwing it out of a window, beats his wife to death with a stick, kills several other characters whom he encounters and finally outwits the devil himself to get away completely scot free.
   \item \textbf{Refuge in Audacity}: The entire show, especially the violence, is played as outrageous comedy.
   \item \textbf{Slapstick}: The style of the show, even named after the type of stick Punch uses.
@@ -2417,7 +2421,7 @@ directly from the site):
 \end{itemize}
 
 Some of these tropes are useful in our construction of the story as a whole in
-terms of tropes, while others are not. For example, the \emph{Commedia
+terms of tropes, while others are too general or abstract to express as agent behaviours. For example, the \emph{Commedia
   dell'Arte} trope would be difficult to express in a way that would influence
 our interactive narrative. Instead of describing the entire story of Punch and
 Judy, we will describe the sausages scene first mentioned in
@@ -2440,7 +2444,8 @@ directly into tropes~\cite{propp-tropes}:
 
 Here are the tropes mentioned above, described in more detail:
 
-\textbf{Rule Number One} (interdiction)
+\paragraph{Rule Number One} (interdiction)
+
 TV Tropes actually describes two separate versions of this trope:
 
 \begin{itemize}
@@ -2455,7 +2460,8 @@ TV Tropes actually describes two separate versions of this trope:
 In the case of our scene, the interdiction seems to be the second type listed
 here.
 
-\textbf{Deal with the Devil} (complicity)
+\paragraph{Deal with the Devil} (complicity)
+
 The classic incarnation of this trope is the $16^{th}$ century legend of Faust
 selling his soul to Mephistopheles. It involves a desperate pawn (Faust) signing
 a magically binding contract with a corrupt, exploitative trickster
@@ -2463,7 +2469,8 @@ a magically binding contract with a corrupt, exploitative trickster
 
 In this scene, Punch would be the corrupt exploiter, with Joey the Clown as his pawn.
 
-\textbf{Mentor Archetype} (Receipt / provision of a Magical Agent)
+\paragraph{Mentor Archetype} (Receipt / provision of a Magical Agent)
+
 TV Tropes describes this as ``A more experienced advisor or confidante to a
 young, inexperienced character, particularly to a hero.''.
 
@@ -2474,25 +2481,28 @@ translation of ``Receipt of a Magical Agent'' from Propp to ``Mentor Archetype''
 is questionable: there is no mention of a Magical Agent in this trope, only of
 the Mentor who provides it. We must look for a better-fitting trope in this case.
 
-\textbf{Parental Abandonment} (absentation)
+\paragraph{Parental Abandonment} (absentation)
+
 This trope is straightforward: the protagonist is abandoned by their parents
 (emotionally or physically). In the case of the trope, it is described as
 something that drives or influences the protagonist, such as in the case of
-the character Bruce Wayne: the death of his parents early on forced him to
+the character Bruce Wayne: the death of his parents early on drove him to
 become the superhero Batman. This differs from Propp's function (and our Punch
 and Judy example), in which the absence of parental or supervisory characters
 leads to mischief from the protagonist, and the violation of the earlier
 interdiction. This trope appears to be defined flexibly enough to fit this
 interpretation as well, however.
 
-\textbf{Don't Touch It, You Idiot!} (violation)
+\paragraph{Don't Touch It, You Idiot!} (violation)
+
 The title of this trope does not entirely convey the nuance of its meaning: TV
 Tropes defines it as any order or interdiction that is inevitably violated at
 some point later in the story. This actually fits well with Propp's original
 definition, which stated that the ``interdiction'' and ``violation'' story
 functions must always go together, as one inevitably leads to the other.
 
-\textbf{Earn Your Happy Ending} (struggle)
+\paragraph{Earn Your Happy Ending} (struggle)
+
 This trope states that the characters in a story must face far more difficulty
 than usual, overcoming more obstacles than most characters would have to face.
 However, the characters get a happy ending as a result of their struggles.
@@ -2502,7 +2512,8 @@ sausages. Though it does describe a struggle of sorts, it is more of a comedy
 fight than anything arduous for the characters involved. We can probably find a
 better match for this trope.
 
-\textbf{Where It All Began} (return)
+\paragraph{Where It All Began} (return)
+
 This trope does not match the definition of ``return'' that we have used from
 Propp: in our case, it describes the return of a supervisory character some time
 after they went away during the \emph{absentation} function. TV Tropes'
@@ -2515,6 +2526,7 @@ are using. In the most literal case of the trope, the ``parents'' cannot return:
 they are dead. Again, this indicates that perhaps we must find tropes
 that more closely match Propp's definitions of \emph{absentation} and \emph{return}.
 
+\subsection{Issues with Propp Mapping}
 From our deeper analysis of TV Tropes' mappings of Propp story functions to
 tropes, a number of issues have arisen:
 
@@ -2531,7 +2543,9 @@ tropes, a number of issues have arisen:
 In place of TV Trope's suggested ``struggle'' trope, \emph{Earn Your Happy
   Ending}, a more suitable trope to use would be the \emph{Chase Fight}:
 
+\begin{quote}
 \textbf{Chase Fight}: An X meets Y cross between a Chase Scene and a Fight Scene.
+\end{quote}
 
 This is far more suited to our purposes, as the scene simply consists of the
 crocodile fighting Punch by chasing him around the stage.
@@ -2540,11 +2554,15 @@ Similarly, in the place of the ``absentation'' and ``return'' tropes,
 \emph{Parental Abandonment} and \emph{Where It All Began}, TV Tropes has a more
 suitable pair to use:
 
+\begin{quote}
 \textbf{Put on a Bus}: a character is written out of a story so that they may
 (possibly) return later.
+\end{quote}
 
+\begin{quote}
 \textbf{The Bus Came Back}: when one of the (main) characters returns back into
 the story.
+\end{quote}
 
 Though this trope pair better captures the essence of the leaving and return of
 Joey, what if we also wanted some of the nuance of the \emph{Parental
@@ -2558,8 +2576,15 @@ interdiction that we wanted to express through the ``Rule Number One'' trope.
 Also, as the ``Deal With The Devil'' trope involves a lot more than the simple
 complicity with which Joey goes along with Punch's plans, it can be safely omitted.
 
-This leaves us with just four tropes that describe our scene: \emph{Don't Touch
-  It, You Idiot}, \emph{Put on a Bus}, \emph{Chase Fight}, and \emph{The Bus Came Back}.
+This leaves us with just four tropes that describe our scene:
+
+\begin{itemize}
+\item\textbf{Don't Touch It, You Idiot}: Joey gives the sausages to Punch,
+  telling him not to eat them
+\item\textbf{Put on a Bus}: Joey temporarily leaves the stage
+\item\textbf{Chase Fight}: The Crocodile appears and chases Punch around the stage
+\item\textbf{The Bus Came Back}: Joey returns to the stage to scold Punch
+\end{itemize}
 
 \subsubsection{Trope Roles}
 The character roles that appear in trope descriptions in TV Tropes differ
@@ -2585,12 +2610,12 @@ interesting way to approach this issue could be to have an archetype inherit cer
 character roles. For example, a \emph{Comedic Sociopath} could automatically
 fill the roles of \emph{murderer}, \emph{idiot}, \emph{pursuer}, and
 \emph{chaser}. This idea, while promising, is outside the scope of this thesis,
-and so is discussed further only in the ``future work'' section~\ref{sec:future-work}.
+and so is discussed further only in the ``future work'' Section~\ref{sec:future-work}.
 
 \subsection{Return to the Sausages Scene}
 
 Using the same process with which we described the \emph{Hero's Journey} in
-terms of an institution in section~\ref{sec:tropes-as-insts}, this section shows
+terms of an institution in Section~\ref{sec:tropes-as-insts}, this section shows
 the translation of the \emph{Don't Touch It, You Idiot} into a formal institution.
 
 First, we define the sequence of events that form the trope:
@@ -2608,8 +2633,8 @@ This is the simplest possible interpretation of the trope. It is possible for
 other interpretations to exist: for example, rather than the \emph{owner} returning and
 fighting the \emph{idiot}, something bad might happen to the \emph{idiot}
 instead. In our TropICAL language, alternative outcomes can be expressed using
-the \emph{or} operator (sec.~\ref{tropical-or}) allowing the creation of more flexible tropes
-which could be interpreted in multiple ways.
+the \emph{or} operator (Section~\ref{tropical-or}) allowing the creation of more flexible tropes
+which cater for branching story lines.
 
 Now that we have determined the events that occur as part of the trope, we can describe its domain fluents, which include all the
 actions of the characters, as well as their roles:
@@ -2637,25 +2662,6 @@ extra challenge to its implementation as an institution: it has two different
 character not to do something, the second is when the warned character performs
 the forbidden action.
 
-In fact, the \emph{Don't Touch It, You Idiot} trope can be divided into several
-phases, or steps:
-
-\begin{itemize}
-\item The \emph{owner} has an \emph{object}
-\item Then the \emph{owner} tells the \emph{idiot} to protect the \emph{item}
-\item Then the \emph{owner} goes away
-\item Then the \emph{idiot} breaks the \emph{item}
-\item Then the \emph{owner} returns
-\item Then the \emph{owner} fights the \emph{idiot}
-\end{itemize}
-
-This is the simplest possible interpretation of the trope. It is possible for
-other interpretations to exist: for example, rather than the \emph{owner} returning and
-fighting the \emph{idiot}, something bad might happen to the \emph{idiot}
-instead. In our TropICAL language, alternative outcomes can be expressed using
-the \emph{or} operator (sec.~\ref{tropical-or}) allowing the creation of more flexible tropes
-which could be interpreted in multiple ways.
-
 In order to properly describe the scene in terms of the four tropes, we must
 first describe the mechanism by which we divide this trope into separate phases.
 This is done through the addition of a \emph{phase} fluent which takes a trope
@@ -2677,19 +2683,17 @@ appeared, so that it may not be repeated for example.
 $\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
 \begin{minipage}[c]{0.85\textwidth}
 \begin{align}
-  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  \mathtt{dontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA}), \nonumber\\&\qquad\text{perm}(\mathtt{tellprotect(owner, idiot, item)})\}\label{eq:phase-inactive}\\
-  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  \mathtt{dontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB}), \nonumber\\&\qquad\text{perm}(\mathtt{go(owner, away)})
-  \}\label{eq:phase-a}\\
-  \langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},
-  \nonumber\\\mathtt{dontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
-                                 %&\qquad\qquad
-&\rightarrow \{\text{phase}(\mathtt{dontTouchItYouIdiot, done}\}\label{eq:phase-done}
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{tellprotect(owner, idiot, item)})\}\label{eq:phase-inactive}\\
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{go(owner, away)})\}\label{eq:phase-a}\\
+  &\langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},\nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle \rightarrow \nonumber\\
+ &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, done}\}\label{eq:phase-done}
 \end{align}
 \end{minipage}}\right.$
 \caption{Phase fluent initiation in the sausage scene} \label{fig:pj-phase-inits}
@@ -2700,30 +2704,50 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 \begin{minipage}[c]{0.85\textwidth}
 \begin{align}
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  \mathtt{dontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
                                  % &\qquad\qquad
-&\rightarrow \emptyset\label{eq:phase-inactive}\\
+&\rightarrow \emptyset\label{eq:phase-inactive-term}\\
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  \mathtt{dontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
                                  % &\qquad\qquad
-&\rightarrow \emptyset\label{eq:phase-a}\\
+&\rightarrow \emptyset\label{eq:phase-a-term}\\
   \langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},
-  \nonumber\\\mathtt{dontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
                                  %&\qquad\qquad
-&\rightarrow \emptyset\label{eq:phase-done}
+&\rightarrow \emptyset\label{eq:phase-done-term}
 \end{align}
 \end{minipage}}\right.$
 \caption{Phase fluent termination in the sausage scene} \label{fig:pj-phase-terms}
 \end{figure}
 
 Returning to our \emph{Don't Touch It, You Idiot} example,
-fig.~\ref{fig:pj-phase-inits} shows how a short version of the \emph{Dont Touch
+Figure~\ref{fig:pj-phase-inits} shows how a short version of the \emph{Dont Touch
   It You Idiot} trope with just two phases would be described with \emph{phase}
-fluents that are initiated according to their corresponding events, with fig.~\ref{fig:pj-phase-terms}.
+fluents that are initiated according to their corresponding events, with
+Figure~\ref{fig:pj-phase-terms}. The left side of Rule~\ref{eq:phase-inactive}
+shows a set of fluents that describe its initial state. In this case, the only
+fluent is $\text{phase}\mathtt{(dontTouchItYouIdiot, inactive)}$, which states
+that the \emph{Don't Touch It, You Idiot} trope is inactive. Beneath the set of
+state fluents is the institutional event that initiates the norms and fluents that appear
+to the right of the arrow. In the case of Rule~\ref{eq:phase-inactive}, the \emph{intDontTouchItYouIdiot}
+institutional event is initiating \emph{Phase A} of the trope
+($\text{phase}\mathtt{(dontTouchItYouIdiot, phaseA)}$), and the permission of
+the \emph{owner} agent to tell the \emph{idiot} agent to protect the \emph{item}
+($\text{perm}\mathtt{(tellprotect(owner, idiot, item))}$). Rule~\ref{eq:phase-a}
+shows that \emph{Phase B} and permission for the \emph{owner} to go \emph{away}
+are initiated by the \emph{intDontTouchItYouIdiot} institutional event if the
+\emph{dontTouchItYouIdiot} trope is in \emph{Phase A}. Rule~\ref{eq:phase-done}
+simply sets the trope's phase to \emph{done} if it is in \emph{Phase B}, without
+initiating any norms.
+
+The termination rules in Figure~\ref{fig:pj-phase-terms} simply terminate any
+phase fluents that hold (represented by the empty set in
+Rules~\ref{eq:phase-inactive-term}, \ref{eq:phase-a-term}
+and~\ref{eq:phase-done-term}), so that the new phase fluent replaces its predecessor.
 
 Extending this example to include all events, along with the corresponding
 permissions and obligations that they grant our story characters, results in the
-sets described in fig.~\ref{sausages-full}.
+sets described in Appendix~\ref{appendix:sausages-full}.
 
 \section{TropICAL: a DSL for Tropes} % 1
 \label{sec:tropical}
@@ -6807,6 +6831,107 @@ enable the creation of more interactive narrative content.
   \item \textbf{4}: 2 (11.8\%)
   \item \textbf{5} (extremely useful): 4 (23.5\%)
 \end{itemize}
+
+\chapter{Full Sausages Scene Institution}
+\label{appendix:sausages-full}
+
+\begin{figure}[!h]
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{G(X, E)}:\left\{\mbox{%
+{\begin{minipage}[c]{0.85\textwidth}
+% \vspace{-2.1em}\begin{align}
+\begin{align}
+\langle \emptyset,\mathit{tellprotect}\mathtt{(donor, villain, item)} \rangle%\nonumber\\
+             %         &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{interdiction}\right\}\label{eq:gfirst}\\
+                      \langle \{\mathit{interdiction}\}, \mathit{agree}\mathtt{(villain)}) \rangle %\nonumber\\
+            %          &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{complicity}\right\}\\
+                      \langle \emptyset, \mathit{give}\mathtt{(donor, villain, item)}) \rangle %\nonumber\\
+        %              &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{receipt}\right\}\label{eq:receipt}\\
+                      \langle \{\mathit{interdiction}\}, \mathit{leavestage}(\mathtt{donor}) \rangle %\nonumber\\
+              %        &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{absentation}\right\}\label{eq:absentation}\\
+                      \langle \{\mathit{interdiction}\}, \mathit{harmed}(\mathtt{item}) \rangle %\nonumber\\
+         %             &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{violation}\right\}\\
+                      \langle \{\mathit{interdiction, absentation}\},
+                      \mathit{enterstage}(\mathtt{donor}) \rangle %\nonumber\\
+              %        &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{return}\right\}\\
+                      \langle \emptyset, \mathit{hit}(\mathtt{donor, villain}) \rangle %\nonumber\\
+%                      &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{struggle}\right\}\label{eq:glast}
+\end{align}
+\end{minipage}}}\right.$
+\caption{Event generation in the sausage scene} \label{fig:gen-full}
+\end{figure}
+
+\begin{figure}[!h]
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{tellprotect(owner, idiot, item)})\}\label{eq:phase-inactive-full}\\
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{go(owner, away)})\}\label{eq:phase-a-full}\\
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\}, \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseC}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{break(idiot, item)})\}\label{eq:phase-b-full}\\
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseC})\}, \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseD}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{return(owner)})\}\label{eq:phase-c-full}\\
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseD})\}, \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseE}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{fight(owner, idiot)})\}\label{eq:phase-d-full}\\
+  &\langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseE})\},\nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle \rightarrow \nonumber\\
+ &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, done}\}\label{eq:phase-done-full}
+\end{align}
+\end{minipage}}\right.$
+\caption{Phase fluent initiation in the sausage scene} \label{fig:pj-phase-inits-full}
+\end{figure}
+
+\begin{figure}[!h]
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+&\rightarrow \emptyset\label{eq:phase-inactive-term-full}\\
+  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+&\rightarrow \emptyset\label{eq:phase-a-term-full}\\
+  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\}, \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+&\rightarrow \emptyset\label{eq:phase-b-term-full}\\
+  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseC})\}, \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+&\rightarrow \emptyset\label{eq:phase-c-term-full}\\
+  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseD})\}, \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+&\rightarrow \emptyset\label{eq:phase-d-term-full}\\
+  \langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseE})\},
+  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+&\rightarrow \emptyset\label{eq:phase-done-term-full}
+\end{align}
+\end{minipage}}\right.$
+\caption{Phase fluent termination in the sausage scene} \label{fig:pj-phase-terms-full}
+\end{figure}
+
 
 \chapter{Full TropICAL Examples}
 \label{appendix:tropes}
