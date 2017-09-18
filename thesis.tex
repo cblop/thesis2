@@ -1792,19 +1792,17 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 % features to describe in the chapter
 \chapter{Tropes as Story Components}
 \label{cha:tropes}
-This chapter describes the foundations of our new formalism for narrative: story
+This chapter describes the foundations of our narrative components: story
 tropes. Though our use of tropes for the description of stories has many
-advantages, the main advantage that we will focus on throughout this thesis is
-that they provide a means of creating new abstractions from existing tropes. For
-more detail on how tropes allow us to do this, please see section~\ref{sec:abstractable}
+advantages, the main benefit is that they offer a means to compose and thereby
+reuse existing story fragments. We describe this is more detail in Section~\ref{sec:abstractable}.
 
-Though story tropes may be a familiar concept to many outside of the academic
-community, they do not appear in the literature in either fields Computer Science or
-Narratology at the time of writing. Therefore this chapter contains a thorough
+Story tropes are a familiar concept to many outside of the academic
+community, so their omission from the literature in either field of Computer
+Science or Narratology is worth addressing. This chapter contains a thorough
 description of what a story trope is, along with several examples.
 
-As previously described in chapter~\ref{cha:introduction}, tropes are
-patterns that appear throughout various different media. Once one is familiar
+Tropes are patterns that appear throughout various different media. Once one is familiar
 with a trope, it becomes easy to identify its use in any story. Take, for
 example, the \emph{Hero's Journey} trope first described in
 chapter~\ref{cha:introduction}. It is a template which is repeated so often in
@@ -1816,7 +1814,7 @@ by those that are completely unfamiliar with the concept of tropes.
 In this section we examine the concept of a ``trope'', deconstructing examples
 to demonstrate widely-recognised trope patterns, and exploring tropes that
 operate at different levels of abstraction within a story. At the end of the
-section we identify a formal definition of a trope, and how it fits within the
+section we put forward a formal definition of a trope, and how it fits within the
 wider context of a story.
 
 % TODO NUMBER
@@ -1848,7 +1846,7 @@ Tropes describes \emph{Anti-Hero} characters:
 An Archetypal Character who is almost as common in modern fiction as the Ideal Hero, an antihero is a protagonist who has the opposite of most of the traditional attributes of a hero. They may be bewildered, ineffectual, deluded, or merely apathetic. More often an antihero is just an amoral misfit. While heroes are typically conventional, anti-heroes, depending on the circumstances, may be preconventional (in a "good" society), postconventional (if the government is "evil") or even unconventional. Not to be confused with the Villain or the Big Bad, who is the opponent of Heroes (and Anti-Heroes, for that matter).
   \end{quote}
 
-TV Tropes further clarifies that there are even further subdivisions of
+TV Tropes further clarifies that there are subdivisions of
 Anti-Hero, depending on just how evil or cynical the character is. Batman, for
 example, would be a highly cynical Anti-Hero who is nevertheless morally good.
 
@@ -1880,8 +1878,8 @@ Tropes describes as:
 \end{quote}
 
 In fact, even if an audience is unaware of the concept of tropes, they may be aware
-of the recurring patterns and themes that they describe. This enables
-genre-savvy (and especially postmodern) writers to play with the audience's
+of the recurring patterns and themes that tropes describe. This enables
+genre-savvy writers (especially postmodernists such as Brecht and Vonnegut) to play with the audience's
 expectations. Ways to do this with tropes could include \emph{inversion}
 (reversing the trope),
 \emph{subversion} (making it look like the trope will happen, but then not using
@@ -1903,7 +1901,6 @@ the end of the story. TV Trope describes ways that an author could ``play'' with
 Many other examples of using tropes in this way can be found on the ``Playing
 with a Trope'' page of the TV Tropes website~\cite{playing-tropes}.
 
-
 \begin{figure}[p!]
 \centerline{\includegraphics[height=\textheight]{periodicTable.png}}
 \caption{The ``Periodic Table of Storytelling'', original by James Harris
@@ -1919,24 +1916,72 @@ Storytelling~\citep{periodicTableOfStorytelling} is a visualisation of tropes as
 ``elements'' in the ``molecules'' of a story. The table itself
 (fig.~\ref{fig:periodic-table}) arranges the tropes into different ``groups''
 according to the part of a story that they operate on. The leftmost groups
-describe the story as a whole, describing its \emph{structure} (``Three Act
-Structure'', ``MacGuffin'', ``Chekov's Gun''), \emph{story
-  modifiers} (``Darker and Edgier'', ``Tear Jerker'', ``Jumping the Shark''),
-and \emph{plot devices} (``Hand Wave'', ``Techno Babble'', ``Xanatos Gambit'').
-In the centre of the table are different types of character such as
-\emph{Heroes} (``Anti Hero'', ``Action Girl'', ``The Gunslinger''),
-\emph{Archetypes} (``Mad Scientist'', ``The Fool'', ``Loveable Rogue'') and
-\emph{Villains} (``Evil Twin'', ``The Empire'', ``Obstructive Bureaucrat''). The
-right third of the table contains self-referential tropes such as
-\emph{metatropes} (``Lampshade Hanging'', ``Subverted Trope'', ``The Fourth
-wall''), and \emph{fandom and audience reactions} (``Fanon'', ``Fridge Logic'',
-``Freud Was Right'').
+describe the story as a whole, describing:
+\textbf{Story structure:}
+\begin{itemize}
+  \item Three Act Structure
+  \item MacGuffin
+  \item Chekov's Gun
+\end{itemize}
+
+\textbf{Story Modifiers:}
+\begin{itemize}
+  \item Darker and Edgier
+  \item Tear Jerker
+  \item Jumping the Shark
+\end{itemize}
+
+\textbf{Plot Devices:}
+\begin{itemize}
+  \item Hand Wave
+  \item Techno Babble
+  \item Xanatos Gambit
+\end{itemize}
+
+In the centre of the table are different types of character such as:
+\textbf{Heroes:}
+\begin{itemize}
+  \item Anti Hero
+  \item Action Girl
+  \item The Gunslinger
+\end{itemize}
+
+\textbf{Archetypes:}
+\begin{itemize}
+  \item Mad Scientist
+  \item The Fool
+  \item Loveable Rogue
+\end{itemize}
+
+\textbf{Villains:}
+\begin{itemize}
+  \item Evil Twin
+  \item The Empire
+  \item Obstructive Bureaucrat
+\end{itemize}
+
+The right third of the table contains self-referential tropes such as:
+
+\textbf{Metatropes:}
+\begin{itemize}
+  \item Lampshade Hanging
+  \item Subverted Trope
+  \item The Fourth Wall
+\end{itemize}
+
+\textbf{Fandom and Audience Reactions}
+\begin{itemize}
+  \item Fanon
+  \item Fridge Logic
+  \item Freud Was Right
+\end{itemize}
 
 The story is then visualised as a molecule composed from tropes, linked together as
-atoms (shown at the bottom of fig.~\ref{fig:periodic-table}).
+atoms, as shown in the various examples in Fig.~\ref{fig:periodic-examples}.
 
-This visualisation demonstrates the core idea of our use of tropes as reusable
-story components, but the ``molecule'' metaphor is unsuitable for a couple of
+By showing tropes as ``atoms'' that can be rearranged and combined into
+different ``molecules'', this visualisation demonstrates our core idea of their use as reusable
+story components, but the ``molecule'' metaphor is unsatisfactory for a couple of
 reasons. Firstly, linking tropes together as atoms in a molecule does not
 communicate the different levels of abstraction at which tropes operate.
 Considering that our main purpose for choosing tropes as our method of
@@ -1944,14 +1989,14 @@ describing narrative components, this means that the ``molecule'' metaphor used
 by the author does not match our intentions. The
 ``Hero's Journey'' trope, for example, would describe the narrative arc as a
 whole, while the ``Comeuppance'' trope would describe just a single scene in the
-story. The metaphor is also not ideal because it presents orthogonal concepts
+story. The metaphor is also not ideal because it presents unrelated tropes
 together in a story with no indication of which part of a narrative they affect.
 A ``scoundrel sidekick'' could be linked together with a ``breaking the fourth
 wall'' trope, even though one trope relates to a certain character, and the
 other may describe a single line of dialogue or action that occurs at a specific
-point in the story. 
-
-Also, the arrangement and linking of the tropes in the example molecules is
+point in the story. In this visualisation, a trope that describes something as
+significant as the structure of the entire story would carry the same weight as
+a short event that occurs just once in the entire story. The arrangement and linking of the tropes in the example molecules is also
 quite arbitrary. The examples given on the \emph{periodic table} web site form
 interesting shapes, but do not follow a consistent logic. In the \emph{Star
   Wars} molecule, for example, the ``Five Man Band'', ``Conflict'' and ``The
@@ -1963,7 +2008,8 @@ more closely linked to Luke Skywalker's Hero role. The ``You Have Failed Me''
 trope refers to a specific scene where villain Darth Vader punishes an
 under performing henchman with choking. It is not clear why the creator decided
 to link these specific tropes to the ``The Empire''
-trope.
+trope. This illustrates that such planar structures are insufficient to capture
+anything but the simplest stories.
 
 Similarly, in the \emph{GhostBusters} example, the ``Five Man Band'' and ``Mad
 Scientist'' tropes appear together in the same ``atom'', which are linked to
@@ -1971,12 +2017,10 @@ Scientist'' tropes appear together in the same ``atom'', which are linked to
 those particular tropes are arranged together into the same atoms, or why they
 are linked together in this way. The most likely explanation is that this
 visualisation of the way that tropes link together in a story is not intended as
-a serious way to formalise stories, and is merely a ``fun'' example.
+a formal system for trope visualisation, and is merely a proof-of-concept work.
 
-Taking this visualisation as inspiration, we develop our concept of tropes as
-logical, reusable components for the formal description of stories. Importantly,
-we develop a way to nest tropes within other tropes as subtropes as a way to
-describe tropes acting at different levels of abstraction.
+Working from the ideas presented in this visualisation, we develop our concept of tropes as
+logical, reusable components for the formal description of stories. 
 
 % TODO rip the whole bit from the lit review? Consider it at least
 \section{Why Use Tropes?}
@@ -1989,13 +2033,19 @@ as a narrative formalism that is able to overcome these limitations.
 
 \subsection{A Means of Abstraction}
 \label{sec:abstraction}
-Most tropes exist in a hierarchy of tropes, with parent tropes such as the
+Most tropes form a hierarchy, with parent tropes such as the
 \emph{Quest} containing child tropes such as \emph{Redemption Quest},
-\emph{Sidequest} or a \emph{Quest for Identity}. These child-tropes inherit some
+\emph{Sidequest} or a \emph{Quest for Identity}. This hierarchy arises from
+story authors adding nuance to existing narrative archetypes through adaptation.
+This is often achieved by mixing different tropes together. For example, an
+``child'' trope of \emph{The Hero's Journey} could be \emph{The Anti-Hero's
+  Journey}, combining the \emph{Anti-Hero} trope with the classic \emph{Hero's
+  Journey} trope.
+These child-tropes inherit some
 of the characteristics of their parents, but add subtle or major changes. For
 example, a \emph{Quest for Identity} follows the \emph{Quest} format, but is
-constrained so that the item the hero is questing after is the hero's own
-identity. This is a mechanism of \emph{inheritance}, so one can imagine using
+constrained so that the item that is the subject of the quest is the hero's own
+identity. This resembles the object-oriented programming mechanism of delegation, so one can imagine using
 such a process to avoid duplication of effort when authoring new tropes by only
 expressing how a trope differs from its parent.
 
@@ -2004,15 +2054,17 @@ expressing how a trope differs from its parent.
 \caption{Freytag's Pyramid} \label{fig:freytag}
 \end{figure}
 
-Another method of abstraction is to express tropes that are contained as parts
-of larger tropes. The example we described in section~\ref{litrev-discussion}
-describes how the ``Quest'' trope could form just one part of a larger trope
+Another method of abstraction is the embedding of sub-tropes as parts of
+parent tropes. This is how tropes can be defined and then re-used inside stories: by allowing any
+trope to be a component that can be dropped inside any other trope.
+The example we described in section~\ref{litrev-discussion}
+describes how the ``Quest'' trope could form one part of a larger trope
 such as the ``Hero's Journey''. Another example of this would be the
 \textbf{Three Act Structure} (also known as Freytag's Pyramid) shown in fig.~\ref{fig:freytag}, which describes the shape of a
 story in terms of rising and falling levels of drama. This could be split into
 five (or perhaps more) sub-tropes:
 
-\begin{itemize}
+\begin{enumerate}
   \item \textbf{Exposition}: The setting of the scene, providing any background
     information that is relevant to the story.
   \item \textbf{Rising Action}: A series of event drive the story forward, each
@@ -2024,39 +2076,47 @@ five (or perhaps more) sub-tropes:
     the story shows how the characters are affected.
   \item \textbf{Denouement}: This is the final resolution, where all the ``loose
     ends'' of the story are tied up.
-\end{itemize}
+\end{enumerate}
 
 This means that if we already have trope definitions for the ``Exposition'',
 ``Rising Action'', ``Climax'', ``Falling Action'' and ``Denouement'' parts of a
 story, and want to create a ``Three Act Structure'' trope, we can simply express
 it in the following way:
 
-\begin{itemize}
+\begin{enumerate}
   \item The ``Exposition'' trope happens
   \item Then the ``Rising Action'' trope happens
   \item Then the ``Climax'' trope happens
   \item Then the ``Falling Action'' trope happens
   \item Then the ``Denouement'' trope happens
-\end{itemize}
+\end{enumerate}
 
 Returning to the concept of ``story structure'' described in
 section~\ref{sec:structure}, we can use the ``subtropes'' we just identified to
-describe other ``story shapes'' as defined by Vonnegut. For example, the ``man
-in hole'' story shape could be simple described as a rearrangement of the
+define other ``story shapes'' as described by~\citet{vonnegut2009palm}. For example, the ``man
+in hole'' story shape described in Section~\ref{sec:structure} could simply be described as a rearrangement of the
 three-act structure:
 
-\begin{itemize}
+\begin{enumerate}
   \item The ``Exposition'' trope happens
   \item Then the ``Falling Action'' trope happens
   \item Then the ``Zenith'' trope happens
   \item Then the ``Rising Action'' trope happens
   \item Then the ``Climax'' trope happens
   \item Then the ``Denouement'' trope happens
-\end{itemize}
+\end{enumerate}
 
 Note that we added an additional trope, the ``Zenith'' trope to describe the
 lowest point in the story. Otherwise, the rest of the story ``shape'' is easily
 described in terms of tropes that we have defined already.
+
+The fact that we can describe an abstract trope such as ``man in hole'' in terms
+of more specific tropes addresses one of the shortcomings of the Periodic
+Table's molecule model of tropes from Figure~\ref{fig:periodic-examples}: that
+all tropes have equal weight in a story. Though the above example only describes
+how these sub-tropes may be sequenced within their parent trope, they may also
+be arranged as branching alternatives, so that either \emph{Trope A} \textbf{or}
+\emph{Trope B} occur. This is discussed further in Section~\ref{sec:branch-code}.
 
 This re-use of existing trope definitions saves us the time and effort of the wasteful duplication of the steps
 already described within them. This is why abstraction is such a powerful
@@ -2068,7 +2128,7 @@ of smaller sub-stories, rather than having to describe the whole thing in one go
 Most story authors are already familiar with the concept of tropes. In order to
 evaluate the suitability of their use for the description of narrative
 components, we presented a preliminary version of our trope-based TropICAL programming
-language (described in section~\ref{}) for story authoring to the Oxford and London Interactive Fiction meetup group.
+language (described in Chapter~\ref{cha:tropical}) for story authoring to the Oxford and London Interactive Fiction meetup group.
 
 After a brief presentation on the concept of tropes and how we intend to use
 them to create an authoring system for interactive narrative, participants were
@@ -2076,83 +2136,50 @@ given a questionnaire with the purpose of discovering their familiarity with
 tropes, as well as finding out how suitable they thought tropes would be as a
 new kind of formalism for narrative components.
 
-There were 18 responses to the questionnaire. The questions and responses were as follows:
-
-\textbf{What's your interest in Interactive Fiction?}
-\begin{itemize}
-  \item I'm an author: 5 (27.8\%)
-  \item I'm a game developer: 10 (55.6\%)
-  \item I write interactive fiction: 5 (27.8\%)
-  \item It's my hobby: 6 (33.3\%)
-  \item It's my job: 5 (27.8\%)
-  \item Other: 2 (11.1\%)
-\end{itemize}
-\textbf{What tools do you use to create Interactive Fiction?}
-\begin{itemize}
-  \item Inform: 3 (16.7\%)
-  \item Twinery: 7 (38.9\%)
-  \item Unity or other IDE: 8 (44.4\%)
-  \item Pure code: 4 (22.4\%)
-  \item I don't create interactive fiction or games with narrative: 3 (16.7\%)
-  \item Other: 6 (33.3\%)
-\end{itemize}
-\textbf{What kind of narratives are you interested in making?}
-\begin{itemize}
-  \item Linear: 2 (11.1\%)
-  \item Non-linear: 11 (61.1\%)
-  \item I'm not an author: 1 (5.6\%)
-  \item Other: 4 (22.2\%)
-\end{itemize}
-\textbf{Are you familiar with the idea of ``tropes''?}
-\begin{itemize}
-  \item Yes, and I have visited the ``TV Tropes'' website: 15 (83.3\%)
-  \item Yes, but I hadn't heard of ``TV Tropes'': 3 (16.7\%)
-  \item No: 0 (0\%)
-\end{itemize}
-\textbf{How useful do you think tropes are for authoring interactive stories?
-  (on a scale of 1 - 5)}
-\begin{itemize}
-  \item \textbf{1} (not useful): 0 (0\%)
-  \item \textbf{2}: 2 (11.8\%)
-  \item \textbf{3}: 9 (52.9\%)
-  \item \textbf{4}: 2 (11.8\%)
-  \item \textbf{5} (extremely useful): 4 (23.5\%)
-\end{itemize}
-
-The fact that all of the interactive fiction authors and games developers were
+There were 18 responses to the questionnaire. The questions and responses are
+listed in Appendix~\ref{appendix:questionnaire}. The fact that all of the interactive fiction authors and games developers were
 already familiar with the concept of tropes demonstrates that they are
 conceptually simple enough for non-programmers to understand. Not only that, but
-most of them were already familiar with the TV Tropes website. Compare this with
-formalisms for narrative components such as Lehnert's Plot
-Units~\citep{lehnert1981plot}, which would only be familiar to computer science specialists.
+most of them were already familiar with the TV Tropes website. This meets our
+requirement that authors should be able to create story components without
+having to learn an unfamiliar set of concepts such as those used by~\citet{propp1968morphology}
+or~\citet{lehnert1981plot}, which can only be discovered through reading
+academic books and papers.
 
 \subsection{A Library of Re-usable Examples}
 
 One of the major strengths of Propp's system~\cite{propp1968morphology} is that
-the Morphology is not only a theory: it is also a library of 31 story functions
+the \emph{morphology} is not only a theory: it is also a library of 31 story functions
 that can be put together by story authors to create a narrative. The authors
 need not create their own story functions, they can simply use the ones that
 Propp has already created for them.
 
-Our system shares the same strength due to the fact that the TV Tropes website
-serves as our ``library'' of story components. In addition, it grants authors
-the flexibility to create their own tropes which are not already listed on the
+Though the TV Tropes website does not contain formal definitions of tropes, it
+can be used as a resource on which to base the authoring of tropes in our system.
+In addition, it grants authors the flexibility to create their own tropes which are not already listed on the
 TV Tropes website.
 
 TropICAL, our domain-specific programming language for trope-oriented story
-authoring, makes the authoring of story tropes simple for non-programmer users.
+authoring, aims to simplify the authoring of story tropes for non-programmer users.
 In the same vein as Inform 7~\citep{reed2010creating}, our language uses a
 constrained natural language syntax. Further details are described in
 section~\ref{sec:tropical}, where we describe the language in detail. In the same manner as a wiki, once a number of authors have contributed tropes,
-it will become a useful library of reusable tropes for future authors to use in
+it could offer the capacity to be a library of reusable tropes for future authors to use in
 their stories.
 
-To summarise: tropes are an ideal model to use for story components, and fulfil
-the criteria we laid out in section~\ref{sec:litrev-discussion}: they provide a
-\emph{means of abstraction} through subtropes as well as parent and child
-tropes, they are \emph{conceptually simple} for authors to learn, given that
-most authors are already familiar with them, and they enable us to easily create
-a \emph{library of re-usable examples} from the tropes listed on the TV Tropes website.
+To summarise: tropes have the potential to be a useful model to use for story
+components, as they fulfil the criteria we lay out in
+section~\ref{sec:litrev-discussion}:
+
+\begin{itemize}
+\item They provide a \emph{means of abstraction} through subtropes as well as parent and child
+  tropes.
+\item They are \emph{conceptually simple} for authors to learn, given that
+all the authors in our preliminary study with the London Interactive Fiction
+Meetup group are already familiar with them.
+\item The TV Tropes website is a useful resource that can be used to aid the
+  creation of a \emph{library of re-usable examples}.
+\end{itemize}
 
 % \section{Using Tropes with Modal Logic}
 % In section~\ref{sec:pjexample}, we described the ``sausages'' scene from
@@ -2165,9 +2192,22 @@ a \emph{library of re-usable examples} from the tropes listed on the TV Tropes w
 
 \section{Describing Tropes as Institutions} % 1/2
 \label{sec:tropes-as-insts}
-Rather than strictly telling our story characters what to do to conform to a
-story arc, we govern their behaviours with \emph{social institutions}, as
-described in Section~\ref{sec:institutions}. An institution describes a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's `Fish Market' thesis~\cite{noriega1999agent} describes how an institutional model can be used to regiment the actions of agents in a fish market auction.~\cite{cliffe2007specifying},~\cite{lee2013decoupling} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. Adapting this idea to the world of narrative, we use an institutional model to describe the tropes that occur within a story world.
+Chapter~\ref{cha:institutions} makes the case for describing stories as social
+institutions in multi-agent systems: it allows an author to govern the
+behaviour of character agents in a story in a way that also allows them some
+autonomy to perform their own intended actions.
+This addresses the limitations of systems that make use of planners or drama
+managers, which tell the character agents precisely what to do,
+leaving them with no flexibility in their actions. The model
+that we propose views the narrative as a \emph{script}, and the telling as a
+\emph{performance}: the agents are encouraged to follow the script of the story,
+but are free to add their own ``improvisations'' while interacting with the player.
+
+Section~\ref{sec:institutions} describes how \emph{social institutions} can be
+used to govern the behaviours of story characters to conform to a narrative arc,
+without strictly controlling their behaviour, allowing the character autonomy
+that we wish to achieve. This section updates the work done in
+Chapter~\ref{cha:institutions} with the work described so far in this section, by using a institutional model to describe the tropes that occur within a story world.
 
 Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with the idea of tropes, we can create a narrative model in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story. In this way, the tropes are described as social norms which govern the character agents of a story, where an institution describes the norms that govern a certain trope, and a story is a collection of tropes.
 
@@ -2190,10 +2230,39 @@ Returning to the tropes described in the introduction, we can express them in te
   \item \textbf{Chekhov's Gun}: If a weapon appears in the beginning, it \emph{must} be used before the end of the story.
 \end{itemize}
 
-Describing tropes in terms of permissions and obligations is enough for us to be able to specify them as social norms, but also we need to be able to determine which norms hold at any point of a story. For this, we use an \emph{Answer Set Programming} (ASP) approach to describe our tropes in order to use an answer-set solver. We do this with the aid of \emph{InstAL}~\citep{cliffe2007specifying}, the Institution Action Language, a language for describing social institutions, which compiles to AnsProlog. This allows us to use trope models and an ASP solver to determine which norms hold after agent or player actions have occurred in the story world.
+Describing tropes in terms of permissions and obligations is enough for us to be
+able to specify them as social norms, which allows us to represent them
+formally through the use of \emph{InstAL}~\citep{cliffe2007specifying}, the
+Institution Action Language, a language for describing social institutions which compiles to AnsProlog, an \emph{Answer Set Programming} (ASP) language.
+Once compiled to InstAL and AnsProlog, our tropes have a formal representation
+which (for example) allows us to use trope models and an ASP solver to determine
+which norms hold after agent or player actions have occurred in the story world.
+This means that we can use ASP to check whether certain sequences of events are possible within a story,
+given a set of trope descriptions.
 
-In InstAL, external events trigger institutional (internal) events. External events are the actions of the character agents in their environment. For example, an agent playing the role of Luke Skywalker in a Star Wars game may pick up a Lightsaber. Since Luke Skywalker is a hero character, and a Lightsaber is a type of weapon, this would trigger an institutional event where a hero has picked up a weapon. Institutional events initiate and terminate fluents inside the institution, which may describe the institutional state, and which permissions and obligations currently hold. So when Luke Skywalker picks up a Lightsaber, the institutional event could initiate his permission to use the weapon, or an obligation to go to the land of adventure.
-For more details on InstAL, social institutions, and the formalism in figures~\ref{fig:events} and~\ref{fig:term}, refer to~\citep{cliffe2007specifying}.
+As Section~\ref{sec:institutions} explains, an institution describes the
+\emph{external} events that relate to actions in the agent's environment, and
+\emph{institutional} events that occur within the institution. The purpose of
+external events is to generate institutional events, which initiate and
+terminate social norms (permissions and obligations). When a trope is described
+as an institution, it must state which actions by the agents lead
+to the triggering of institutional events, and which norms these institutional
+events initiate or terminate.
+
+Take the case of a \emph{Star Wars} game, for example. Any agent has the ability
+to pick up a Lightsaber weapon. However, this action becomes institutionally
+meaningful if we state that it is the first event of the \emph{Hero's Journey}
+trope, where the Hero answers the Call to Adventure by obtaining a weapon.
+For example, an agent playing the role of Luke Skywalker in a Star Wars game may
+pick up a Lightsaber. If Luke Skywalker is a hero character, and a Lightsaber is
+a type of weapon, this would trigger an event inside the \emph{Hero's Journey}
+institution where a hero has
+picked up a weapon. As this corresponds to the first event in the \emph{Hero's
+  Journey} institution, it would initiate the norms for the next events in
+the institution to happen, which could be permission to use the weapon, or an obligation to go to the land of adventure.
+For more details on InstAL, social institutions, and the formalism in
+figures~\ref{fig:events} and~\ref{fig:term}, refer to
+Chapter~\ref{cha:institutions} and~\citep{cliffe2007specifying}.
 
 Figure~\ref{fig:events} lists some external ($\mathcal{E}_{external}$) and institutional (internal, $\mathcal{E}_{internal}$) events for the \emph{Hero's Journey} trope. A wide range of external events such as \emph{go}, \emph{meet}, \emph{kill}, \emph{escape} generate the \emph{intHerosJourney} internal event, but only if the external event meets certain criteria. These criteria could be whether or not an agent fulfils a certain role, for example. Figure~\ref{fig:gen} shows examples of such internal event generation ($\mathcal{G}$). In the first example (rule~\ref{eq:tatooine}), the \emph{intHerosJourney} event is generated when Luke Skywalker goes to Tatooine, but only if Luke has the role of \emph{hero}, and Tatooine's location is \emph{home}.
 Figure~\ref{fig:init} shows how internal events initiate ($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a trope. Because the \emph{Hero's Journey} trope has several stages, this example only shows the first two phases of the trope (this is explained further in the ``Sequencing'' part of the ``TropICAL: a DSL for Tropes'' section). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
@@ -6694,6 +6763,51 @@ enable the creation of more interactive narrative content.
 % TODO outro 2
 
 \appendix
+
+\chapter{London Interactive Fiction Meetup Questionnaire}
+\label{appendix:questionnaire}
+
+\textbf{What's your interest in Interactive Fiction?}
+\begin{itemize}
+  \item I'm an author: 5 (27.8\%)
+  \item I'm a game developer: 10 (55.6\%)
+  \item I write interactive fiction: 5 (27.8\%)
+  \item It's my hobby: 6 (33.3\%)
+  \item It's my job: 5 (27.8\%)
+  \item Other: 2 (11.1\%)
+\end{itemize}
+\textbf{What tools do you use to create Interactive Fiction?}
+\begin{itemize}
+  \item Inform: 3 (16.7\%)
+  \item Twinery: 7 (38.9\%)
+  \item Unity or other IDE: 8 (44.4\%)
+  \item Pure code: 4 (22.4\%)
+  \item I don't create interactive fiction or games with narrative: 3 (16.7\%)
+  \item Other: 6 (33.3\%)
+\end{itemize}
+\textbf{What kind of narratives are you interested in making?}
+\begin{itemize}
+  \item Linear: 2 (11.1\%)
+  \item Non-linear: 11 (61.1\%)
+  \item I'm not an author: 1 (5.6\%)
+  \item Other: 4 (22.2\%)
+\end{itemize}
+\textbf{Are you familiar with the idea of ``tropes''?}
+\begin{itemize}
+  \item Yes, and I have visited the ``TV Tropes'' website: 15 (83.3\%)
+  \item Yes, but I hadn't heard of ``TV Tropes'': 3 (16.7\%)
+  \item No: 0 (0\%)
+\end{itemize}
+\textbf{How useful do you think tropes are for authoring interactive stories?
+  (on a scale of 1 - 5)}
+\begin{itemize}
+  \item \textbf{1} (not useful): 0 (0\%)
+  \item \textbf{2}: 2 (11.8\%)
+  \item \textbf{3}: 9 (52.9\%)
+  \item \textbf{4}: 2 (11.8\%)
+  \item \textbf{5} (extremely useful): 4 (23.5\%)
+\end{itemize}
+
 \chapter{Full TropICAL Examples}
 \label{appendix:tropes}
 
