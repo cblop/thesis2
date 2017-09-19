@@ -55,3 +55,6 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO capitalise all figs, sections, chapters, listings
 * TODO finish full sausages institution in appendix
 * TODO remove "The Owner has an Object" from example PJ trope
+* TODO Line 1538 mentions constrasting temporal logic with insts, so put this in
+* TODO standardise fonts in all institution listings
+

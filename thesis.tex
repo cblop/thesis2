@@ -1432,13 +1432,79 @@ in section~\ref{sec:evaluation} and conclusions in section~\ref{sec:conclusions}
 
 \section{Describing Stories With Logic}
 Section~\ref{sec:model-logic} describes approaches that use formal logic to model interactive, non-linear narratives. Building on the work described in that section, we explore other possible ways with which to construct these kinds of stories.
+Our end goal is to make tools which assist in the creation of non-linear,
+interactive narratives for games by generating paths through the stories. This
+saves the author the time and effort required to author all of the individual
+paths through the stories themselves. When generating these story branches, we
+need some way to check whether or not each branch ``fits'' with the narrative.
+In a story with a hero and a villain, it would not seem right if the hero were
+to kill innocent civilians while the villain tries to rescue them, for example.
+Our approach is to model the story world using formal logic, which allows us to
+check whether or not actions that occur within the story are consistent with its description.
 
-% Describe why we will build stories with Propp and tropes (as a method of comparison)
-\subsection{The Event Calculus}
+Using the \emph{Punch and Judy} story world as our initial example, we formalise
+its narrative rules by describing them in terms of Propp's \emph{story
+  functions}. We do this as a basis of comparison for when we later redefine the
+story in terms of \emph{tropes}. For this section, the aim of which is to demonstrate the use of
+\emph{logic} for narrative rather than of tropes, Propp's formalism is used for
+simplicity and demonstrative purposes.
 
-\subsection{Modal Logic and Kripke Structures}
+\subsection{Introducing ``Punch and Judy''}
+Throughout this thesis we wuse the \emph{Punch and Judy} story world for our
+example narratives. \emph{Punch and Judy} is a traditional British-Italian
+puppet show often seen at seaside resorts. Its first recorded appearance in the
+UK is in Covent Garden, London in 1662, having been brought into the country by
+Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
+institution, delighting children and adults alike over the course of centuries.
 
-\subsubsection{Propp Example: Sausages and Crocodile Scene}\label{sec:pjexample}
+The show itself is an incredibly violent farce, where the titular character
+\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
+with him having an argument with another puppet, and end with Punch beating the
+other puppet to death. He starts by killing his wife and child, then the
+policeman that comes to arrest him, before finally murdering the Devil himself.
+
+Interestingly, there is no comeuppance for Punch's killing spree, as most modern
+audiences would expect. Instead, the story shows Punch as a buffoon, a
+ridiculous caricature of an angry man who blunders his way through life, yet is
+victorious nonetheless. The story has no moral message, only farcical violence.
+
+Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
+it a suitable narrative domain for the purposes of testing our research:
+
+\begin{itemize}
+\item It has many recognisable patterns, or \emph{tropes}. For example, most
+  scenes feature some kind of audience participation, and most end with
+  slapstick comedy.
+\item It can be as simple or sophisticated as we choose to make it. Some scenes
+  are relatively simple to model, such as the scene where Punch beats the
+  policeman. Others are more difficult, such as where Punch is asked to guard
+  some suasages, but then loses them to a crocodile. Combining several scenes
+  into a complete and recognisable \emph{Punch and Judy} narrative is, we
+  contend, a worthwhile challenge for a narrative generation system.
+\item Following from this, its scenes can either be self-contained and modelled
+  on their own, or can depend on the context of the previous scenes. For
+  example, Punch's foes increase in importance as his rampage progresses. In some
+  versions, he kills his wife, then a policeman, then the executioner sent to
+  hang him, then finally the Devil. This makes it useful for modelling a
+  narrative with a state that changes over time.
+\item Most (British) people know Punch and Judy when they see it. They are able
+  to recognise how characters in the story are supposed to behave, and what
+  should happen in each scene and in the story as a whole. This helps with
+  evaluation of the system: the audience will be able to say whether or not the
+  generated tropes are \emph{authentic} or not.
+\end{itemize}
+
+The minimal set of Punch and Judy characters would be Punch, his wife Judy,
+their baby, Joey the clown (who narrates the story and interacts with the
+audience, and is immune to Punch's attacks), a crocodile and a Policeman.
+Extended versions include other animals that Punch chases (such as a monkey or
+cat), and the previously mentioned hangman and Devil characters. These are not
+needed for a full Punch and Judy show, however. Indeed, many performers show
+just one or two scenes in a show, with the first featuring Punch, Judy and the
+baby, and then finishing with the scene where Punch wrestles with a crocodile
+for some sausages.
+
+\subsubsection{A Punch and Judy Scene Described as Propp Functions}\label{sec:pjexample}
 The common elements of Punch and Judy are easily described in terms of Propp's story functions. Here we pick one scene to use as an example: the scene where Punch battles a Crocodile in order to safeguard some sausages.  In this scene, Joey the clown (our narrator) asks Punch to guard the sausages. Once Joey has left the stage, a Crocodile appears and eats the sausages. Punch fights with the Crocodile, but it escapes. Joey then returns to find that his sausages are gone.
 The corresponding story functions are:
 \begin{enumerate}
@@ -1453,34 +1519,39 @@ The corresponding story functions are:
 
 Some story functions map to Punch and Judy better than others (for example, it is debatable as to whether or not the sausages can be considered a ``magical agent''), but Propp's formalism seems well suited to Punch and Judy for the most part. The advantage of using Propp for the Punch and Judy story domain is that the story function concept maps well to the idea of internal events in institutional models.
 
-\subsubsection{Combining Interval Temporal Logic and Modal Logic for Propp}\label{sec:propplogic}
-
-Narrative construction can be described using two terms: \emph{fabula} and \emph{syuzhet}. Fabula is the events of the story as they occur in chronological order, but syuzhet refers to those events as they are ordered in the story's telling. Fabula describes one event following another, but syuzhet could describe events occuring out of order, branching sequences and events that occur at the same time.
-
-The challenge faced here is how to find a way of not only describing the syuzhet of one story, but of all possible stories and paths through a story in a narrative world.
-
-\paragraph{Modal Logic}
+\paragraph{Modal Logic and Kripke Structures}
 Modal logic extends classical propositional and predicate logic with modalities, which are operators that qualify a statement. For example, rather than simply stating `The Crocodile eats the sausages', we could instead say ``the Crocodile sometimes eats the sausages'', or ``it's possible that the Crocodile eats the sausages''.
 Classic modal logic deals with \emph{alethic modality}, which describes whether a statement is \emph{possible} or \emph{necessary}. This is implemented using unary operators to qualify statements. For example, $\Diamond P$ states that $P$ is possible and $\Box P$ states that $P$ is necessary.
-Naturally, we can use modalities beyond just possibility and necessity. In order to describe the syuzhet of a story, we need to be able to make statements such as ``The Crocodile eats the sausages at the beginning of the scene'', and ``Punch kills the baby while before his wife returns''. For this, we turn to \emph{temporal logic}.
+Naturally, we can use modalities beyond just possibility and necessity. Any
+modal logic can be constructed using operators and modalities of the creator's choice.
 
-
+At the end of this chapter (from Section~\ref{?}), we describe our method of
+formally constructing narrative and trope descriptions with social institutions
+and norms. This technique uses ideas from \emph{deontic} logic, a modal logic
+that adds \emph{permission} and \emph{obligation} operators to logical
+statements. In order to demonstrate the advantanges of describing stories as
+social institutions, we first use a more straightforward modal logic to decsribe
+the events of a story: Interval Temporal Logic (ITL). ITL allows us to formally
+describe the temporal ordering of events that occur in a story, enabling the use
+of theorem-proving tools to check whether certain sequences of events are
+possible. Later, we contrast this temporal-oriented approach to the character
+and socially-oriented approach of describing stories with institutions.
 
 \paragraph{Temporal Logics}
-Arthur Prior is the first to employ modal logic as a way of describing sequences of time in his 1957 work \emph{Time and Modality} \cite{prior2003time}. Here he uses just two modal operators, $P$ and $F$, representing \emph{some time in the past} and \emph{some time in the future} respectively.
-Hans Kamp adds two extra operators to Prior's logic, \emph{Since} and \emph{Until}, in his 1968 thesis \cite{kamp1968tense}, enabling it to describe spans of time in addition to the ordering of temporal events.
+Arthur Prior is the first to employ modal logic as a way of describing sequences of time in his 1957 work \emph{Time and Modality} \citep{prior2003time}. Here he uses just two modal operators, $P$ and $F$, representing \emph{some time in the past} and \emph{some time in the future} respectively.
+Hans Kamp adds two extra operators to Prior's logic, \emph{Since} and \emph{Until}, in his 1968 thesis \citep{kamp1968tense}, enabling it to describe spans of time in addition to the ordering of temporal events.
 As Kripke later points out to Prior, this model lacks the expressiveness needed to describe all possible sequences of events. One major shortcoming is its restriction to describing only \emph{linear} events. 
 
-Linear Temporal Logic (LTL), though still limited to the description of linear sequences of events, is an evolution of the work done by Prior and Kamp. Proposed by Amir Pnueli in 1977 \cite{pnueli1977temporal}, its original use is for the formal verification of computer programs.
-Computational Tree Logic (CTL) \cite{ben1983temporal} is similar to LTL, but allows for the representation of non-linear time through the allowance of branches. Through CTL it is possible to describe several alternative pathways through time, though only one may ever be actualised. Like LTL, its original purpose is for formal verification of software, and in model checkers.
-Both CTL and LTL are subsets of CTL* (Computational Tree Logic) \cite{emerson1986sometimes}, which can both describe both multiple branches of temporal paths and their durations. CTL* formulae must refer to a specific Kripke structure, however (a description of Kripke structures appears in section \ref{sec:kripke}).
+Linear Temporal Logic (LTL), though still limited to the description of linear sequences of events, is an evolution of the work done by Prior and Kamp. Proposed by Amir Pnueli in 1977 \citep{pnueli1977temporal}, its original use is for the formal verification of computer programs.
+Computational Tree Logic (CTL) \citep{ben1983temporal} is similar to LTL, but allows for the representation of non-linear time through the presence of branches. Through CTL it is possible to describe several alternative pathways through time, though only one may ever be actualised. Like LTL, its original purpose is for formal verification of software, and in model checkers.
+Both CTL and LTL are subsets of CTL* (Computational Tree Logic) \citep{emerson1986sometimes}, which can both describe both multiple branches of temporal paths and their durations. CTL* formulae must refer to a specific Kripke structure, however (a description of Kripke structures appears in section \ref{sec:kripke}).
 
 \paragraph{Interval Temporal Logic}
-In order to model fabula with modal logic, we employ Interval Temporal Logic (ITL), composed of the temporal intervals defined by Allen \cite{allen1983maintaining} and developed into modal operators by Halpern and Shoham \cite{halpern1991propositional}. This allows the expressiveness necessary to describe branching, parallel and nested paths through stories.
+In order to model fabula with modal logic, we employ Interval Temporal Logic (ITL), composed of the temporal intervals defined by \citet{allen1983maintaining} and developed into modal operators by \citet{halpern1991propositional}. This allows the expressiveness necessary to describe branching, parallel and nested paths through stories.
 
 In most temporal logics (such as CTL* and its subsets), fixed \emph{time points} without duration are the basic unit of time. However, this can make it difficult to reason about the \emph{duration} of events that occur over a period of time. Temporal Interval Logic tackles this problem through the use of \emph{time intervals} or \emph{periods} as the basic temporal unit.
 
-The version of ITL used here is that described by Della Monica et al. in their overview paper \cite{della2013interval}. Table \ref{tab:itl} lists the temporal intervals described by Allen, along with their modal operator equivalents in \emph{Halpern-Shoham logic}.
+The version of ITL used here is that described by Della Monica et al. in their overview paper \citep{della2013interval}. Table \ref{tab:itl} lists the temporal intervals described by Allen, along with their modal operator equivalents in \emph{Halpern-Shoham logic}.
 
 The operators defined by Halpern and Shoham are (a bar over an operator denotes its inverse):
 
@@ -1551,7 +1622,7 @@ Figure \ref{fig:situations} describes the full sausages scene from Punch and Jud
 \caption{Sausages scene with nominals and Interval Temporal Logic}\label{fig:situations}
 \end{figure}
 
-One notable feature of this approach is that it enables the building of reusable story components. For example, we have said that an interdiction must begin with an absentation and ends with a violation (formula \ref{eq:interdiction}). This pattern can be reused in different stories, or several times in the same story. Additionally, it allows for the abstraction and combination of story components in a more expressive way than Propp's original story functions. This is because Propp only describes narrative events at one level of abstraction. For example, he describes stories as a series of events containing an interdiction followed by an absentation, followed by a violation. But there is no mechanism for combining these three functions into a higher-level component (which could be called ``Don't do that, or else!'', for example). Our approach makes such abstraction and recombination possible.
+One notable feature of this approach is that it enables the building of reusable story components. For example, we have said that an interdiction must begin with an absentation and ends with a violation (formula \ref{eq:interdiction}). This pattern can be reused in different stories, or several times in the same story.
 
 \section{Describing Punch and Judy with Kripke Structures}\label{sec:kripke}
 \begin{figure}[!t]
@@ -1560,14 +1631,14 @@ One notable feature of this approach is that it enables the building of reusable
   \caption{One model from the sausages scene in LoTREC}\label{fig:lotrec}
 \end{figure}
 
-We use Kripke structures \cite{kripke1963semantical} as a method of interpreting the combination of modal logic with Interval Temporal Logic. A Kripke structure is a graph, the nodes of which represent a possible world consisting of a set of assertions, and the edges of which are the accessibility relations between worlds.
+Here we use Kripke structures \citep{kripke1963semantical} as a method of interpreting the combination of modal logic with Interval Temporal Logic. A Kripke structure is a graph, the nodes of which represent a possible world consisting of a set of assertions, and the edges of which are the accessibility relations between worlds.
 
 \subsubsection{LoTREC}
 % Read the book
-In order to build and visualise the Kripke structures, we use LoTREC \cite{del2001lotrec}, a generic tableaux prover for modal and description logics. It allows the user to build up Kripke models using a domain specific language and display those models in the form of a graph diagram.
+In order to build and visualise the Kripke structures, we use LoTREC \citep{del2001lotrec}, a generic tableaux prover for modal and description logics. It allows the user to build up Kripke models using a domain specific language and display those models in the form of a graph diagram.
 LoTREC uses the tableau method for model checking. This method checks whether or not its input is satisfiable by attempting to build a model for it. If the model construction fails, then the input is unsatisfiable.
 Building models in LoTREC consists of defining \emph{connectors}, \emph{rules} and \emph{strategies}. Connectors are the logical operators used in formulas, rules are the instructions LoTREC needs to expand them into new nodes and edges and strategies are ways of combining rules in order to form models.
-LoTREC takes an initial set of formulas as input and expands each formula into its components. These formulas are input using a simple prefix notation domain specific language consisting of operators and arguments, described in the LoTREC instruction book \emph{Kripke's Worlds} \cite{gasquet2013kripke}.
+LoTREC takes an initial set of formulas as input and expands each formula into its components. These formulas are input using a simple prefix notation domain specific language consisting of operators and arguments, described in the LoTREC instruction book \emph{Kripke's Worlds} \citep{gasquet2013kripke}.
 In the expansion, if a $[\,]$ (necessary) operator is encountered, then the formulas that serve as its argument are propagated across to all subsequent nodes. In the case of a $\langle \, \rangle$ (possibility) operator, a new node (possible world) is created containing its arguments. In both cases, binary operators can be used where one argument is located inside the square or angle brackets. In these cases, the argument inside the brackets is the accessibility relation, and is used to label the edges leading to the subsequent nodes.
 In the case of a disjunction ($\lor$) operator, the current model is copied in its entirety and extended with one of the operator's arguments. The other argument is added onto the current model. This is an important way of creating alternative routes through the narrative, all of which can be checked for consistency.
 
@@ -1576,7 +1647,7 @@ The narrative is captured as a system of interval temporal logic assertions over
 Using the initial formulas from figure \ref{fig:situations} as input, figure \ref{fig:lotrec} shows the model for the case where Punch wins the fight with the Crocodile. One other model exists in this scenario, in which the Crocodile is instead the victor.
 
 The example in figure \ref{fig:lotrec} describes the fabula of a branching story, where either Punch or the Crocodile may win the fight for the sausages. This corresponds to the disjunction in figure \ref{fig:situations}, formula \ref{eq:struggle}. This leads to the creation of two models: the one in which the Crocodile wins and then goes on to eat the sausages (situation $@S_{3a}$), and the one in which Punch wins (situation $@S_{3b}$).
-Using a breadth first strategy like LoTREC we would build all models simultaneously. This enables them to be checked for internal consistency, eliminating potentially impossible temporal arrangements. For example, no interval may come after or later than itself.
+Using a breadth-first strategy like LoTREC we can build all models simultaneously. This enables them to be checked for internal consistency, eliminating potentially impossible temporal arrangements. For example, no interval may come after (later than) itself.
 
 The first node contains the logical description of the story, which is then unpacked into subsequent nodes. It starts with the initial situation, $S_0$, which contains an interdiction: $\mathit{interdiction(Joey, Punch, Sausages)}$, where Joey tells Punch to look after the sausages. The other situations, $S_1$ to $S_5$ are listed using the necessity operator, with their accessibility relations being each situation's nominal operator (such as $@S_1$). This means that these situations are all created as new nodes, linked to the root node using their nominal accessibility relation, and so can be referred to later using the nominal operator. In this way, situations can refer to other situations.
 
@@ -1592,12 +1663,22 @@ The use of LoTREC has shown the utility of being able to visualise a branching n
 
 This approach for describing narrative has many potential real-world uses. One obvious use would be for computer game narratives, but it could also be used to describe a repeatable training scenario, and the possible choices available to a user at any point during the simulation.
 
-\subsection{Deontic Logic and Norms}
-
 \section{Norms and Institutions}
 \label{sec:norms-and-institutions}
 
-An institution describes a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's `Fish Market' thesis~\cite{noriega1999agent} describe how an institutional model can be used to regiment the actions of agents in a fish market auction. Several~\cite{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of Cliffe et al.~\cite{cliffe2007specifying} and Lee et al.~\cite{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
+While the use of Interval Temporal Logic and model checking techniques is useful
+for the creation and checking of paths through a story, its main limitation is
+its unsuitability for use in a multi-agent system (MAS). Similar to the
+planner-based systems described in Section~\ref{?}, its implementation in a MAS
+would binvolve the use of a ``director'', which tells each agent what to do
+during the course of the story. This greatly reduces the flexibility of using a
+MAS for interactive narrative. What advantage is there of using intelligent
+agents as characters in a story world if they have no agency to make use of
+their intelligence? By contrast, modelling stories with social norms and
+institutions offers a more flexible way to encourage agents actions to conform
+to the shape of a story.
+
+An institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describe how an institutional model can be used to regiment the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\cite{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
 
 Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with Propp's concepts of \emph{roles} and \emph{story moves}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.
 
@@ -1627,7 +1708,7 @@ The possible empowerments (institutional events) from Propp used in Punch and Ju
 
 \subsubsection{Permissions} ($\mathcal{P}$) are associated with external actions that agents are permitted to do at a certain instant in time. These can be thought of as the set of \emph{socially permitted\/} actions available to an agent. While it is possible for an agent to perform other actions, societal norms usually discourage them from doing so.
 % PJ examples
-For example, it would not make sense in the world of Punch and Judy if Punch were to give the sausages to the Policeman. It is always Joey who gives the sausages to Punch. Also, it would be strange if Joey were to do this in the middle of a scene where Punch and Judy are arguing. We make sure agents' actions are governed so as to allow them only a certain subset of permitted actions at any one time. The set of permission fluents is:
+For example, it would not make sense in the world of Punch and Judy if Punch were to give the sausages to the Policeman. It is always Joey who gives the sausages to Punch. Also, it would be strange if Joey were to do this in the middle of a scene where Punch and Judy are arguing. We make sure agents'' actions are governed so as to allow them only a certain subset of permitted actions at any one time. The set of permission fluents is:
 \begin{align*}
 \mathcal{P} =& \left\{\mathtt{perm(leavestage), perm(enterstage), perm(die), perm(kill),}\right.\nonumber\\
              &\left. {} \mathtt{perm(hit), perm(give), perm(fight)}\right\} %\label{eq:perm}
@@ -1766,30 +1847,136 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 \caption{Fluent termination in the sausage scene} \label{fig:term}
 \end{figure}%
 
-\section{The Bishop's Palace Interactive Story Project}
-\label{sec:bishops-palace}
+\section{An Interactive, Generative Punch and Judy Show with Institutions and
+  Emotional Agents}
 
-\section{Why Use Institutions for Interactive Narrative?}
-\label{sec:why-use-institutions}
-% Write about character freedom, regimentation vs regulation. Give story
-% examples vs using a planner
+Our main criticism of the use of Interval Temporal Logic for the description of
+story worlds is its lack of flexibility in governing the actions of intelligent
+agents in a multi-agent system. If agents are told precisely what to do in a
+story environment, there is little reason in giving them agency. We demonstrate
+this point further by modelling the characters in our Punch and Judy simulation
+with emotional models that affect their decision making and behaviour. We choose
+to do this so that agents would be able to deviate from the narrative in times
+of extreme emotion, providing some level of unpredictability to the story.
 
-\section{Modelling of Coordinated Instutions}
-% Put bridge institution stuff here
+This section describes a fully realised and implemented interactive puppet show
+build with institutions and emotional agents. In this show, the characters
+interact on screen in accordance with the Punch and Judy story world. At certain
+points in the show, the audience are encouraged to cheer or boo at the
+characters. When this happens, a character puppet's emotional state is changed
+in accordance with the audience response. The system was demonstrated at the CDE
+(Center for Digital Entertainment) and the AISB (Society for the Study of
+Artificial Intelligence and the Simulation of Behaviour) conference in 2015,
+with live audiences interacting with and changing the narrative.
 
-% tropes
+\subsection{VAD emotional model} \label{sec:emotion}
+\begin{figure}[!t]
+% {\includegraphics[height=5in]{VAD.png}}
+  \centering
+  \includegraphics[height=0.6\textheight]{VAD.png}
+\caption{VAD emotional values (figure adapted from Ahn et al.)~\cite{ahn2012nvc}} \label{fig:vad}
+\end{figure}
 
-% TODO: explain that tropes are not covered academically, I am attempting to
-% make tropes academically respectable
-% TODO: make it clear at the start that we are choosing these examples as a way
-% to demonstrate tropes ability to create abstractions
-% TODO: parental abandonment might need extra characters
-% TODO: connect character role (such as Comedic Sociopath) to our emotional model
-% TODO: connect our idea of phases with landmarks in plans / knowledge
-% representation literature
-% do also need to demonstrate adequate knowledge of planners
-% TODO: put TropICAL / instal fragments in column in appendix, pull out relevant
-% features to describe in the chapter
+In order to make the agents acting out the Punch and Judy show more believable,
+we apply an emotional model to affect their actions and decisions. For this, we
+use the valence-arousal (circumplex) model first described
+by~\citet{russell1980circumplex}. To give each character its own distinct
+personality, we extend this model with an extra dimension: dominance, as used
+by~\citet{ahn2012nvc} in their model for conversational virtual humans. This
+dominance level is affected by the reactions of the audience to the agents'
+actions. For example, Judy may become more dominant as her suggestions to hit
+Punch with a stick are cheered on by the audience, emboldening her into acting
+out her impulses.
+
+The VAD model illustrates how valence, arousal and dominance values map to identifiable emotions. Valence, arousal and dominance can each have a value of low, medium or high. This allows the agents to have a total of 27 distinct emotional states.
+The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\cite{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
+\medskip
+
+An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
+% \rule{\textwidth}{2cm}
+In order to make the agents acting out the Punch and Judy show more believable, we apply an emotional model to affect their actions and decisions. For this, we use the valence-arousal (circumplex) model first described by Russell~\cite{russell1980circumplex}.  To give each character its own distinct personality, we extend this model with an extra dimension: dominance, as used by Ahn et al.~\cite{ahn2012nvc} in their model for conversational virtual humans. This dominance level is affected by the reactions of the audience to the agents' actions. For example, Judy may become more dominant as her suggestions to hit Punch with a stick are cheered on by the audience, emboldening her into acting out her impulses.  A detailed description appears in the text in Figure~\ref{fig:vad}.
+
+%% Figure~\ref{fig:vad} shows how valence, arousal and dominance values map to identifiable emotions. Valence, arousal and dominance can each have a value of low, medium or high. This allows the agents to have a total of 27 distinct emotional states.
+%% The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\cite{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
+
+%% An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
+
+It is important to note that the emotional model is part of the agent belief state, and not held in the institution. We want to explore how the characters of the story might be able to choose actions based on their emotional state. While the institution could theoretically calculate the emotional state for each agent in turn and dictate this to them along with the norms of the narrative, it makes sense to decouple this feature from the narrative institution in order to separate the characters from the events of the story. %\jnote{review this paragraph}
+
+Agents' emotional states change according to their interactions with the audience. This is unrelated to what is happening in the narrative, and so this underscores the decision not to include any emotional modelling in the institution. Also, we want the agents to have some degree of freedom within the narrative world. They should be allowed to determine their emotions themselves, so that in extreme emotional states they can perform `irrational' or `extreme' actions that may not necessarily fit into the narrative.
+
+\subsection{VAD emotions in Jason}
+Emotions are implemented as beliefs inside an agent. An agent believes it has a certain level of valence, arousal and dominance, and it works out its emotional state based on a combination of these three factors. When the audience cheers or boos them, this changes the belief holding the relevant emotional variable, and their emotional state as a whole is recalculated.
+
+Valence, arousal and dominance values can take values of -1 (low), 0 (medium) or 1 (high). Listing~\ref{lst:emotions} shows the emotional belief rules for an agent with medium dominance (a dominance level of 0). Note that an agent maintains beliefs about both its current emotion label (such as sleepy or happy) and the separate valence, arousal and dominance values at the same time.  Similar sets of rules handle the belief emotion for the other dominance levels.  %We address the matter of how external stimuli affect dominance in section~\ref{sec:norms as percepts}.\jnote{still needs doing}
+
+Every time an emotional variable (valence, arousal, or dominance) changes, an agent's emotion is changed according to the rules in listing~\ref{lst:emotions}. While an agent's valence, arousal and dominance belief values affect the way it makes decisions internally, the results of combinations of these values (sleepy, happy, etc) are broadcast as external actions. The reason for this is that an agent's emotional state may affect the way in which the character is animated: changing the speed at which they move or turning their smile into a frown, for example. For this reason, whenever an emotional change takes place, the new emotion is published as an external action of the agent so that observing entities may perceive it. The Bath sensor framework described in section~\ref{sec:arch} provides the means for this evidence of the agent's internal state change to be received by the animation system and reflected accordingly in the display.
+
+\begin{lstlisting}[float=!t,caption={Emotional rules for a character with medium dominance},label=lst:emotions,escapechar=\%,basicstyle=\scriptsize\ttfamily]
+emotion(sleepy) :- valence(0) & arousal(-1) & dominance(0).
+emotion(neutral) :- valence(0) & arousal(0) & dominance(0).
+emotion(surprised) :- valence(0) & arousal(1) & dominance(0).
+emotion(anxious) :- valence(-1) & arousal(-1) & dominance(0).
+emotion(unhappy) :- valence(-1) & arousal(0) & dominance(0).
+emotion(embarrassed) :- valence(-1) & arousal(1) & dominance(0).
+emotion(glad) :- valence(1) & arousal(-1) & dominance(0).
+emotion(happy) :- valence(1) & arousal(0) & dominance(0).
+emotion(delighted) :- valence(1) & arousal(1) & dominance(0).
+\end{lstlisting}
+
+\begin{lstlisting}[float=!t,caption={AgentSpeak rules for changing an agent's emotional values from audience responses},label=lst:response,basicstyle=\scriptsize\ttfamily]
++!changeMood
+  <- ?emotion(Z);
+     emotion(Z).
++response(_, boo) : asking
+  <- -+valence(-1);
+     -+dominance(-1);
+     !changeMood.
++response(_, cheer) : asking
+  <- -+valence(1);
+     -+dominance(1);
+     !changeMood.
+\end{lstlisting}
+
+Listing~\ref{lst:response} shows the AgentSpeak rules describing how an agent's
+valence and dominance levels are changed by the audience cheering or booing
+their actions. These AgentSpeak plans describe what the agent should do in
+response to a goal addition (denoted by a $\texttt{+!}$ at the start of the plan
+name) or a belief addition (prefixed by a simple $\texttt{+}$). In the case of
+Listing~\ref{lst:response}, the $\texttt{+!changeMood}$ plan updates the agent's
+emotional state based on its valence-arousal-dominance values and broadcasts the
+result as an external action. The $\texttt{+response}$ plans raise or lower an agent's valence and dominance levels depending on whether the agent perceives a ``boo'' or ``cheer'' response from the audience.
+
+An agent announces what they intend to do, then waits three seconds. During this time, they have the belief that they are `asking' the audience, and listen for a response. A boo reduces an agent's valence and dominance, while a cheer raises them. For each response, the \texttt{changeMood} goal is triggered, which looks up and broadcasts the agent's emotional state to the other agents and environment.
+
+\section{Agent decision making} \label{sec:decisions}
+The agents choose which goals to pursue according to three factors: their permitted actions, their obliged actions and their emotional state. Though obliged actions are given priority, and while agents' decisions are generally constrained by their permitted actions, an agent's emotional state has the final say in its decisions. In this way, an agent will follow the social norms of the narrative, but only according to their own mood.
+
+\paragraph{Agent goals and plans}
+% \subsection{Agent goals and plans}
+The agents are implemented using a belief-desire-intention (BDI) psychological model using the Jason platform ~\cite{bordini2007programming}. An agent's knowledge about the state of their world and themselves are stored as \emph{beliefs}, with new information coming in from the environment getting added to their belief base as \emph{percepts}, which are ephemeral and only last for one reasoning cycle of an agent.
+
+Agents are created with goals and plan libraries. Any goal that an agent is set on carrying out at any point is an \emph{intention}, whereas a goal that an agent has but is not yet pursuing is a \emph{desire}. Plan libraries describe the steps agents need to take in order to achieve goals, as well as how to react to changes in agents' environments.
+
+\paragraph{Norms as percepts}\label{sec:norms as percepts}
+% \subsection{Norms as percepts}\label{sec:norms as percepts}
+When an event occurs, it is added to the event timeline, which is used to query the ASP (Answer Set Programming) solver to obtain the set of norms that hold after the new event has occurred. The new permissions and obligations are then added to each agent as \emph{percepts}. Each time this happens, the set of permitted and obliged actions that an agent sees is changed to be only those that apply at that instant in time, with the previous norms being discarded.
+
+Agents choose between permitted and obliged actions based on their emotional state at the point of decision making. Obliged actions are given a higher priority over permitted ones for most of the emotional states that an agent can be in, though not always. If an agent is in a sulky mood, for example, they may decide to ignore what they are obliged to do by the narrative, even though they know there will be consequences.
+
+For example, in the scene where Joey gives the sausages to Punch, Punch may see that he has permission to eat the sausages, drop them, fight the crocodile, run away (leave the stage) or shout for help at the crocodile or audience. His obligation for the scene, in accordance with the Punch and Judy narrative world, is to either eat the sausages himself, or let the crocodile have them. This ends Propp's \emph{interdiction\/} story function with a \emph{violation\/} function. Note that his obligation in this case is not to guard the sausages as asked to by Joey. While Joey's entrusting of the sausages is certainly an obligation in itself, Punch's main obligations are to the narrative. Lesser obligations towards characters in the story can be implemented as having a lower prority than those of the story itself.
+
+Similarly, at times of extreme emotion, an agent may decide to disregard their set of permitted actions entirely, instead acting out their innermost desires. For example, an angry Punch might decide to just attack Joey instead of agreeing to look after the sausages, or he might just decide to give up and leave if he is depressed. The key point is that the norms act as the will of the \emph{narrative}, guiding the story forward, rather than a strict set of rules that the agents must follow at all costs.
+
+\emph{Violation events\/} add percepts to the agents telling them that they are in violation of the narrative norms. Once an agent receives such a percept, an emotional variable is changed. Typically, their dominance will decrease. The reasoning behind this is that if agents are unwilling to participate in the story, they should have less influence in its course of events.
+
+\section{Architecture}\label{sec:arch}
+
+\paragraph{Multi-Agent System} \label{sec:inst}
+% \subsection{Multi-Agent System} \label{sec:inst}
+We use the JASON framework for belief-desire-intention (BDI) agents~\cite{bordini2007programming}, programming our agents in the AgentSpeak language.
+The VAD emotional model is represented inside each agent as a set of beliefs. Each agent has beliefs for its \emph{valence}, \emph{arousal} and \emph{dominance} levels, each of which can take the value of low, medium or high, as discussed in section~\ref{sec:emotion}. This combination of VAD values creates one of the 27 emotional states shown in figure~\ref{fig:vad}, affecting whether or not an agent breaks from its permitted or obliged behaviour.
+
 \chapter{Tropes as Story Components}
 \label{cha:tropes}
 This chapter describes the foundations of our narrative components: story
@@ -2877,115 +3064,7 @@ high-level overview of the features of the language we have created (named \emph
 The next chapter describes the actual implementation of \emph{TropICAL}, with snippets of code for example tropes and their
 corresponding translations to \emph{InstAL}.
 
-\chapter{Intelligent Agents as Story Characters}
-\label{cha:agents}
 
-% tropical
-
-\section{Intelligent Agents as Story Characters}
-\label{sec:character-agents}
-\section{Punch and Judy with Emotional Agents}
-\label{sec:emotional-pj}
-
-% HACK: predicted poms remaining: 73 / 79
-\section{VAD emotional model} \label{sec:emotion}
-\begin{figure}[!t]
-% {\includegraphics[height=5in]{VAD.png}}
-\begin{minipage}{0.6\textwidth}
-\includegraphics[width=\textwidth]{VAD.png}
-\end{minipage}\hfill%
-\begin{minipage}{0.35\textwidth}\raggedright
-The VAD model illustrates how valence, arousal and dominance values map to identifiable emotions. Valence, arousal and dominance can each have a value of low, medium or high. This allows the agents to have a total of 27 distinct emotional states.
-The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\cite{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
-\medskip
-
-An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
-% \rule{\textwidth}{2cm}
-\end{minipage}
-\caption{VAD emotional values (figure adapted from Ahn et al.)~\cite{ahn2012nvc}} \label{fig:vad}
-\end{figure}
-In order to make the agents acting out the Punch and Judy show more believable, we apply an emotional model to affect their actions and decisions. For this, we use the valence-arousal (circumplex) model first described by Russell~\cite{russell1980circumplex}.  To give each character its own distinct personality, we extend this model with an extra dimension: dominance, as used by Ahn et al.~\cite{ahn2012nvc} in their model for conversational virtual humans. This dominance level is affected by the reactions of the audience to the agents' actions. For example, Judy may become more dominant as her suggestions to hit Punch with a stick are cheered on by the audience, emboldening her into acting out her impulses.  A detailed description appears in the text in Figure~\ref{fig:vad}.
-
-%% Figure~\ref{fig:vad} shows how valence, arousal and dominance values map to identifiable emotions. Valence, arousal and dominance can each have a value of low, medium or high. This allows the agents to have a total of 27 distinct emotional states.
-%% The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\cite{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
-
-%% An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
-
-It is important to note that the emotional model is part of the agent belief state, and not held in the institution. We want to explore how the characters of the story might be able to choose actions based on their emotional state. While the institution could theoretically calculate the emotional state for each agent in turn and dictate this to them along with the norms of the narrative, it makes sense to decouple this feature from the narrative institution in order to separate the characters from the events of the story. %\jnote{review this paragraph}
-
-Agents' emotional states change according to their interactions with the audience. This is unrelated to what is happening in the narrative, and so this underscores the decision not to include any emotional modelling in the institution. Also, we want the agents to have some degree of freedom within the narrative world. They should be allowed to determine their emotions themselves, so that in extreme emotional states they can perform `irrational' or `extreme' actions that may not necessarily fit into the narrative.
-
-\subsection{VAD emotions in Jason}
-Emotions are implemented as beliefs inside an agent. An agent believes it has a certain level of valence, arousal and dominance, and it works out its emotional state based on a combination of these three factors. When the audience cheers or boos them, this changes the belief holding the relevant emotional variable, and their emotional state as a whole is recalculated.
-
-Valence, arousal and dominance values can take values of -1 (low), 0 (medium) or 1 (high). Listing~\ref{lst:emotions} shows the emotional belief rules for an agent with medium dominance (a dominance level of 0). Note that an agent maintains beliefs about both its current emotion label (such as sleepy or happy) and the separate valence, arousal and dominance values at the same time.  Similar sets of rules handle the belief emotion for the other dominance levels.  %We address the matter of how external stimuli affect dominance in section~\ref{sec:norms as percepts}.\jnote{still needs doing}
-
-Every time an emotional variable (valence, arousal, or dominance) changes, an agent's emotion is changed according to the rules in listing~\ref{lst:emotions}. While an agent's valence, arousal and dominance belief values affect the way it makes decisions internally, the results of combinations of these values (sleepy, happy, etc) are broadcast as external actions. The reason for this is that an agent's emotional state may affect the way in which the character is animated: changing the speed at which they move or turning their smile into a frown, for example. For this reason, whenever an emotional change takes place, the new emotion is published as an external action of the agent so that observing entities may perceive it. The Bath sensor framework described in section~\ref{sec:arch} provides the means for this evidence of the agent's internal state change to be received by the animation system and reflected accordingly in the display.
-
-\begin{lstlisting}[float=!t,caption={Emotional rules for a character with medium dominance},label=lst:emotions,escapechar=\%,basicstyle=\scriptsize\ttfamily]
-emotion(sleepy) :- valence(0) & arousal(-1) & dominance(0).
-emotion(neutral) :- valence(0) & arousal(0) & dominance(0).
-emotion(surprised) :- valence(0) & arousal(1) & dominance(0).
-emotion(anxious) :- valence(-1) & arousal(-1) & dominance(0).
-emotion(unhappy) :- valence(-1) & arousal(0) & dominance(0).
-emotion(embarrassed) :- valence(-1) & arousal(1) & dominance(0).
-emotion(glad) :- valence(1) & arousal(-1) & dominance(0).
-emotion(happy) :- valence(1) & arousal(0) & dominance(0).
-emotion(delighted) :- valence(1) & arousal(1) & dominance(0).
-\end{lstlisting}
-
-\begin{lstlisting}[float=!t,caption={AgentSpeak rules for changing an agent's emotional values from audience responses},label=lst:response,basicstyle=\scriptsize\ttfamily]
-+!changeMood
-  <- ?emotion(Z);
-     emotion(Z).
-+response(_, boo) : asking
-  <- -+valence(-1);
-     -+dominance(-1);
-     !changeMood.
-+response(_, cheer) : asking
-  <- -+valence(1);
-     -+dominance(1);
-     !changeMood.
-\end{lstlisting}
-
-Listing~\ref{lst:response} shows the AgentSpeak rules describing how an agent's
-valence and dominance levels are changed by the audience cheering or booing
-their actions. These AgentSpeak plans describe what the agent should do in
-response to a goal addition (denoted by a $\texttt{+!}$ at the start of the plan
-name) or a belief addition (prefixed by a simple $\texttt{+}$). In the case of
-Listing~\ref{lst:response}, the $\texttt{+!changeMood}$ plan updates the agent's
-emotional state based on its valence-arousal-dominance values and broadcasts the
-result as an external action. The $\texttt{+response}$ plans raise or lower an agent's valence and dominance levels depending on whether the agent perceives a ``boo'' or ``cheer'' response from the audience.
-
-An agent announces what they intend to do, then waits three seconds. During this time, they have the belief that they are `asking' the audience, and listen for a response. A boo reduces an agent's valence and dominance, while a cheer raises them. For each response, the \texttt{changeMood} goal is triggered, which looks up and broadcasts the agent's emotional state to the other agents and environment.
-
-\section{Agent decision making} \label{sec:decisions}
-The agents choose which goals to pursue according to three factors: their permitted actions, their obliged actions and their emotional state. Though obliged actions are given priority, and while agents' decisions are generally constrained by their permitted actions, an agent's emotional state has the final say in its decisions. In this way, an agent will follow the social norms of the narrative, but only according to their own mood.
-
-\paragraph{Agent goals and plans}
-% \subsection{Agent goals and plans}
-The agents are implemented using a belief-desire-intention (BDI) psychological model using the Jason platform ~\cite{bordini2007programming}. An agent's knowledge about the state of their world and themselves are stored as \emph{beliefs}, with new information coming in from the environment getting added to their belief base as \emph{percepts}, which are ephemeral and only last for one reasoning cycle of an agent.
-
-Agents are created with goals and plan libraries. Any goal that an agent is set on carrying out at any point is an \emph{intention}, whereas a goal that an agent has but is not yet pursuing is a \emph{desire}. Plan libraries describe the steps agents need to take in order to achieve goals, as well as how to react to changes in agents' environments.
-
-\paragraph{Norms as percepts}\label{sec:norms as percepts}
-% \subsection{Norms as percepts}\label{sec:norms as percepts}
-When an event occurs, it is added to the event timeline, which is used to query the ASP (Answer Set Programming) solver to obtain the set of norms that hold after the new event has occurred. The new permissions and obligations are then added to each agent as \emph{percepts}. Each time this happens, the set of permitted and obliged actions that an agent sees is changed to be only those that apply at that instant in time, with the previous norms being discarded.
-
-Agents choose between permitted and obliged actions based on their emotional state at the point of decision making. Obliged actions are given a higher priority over permitted ones for most of the emotional states that an agent can be in, though not always. If an agent is in a sulky mood, for example, they may decide to ignore what they are obliged to do by the narrative, even though they know there will be consequences.
-
-For example, in the scene where Joey gives the sausages to Punch, Punch may see that he has permission to eat the sausages, drop them, fight the crocodile, run away (leave the stage) or shout for help at the crocodile or audience. His obligation for the scene, in accordance with the Punch and Judy narrative world, is to either eat the sausages himself, or let the crocodile have them. This ends Propp's \emph{interdiction\/} story function with a \emph{violation\/} function. Note that his obligation in this case is not to guard the sausages as asked to by Joey. While Joey's entrusting of the sausages is certainly an obligation in itself, Punch's main obligations are to the narrative. Lesser obligations towards characters in the story can be implemented as having a lower prority than those of the story itself.
-
-Similarly, at times of extreme emotion, an agent may decide to disregard their set of permitted actions entirely, instead acting out their innermost desires. For example, an angry Punch might decide to just attack Joey instead of agreeing to look after the sausages, or he might just decide to give up and leave if he is depressed. The key point is that the norms act as the will of the \emph{narrative}, guiding the story forward, rather than a strict set of rules that the agents must follow at all costs.
-
-\emph{Violation events\/} add percepts to the agents telling them that they are in violation of the narrative norms. Once an agent receives such a percept, an emotional variable is changed. Typically, their dominance will decrease. The reasoning behind this is that if agents are unwilling to participate in the story, they should have less influence in its course of events.
-
-\section{Architecture}\label{sec:arch}
-
-\paragraph{Multi-Agent System} \label{sec:inst}
-% \subsection{Multi-Agent System} \label{sec:inst}
-We use the JASON framework for belief-desire-intention (BDI) agents~\cite{bordini2007programming}, programming our agents in the AgentSpeak language.
-The VAD emotional model is represented inside each agent as a set of beliefs. Each agent has beliefs for its \emph{valence}, \emph{arousal} and \emph{dominance} levels, each of which can take the value of low, medium or high, as discussed in section~\ref{sec:emotion}. This combination of VAD values creates one of the 27 emotional states shown in figure~\ref{fig:vad}, affecting whether or not an agent breaks from its permitted or obliged behaviour.
 
 
 \chapter{TropICAL: A Language for Story Tropes}
