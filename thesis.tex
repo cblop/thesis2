@@ -337,6 +337,7 @@ The next Section of this introduction contains a high-level overview of
 interactive narrative, describing its past and future use in and beyond entertainment.
 
 \section{Interactive Narrative}
+\label{sec:interactive-narrative}
 Though media such as computer games allow a player to influence events through
 interaction with its characters and objects, the story of the game itself is
 usually predetermined. In order to create media in which the narrative is shaped
@@ -385,9 +386,9 @@ their decision-making process. Though this game may not offer much explanation
 for the irrationally violent actions of ``Punch'', the audience can use the
 system to explore
 their expectations of what a Punch and Judy show should be. This work is
-described in Section~\ref{sec:emotional-pj}.
+described in Section~\ref{sec:punchjudy}.
 
-The Punch and Judy show in Section~\ref{sec:emotional-pj} also makes use of a
+The Punch and Judy show in Section~\ref{sec:punchjudy} also makes use of a
 \emph{social institution} (or \emph{normative framework}) to regulate the
 actions of the agents playing the roles of the puppets. Because the normative
 system only guides the actions of the agents, rather than forcing them to choose
@@ -543,8 +544,8 @@ The structure of this thesis is as follows:
   agents are given emotional models that allow them to violate the social norms
   of the story in times of high emotional distress, describing work done as part of the \textbf{[AISB
     2015]} paper.
-\item We use the requirements that emerge from Chapters~\ref{cha:institutions}
-  to~\ref{cha:agents} to inform the design and implementation of our \textbf{TropICAL} programming
+\item We use the requirements that emerge from Chapters~\ref{cha:literature-review}
+  to~\ref{cha:tropes} to inform the design and implementation of our \textbf{TropICAL} programming
   language for tropes. The chapter concludes with examples of its use to build several stories.
 \item
   Keeping a mental model of the branches of a story is simple when only one
@@ -815,7 +816,7 @@ The rise of the Web in the 1990s brought with it great interest in the future of
 Aarseth makes a distinction between the narrative as written by the author, and the way in which it is traversed by the reader, calling the former \emph{textons} and the latter \emph{scriptons}. In ergodic literature, the \emph{scripton} is produced by the effort that the reader goes through in interpreting the \emph{texton}. In the context of a game, it is as though the game interface is a gateway that allows access to the narrative at different times. Using classical music as a metaphor, the texton can be thought of as the \emph{score}, and the scripton the \emph{performance}.
 
 % TODO Make sure you update the intro with this
-In Section~\ref{sec:generative-and-interactive-narrative}, we assert that how generative a narrative is and its level of interactivity are two different variables in an experimental narrative. However, Aarseth identifies seven different methods of story traversal: \emph{dynamics, determinability, transiency, perspective, access, linking and user function}.
+In Section~\ref{sec:interactive-narrative}, we assert that how generative a narrative is and its level of interactivity are two different variables in an experimental narrative. However, Aarseth identifies seven different methods of story traversal: \emph{dynamics, determinability, transiency, perspective, access, linking and user function}.
 
 \textbf{Dynamics} describe whether or not the content and number of scriptons changes. In a simple, static story with branching choices (such as in a \emph{Choose your own adventure} story), both the number of textons and scriptons are fixed, since all paths have been written out beforehand. A dynamic story would still have a fixed number of textons, but the scriptons would be generated as the user traverses the path of the narrative.
 
@@ -842,7 +843,7 @@ Crawford himself provides a useful examination of experimental narrative in comp
 A cyclic process between two or more active agents in which each agent alternately listens, thinks, and speaks.
 \end{quote}
 
-He argues that for game narratives to be truly interactive, they must be more social. Characters in a story must be able to react with the player as though they were people in real life. In turn, the player should have some degree of freedom in the way in which they interact. Rather than presenting branching story points as choices, a better way to interact would be socially, through talking to agents in the game. This is the approach that Fa\c{c}ade takes \citep{mateas2003faccade}, which Crawford acknowledges as the most successful attempt at interactive storytelling to date. A detailed description of Fa\c{c}ade's implementation appears in Section~\ref{sec:modelling-agents}.
+He argues that for game narratives to be truly interactive, they must be more social. Characters in a story must be able to react with the player as though they were people in real life. In turn, the player should have some degree of freedom in the way in which they interact. Rather than presenting branching story points as choices, a better way to interact would be socially, through talking to agents in the game. This is the approach that Fa\c{c}ade takes \citep{mateas2003faccade}, which Crawford acknowledges as the most successful attempt at interactive storytelling to date. A detailed description of Fa\c{c}ade's implementation appears in Section~\ref{sec:drama-systems}.
 
 In order to determine whether Crawford's assertion that narratology research is
 too far removed from its practical implementations to be of use, we provide an
@@ -987,6 +988,7 @@ behaviour to fit within the context of a narrative is a more challenging
 problem. This section examines different approaches to tackling this challenge.
 
 \subsubsection{Planner-based Systems}
+\label{sec:planner-systems}
 The most prevalent approach to the generation and management of plot in
 interactive narrative is to use planners. With a planner, an author sets the
 goals for the story (certain situations that they would like to see happen), and
@@ -1083,6 +1085,7 @@ this approach inaccessible to non-technical writers.
 
 % This needs elaboration
 \subsubsection{Drama manager-based Systems}
+\label{sec:drama-systems}
 
 Carnegie Mellon University's OZ project \citep{mateas1999oz} uses a \emph{drama manager} to structure its narrative, which observes the actions occurring in the storyworld and ``directs'' its characters to conform to shape the story. 
 
@@ -1144,23 +1147,34 @@ Each character has a role, which is governed by a social practice. For example, 
 \emph{Exclusion logic}~\citep{evans2010introducing} is used to describe the
 social practices of the system. Exclusion logic manages the frame problem by
 organising related fluents in a tree structure. A single update at the right
-branch can change a set of related facts en masse. For example, a description of a character called ``Brown'' is shown in Listing~\ref{lst:exclusive}. It describes the building up of character attributes as a tree structure.
+branch can change a set of related facts en masse. This is achieved through use
+of an exclusion operator (``!''). Listing~\ref{lst:exclusion1} shows an example
+of the exclusion operator in use. The example specifies that an agent can have
+only one gender. The \emph{Praxis} language implementation of the exclusion
+logic in Listing~\ref{lst:exclusion1} has a type checker which ensures that no character can have multiple genders.
 
-Exclusion logic aims to address the frame problem. The frame problem is the uncertainty around whether predicates that change over time (fluents) change other predicate values. It aims to address this through use of an exclusion operator (``!''). Listing~\ref{lst:exclusion} shows an example of the exclusion operator in use. The example specifies that an agent can have only one gender. The \emph{Praxis} language implementation of the exclusion logic has a type checker which ensures that no character can have multiple genders.
-
-\begin{lstlisting}[float,label=lst:exclusion,caption=nextHopInfo: caption]
+\begin{lstlisting}[float,label=lst:exclusion1,caption=nextHopInfo: caption]
 A(agent).sex!G(gender).
 \end{lstlisting}
 
-\begin{lstlisting}[float,label=lst:exclusion,caption=Description of ``Brown'' character.]
+\begin{lstlisting}[float,label=lst:exclusion2,caption=Description of ``Brown'' character.]
 brown.sex!male;
 brown.class!upper;
-brown.in!dining_room;
+brown.in!living_room;
+brown.in.living_room.activity!watching_tv;
 brown.relationship.lucy.evaluation.attractive!40;
 brown.relationship.lucy.evaluation.humour!20.
 \end{lstlisting}
 
-Exclusion logic's exclusion operator allows an author to express the fact that a variable can only have one value. For example, if `the `Brown'' character changes location from the dining room to the kitchen, \emph{brown.in!dining\_room} is terminated when \emph{brown.in!kitchen} holds.
+Listing~\ref{lst:exclusion2} is another piece of \emph{Praxis} code showing how the attributes of a character called
+``Brown'' are built up as a tree structure.
+Exclusion logic's exclusion operator allows an author to express the fact that a
+variable can only have one value. For example, if `the `Brown'' character
+changes location from the living room to the kitchen,
+\emph{brown.in!living\_room} is terminated when \emph{brown.in!kitchen} holds.
+This also terminates any attributes further down the tree, so in this case the
+\emph{brown.in.living\_room.activity} of \emph{watching_tv} will also be
+terminated when the location updates.
 
 Versu takes the \emph{constitutive} view of social practice, as opposed to the
 \emph{regulative} view~\citep{SJP:SJP658}. This means that rather than restricting an agent's possible actions based on its permissions and obligations, they participate in a certain social practice by taking an action. Their actions are only restricted by what is possible in the story world, and what the agent desires to do. This way, agents can choose whether or not to take part in certain social interactions.
@@ -1184,7 +1198,7 @@ new subset with the consequences of the applied rule $r$.
 The rules are specified using the combination of logical statements with two
 operators: $*$ (tensor) and $\text{-o}$ (lolli). The tensor operator is used to
 concatenate statements, while the lolli operator expresses state transitions in
-the form $S \mathrel{\text{-o}} S'$. The rules use \emph{replacement semantics},
+the form $S \mathrel{\text{-o}} S''$. The rules use \emph{replacement semantics},
 which means that everything from state $S$ will disappear unless stated to be in
 state $S'$. A $\$$ operator is used to mark facts in $S$ that the author wishes
 to remain in $S$ without explicitly stating so.
@@ -1545,7 +1559,7 @@ Classic modal logic deals with \emph{alethic modality}, which describes whether 
 Naturally, we can use modalities beyond just possibility and necessity. Any
 modal logic can be constructed using operators and modalities of the creator's choice.
 
-At the end of this chapter (from Section~\ref{?}), we describe our method of
+Later in this chapter (from Section~\ref{sec:norms-and-institutions}), we describe our method of
 formally constructing narrative and trope descriptions with social institutions
 and norms. This technique uses ideas from \emph{deontic} logic, a modal logic
 that adds \emph{permission} and \emph{obligation} operators to logical
@@ -1689,7 +1703,7 @@ This approach for describing narrative has many potential real-world uses. One o
 While the use of Interval Temporal Logic and model checking techniques is useful
 for the creation and checking of paths through a story, its main limitation is
 its unsuitability for use in a multi-agent system (MAS). Similar to the
-planner-based systems described in Section~\ref{?}, its implementation in a MAS
+planner-based systems described in Section~\ref{sec:planner-systems}, its implementation in a MAS
 would binvolve the use of a ``director'', which tells each agent what to do
 during the course of the story. This greatly reduces the flexibility of using a
 MAS for interactive narrative. What advantage is there of using intelligent
@@ -1748,7 +1762,7 @@ The first argument is the external event that must be triggered according to the
 % actually 3 kinds, including violation events
 Cliffe's model specifies three types of \textbf{event}: \emph{external events} (or `observed events', $\mathcal{E}_{obs}$), \emph{institutional events} ($\mathcal{E}_{instevent}$) and \emph{violation events} ($\mathcal{E}_{viol}$). Examples of each are given in Figure~\ref{fig:events}.
 \emph{External events} are observed to happen in the agents' environment, which can \emph{generate} \emph{institutional events} which occur only within the institional model, leading to the \emph{initiation} or \emph{termination} of (domain) fluents, permissions, obligations or institutional powers.
-An external event could be an agent leaving the stage, an agent hitting another, or an agent dying. Internal events include narrative events such as scene changes, or the triggering of Propp story functions such as \emph{absentation} or \emph{interdiction} (described in Section~\ref{sec:propp}). \emph{Violation} is the name of a Propp story function, and is included as an internal event, although it has no relation to the violation events of an institution.
+An external event could be an agent leaving the stage, an agent hitting another, or an agent dying. Internal events include narrative events such as scene changes, or the triggering of Propp story functions such as \emph{absentation} or \emph{interdiction} (described in Section~\ref{sec:formalisms}). \emph{Violation} is the name of a Propp story function, and is included as an internal event, although it has no relation to the violation events of an institution.
 Violation events occur when an agent has failed to fulfil an obligation before the specified deadline. These can be implemented in the form of a penalty, by decreasing an agent's health, for example.
 
 \begin{figure}[!t]
@@ -2002,7 +2016,7 @@ emotional model as described above.
 \paragraph{Institutional Framework}
 % \subsection{Institutional Framework}
 % How you used instAL to model Propp
-To describe our institutional model, we use InstAL~\citep{cliffe2007specifying}, a domain-specific (action) language for describing institutions that compiles to AnsProlog, a declarative programming language for Answer Set Programming (ASP). InstAL's semantics are inspired by the Situation Calculus~\citep{reiter1991frame} and the Event Calculus~\citep{kowalski1989logic}. InstAL describes how external events generate institutional events, which then initiate or terminate fluents that hold at certain points in time. These fluents can include the permissions and obligations that describe what an agent is permitted or obliged to do when, as described in Section~\ref{sec:institutional model}.
+To describe our institutional model, we use InstAL~\citep{cliffe2007specifying}, a domain-specific (action) language for describing institutions that compiles to AnsProlog, a declarative programming language for Answer Set Programming (ASP). InstAL's semantics are inspired by the Situation Calculus~\citep{reiter1991frame} and the Event Calculus~\citep{kowalski1989logic}. InstAL describes how external events generate institutional events, which then initiate or terminate fluents that hold at certain points in time. These fluents can include the permissions and obligations that describe what an agent is permitted or obliged to do when, as described in Section~\ref{sec:pjexample-insts}.
 For example, if an agent with the role of \emph{dispatcher\/} leaves the stage,
 it generates the Propp \emph{absentation\/} move in the institution, but only if
 the \emph{interdiction} function is active (i.e., the
@@ -2296,7 +2310,7 @@ we describe in the next section.
 This chapter describes the foundations of our narrative components: story
 tropes. Though our use of tropes for the description of stories has many
 advantages, the main benefit is that they offer a means to compose and thereby
-reuse existing story fragments. We describe this is more detail in Section~\ref{sec:abstractable}.
+reuse existing story fragments. We describe this is more detail in Section~\ref{sec:abstraction}.
 
 Story tropes are a familiar concept to many outside of the academic
 community, so their omission from the literature in either field of Computer
@@ -2403,10 +2417,17 @@ Many other examples of using tropes in this way can be found on the ``Playing
 with a Trope'' page of the TV Tropes website~\citep{playing-tropes}.
 
 \begin{figure}[p!]
-\centerline{\includegraphics[height=\textheight]{periodicTable.png}}
+\centerline{\includegraphics[height=0.9\textheight]{periodicTable.png}}
 \caption{The ``Periodic Table of Storytelling'', original by James Harris
   (http://jamesharris.design/periodic/), poster format by Deviant Art user Dawn
   Paladin (http://dawnpaladin.deviantart.com/art/The-Periodic-Table-of-Storytelling-Second-Edition-425816342)} \label{fig:periodic-table}
+\end{figure}
+
+\begin{figure}[t!]
+\centerline{\includegraphics[width=\textwidth]{periodicExamples.png}}
+\caption{Example ``Molecules'' from the ``Periodic Table of Storytelling'', original by James Harris
+  (http://jamesharris.design/periodic/), poster format by Deviant Art user Dawn
+  Paladin (http://dawnpaladin.deviantart.com/art/The-Periodic-Table-of-Storytelling-Second-Edition-425816342)} \label{fig:periodic-examples}
 \end{figure}
 
 A large and highly active community of users and contributors exists around TV
@@ -4236,7 +4257,7 @@ nested branches of its story:
 \end{lstlisting}
 
 \vspace{7mm}
-\centerline{\includegraphics[width=\textwidth]{subtrope3.png}}
+\centerline{\includegraphics[width=0.5\textwidth]{subtrope3.png}}
 \vspace{7mm}
 
 An author can create complex branching narrative by combining these tropes together. To see

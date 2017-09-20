@@ -1,11 +1,19 @@
 digraph G {
-  rankdir=LR;
+  rankdir=TB;
+  a [label="chase_hero_macguffin"];
+  b [label="chase_hero_macguffin"];
+  c [label="find_hero_macguffin"];
+  e [label="go_hero_home"];
   start -> go_hero_away;
   go_hero_away -> meet_hero_villain
   go_hero_away -> meet_hero_mentor;
-  meet_hero_mentor -> chase_hero_macguffin;
-  chase_hero_macguffin -> find_hero_macguffin -> kill_hero_villain;
-  chase_hero_macguffin -> go_hero_home -> kill_hero_villain;
-  kill_hero_villain -> chase_hero_macguffin;
-  meet_hero_villain -> chase_hero_macguffin;
+  meet_hero_mentor -> a;
+  a -> find_hero_macguffin -> kill_hero_villain;
+  a -> go_hero_home -> kill_hero_villain;
+  meet_hero_villain -> kill_hero_villain;
+  kill_hero_villain -> b;
+  // b -> c [label="find_hero_macguffin"] -> d [label="kill_hero_villain"];
+  b -> c;
+  b -> e;
+  // meet_hero_villain -> a chase_hero_macguffin;
 }

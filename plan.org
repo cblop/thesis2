@@ -8,7 +8,8 @@
   CLOSED: [2017-08-26 Sat 11:02]
 * DONE storybuilder: different colour background for task descriptions
   CLOSED: [2017-08-26 Sat 17:47]
-* TODO redo subtrope3.dot graph visualisation (line 4329)
+* DONE redo subtrope3.dot graph visualisation (line 4329)
+  CLOSED: [2017-09-20 Wed 15:41]
 * DONE go through mnotes and delete old ones
   CLOSED: [2017-09-20 Wed 14:24]
 * TODO consider adding detail to compilation strategy
@@ -52,7 +53,7 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
   CLOSED: [2017-09-20 Wed 10:46]
 * TODO ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?
 * TODO relate tasks to requirements at start of eval section
-* TODO try replacing compactenum and compactitem
+# * TODO try replacing compactenum and compactitem
 * TODO tropes: set up "this is the problem / what are the options / choose this" argument (narrativise)
 * TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * TODO tropes: crop periodic table as suggested
@@ -73,6 +74,7 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO write about using appraisal model in future work
 * TODO add intro to Institutions chapter to describe motivations (with outline of content at end)
 * TODO showstringspaces=false
+* TODO check for compilation warnings / errors
 
 
 
