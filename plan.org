@@ -12,8 +12,10 @@
 * TODO go through mnotes and delete old ones
 * TODO consider adding detail to compilation strategy
 * TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
-* TODO generate trace visualisations with Julian
-* TODO move legal application to future work section
+* DONE generate trace visualisations with Julian
+  CLOSED: [2017-09-20 Wed 10:46]
+* DONE move legal application to future work section
+  CLOSED: [2017-09-20 Wed 10:46]
 * TODO go through TropICAL figures and put compiled InstAL side by side with source
 ** Notes
 *** Compilation Strategy
@@ -43,11 +45,12 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO add visualisation of adding audience participation trope (near fig:audience-participation)
 * TODO revise presentation of StoryBuilder chapter (messy with floats and listings)
 * TODO fix all figures so that they float
-* TODO un-delete old version of Institutions chapter
+* DONE un-delete old version of Institutions chapter
+  CLOSED: [2017-09-20 Wed 10:46]
 * TODO ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?
 * TODO relate tasks to requirements at start of eval section
 * TODO try replacing compactenum and compactitem
-* TODO tropes: set up "this is the problem / what are the options / choose this" argument
+* TODO tropes: set up "this is the problem / what are the options / choose this" argument (narrativise)
 * TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * TODO tropes: crop periodic table as suggested
 * TODO revise the explanation of converting tropes to institutions (section 1.3)
@@ -57,4 +60,6 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO remove "The Owner has an Object" from example PJ trope
 * TODO Line 1538 mentions constrasting temporal logic with insts, so put this in
 * TODO standardise fonts in all institution listings
+* TODO narrativise "institutions" chapter (beginning, glue, end)
+* TODO revise the appendices
 

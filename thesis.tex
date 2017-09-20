@@ -1888,18 +1888,14 @@ actions. For example, Judy may become more dominant as her suggestions to hit
 Punch with a stick are cheered on by the audience, emboldening her into acting
 out her impulses.
 
-The VAD model illustrates how valence, arousal and dominance values map to identifiable emotions. Valence, arousal and dominance can each have a value of low, medium or high. This allows the agents to have a total of 27 distinct emotional states.
+The VAD model, an extension of Russell's circumplex
+model~\citep{russell1980circumplex}, illustrates how valence, arousal and
+dominance values map to identifiable emotions. Valence, arousal and dominance
+can each have a value of low, medium or high. This allows the agents to have a
+total of 27 distinct emotional states, shown in Figure~\ref{fig:vad}.
 The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\cite{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
-\medskip
 
 An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
-% \rule{\textwidth}{2cm}
-In order to make the agents acting out the Punch and Judy show more believable, we apply an emotional model to affect their actions and decisions. For this, we use the valence-arousal (circumplex) model first described by Russell~\cite{russell1980circumplex}.  To give each character its own distinct personality, we extend this model with an extra dimension: dominance, as used by Ahn et al.~\cite{ahn2012nvc} in their model for conversational virtual humans. This dominance level is affected by the reactions of the audience to the agents' actions. For example, Judy may become more dominant as her suggestions to hit Punch with a stick are cheered on by the audience, emboldening her into acting out her impulses.  A detailed description appears in the text in Figure~\ref{fig:vad}.
-
-%% Figure~\ref{fig:vad} shows how valence, arousal and dominance values map to identifiable emotions. Valence, arousal and dominance can each have a value of low, medium or high. This allows the agents to have a total of 27 distinct emotional states.
-%% The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\cite{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
-
-%% An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
 
 It is important to note that the emotional model is part of the agent belief state, and not held in the institution. We want to explore how the characters of the story might be able to choose actions based on their emotional state. While the institution could theoretically calculate the emotional state for each agent in turn and dictate this to them along with the norms of the narrative, it makes sense to decouple this feature from the narrative institution in order to separate the characters from the events of the story. %\jnote{review this paragraph}
 
@@ -1910,7 +1906,7 @@ Emotions are implemented as beliefs inside an agent. An agent believes it has a 
 
 Valence, arousal and dominance values can take values of -1 (low), 0 (medium) or 1 (high). Listing~\ref{lst:emotions} shows the emotional belief rules for an agent with medium dominance (a dominance level of 0). Note that an agent maintains beliefs about both its current emotion label (such as sleepy or happy) and the separate valence, arousal and dominance values at the same time.  Similar sets of rules handle the belief emotion for the other dominance levels.  %We address the matter of how external stimuli affect dominance in section~\ref{sec:norms as percepts}.\jnote{still needs doing}
 
-Every time an emotional variable (valence, arousal, or dominance) changes, an agent's emotion is changed according to the rules in listing~\ref{lst:emotions}. While an agent's valence, arousal and dominance belief values affect the way it makes decisions internally, the results of combinations of these values (sleepy, happy, etc) are broadcast as external actions. The reason for this is that an agent's emotional state may affect the way in which the character is animated: changing the speed at which they move or turning their smile into a frown, for example. For this reason, whenever an emotional change takes place, the new emotion is published as an external action of the agent so that observing entities may perceive it. The Bath sensor framework described in section~\ref{sec:arch} provides the means for this evidence of the agent's internal state change to be received by the animation system and reflected accordingly in the display.
+Every time an emotional variable (valence, arousal, or dominance) changes, an agent's emotion is changed according to the rules in Listing~\ref{lst:emotions}. While an agent's valence, arousal and dominance belief values affect the way it makes decisions internally, the results of combinations of these values (sleepy, happy, etc) are broadcast as external actions. The reason for this is that an agent's emotional state may affect the way in which the character is animated: changing the speed at which they move or turning their smile into a frown, for example. For this reason, whenever an emotional change takes place, the new emotion is published as an external action of the agent so that observing entities may perceive it. The Bath sensor framework described in Section~\ref{sec:arch} provides the means for this evidence of the agent's internal state change to be received by the animation system and reflected accordingly in the display.
 
 \begin{lstlisting}[float=!t,caption={Emotional rules for a character with medium dominance},label=lst:emotions,escapechar=\%,basicstyle=\scriptsize\ttfamily]
 emotion(sleepy) :- valence(0) & arousal(-1) & dominance(0).
@@ -1924,18 +1920,20 @@ emotion(happy) :- valence(1) & arousal(0) & dominance(0).
 emotion(delighted) :- valence(1) & arousal(1) & dominance(0).
 \end{lstlisting}
 
-\begin{lstlisting}[float=!t,caption={AgentSpeak rules for changing an agent's emotional values from audience responses},label=lst:response,basicstyle=\scriptsize\ttfamily]
-+!changeMood
+\begin{lstlisting}[float=!t,caption={AgentSpeak rules for changing an agent's
+emotional values from audience
+responses},label=lst:response,basicstyle=\scriptsize\ttfamily,escapechar=\%]
++!changeMood%\label{lne:changemood-start}%
   <- ?emotion(Z);
-     emotion(Z).
-+response(_, boo) : asking
+     emotion(Z).%\label{lne:changemood-end}%
++response(_, boo) : asking%\label{lne:response1-start}%
   <- -+valence(-1);
      -+dominance(-1);
-     !changeMood.
-+response(_, cheer) : asking
+     !changeMood.%\label{lne:response1-end}%
++response(_, cheer) : asking%\label{lne:response2-start}%
   <- -+valence(1);
      -+dominance(1);
-     !changeMood.
+     !changeMood.%\label{lne:response2-end}%
 \end{lstlisting}
 
 Listing~\ref{lst:response} shows the AgentSpeak rules describing how an agent's
@@ -1943,22 +1941,25 @@ valence and dominance levels are changed by the audience cheering or booing
 their actions. These AgentSpeak plans describe what the agent should do in
 response to a goal addition (denoted by a $\texttt{+!}$ at the start of the plan
 name) or a belief addition (prefixed by a simple $\texttt{+}$). In the case of
-Listing~\ref{lst:response}, the $\texttt{+!changeMood}$ plan updates the agent's
+Listing~\ref{lst:response}, the $\texttt{+!changeMood}$ plan on
+lines~\ref{lne:changemood-start} to~\ref{lne:changemood-end} updates the agent's
 emotional state based on its valence-arousal-dominance values and broadcasts the
-result as an external action. The $\texttt{+response}$ plans raise or lower an agent's valence and dominance levels depending on whether the agent perceives a ``boo'' or ``cheer'' response from the audience.
+result as an external action. The $\texttt{+response}$ plans
+(Listing~\ref{lst:response}, lines~\ref{lne:response1-start} - \ref{lne:response1-end}
+and~\ref{lne:response2-start} - \ref{lne:response2-end}) raise or lower an agent's valence and dominance levels depending on whether the agent perceives a ``boo'' or ``cheer'' response from the audience.
 
-An agent announces what they intend to do, then waits three seconds. During this time, they have the belief that they are `asking' the audience, and listen for a response. A boo reduces an agent's valence and dominance, while a cheer raises them. For each response, the \texttt{changeMood} goal is triggered, which looks up and broadcasts the agent's emotional state to the other agents and environment.
+An agent announces what they intend to do, then waits three seconds. During this time, they have the belief that they are ``asking'' the audience, and listen for a response. A ``boo'' reduces an agent's valence and dominance, while a cheer raises them. For each response, the \texttt{changeMood} goal is triggered, which looks up and broadcasts the agent's emotional state to the other agents and environment.
 
 \section{Agent decision making} \label{sec:decisions}
-The agents choose which goals to pursue according to three factors: their permitted actions, their obliged actions and their emotional state. Though obliged actions are given priority, and while agents' decisions are generally constrained by their permitted actions, an agent's emotional state has the final say in its decisions. In this way, an agent will follow the social norms of the narrative, but only according to their own mood.
+The agents choose which goals to pursue according to three factors: their permitted actions, their obliged actions and their emotional state. Though obliged actions are given priority, and while agents'' decisions are generally constrained by their permitted actions, an agent's emotional state has the final say in its decisions. In this way, an agent will follow the social norms of the narrative, but only according to their own mood.
 
 \paragraph{Agent goals and plans}
 % \subsection{Agent goals and plans}
-The agents are implemented using a belief-desire-intention (BDI) psychological model using the Jason platform ~\cite{bordini2007programming}. An agent's knowledge about the state of their world and themselves are stored as \emph{beliefs}, with new information coming in from the environment getting added to their belief base as \emph{percepts}, which are ephemeral and only last for one reasoning cycle of an agent.
+The agents are implemented using a belief-desire-intention (BDI) psychological model using the Jason platform ~\citep{bordini2007programming}. An agent's knowledge about the state of their world and themselves are stored as \emph{beliefs}, with new information coming in from the environment getting added to their belief base as \emph{percepts}, which are ephemeral and only last for one reasoning cycle of an agent.
 
-Agents are created with goals and plan libraries. Any goal that an agent is set on carrying out at any point is an \emph{intention}, whereas a goal that an agent has but is not yet pursuing is a \emph{desire}. Plan libraries describe the steps agents need to take in order to achieve goals, as well as how to react to changes in agents' environments.
+Agents are created with goals and plan libraries. Any goal that an agent is set on carrying out at any point is an \emph{intention}, whereas a goal that an agent has but is not yet pursuing is a \emph{desire}. Plan libraries describe the steps agents need to take in order to achieve goals, as well as how to react to changes in agents'' environments.
 
-\paragraph{Norms as percepts}\label{sec:norms as percepts}
+\paragraph{Norms as percepts}\label{sec:norms-as-percepts}
 % \subsection{Norms as percepts}\label{sec:norms as percepts}
 When an event occurs, it is added to the event timeline, which is used to query the ASP (Answer Set Programming) solver to obtain the set of norms that hold after the new event has occurred. The new permissions and obligations are then added to each agent as \emph{percepts}. Each time this happens, the set of permitted and obliged actions that an agent sees is changed to be only those that apply at that instant in time, with the previous norms being discarded.
 
@@ -1972,10 +1973,302 @@ Similarly, at times of extreme emotion, an agent may decide to disregard their s
 
 \section{Architecture}\label{sec:arch}
 
-\paragraph{Multi-Agent System} \label{sec:inst}
+\paragraph{Multi-Agent System:} \label{sec:arch-mas}
 % \subsection{Multi-Agent System} \label{sec:inst}
-We use the JASON framework for belief-desire-intention (BDI) agents~\cite{bordini2007programming}, programming our agents in the AgentSpeak language.
-The VAD emotional model is represented inside each agent as a set of beliefs. Each agent has beliefs for its \emph{valence}, \emph{arousal} and \emph{dominance} levels, each of which can take the value of low, medium or high, as discussed in section~\ref{sec:emotion}. This combination of VAD values creates one of the 27 emotional states shown in figure~\ref{fig:vad}, affecting whether or not an agent breaks from its permitted or obliged behaviour.
+We use the JASON framework for belief-desire-intention (BDI) agents, with a VAD
+emotional model as described above.
+
+\paragraph{Institutional Framework}
+% \subsection{Institutional Framework}
+% How you used instAL to model Propp
+To describe our institutional model, we use InstAL~\cite{cliffe2007specifying}, a domain-specific (action) language for describing institutions that compiles to AnsProlog, a declarative programming language for Answer Set Programming (ASP). InstAL's semantics are inspired by the Situation Calculus~\cite{reiter1991frame} and the Event Calculus~\cite{kowalski1989logic}. InstAL describes how external events generate institutional events, which then initiate or terminate fluents that hold at certain points in time. These fluents can include the permissions and obligations that describe what an agent is permitted or obliged to do when, as described in section~\ref{sec:institutional model}.
+For example, if an agent with the role of \emph{dispatcher\/} leaves the stage,
+it generates the Propp \emph{absentation\/} move in the institution, but only if
+the \emph{interdiction} function is active (i.e., the
+\emph{activeFunction(interdiction)} fluent holds): %\mnote{Added \emph{activeFunction} explanation}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+leaveStage(X) generates intAbsentation(X)
+   if role(X, dispatcher), activeFunction(interdiction);
+\end{lstlisting}
+% \vspace{-1cm}
+which generates the following AnsProlog code:\\
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
+occurred(intAbsentation(X),pj,I) :-%\mylabel{t1}%
+   occurred(leaveStage(X),pj,I),%\mylabel{t2}%
+   holdsat(pow(pj,intAbsentation(X)),pj,I),%\mylabel{t3}%
+   holdsat(role(X,donor),pj,I),%\mylabel{t4}%
+   holdsat(activeFunction(interdiction),pj,I), %\mylabel{t5}%
+   agent(X), inst(pj), instant(I).%\mylabel{t6}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+\myref{t1}{s1}{The internal \emph{absentation} event occurs if the following conditions are met:}
+\myref{t2}{s2}{$\bullet X$ leaves the stage}
+\myref{t3}{s3}{$\bullet X$ has the power to leave the stage}
+\myref{t4}{s4}{$\bullet X$ has the role of donor}
+\myref{t5}{s5}{$\bullet$ the \emph{interdiction} function is active}
+\myref{t6}{s6}{$\bullet X$ is an agent, pj is an institution, $I$ is an instant}
+\end{minipage}\\
+The \emph{absentation\/} institutional event gives the crocodile permission to enter the stage if there are any sausages on the stage. It also terminates the permission of the absented agent to leave the stage, as they have already done so:\\
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
+intAbsentation(X) initiates perm(enterStage(croc)) if objStage(sausages);%\mylabel{t1}%
+intAbsentation(X) terminates onStage(X), perm(leaveStage(X));%\mylabel{t2}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The \emph{absentation} function gives the crocodile permission to enter the stage if the sausages are on stage}
+  \myref{t2}{s2}{The \emph{absentation} function means that once X leaves the stage, they are no longer on stage}
+\end{minipage}\\
+which generates the following:\\
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
+initiated(perm(enterStage(croc)),pj,I) :-%\mylabel{t1}%
+   occurred(intAbsentation(X),pj,I),%\mylabel{t2}%
+   holdsat(live(pj),pj,I), inst(pj),%\mylabel{t3}%
+   holdsat(objStage(sausages),pj,I),%\mylabel{t4}%
+   agent(X), inst(pj), instant(I).%\mylabel{t5}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+\myref{t1}{s1}{The crocodile gets permission to enter the stage if the following
+  conditions are met:}
+\myref{t2}{s2}{$\bullet$ the \emph{absentation} function event has occured}
+\myref{t3}{s3}{$\bullet$ the pj institution is running}
+\myref{t4}{s4}{$\bullet$ the sausages are on stage}
+% \myref{t5}{s5}{$\bullet X$ is an agent, pj is an institution, $I$ is an instant}
+\end{minipage}\\
+%% \begin{comment}
+%% If the ``defeat'' institutional event occurs (as a result of a struggle between
+%% two agents), it initiates a fluent signifying that that agent is dead, along
+%% with an obligation for the agent to leave the stage. If they don't leave the
+%% stage, then they are in violation of the scene, and an appropriate violation
+%% event is triggered. Also note that the fluent and obligation event are only
+%% initiated \emph{if} the agent is playing the role of a victim:
+%% \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+%% intDefeat(X, Y) initiates dead(Y), obl(leaveStage(Y), deadline, vioScene(Y)) if role(Y, victim);
+%% \end{lstlisting}
+%% \end{comment}
+\begin{figure}[!t]
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[caption={Encoding of Propp's \emph{absentation\/} function},basicstyle=\scriptsize\ttfamily,label=lst:absentation,escapechar=\%]
+intAbsentation(X) initiates activeFunction(absentation);%\mylabel{t0}%
+intAbsentation(X) initiates perm(harm(Y, Z)) if role(Y, villain), objStage(Z), onStage(Y), activeFunction(interdiction);%\mylabel{t1}%
+intAbsentation(X) initiates perm(harm(Y, Z)) if role(Y, ambusher), objStage(Z), onStage(Y), activeFunction(interdiction);%\mylabel{t2}%
+intAbsentation(X) initiates perm(enterStage(X)), activeFunction(absentation);%\mylabel{t3}%
+intAbsentation(X) initiates perm(enterStage(croc)) if objStage(sausages);%\mylabel{t4}% 
+intAbsentation(X) terminates onStage(X), perm(leaveStage(X));%\mylabel{t5}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t0}{s0}{The \emph{activeFunction(absentation)} function holds after any
+    \emph{intAbsentation} institutional event, indicating that that Propp
+    function is currently underway}
+  \myref{t1}{s1}{The \emph{absentation} function gives the villain permission to harm
+    an object, if both are on stage and the \emph{interdiction} function is active}
+  \myref{t2}{s2}{Same as above, but for \emph{ambusher} role}
+  \myref{t3}{s3}{The absented character has permission the re-enter the stage at any point during the \emph{absentation} function}
+  \myref{t4}{s4}{The crocodile has permission to enter the stage if the sausages are on stage}
+  \myref{t5}{s5}{The \emph{absentation} function means that the absented character is no longer on stage, and cannot leave the stage (as they have already done so)}
+\end{minipage}
+\end{figure}
+By combining statements such as the above, we can build a complete description
+of the sausages scene in terms of agent norms, such as the Propp
+\emph{absentation} function, shown in Listing~\ref{lst:absentation}. InstAL rules like those shown above and in Listing~\ref{lst:absentation} are compiled into AnsProlog, then we use the \emph{clingo} answer set solver~\cite{gebser2011potassco} to ground the program, and `solve' queries by finding all permissions and obligations that apply to any agents, given a sequence of events as the query input. The agents' percepts are then updated with their permitted and obliged actions from that time instant onwards.  Thus, the institutional model acts as a social narrative sensor, interpreting actors' actions in the context of the combination of the concrete narrative and the abstract story moves which detach (instantiate) the norms that guide the actors in the direction of the conclusion of the story arc.
+
+A query is simply a list of external events in chronological order, also called
+a \emph{trace}. A possible trace describing the actions of agents acting out the
+\emph{sausages} is described in Listing~\ref{lst:trace}. The `pj' in the trace
+is the name of the institution that observes the events, while the
+number is the enumeration of events in the sequence.
+
+\begin{figure}[!t]
+\begin{minipage}{0.6\textwidth}
+% \newsavebox{\lstasp}
+% \begin{lrbox}{\lstasp}
+\begin{lstlisting}[caption={Possible full trace for sausages scene},label=lst:trace,basicstyle=\scriptsize\ttfamily,escapechar=\%]
+observed(startShow,pj,0). %\mylabel{t1}%
+observed(startScene(sausages),pj,1). %\mylabel{t2}%
+observed(enterStage(punch),pj,2). %\mylabel{t3}%
+observed(enterStage(joey),pj,3). %\mylabel{t4}%
+observed(say(joey, give),pj,4). %\mylabel{t5}%
+observed(say(joey,  protect),pj,5). %\mylabel{t6}%
+observed(give(joey,punch,sausages),pj,6). %\mylabel{t7}%
+observed(leaveStage(joey),pj,7). %\mylabel{t8}%
+observed(say(punch, harm),pj,8). %\mylabel{t9}%
+observed(enterStage(croc),pj,9). %\mylabel{t10}%
+observed(take(croc, sausages),pj,10). %\mylabel{t11}%
+observed(eat(croc, sausages),pj,11). %\mylabel{t12}%
+observed(leaveStage(croc),pj,12). %\mylabel{t13}%
+observed(enterStage(joey),pj,13). %\mylabel{t14}%
+observed(hit(joey, punch),pj,14). %\mylabel{t15}%
+observed(leaveStage(joey),pj,15). %\mylabel{t16}%
+observed(leaveStage(punch),pj,16). %\mylabel{t17}%
+observed(startScene(end),pj,17). %\mylabel{t18}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The show has started}
+  \myref{t2}{s2}{The sausages scene has started}
+  \myref{t3}{s3}{Punch has entered the stage}
+  \myref{t4}{s4}{Joey has entered the stage}
+  \myref{t5}{s5}{Joey says he will give Punch the sausages}
+  \myref{t6}{s6}{Joey tells Punch to protect the sausages}
+  \myref{t7}{s7}{Joey gives the sausages to Punch}
+  \myref{t8}{s8}{Joey leaves the stage}
+  \myref{t9}{s9}{Punch says he will eat the sausages}
+  \myref{t10}{s10}{The crocodile enters the stage}
+  \myref{t11}{s11}{The crocodile takes the sausages}
+  \myref{t12}{s12}{The crocodile eats the sausages}
+  \myref{t13}{s13}{The crocodile leaves the stage}
+  \myref{t14}{s14}{Joey enters the stage}
+  \myref{t15}{s15}{Joey hits Punch}
+  \myref{t16}{s16}{Joey leaves the stage}
+  \myref{t17}{s17}{Punch leaves the stage}
+  \myref{t18}{s18}{The scene ends}
+\end{minipage}
+\end{figure}
+
+Each \emph{observed} event triggers a corresponding \emph{occurs} event inside the
+institution, as determined by the generates relation. Listing~\ref{lst:asp}
+shows an extract from an answer set output for the trace queried against the ASP
+description of the sausages scenario, for events~5 to~7 of the scene. Starting with an initial set of fluents that hold at instant~5,
+only fluents that have been initiated and not terminated hold at the next
+instant. For ease of reading, the listing only shows roles that hold at
+certain instants when they have some effect on the scene, although in practice, all role fluents hold throughout the scene. Figure~\ref{fig:tracevis} shows a visualisation of the answer set for the trace in listing~\ref{lst:trace}.
+
+\begin{figure}[!t]
+\begin{minipage}{0.65\textwidth}
+%% \newsavebox{\lstasp}
+%% \begin{lrbox}{\lstasp}
+\begin{lstlisting}[caption={Sausages scene using ASP},label=lst:asp,basicstyle=\scriptsize\ttfamily,label=lst:asp,escapechar=\%]
+holdsat(perm(say(donor, protect),pj,5).%\mylabel{t1}%
+holdsat(role(joey, donor),pj,5).%\mylabel{t2}%
+occurred(say(joey, protect),pj,5).%\mylabel{t3}%
+
+initiated(activeFunction(interdiction),pj,6).%\mylabel{t4}%
+initiated(perm(give(donor, villain, object)),pj,6).%\mylabel{t5}%
+terminated(perm(say(donor, protect)),pj,6).%\mylabel{t6}%
+holdsat(perm(give(donor, villain, object)),pj,6).%\mylabel{t7}%
+holdsat(activeFunction(interdiction),pj,6).%\mylabel{t8}%
+holdsat(role(joey, donor),pj,6).%\mylabel{t9}%
+holdsat(role(punch, villain),pj,6).%\mylabel{t10}%
+holdsat(object(sausages),pj,6).%\mylabel{t11}%
+occurred(give(joey, punch, sausages),pj,6).%\mylabel{t12}%
+
+initiated(activeFunction(absentation),pj,7).%\mylabel{t13}%
+initiated(perm(leavestage(donor)),pj,7).%\mylabel{t14}%
+terminated(perm(give(donor, villain, object)),pj,7).%\mylabel{t15}%
+holdsat(activeFunction(interdiction),pj,7).%\mylabel{t16}%
+holdsat(activeFunction(absentation),pj,7).%\mylabel{t17}%
+holdsat(role(joey, donor),pj,7).%\mylabel{t18}%
+holdsat(perm(leavestage(donor)),pj,7).%\mylabel{t19}%
+\end{lstlisting}
+\end{minipage}\hspace{0.03\textwidth}%\hfill
+% \end{lrbox}
+% \noindent\usebox{\lstasp}\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The donor role can tell someone to protect an object at instant 5}
+  \myref{t2}{s2}{Joey is the donor at instant 5}
+  \myref{t3}{s3}{Joey tells another character to protect an object at instant 5}
+  \myref{t4}{s4}{The \emph{interdiction} function becomes active at instant 6}
+  \myref{t5}{s5}{The donor has permission to give an object to the villain at instant 6}
+  \myref{t6}{s6}{The donor can no longer tell anyone to protect an object at instant 6}
+  \myref{t7}{s7}{The donor can give an object to the villain at instant 6}
+  \myref{t8}{s8}{The \emph{interdiction} function is active at instant 6}
+  \myref{t9}{s9}{Joey is the donor at instant 6}
+  \myref{t10}{s10}{Punch is the villain at instant 6}
+  \myref{t11}{s11}{Sausages are an object at instant 6}
+  \myref{t12}{s12}{Joey gives the sausages to Punch at instant 6}
+  \myref{t13}{s13}{The \emph{absentation} function becomes active at instant 7}
+  \myref{t14}{s14}{The donor can leave the stage at instant 7}
+  \myref{t15}{s15}{The donor can give an object to the villain at instant 7}
+  \myref{t16}{s16}{The \emph{interdiction} function is active at instant 7}
+  \myref{t17}{s17}{The \emph{absentation} function is active at instant 7}
+  \myref{t18}{s18}{Joey is the donor at instant 7}
+  \myref{t19}{s19}{The donor can leave the stage at instant 7}
+\end{minipage}
+\end{figure}
+
+% \begin{figure}[!t]
+% \includegraphics[width=1.3\linewidth]{trace.pdf}
+% \caption{Visualised trace of the sausages scene} \label{fig:vis}
+% \end{figure}
+
+\begin{figure}[!p]
+%     \includegraphics[width=\linewidth]{trace.pdf}
+    \includegraphics[height=0.95\textheight]{trace.pdf}
+    \caption{Trace visualisation} \label{fig:tracevis}
+\end{figure}
+
+% \includepdf{trace.pdf}
+
+%\lstinputlisting[language=prolog, firstline=74, lastline=74]{pj_model.ial}
+
+%\begin{lstlisting}[language=prolog, frame=single]  % Start your code-block
+%enterStage(X) generates intReturn(X, Z) if role(X, dispatcher), role(Y, villain), onStage(Y);
+%\end{lstlisting}
+
+\begin{figure}[!t]
+% \includegraphics[height=3in]{arch1.png}
+% \begin{minipage}{0.58\textwidth}
+% \includegraphics[width=\textwidth]{arch1.png}
+% \end{minipage}\hfill
+% \begin{minipage}{0.38\textwidth}\raggedright
+% \end{minipage}
+% \caption{System architecture} \label{fig:arch}
+% % \end{figure}
+% % \begin{figure}[!t]
+% \medskip
+\begin{minipage}{0.56\textwidth}
+\includegraphics[width=\textwidth]{punchjudy.png}
+\end{minipage}\hfill%
+% \includegraphics[height=2in]{punchjudy.png}
+\begin{minipage}{0.4\textwidth}
+% The animation engine that shows the visual output of the agents actions is written in Javascript and the Phaser game framework. It runs entirely in a browser, and communicates with BSF using the Strophe XMPP library.
+The animation engine that shows the visual output of the agents actions is written in Javascript and the Phaser game framework. It runs entirely in a browser, and communicates with BSF using the Strophe XMPP library.
+
+If the user allows the program access to their microphone, they can cheer or boo the actions of the agents by shouting into the microphone. Otherwise, they can simulate these actions by clicking on `cheer' or `boo' buttons at the bottom of the screen.
+\end{minipage}
+\caption{A screenshot of the Punch and Judy show} \label{fig:pjshow}
+\end{figure}
+
+\paragraph{Bath Sensor Framework} The components communicate using the Bath Sensor Framework
+(BSF)~\cite{lee2013decoupling}, through publish / subscribe-style communication between distributed software components, in this case connecting intelligent agents with their virtual environments. It currently uses the XMPP publish/subscribe protocol for communication between agents, environment and other software components. Each agent subscribes to receive notifications of environment changes via the appropriate topic node in the XMPP server, which relays messages between publishers and subscribers. If any environment change occurs, all subscribed agents are informed of the changes.
+
+\paragraph{Audience Interaction} \label{sec:demo}
+% Explain what will happen
+The puppet show is designed to be run in front of either a single user's computer, or on a large display in front of an audience. The user/audience is instructed to cheer or boo the actions of the characters of the show, which will be picked up by a microphone and `heard' by the agents. This will then affect the emotional state of the agents and change the actions they make in the show. Their actions are constrained by the set of `Punch and Judy' world norms as described in the institutional model.
+
+There are many different ways in which the audience's responses can affect the outcomes of the show. If the audience craves a more `traditional' Punch and Judy experience, then they can cheer Punch into beating and killing all of his adversaries (including his wife, Judy). Alternatively, a more mischievous audience could goad Judy into killing Punch and then taking over his role as sadist and killer for the rest of the show. The narrative outcomes are dependent on how the audience responds to the action, yet still conform to the rules of the Punch and Judy story world.
+
+\section{Summary}
+Our implementation of the interactive Punch and Judy show demonstrates several
+advantages in using social institutions to model narrative. Advantages include:
+
+\begin{itemize}
+  \item Because norms encourage rather than enforce actions, agents are give
+    more flexibility in their behaviour. While their actions are encouraged to
+    conform to a narrative for the most part, an author could insert mechanisms
+    by which agents are able to ``break away'' from the confines of the story.
+    For example, if each agent were to have an emotional model, they could carry
+    out story-disrupting actions in times of extreme emotional distress.
+  \item Rather than thinking about and discribing the goals of a story (as with
+    a planner-based system), a narrative is described in terms of what
+    \emph{may} and \emph{must} happen. This gives an author more control over
+    the flexibility of their stories, as they can describe optional paths
+    through a story rather than setting hards goals that must always be
+    satisfied.
+  \item Through the use of InstAL and its compilation to ASP, we can generate
+    all of the possible actions in each story path as answer sets.
+\end{itemize}
+
+However, the major shortcoming of using InstAL to describe stories in terms of
+institutions is the learning effort required for a non-programmer (such as a
+story author) to use it. For this reason, we have developed our own constrained
+natural-language domain specific language for the description of tropes, which
+we describe in the next section.
 
 \chapter{Tropes as Story Components}
 \label{cha:tropes}
