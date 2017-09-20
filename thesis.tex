@@ -850,7 +850,8 @@ overview of these implementations and their underlying research in section \ref{
 
 
 \subsection{Structuralist Formalisms of Narrative}
-% Propp, etc
+\label{sec:formalisms}
+
 Attempts to organise recurring themes, roles and motifs of narrative go back at least a century. The Aarne-Thompson tale-type index \citep{aarne1987types}, first published in 1910 and later refined by Stith Thompson in 1928 and 1961, is well known amongst folklorists as a classification and analysis method for traditional folktales and myths. Aarne-Thompson's index is a taxonomy of tale themes, arranging tales into categories such as \emph{animal tales} and \emph{jokes and anecdotes}, and then sub-categories (\emph{tales of magic} and \emph{numskull [sic] stories} being two examples). This taxonomy is only two levels deep however, and only serves as a useful way to categorise individual stories or tales. In order to break down and analyse components of tales, we must dig deeper.
 
 In \emph{Structural Anthropology}, Claude L\'{e}vi-Strauss seeks to discover why myths and legends are so similar across cultures and history \citep{levi1963structural}. He concludes that there are global laws that govern the way in which people create stories, therefore these laws can be modelled as a set of rules for describing myths.
@@ -1188,10 +1189,10 @@ which means that everything from state $S$ will disappear unless stated to be in
 state $S'$. A $\$$ operator is used to mark facts in $S$ that the author wishes
 to remain in $S$ without explicitly stating so.
 
-Listing \ref{lst:ceptre-murder} shows an example from~\cite{martens2015ceptre}
+Listing \ref{lst:ceptre-murder} shows an example from~\citet{martens2015ceptre}
 that describes a ``murder'' rule and its consequences.
 
-\begin{lstlisting}[label=lst:ceptre-murder]
+\begin{lstlisting}[label=lst:ceptre-murder,showstringspaces=false]
 do/murder
     : anger C C' * anger C C' * anger C C' * anger C C' *
     $at C L * at C' L * $has C weapon
@@ -1231,22 +1232,28 @@ rule produces resources that are consumed by another rule, then these rules have
 a causal, dependent relationship.
 
 This modelling of gameplay as proof search is similar to the technique we use in
-section~\ref{sec:thn}, where we use Interval Temporal Logic and Kripke structures to
+Section~\ref{sec:kripke}, where we use Interval Temporal Logic and Kripke structures to
 theorem-prove certain narrative states. The difference is that the system we
 describe is more concerned with representing different temporal relations,
 whereas Ceptre's focus is on resource management within a game.
 
+\subsection{Normative Frameworks for Multi-Agent Systems}\label{sec:lit-insts}
 
-\subsection{Character Modelling}
 
-\subsubsection{Characters with Emotional Models}
-% Intro: not done very much?
+\subsection{Modelling Characters with Emotional Models}\label{sec:emotional-models}
+In this section, we examine the use of emotional models in intelligent agents,
+so that we may create more ``believable'' characters to add to our stories. Part
+of the motivation for governing our character agents with the kind of social
+institution described in Section~\ref{sec:lit-insts} is so that the characters
+are able to break away from the path of the story in ``extreme'' circumstances.
+When agents are created with an emotional model, their emotions would be one way
+to provide such circumstances, allowing them to deviate from the narrative at
+times of extreme emotional distress. The reasoning behind this is described further in the introduction to
+Chapter~\ref{cha:institutions}.
 
-\subsubsection{Emotional models}\label{sec:emotional-models}
-% How is this useful for narrative?
 Usually it would seem odd to want to model emotion as part of a computational process. Emotion is such a seemingly irrational set of behaviours that they are easy to dismiss as `human imperfections'. However, as \citet{gratch2004domain} observe, emotions may have a useful role to play in communication, so long as they are displayed at appropriate times.
 
-For example, anger prepares the human body to fight by increasing the manufacture of adrenaline. Fear similarly triggers the `fight or flight' response, alerting the senses for danger and preparing the body to react.
+For example, anger prepares the human body to fight by increasing the production of adrenaline. Fear similarly triggers the `fight or flight' response, alerting the senses for danger and preparing the body to react.
 
 In order to model human emotions using agents, we must first find a suitable psychological model to use. Marsella et al describe three main types of emotional model:
 
@@ -1276,9 +1283,9 @@ Ekman argues that these evolved emotions share nine characteristics:
 
 These characteristics are shared by all of the `basic' emotions as observed in humans and primates.
 
-Discrete models of emotion suggest that there is a neural basis for emotion. For example, Armony et al describe how the amygdala in the brain is responsible for conditioned fear responses  and create a neural network to model it \citep{armony1997computational}.
+Discrete models of emotion suggest that there is a neural basis for emotion. For example, Armony et al describe how the amygdala in the brain is responsible for conditioned fear responses, and created a neural network to model it \citep{armony1997computational}.
 
-Using a discrete model of emotion for agent-based characters would be relatively simple. Each basic emotion could have its own distinct set of behaviours as postconditions, and triggering circumstances as preconditions.
+Using a discrete model of emotion for agent-based characters would be relatively simple. Each basic emotion could have its own distinct set of behaviours as consequences, and triggering circumstances as preconditions.
 
 However, a more fluid approach could be useful when modelling emotions with agents. It would be impossible to say that an agent is \emph{angry and approaching furious} using a discrete theory of emotion. Nuanced levels of emotion and even combinations of several emotions add an extra level of texture to a character. Dimensional and appraisal theories of emotion address this challenge.
 
@@ -1290,16 +1297,16 @@ However, a more fluid approach could be useful when modelling emotions with agen
 
 Russell's circumplex model of emotion is a well-known dimensional model \citep{russell1980circumplex}. In this case, the dimensional variables are \emph{valence} (how agreeable or otherwise a situation is to an agent) and \emph{arousal} (how excited an agent is).
 
-Russell's original paper proposes a model similar to that shown in figure \ref{fig:circumplex}, where the $x$ axis is a person's valence level and the $y$ axis is their arousal level. He argues that the full range of human emotions lie as points along these axes. Eight such examples are shown in fig. \ref{fig:circumplex}.
+Russell's original paper proposes a model similar to that shown in figure \ref{fig:circumplex}, where the $x$ axis is a person's valence level and the $y$ axis is their arousal level. He argues that the full range of human emotions lie as points along these axes. Eight such examples are shown in Figure \ref{fig:circumplex}.
 
-This model is very easy to adapt to human-like agents. \citet{ahn2012nvc} adapt this model by adding a third dimension, dominance, to create conversational agents in a 3D environment. This `dominance' dimension was first proposed in Mehrabian and Russell's original work \citep{mehrabian1974approach}, but later removed due to being perceived as the consequences of the \emph{effects\/} of emotion \citep{russell1980circumplex}, rather than being a component of emotion itself. Like Ahn et al, I found it useful to add the dominance-submission dimension, and so left it in my emotional model. This is the approach I take in creating my Punch and Judy simulation, and so it is described in more detail in section \ref{sec:emotion}.
+This model is very easy to adapt to human-like agents. \citet{ahn2012nvc} adapt this model by adding a third dimension, dominance, to create conversational agents in a 3D environment. This `dominance' dimension was first proposed in Mehrabian and Russell's original work \citep{mehrabian1974approach}, but later removed due to being perceived as the consequences of the \emph{effects\/} of emotion \citep{russell1980circumplex}, rather than being a component of emotion itself. Like Ahn et al, I found it useful to add the dominance-submission dimension, and so left it in my emotional model. This is the approach I take in creating my Punch and Judy simulation, and so it is described in more detail in Section \ref{sec:emotion}.
 
 \subsubsection{Appraisal theory}
 Appraisal theories of emotion lend well to simulation with agents, due to their taking a person's beliefs, desires and intentions into account with respect to external events. Emotions arise when an event occurs and a person internally \emph{appraises} its consequences with respect to their beliefs, desires and intentions. This fits well with the popular BDI architecture for intelligent agents.
 
-Different methods of appraisal may be used in order to produce emotions. Gratch and Marsella use decision theoretic plans \citep{gratch2004domain}, but other approaches could include reactive plans, Markov-decision processes, or detailed cognitive models.
+Different methods of appraisal may be used in order to produce emotions. \citet{gratch2004domain} use decision theoretic plans, but other approaches could include reactive plans, Markov-decision processes, or detailed cognitive models.
 
-Though the Punch and Judy simulation described in section \ref{sec:punchjudy} uses a dimensional model of emotion, an appraisal-based model would be worth investigating due to its tight coupling with belief desire intention psychological models used in agents. I describe my intention to explore this area further in section \ref{sec:fappraisal}.
+Though the Punch and Judy simulation described in Section~\ref{sec:punchjudy} uses a dimensional model of emotion, an appraisal-based model would be worth investigating due to its tight coupling with belief desire intention psychological models used in agents. I describe my intention to explore this area further in Section~\ref{sec:future-emotion}.
 
 \subsection{Discussion}\label{sec:litrev-discussion}
 Through this literature review, we have clearly identified these main issues in
@@ -1354,11 +1361,11 @@ this ``Quest'' component, such as ``Hero's Journey'', ``Rescue the World'' or
 ``Rite of Passage'' story components. These components could themselves be used
 as part of other components. This gives us a means of creating abstractable,
 reusable story components. Of all the story models described in
-section~\ref{sec:formalisms}, none have any means of abstraction such as this.
+Section~\ref{sec:formalisms}, none have any means of abstraction such as this.
 
 The example we just described already hints at the use of story tropes that
 contain other tropes. This is the means of abstraction and re-use that we use in
-our system, described in section~\ref{sec:tropes}.
+our system, described in Chapter~\ref{cha:tropes}.
 
 \paragraph{Conceptually Simple}
 Story authoring tools are user interfaces which are used to write fiction. In
@@ -1372,15 +1379,15 @@ representing files spread out over a ``desktop'' surface.
 
 When creating a story model, it is easy to fall into the trap of creating
 something complicated but arbitrary. As with Vonnegut's ``Shapes of Stories''
-metaphor (described in section~\ref{sec:shapes}, sometimes the simplest
+metaphor (described in section~\ref{sec:structure}, sometimes the simplest
 explanations are the easiest to grasp and most enduring. We believe that our
-``trope'' analogy for modelling stories (section~\ref{sec:tropes}) is an
-elegant, expressive and accessible way of describing parts of stories using a formalism.
+``trope'' analogy for modelling stories (Chapter~\ref{cha:tropes}) is an
+elegant, expressive and accessible way of describing parts of stories.
 
 Most story authors are already familiar with the concept of tropes. When
 questioned about their familiarity with the idea, all the participants at an
 interactive fiction meetup responded that they were familiar with the ``trope''
-concept (sample size 19, see section~\ref{sec:tropes-simple}). This means that tropes are a
+concept (sample size 19, see Section~\ref{sec:tropes-simple}). This means that tropes are a
 suitable analogy for the creation of a new narrative formalism.
 
 \paragraph{A Library of Re-usable Examples}
@@ -1403,14 +1410,14 @@ lists of the media they appear in.
 For example, a trope called ``Karma Houdini'' has the following description:
 
 \begin{quote}
-The character has done a number of things that deserve a karmic comeuppance,
+``The character has done a number of things that deserve a karmic comeuppance,
 most importantly things that caused harm to the innocent.
 But when the time comes for the hammer to fall, that's not what happens. At
 least, not on him.
 He doesn't get what he deserves. Instead, he gets away scot-free.
 And he might even have reversed the Humiliation Conga that was being planned for him.
 
-This is it. This is all there is to the story. The show is over. The book is finished. The author isn't going to write any more. The Word of God has been spoken. The guy has become a Karma Houdini.
+This is it. This is all there is to the story. The show is over. The book is finished. The author isn't going to write any more. The Word of God has been spoken. The guy has become a Karma Houdini.''
 \end{quote}
 
 The site lists many examples from film and literature, including:
@@ -1421,24 +1428,24 @@ The site lists many examples from film and literature, including:
 
 The \emph{TV Tropes} website is a Wikipedia of sorts for tropes. Since there are
 already so many examples listed on its website, it reduces the work needed to
-create a library of reusable formal descriptions of tropes. We have created such
-a library, which is described in section~\ref{sec:library}.
+create a library of reusable formal descriptions of tropes.
 
 These three omissions (means of abstraction, conceptual simplicity and a
 re-usable library of components) from existing narrative systems are addressed
 by our trope-based approach to interactive narrative generation, which is
-described in further sections of this thesis. Section~\ref{sec:tropes} describes
-the trope concept further, with examples. Section~\ref{sec:institutions}
-explains how these tropes are used to govern agents in a multi-agent system. We
-describe TropICAL, our domain-specific language for tropes, in
-section~\ref{sec:tropical}. Section~\ref{sec:library} describes our creation of
-a library of tropes and section~\ref{sec:policy} describe the application of our
-\emph{tropes} concept to legal policies. The thesis concludes with an evaluation
-in section~\ref{sec:evaluation} and conclusions in section~\ref{sec:conclusions}.
+described in further sections of this thesis.
+
+% Chapter~\ref{cha:tropes} describes
+% the trope concept further, with examples. Chapter~\ref{cha:institutions}
+% explains how these tropes are used to govern agents in a multi-agent system. We
+% describe TropICAL, our domain-specific language for tropes, in
+% Chapter~\ref{cha:tropical}. Section~\ref{sec:library} describes our creation of
+% a library of tropes and section~ The thesis concludes with an evaluation
+% in section~\ref{sec:evaluation} and conclusions in section~\ref{sec:conclusions}.
 
 % insts
 
-\chapter{Institutions as Story Worlds}
+\chapter{Logic, Norms and Institutions as Story Worlds}
 \label{cha:institutions}
 
 % Intro about justification/inspiration for using institutions for stories
@@ -1463,7 +1470,7 @@ story in terms of \emph{tropes}. For this section, the aim of which is to demons
 simplicity and demonstrative purposes.
 
 \subsection{Introducing ``Punch and Judy''}
-Throughout this thesis we wuse the \emph{Punch and Judy} story world for our
+Throughout this thesis we use the \emph{Punch and Judy} story world for our
 example narratives. \emph{Punch and Judy} is a traditional British-Italian
 puppet show often seen at seaside resorts. Its first recorded appearance in the
 UK is in Covent Garden, London in 1662, having been brought into the country by
@@ -1862,6 +1869,7 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 
 \section{An Interactive, Generative Punch and Judy Show with Institutions and
   Emotional Agents}
+\label{sec:punchjudy}
 
 Our main criticism of the use of Interval Temporal Logic for the description of
 story worlds is its lack of flexibility in governing the actions of intelligent
@@ -1963,7 +1971,7 @@ and~\ref{lne:response2-start} - \ref{lne:response2-end}) raise or lower an agent
 
 An agent announces what they intend to do, then waits three seconds. During this time, they have the belief that they are ``asking'' the audience, and listen for a response. A ``boo'' reduces an agent's valence and dominance, while a cheer raises them. For each response, the \texttt{changeMood} goal is triggered, which looks up and broadcasts the agent's emotional state to the other agents and environment.
 
-\section{Agent decision making} \label{sec:decisions}
+\subsection{Agent decision making} \label{sec:decisions}
 The agents choose which goals to pursue according to three factors: their permitted actions, their obliged actions and their emotional state. Though obliged actions are given priority, and while agents'' decisions are generally constrained by their permitted actions, an agent's emotional state has the final say in its decisions. In this way, an agent will follow the social norms of the narrative, but only according to their own mood.
 
 \paragraph{Agent goals and plans}
@@ -1984,7 +1992,7 @@ Similarly, at times of extreme emotion, an agent may decide to disregard their s
 
 \emph{Violation events\/} add percepts to the agents telling them that they are in violation of the narrative norms. Once an agent receives such a percept, an emotional variable is changed. Typically, their dominance will decrease. The reasoning behind this is that if agents are unwilling to participate in the story, they should have less influence in its course of events.
 
-\section{Architecture}\label{sec:arch}
+\subsection{Architecture}\label{sec:arch}
 
 \paragraph{Multi-Agent System:} \label{sec:arch-mas}
 % \subsection{Multi-Agent System} \label{sec:inst}
@@ -2407,7 +2415,7 @@ website, they also work to create useful ways to visualise the usage of tropes
 in stories. For example, The Periodic Table of
 Storytelling~\citep{periodicTableOfStorytelling} is a visualisation of tropes as
 ``elements'' in the ``molecules'' of a story. The table itself
-(fig.~\ref{fig:periodic-table}) arranges the tropes into different ``groups''
+(Figure~\ref{fig:periodic-table}) arranges the tropes into different ``groups''
 according to the part of a story that they operate on. The leftmost groups
 describe the story as a whole, describing:
 \textbf{Story structure:}
@@ -2470,7 +2478,7 @@ The right third of the table contains self-referential tropes such as:
 \end{itemize}
 
 The story is then visualised as a molecule composed from tropes, linked together as
-atoms, as shown in the various examples in Fig.~\ref{fig:periodic-examples}.
+atoms, as shown in the various examples in Figure~\ref{fig:periodic-examples}.
 
 By showing tropes as ``atoms'' that can be rearranged and combined into
 different ``molecules'', this visualisation demonstrates our core idea of their use as reusable
@@ -2553,7 +2561,7 @@ trope to be a component that can be dropped inside any other trope.
 The example we described in section~\ref{litrev-discussion}
 describes how the ``Quest'' trope could form one part of a larger trope
 such as the ``Hero's Journey''. Another example of this would be the
-\textbf{Three Act Structure} (also known as Freytag's Pyramid) shown in fig.~\ref{fig:freytag}, which describes the shape of a
+\textbf{Three Act Structure} (also known as Freytag's Pyramid) shown in Figure~\ref{fig:freytag}, which describes the shape of a
 story in terms of rising and falling levels of drama. This could be split into
 five (or perhaps more) sub-tropes:
 
@@ -3312,7 +3320,7 @@ The reason that this statement is translated to a permission is so that characte
 
 % \subsection{Obligations}
 \item[Obligations:]
-Fig.~\ref{lst:quest} shows an example of an obligation with both a deadline and a violation event (both of which are optional). This obligation states that the hero must go to the Land of Adventure before the villain kills the victim, otherwise the story ends. In this case, the story ending is a particularly harsh penalty for the violation of the \emph{Quest} trope. Alternative violation events could be reduction of the hero's health, or the death of the victim.
+Figure~\ref{lst:quest} shows an example of an obligation with both a deadline and a violation event (both of which are optional). This obligation states that the hero must go to the Land of Adventure before the villain kills the victim, otherwise the story ends. In this case, the story ending is a particularly harsh penalty for the violation of the \emph{Quest} trope. Alternative violation events could be reduction of the hero's health, or the death of the victim.
 
 \item[State:]
 There are certain properties of each character or object in a story that will hold (or not
@@ -3335,12 +3343,12 @@ the combination of fluents that hold at a particular time.
 
 % \subsection{Sequencing}
 \item[Sequencing:]
-As well as specifying permissions and obligations, it is frequently necessary to be able to express that certain events can only occur in a certain order. The \emph{Then} keyword means that the succeeding statement can only occur once the previous event has occurred. This is the means of implementing the \emph{phases} described in the ``Ordering Events in Tropes'' part of this section. In the \emph{Hero's Journey} (Fig.~\ref{lst:hero}) example, the Hero only has permission to return home (line 5) once everything in the \emph{Quest} trope has happened (Fig.~\ref{lst:quest}).
-In some tropes, such as the \emph{Evil Empire} trope (Fig.~\ref{lst:evil}), the permissions and obligations described do not always need to occur in a certain sequence. In this case the trope serves the purpose of describing certain themes and characters in a part of a story, or events that may occur at any time, rather than in a specific order. The \emph{Evil Empire} trope only needs a villain with an empire to be present to fight the hero, so all of its permissions and obligations will apply from the beginning of the story.
+As well as specifying permissions and obligations, it is frequently necessary to be able to express that certain events can only occur in a certain order. The \emph{Then} keyword means that the succeeding statement can only occur once the previous event has occurred. This is the means of implementing the \emph{phases} described in the ``Ordering Events in Tropes'' part of this section. In the \emph{Hero's Journey} (Figure~\ref{lst:hero}) example, the Hero only has permission to return home (line 5) once everything in the \emph{Quest} trope has happened (Figure~\ref{lst:quest}).
+In some tropes, such as the \emph{Evil Empire} trope (Figure~\ref{lst:evil}), the permissions and obligations described do not always need to occur in a certain sequence. In this case the trope serves the purpose of describing certain themes and characters in a part of a story, or events that may occur at any time, rather than in a specific order. The \emph{Evil Empire} trope only needs a villain with an empire to be present to fight the hero, so all of its permissions and obligations will apply from the beginning of the story.
 
 % \subsection{Branching}
 \item[Branching:]
-Tropes may also contain branching paths where one or more events may take place. This is expressed in TropICAL with the \emph{Or} operator. Lines 6 and 7 of the \emph{Quest} trope in Fig.~\ref{lst:quest} express two alternatives: the Hero may kill the Villain or the Villain may escape. In this case, both permissions will hold at the same time, but both will be terminated once either permitted event has occurred. This makes it impossible for both events to happen in the story.
+Tropes may also contain branching paths where one or more events may take place. This is expressed in TropICAL with the \emph{Or} operator. Lines 6 and 7 of the \emph{Quest} trope in Figure~\ref{lst:quest} express two alternatives: the Hero may kill the Villain or the Villain may escape. In this case, both permissions will hold at the same time, but both will be terminated once either permitted event has occurred. This makes it impossible for both events to happen in the story.
 
 % \subsection{Conditionals}
 \item[Conditionals:]
@@ -3349,7 +3357,7 @@ Conditionals are another way to create branching paths in a narrative, by allowi
 % \subsection{Embedding Tropes Within Tropes}
 \item[Embedding Tropes Within Tropes:]
 Tropes can be embedded inside other tropes by simply writing \emph{The X trope happens}.
-Line 4 of the \emph{Hero's Journey} trope (Fig.~\ref{lst:hero}) shows an example of embedding one trope inside another. In this case, the \emph{Quest} trope occurs at a certain point in the \emph{Hero's Journey}, once the hero has met the dispatcher character. Because this is sequenced using the \emph{Then} keyword, these events must occur in the specified order, and the norms described in the \emph{Quest} trope cannot hold until the specified point in the trope. However, if the \emph{Then} keyword is omitted (\emph{The ``Quest'' trope happens}), this means that the norms contained inside the embedded trope apply from the start of its containing trope. In our example, this would mean that the Hero would be free to embark on a quest at any time, rather than waiting to first meet a dispatcher character.
+Line 4 of the \emph{Hero's Journey} trope (Figure~\ref{lst:hero}) shows an example of embedding one trope inside another. In this case, the \emph{Quest} trope occurs at a certain point in the \emph{Hero's Journey}, once the hero has met the dispatcher character. Because this is sequenced using the \emph{Then} keyword, these events must occur in the specified order, and the norms described in the \emph{Quest} trope cannot hold until the specified point in the trope. However, if the \emph{Then} keyword is omitted (\emph{The ``Quest'' trope happens}), this means that the norms contained inside the embedded trope apply from the start of its containing trope. In our example, this would mean that the Hero would be free to embark on a quest at any time, rather than waiting to first meet a dispatcher character.
 
 Rather than compiling all the tropes into one institution, they are compiled
 into separate institutions and coordinated using a ``bridge'' institution. This
@@ -6910,6 +6918,9 @@ descriptions to affect the emotional state of character agents at different
 points in the story (explored in Sections~\ref{sec:role-emotions}
 and~\ref{sec:topicscript}), and the application of TropICAL to domains outside
 of interactive narrative (Section~\ref{sec:t-legal}).
+
+\subsection{Use an Appraisal Model for Emotional Agents}
+\label{sec:future-emotion}
 
 \subsection{Roles and Emotional Traits}
 \label{sec:role-emotions}
