@@ -62,4 +62,9 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO standardise fonts in all institution listings
 * TODO narrativise "institutions" chapter (beginning, glue, end)
 * TODO revise the appendices
+* TODO lit review: add background on institutions & norms
+* TODO revise your emph policy: first use is probably best (rather than all)
+* TODO look up Rumelhart's arrows (line 928) and explain
+* TODO line 989: look up refs for examples of planner systems
+
 

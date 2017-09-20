@@ -782,7 +782,11 @@ of plot are:
 \caption{Two of Kurt Vonnegut's ``Shapes of Stories''}\label{fig:vonnegut}
 \end{figure}
 
-Author Kurt Vonnegut describes several different ``shapes'' of stories in his
+Although the above lists are useful in the categorisation of different types of
+story, they do not tell us about how each story is structured, only the
+overarching themes. Author Kurt Vonnegut recognises that a story must also contain
+moments of rising and falling action, such as times where the hero experiences a
+struggle or climactic victory. In order to describe the ``ups and downs'' of a narrative, Vonnegut describes several different ``shapes'' of stories in his
 rejected Master's thesis~\cite{vonnegut2009palm}. He plots the events of a story
 as points in a 2D space with ``Beginning-End'' (time) on the X-axis and ``Ill
 Fortune-Great Fortune'' (fortune of protagonist) on the Y-axis.
@@ -801,6 +805,7 @@ non-linear narratives? In the next section, we review the literature relating to
 these less traditional types of stories.
 
 \subsection{Types of Narrative}
+\label{sec:narrative-types}
 % Author Kurt Vonnegut
 % Look at Cybertext, etc, and try to explain how best to divide different types
 % of story
@@ -820,9 +825,9 @@ In section~\ref{sec:generative-and-interactive-narrative}, we assert that how ge
 
 \textbf{Perspective} is whether or not the user/reader plays a role as a character in the narrative.
 
-\textbf{Access:} if a user has access to all scriptons at any point in traversing the narrative, or whether their access is restricted.
+\textbf{Access} is whether a user has access to all scriptons at any point in traversing the narrative, or whether their access is restricted.
 
-\textbf{Linking:} whether or not parts of the scripton are linked to other parts, and whether these links are conditional (if they rely on a user having already traversed part of the scripton).
+\textbf{Linking} is whether or not parts of the scripton are linked to other parts, and whether these links are conditional (if they rely on a user having already traversed part of the scripton).
 \textbf{User functions:} the functions the user uses to traverse the text. This could be interpretive (which is implicit in any traversal of the text), explorative (traversing the scripton according to whim) or configurative (specifying parts of the scripton in advance), for example.
 
 % Ugh, this is all so arbitrary. Go on to describe Aarseth's PCA of these variables and explain why you don't think it's a good fit.
@@ -855,7 +860,7 @@ His theory is that myths describe opposing forces which are resolved through med
 Like much of early narrative theory, there is no rigorous evaluation of L\'{e}vi-Strauss' ideas, leaving them seeming opinionated and arbitrary. While interesting, L\'{e}vi-Strauss' ideas bring us no closer to developing a formal model of narrative structure. For that, we must go even further back in time, and turn to Vladimir Propp.
 
 \subsubsection{Propp's Morphology of the Folktale}
-A notable narrative structuralist is Vladimir Propp, creator of \emph{The Morphology of the Folktale}~\citep{propp1968morphology}, a formalism for Russian folktales. Propp's formalism, though originally limited in scope, generalises well, and is still used by researchers to procedurally generate stories~\citep{grasbon2001morphological,gervas2005story,hartmann2005motif}. Drawing from a corpus of one hundred Russian folktales, Propp identifies thirty-one distinct \emph{story functions}, each of which is identified by a number and symbol. These functions are executed by characters following certain roles, each of which has a \emph{sphere of action} consisting of the functions that they are able to perform at any given point of the story. Stories are created by chaining story functions together, with subplots expressed as parallel chains of story functions.
+A notable narrative structuralist is Vladimir Propp, creator of \emph{The Morphology of the Folktale}~\citep{propp1968morphology}, a formalism for Russian folktales. Propp's formalism, though originally limited in scope, generalises well, and is still used by researchers to procedurally generate stories~\citep{grasbon2001morphological,gervas2005story,hartmann2005motif}. Drawing from a corpus of one hundred Russian folktales, Propp identifies thirty-one distinct \emph{story functions}, each of which is identified by a number and symbol. These functions are executed by characters fulfilling certain roles, each of which has a \emph{sphere of action} consisting of the functions that they are able to perform at any given point of the story. Stories are created by chaining story functions together, with subplots expressed as parallel chains of story functions.
 
 In this formalism, characters have \emph{roles}, such as \emph{hero}, \emph{villain}, \emph{dispatcher}, \emph{false hero}, and more. Characters performing a certain role are able to perform a subset of \emph{story functions}, which are actions that make the narrative progress. For example, the \emph{dispatcher} might send the \emph{hero} on a quest, or the \emph{victim} may issue an \emph{interdiction} to the \emph{villain}, which is then \emph{violated}.
 
@@ -1050,11 +1055,11 @@ actions are taken into account and worked around.
 
 \begin{figure}[!t]
 \centerline{\includegraphics[height=2in]{mimesis.png}}
-\caption{The Mimesis architecture, from \cite{young2004architecture}}\label{fig:mimesis}
+\caption{The Mimesis architecture, from \citet{young2004architecture}}\label{fig:mimesis}
 \end{figure}
 
 % This needs elaboration
-\citet{cavazza2002character} et al's \emph{I-Storytelling} system implements
+\citet{cavazza2002character}'s \emph{I-Storytelling} system implements
 \citet{young2004architecture}'s architecture with ideas from Barthes' narrative
 units~\citep{barthes1975introduction}, using characters with behaviour described
 by Hierarchical Task Networks (HTNs) to generate its stories. Each character has a main task, which is divided into subtasks to create a task hierarchy, with each task node having pre- and post-conditions. The story emerges from the outcomes of each character's plans, and the narrative structure as a whole is not planned.
@@ -1078,11 +1083,19 @@ this approach inaccessible to non-technical writers.
 % This needs elaboration
 \subsubsection{Drama manager-based Systems}
 
-Carnegie Mellon University's OZ project \cite{mateas1999oz} uses a \emph{drama manager} to structure its narrative, which observes the actions occurring in the storyworld and ``directs'' its characters to conform to shape the story. 
+Carnegie Mellon University's OZ project \citep{mateas1999oz} uses a \emph{drama manager} to structure its narrative, which observes the actions occurring in the storyworld and ``directs'' its characters to conform to shape the story. 
 
-Mateas and Stern's \emph{Fa\c{c}ade} has players interact with the characters of the story through natural language. In this game, the player attends the party of a young couple (Grace and Trip) celebrating their wedding anniversary. As the course of events unfold however, the player learns that all is not as happy as it seems.
+\begin{figure}[!t]
+\centerline{\includegraphics[height=2.5in]{facade.jpg}}
+\caption{A screenshot from \emph{Fa\c{c}ade} \citep{mateas2003faccade}}\label{fig:mimesis}
+\end{figure}
 
-The player interacts with the characters by typing in natural language sentences, to which Grace and Trip respond. Though the characters are implemented through agents, the story is controlled using a drama manager. In all, their system consists of using NLP, a novel character authoring language and a novel drama manager to create an interactive narrative.
+Mateas and Stern's \emph{Fa\c{c}ade}~\citep{mateas2003faccade} has players interact with the characters of the story through natural language. In this game, the player attends the party of a young couple (Grace and Trip) celebrating their wedding anniversary. As the course of events unfold however, the player learns that all is not as happy as it seems.
+
+The player interacts with the characters by typing in natural language
+sentences, to which Grace and Trip respond. Though the characters are
+implemented through agents, the story is controlled using a drama manager. In
+all, their system consists of using Natural Language Processing (NLP), a novel character authoring language and a novel drama manager to create an interactive narrative.
 
 Several custom-designed languages were used to create the game, including a language called `A Behaviour Language' (ABL) for the agents and a special language for the sequencing of the beats. ABL represents situations as character goals, maintaining a tree of all the active goals and behaviours that are happening at any time.
 
@@ -1092,13 +1105,13 @@ In Fa\c{c}ade, the smallest unit of narrative action is called a \emph{story bea
 
 A beat can have 5 types of goal:
 
-\begin{enumerate}
-  \item transition-in: characters express their intentions
-  \item body: a dramatic question/situation is posed to the player
-  \item local/global mix-in: react to the player before end of the beat
-  \item wait-with-timeout: wait for the player's reaction
-  \item transition-out: final reaction to the player's action in the beat
-\end{enumerate}
+\begin{itemize}
+  \item \textbf{Transition-in:} characters express their intentions
+  \item \textbf{Body:} a dramatic question/situation is posed to the player
+  \item \textbf{Local/global mix-in:} react to the player before end of the beat
+  \item \textbf{Wait-with-timeout:} wait for the player's reaction
+  \item \textbf{Transition-out:} final reaction to the player's action in the beat
+\end{itemize}
 
 A beat goal is a series of steps for an agent to perform, which can be:
 
@@ -1116,18 +1129,18 @@ As an example, there is a behaviour called ``Fix\_Drinks'', which specifies a se
 
 Fa\c{c}ade has become popular as a game outside of academia, with playthroughs of the game reaching millions of views on Youtube. This shows the promise of interactive narrative as being a unique and engaging new form of entertainment. Unfortunately, no other implementation of interactive narrative seems to have captured the public imagination since the release of Fa\c{c}ade.
 
-Fa\c{c}ade's popularity seems to reinforce Crawford's assertion (section \ref{sec:media}) that interactive narratives must be social in nature. The gameplay comes entirely from the conversations and interactions between Grace, Trip and the player. Much of the excitement comes from the social consequences of certain conversation paths or actions. By modelling characters as agents, Mateas et al have created a truly interactive experience. However, by also using a drama manager to manage the agents, they have used these agents to tell a story.
+Fa\c{c}ade's popularity seems to reinforce Crawford's assertion (as we mention in Section~\ref{sec:narrative-types}) that interactive narratives must be social in nature. The gameplay comes entirely from the conversations and interactions between Grace, Trip and the player. Much of the excitement comes from the social consequences of certain conversation paths or actions. By modelling characters as agents, Mateas et al have created a truly interactive experience. However, by also using a drama manager to manage the agents, they have used these agents to tell a story.
 
 How might these agents be made more convincing? Outside of writing rules for their behaviour consisting of character goals and beliefs, how might an author create truly unique and idiosyncratic characters? To address the question, I next examine different types of emotional models in psychology, and how each might be used to model characters as agents.
 
 \subsubsection{Social Norms}
-Versu~\cite{evans2014versu} is an interactive drama system that uses a multi agent system as characters. The characters' actions are coordinated with \emph{social practices}, which describe types of social situations and is described by the authors as a successor to the Schankian script. These social practices are implemented as reactive joint plans, which agents can choose to participate in or not. Rather than directly telling the agents what to do, these social practices merely \emph{suggest} courses of action, leaving each agent to decide for itself what to do based on its individual goals.
+Versu~\citep{evans2014versu} is an interactive drama system that uses a multi agent system as characters. The characters' actions are coordinated with \emph{social practices}, which describe types of social situations and is described by the authors as a successor to the Schankian script. These social practices are implemented as reactive joint plans, which agents can choose to participate in or not. Rather than directly telling the agents what to do, these social practices merely \emph{suggest} courses of action, leaving each agent to decide for itself what to do based on its individual goals.
 
 The authors decide against using a drama manager to control the agents' actions because they want to take the \emph{strong autonomy} approach to agent governance. This means that they prefer to give each agent some degree of autonomy by allowing it to make the final decision on which course of action to take, rather than blindly following a drama manager. Suggesting actions with social norms achieves this goal. Rather than describing typical story events in terms of social norms, however, in Versu the social norms \emph{are} the story. The gameplay revolves around the avoidance (or purposeful subvertion of) awkward social situations.
 
 Each character has a role, which is governed by a social practice. For example, a \emph{greeting} practice involves characters with the \emph{greeter} and recipient roles. The greeting practice would tell the greeter in which manner they are to greet the recipient, and the recipient how to respond. It is noteworthy that these actions are merely suggested, and not enforced.
 
-\emph{Exclusion logic}~\cite{evans2010introducing} is used to describe the
+\emph{Exclusion logic}~\citep{evans2010introducing} is used to describe the
 social practices of the system. Exclusion logic manages the frame problem by
 organising related fluents in a tree structure. A single update at the right
 branch can change a set of related facts en masse. For example, a description of a character called ``Brown'' is shown in listing \ref{lst:exclusive}. It describes the building up of character attributes as a tree structure.
@@ -1138,7 +1151,7 @@ Exclusion logic aims to address the frame problem. The frame problem is the unce
 A(agent).sex!G(gender).
 \end{lstlisting}
 
-\begin{lstlisting}[label=lst:exclusion,caption=Description of ``Brown'' character.]
+\begin{lstlisting}[float,label=lst:exclusion,caption=Description of ``Brown'' character.]
 brown.sex!male;
 brown.class!upper;
 brown.in!dining_room;
@@ -1153,7 +1166,7 @@ Versu takes the \emph{constitutive} view of social practice, as opposed to the
 
 Many of the components we aim to have in our story telling system appear in Versu: the use of social norms to gently encourage story-conforming behaviour rather than demanding it, and the use of formal logic to determine which behaviours are possible. However in Versu the social norms \emph{are} the story, rather than describing the story components that invisibly govern the behaviour of characters. In order for this kind of governance to occur, an institution-based solution is preferable, based on events, agent actions and standard deontic logic. Because character actions are constrained by the structure of a story, a \emph{regulative}  view of social practice is more suited to the expression of story components as social norms.
 
-Many of the advantages of using exclusion logic can be gained by using an institution-based approach. Non-inertial fluents can be used to ensure that variables can only ever have one value. Standard deontic logic is enough to provide the rest of what is needed.
+Many of the advantages of using exclusion logic can be gained by using an institution-based approach. Non-inertial fluents can be used to ensure that variables can only ever have one value. Standard deontic logic~\citep{von1951deontic} is enough to provide the rest of what is needed.
 
 % Need at least one more example here
 \subsection{Modelling Narrative with Logic}

@@ -76,6 +76,7 @@
     "sec:narratology"
     "sec:structure"
     "fig:vonnegut"
+    "sec:narrative-types"
     "fig:propp1"
     "fig:propp2"
     "sec:implementations"
