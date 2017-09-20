@@ -8,8 +8,9 @@
   CLOSED: [2017-08-26 Sat 11:02]
 * DONE storybuilder: different colour background for task descriptions
   CLOSED: [2017-08-26 Sat 17:47]
-* TODO redo subtrope3.dot graph visualisation (pg 94)
-* TODO go through mnotes and delete old ones
+* TODO redo subtrope3.dot graph visualisation (line 4329)
+* DONE go through mnotes and delete old ones
+  CLOSED: [2017-09-20 Wed 14:24]
 * TODO consider adding detail to compilation strategy
 * TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
 * DONE generate trace visualisations with Julian
@@ -40,11 +41,13 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 3. Get obligations that happen
 4. 
 **** Initially
-* TODO check for citet and citep usage
+* DONE check for citet and citep usage
+  CLOSED: [2017-09-20 Wed 14:21]
 * TODO fix broken refs
 * TODO add visualisation of adding audience participation trope (near fig:audience-participation)
 * TODO revise presentation of StoryBuilder chapter (messy with floats and listings)
 * TODO fix all figures so that they float
+* TODO add summary of eval to abstract
 * DONE un-delete old version of Institutions chapter
   CLOSED: [2017-09-20 Wed 10:46]
 * TODO ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?
@@ -55,7 +58,8 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO tropes: crop periodic table as suggested
 * TODO revise the explanation of converting tropes to institutions (section 1.3)
 * TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
-* TODO capitalise all figs, sections, chapters, listings
+* DONE capitalise all figs, sections, chapters, listings, formulas, rules
+  CLOSED: [2017-09-20 Wed 14:18]
 * TODO finish full sausages institution in appendix
 * TODO remove "The Owner has an Object" from example PJ trope
 * TODO Line 1538 mentions constrasting temporal logic with insts, so put this in

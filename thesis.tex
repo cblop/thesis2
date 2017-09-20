@@ -137,7 +137,7 @@
   The participants complete tasks in which they have to describe stories with different degrees
   of complexity, finally requiring them to reuse existing tropes in their own trope abstractions.
   The thematic analysis identifies and examines the themes and patterns that emerge from the
-  story authors’ use of the tool.\mnote{To be updated when the analysis is complete}
+  story authors’ use of the tool.
 
 \end{abstract}
 
@@ -331,9 +331,9 @@ Hole'' story shape~\citep{vonnegut2009palm}, where events get worse for the hero
 until the very end of the story. At the start of this top-level trope, progressively
 ``worse'' tropes could be strung together, followed by progressively ``better''
 tropes.
-More detailed explanations appear in section~\ref{sec:tropes-intro} and chapter~\ref{cha:tropes}.
+More detailed explanations appear in Section~\ref{sec:tropes-intro} and Chapter~\ref{cha:tropes}.
 
-The next section of this introduction contains a high-level overview of
+The next Section of this introduction contains a high-level overview of
 interactive narrative, describing its past and future use in and beyond entertainment.
 
 \section{Interactive Narrative}
@@ -385,9 +385,9 @@ their decision-making process. Though this game may not offer much explanation
 for the irrationally violent actions of ``Punch'', the audience can use the
 system to explore
 their expectations of what a Punch and Judy show should be. This work is
-described in section~\ref{sec:emotional-pj}.
+described in Section~\ref{sec:emotional-pj}.
 
-The Punch and Judy show in section~\ref{sec:emotional-pj} also makes use of a
+The Punch and Judy show in Section~\ref{sec:emotional-pj} also makes use of a
 \emph{social institution} (or \emph{normative framework}) to regulate the
 actions of the agents playing the roles of the puppets. Because the normative
 system only guides the actions of the agents, rather than forcing them to choose
@@ -450,7 +450,7 @@ Tropes can describe a story at several layers of abstraction, meaning that
 tropes can contain other tropes as sub-tropes. For example, \emph{The Hero's
   Journey} can contain the \emph{Hero}, \emph{Quest}, and \emph{Call to
   Adventure} sub-tropes. This allows a degree of expressivity unavailable in
-other narrative models described in the \emph{Related Work} section (Chapter~\ref{cha:literature-review}).
+other narrative models described in the \emph{Literature Review} chapter (Chapter~\ref{cha:literature-review}).
 
 In interactive narrative generation, where a player may take one of many
 possible paths through a story, parts of the story are often procedurally
@@ -471,7 +471,7 @@ way that the character agents respond to these interactions.
 
 \section{Answer Set Programming for Story Solving}
 \label{sec:trope-interface}
-In section~\ref{sec:tropical}, we describe TropICAL, our programming language
+In Section~\ref{sec:tropical}, we describe TropICAL, our programming language
 for defining of story tropes. The requirements for this language are:
 
 \begin{enumerate}
@@ -525,7 +525,7 @@ The structure of this thesis is as follows:
   examines the use of \emph{tropes} as story components, analysing the process
   of turning an informal trope description into something more formal that can improve
   upon existing narrative formalisms. This is linked to the work in
-  chapter~\ref{cha:institutions} by showing how tropes can be used as a
+  Chapter~\ref{cha:institutions} by showing how tropes can be used as a
   ``user interface'' through which story authors would be able to
   describe the social institutions that govern story characters' behaviours.
   Just as a computer user interface exposes the useful parts of a piece of
@@ -787,7 +787,7 @@ story, they do not tell us about how each story is structured, only the
 overarching themes. Author Kurt Vonnegut recognises that a story must also contain
 moments of rising and falling action, such as times where the hero experiences a
 struggle or climactic victory. In order to describe the ``ups and downs'' of a narrative, Vonnegut describes several different ``shapes'' of stories in his
-rejected Master's thesis~\cite{vonnegut2009palm}. He plots the events of a story
+rejected Master's thesis~\citep{vonnegut2009palm}. He plots the events of a story
 as points in a 2D space with ``Beginning-End'' (time) on the X-axis and ``Ill
 Fortune-Great Fortune'' (fortune of protagonist) on the Y-axis.
 Figure~\ref{fig:vonnegut} shows two examples of story shapes. In the ``Man in
@@ -815,7 +815,7 @@ The rise of the Web in the 1990s brought with it great interest in the future of
 Aarseth makes a distinction between the narrative as written by the author, and the way in which it is traversed by the reader, calling the former \emph{textons} and the latter \emph{scriptons}. In ergodic literature, the \emph{scripton} is produced by the effort that the reader goes through in interpreting the \emph{texton}. In the context of a game, it is as though the game interface is a gateway that allows access to the narrative at different times. Using classical music as a metaphor, the texton can be thought of as the \emph{score}, and the scripton the \emph{performance}.
 
 % TODO Make sure you update the intro with this
-In section~\ref{sec:generative-and-interactive-narrative}, we assert that how generative a narrative is and its level of interactivity are two different variables in an experimental narrative. However, Aarseth identifies seven different methods of story traversal: \emph{dynamics, determinability, transiency, perspective, access, linking and user function}.
+In Section~\ref{sec:generative-and-interactive-narrative}, we assert that how generative a narrative is and its level of interactivity are two different variables in an experimental narrative. However, Aarseth identifies seven different methods of story traversal: \emph{dynamics, determinability, transiency, perspective, access, linking and user function}.
 
 \textbf{Dynamics} describe whether or not the content and number of scriptons changes. In a simple, static story with branching choices (such as in a \emph{Choose your own adventure} story), both the number of textons and scriptons are fixed, since all paths have been written out beforehand. A dynamic story would still have a fixed number of textons, but the scriptons would be generated as the user traverses the path of the narrative.
 
@@ -842,11 +842,11 @@ Crawford himself provides a useful examination of experimental narrative in comp
 A cyclic process between two or more active agents in which each agent alternately listens, thinks, and speaks.
 \end{quote}
 
-He argues that for game narratives to be truly interactive, they must be more social. Characters in a story must be able to react with the player as though they were people in real life. In turn, the player should have some degree of freedom in the way in which they interact. Rather than presenting branching story points as choices, a better way to interact would be socially, through talking to agents in the game. This is the approach that Fa\c{c}ade takes \citep{mateas2003faccade}, which Crawford acknowledges as the most successful attempt at interactive storytelling to date. A detailed description of Fa\c{c}ade's implementation appears in section \ref{sec:modelling-agents}.
+He argues that for game narratives to be truly interactive, they must be more social. Characters in a story must be able to react with the player as though they were people in real life. In turn, the player should have some degree of freedom in the way in which they interact. Rather than presenting branching story points as choices, a better way to interact would be socially, through talking to agents in the game. This is the approach that Fa\c{c}ade takes \citep{mateas2003faccade}, which Crawford acknowledges as the most successful attempt at interactive storytelling to date. A detailed description of Fa\c{c}ade's implementation appears in Section~\ref{sec:modelling-agents}.
 
 In order to determine whether Crawford's assertion that narratology research is
 too far removed from its practical implementations to be of use, we provide an
-overview of these implementations and their underlying research in section \ref{sec:implementations}. Has narrative theory research informed the creation of computer-generated or interactive narrative at all, or do they all take approaches grounded in computer science and artificial intelligence? If narrative theory has not been used, then we must ask: why not?
+overview of these implementations and their underlying research in Section~\ref{sec:implementations}. Has narrative theory research informed the creation of computer-generated or interactive narrative at all, or do they all take approaches grounded in computer science and artificial intelligence? If narrative theory has not been used, then we must ask: why not?
 
 
 \subsection{Structuralist Formalisms of Narrative}
@@ -896,7 +896,7 @@ Though flexible, Propp's formalism is limited in its expressiveness. All story f
 
 \subsection{Other Types of ``Story Component''}
 Lehnert's \emph{plot units} are a more recent narrative formalism
-\cite{lehnert1981plot}. However, these plot units only describe stories as three
+\citep{lehnert1981plot}. However, these plot units only describe stories as three
 types of event: positive, negative and mental. These events occur with respect
 to a single character in the story, so an author must always author story
 components with concrete characters in mind, making them difficult to re-use.
@@ -927,7 +927,7 @@ Inspired by Chomsky's theories of generative grammar \citep{chomsky1968sound}, r
   \caption{Example rules from Rumelhart's story grammar}\label{fig:rumelhart}
 \end{figure}
 
-\citet{rumelhart1975notes} provides one early and influential model for the grammatical generation of natural language. Figure \ref{fig:rumelhart} shows two example rewrite rules from this grammar. The `+' symbol denotes items happening in a sequence, the `\textbar' showing possible alternatives. `*' denotes one or more item being generated. Capitalised words (such as ALLOW, MOTIVATE, etc) describe relationships between items. For example, MOTIVATE is a relationship between a character's thought and their reaction to that thought.
+\citet{rumelhart1975notes} provides one early and influential model for the grammatical generation of natural language. Figure~\ref{fig:rumelhart} shows two example rewrite rules from this grammar. The `+' symbol denotes items happening in a sequence, the `\textbar' showing possible alternatives. `*' denotes one or more item being generated. Capitalised words (such as ALLOW, MOTIVATE, etc) describe relationships between items. For example, MOTIVATE is a relationship between a character's thought and their reaction to that thought.
 
 Other systems draw inspiration from generative grammar, such as GESTER \citep{pemberton1989modular}, which generates stories based on a grammar synthesised from old French epic tales. \citet{lang1999declarative} describes a declarative model for narrative, consisting of lists of first-order predicate calculus expressions. These expressions describe events, states, goals and beliefs which combine to form a narrative. More specifically, it combines:
 
@@ -957,7 +957,7 @@ GEORGE WAS VERY THIRSTY. GEORGE WANTED TO GET NEAR SOME WATER. GEORGE WALKED FRO
 \end{figure}
 
 % TODO elaborate on this
-James Meehan's TALE-SPIN \citep{meehan1977tale} is an influential early approach to story generation using planning. In TALE-SPIN, the author describes a story domain, its characters and their goals, and a natural language story is produced as output. It works by using a problem-solver to resolve each character's goals over the story domain. Figure \ref{fig:tspin} is an example of TALE-SPIN's output.
+James Meehan's TALE-SPIN \citep{meehan1977tale} is an influential early approach to story generation using planning. In TALE-SPIN, the author describes a story domain, its characters and their goals, and a natural language story is produced as output. It works by using a problem-solver to resolve each character's goals over the story domain. Figure~\ref{fig:tspin} is an example of TALE-SPIN's output.
 
 TALE-SPIN's strong planning component is evident in the reading of its output. Sentences are terse, with one event leading directly to another in order to achieve some goal. One problem with this character-led approach is that the goals of the author are not necessarily taken into account. If the author intends for a character to die at some point in the story, it seems unnatural for a character to have the goal of dying to fulfill this intention.
 
@@ -1007,7 +1007,7 @@ It is designed to integrate into the \emph{Unreal
   controller}, the \emph{story planner}, the \emph{discourse planner}, the
 \emph{execution manager} and the \emph{MWorld}.
 
-Figure \ref{fig:mimesis} shows how these components work together to form the
+Figure~\ref{fig:mimesis} shows how these components work together to form the
 Mimesis architecture. Once an author has created the pre-defined libraries of
 actions needed by the story planner, the following steps are taken to determine
 the course of the story:
@@ -1144,9 +1144,9 @@ Each character has a role, which is governed by a social practice. For example, 
 \emph{Exclusion logic}~\citep{evans2010introducing} is used to describe the
 social practices of the system. Exclusion logic manages the frame problem by
 organising related fluents in a tree structure. A single update at the right
-branch can change a set of related facts en masse. For example, a description of a character called ``Brown'' is shown in listing \ref{lst:exclusive}. It describes the building up of character attributes as a tree structure.
+branch can change a set of related facts en masse. For example, a description of a character called ``Brown'' is shown in Listing~\ref{lst:exclusive}. It describes the building up of character attributes as a tree structure.
 
-Exclusion logic aims to address the frame problem. The frame problem is the uncertainty around whether predicates that change over time (fluents) change other predicate values. It aims to address this through use of an exclusion operator (``!''). Listing \ref{lst:exclusion} shows an example of the exclusion operator in use. The example specifies that an agent can have only one gender. The \emph{Praxis} language implementation of the exclusion logic has a type checker which ensures that no character can have multiple genders.
+Exclusion logic aims to address the frame problem. The frame problem is the uncertainty around whether predicates that change over time (fluents) change other predicate values. It aims to address this through use of an exclusion operator (``!''). Listing~\ref{lst:exclusion} shows an example of the exclusion operator in use. The example specifies that an agent can have only one gender. The \emph{Praxis} language implementation of the exclusion logic has a type checker which ensures that no character can have multiple genders.
 
 \begin{lstlisting}[float,label=lst:exclusion,caption=nextHopInfo: caption]
 A(agent).sex!G(gender).
@@ -1189,7 +1189,7 @@ which means that everything from state $S$ will disappear unless stated to be in
 state $S'$. A $\$$ operator is used to mark facts in $S$ that the author wishes
 to remain in $S$ without explicitly stating so.
 
-Listing \ref{lst:ceptre-murder} shows an example from~\citet{martens2015ceptre}
+Listing~\ref{lst:ceptre-murder} shows an example from~\citet{martens2015ceptre}
 that describes a ``murder'' rule and its consequences.
 
 \begin{lstlisting}[label=lst:ceptre-murder,showstringspaces=false]
@@ -1214,7 +1214,7 @@ computation that runs to quiescence, meaning that it terminates when no more
 rules are able to fire. At this point, another stage may commence.
 
 The central motivation behind Ceptre's design is its ability to use ``proofs as
-traces'', or \emph{computation as proof search}~\cite{hodas1991logic}. Ceptre
+traces'', or \emph{computation as proof search}~\citep{hodas1991logic}. Ceptre
 uses a \emph{sequent calculus}, where a sequent $\Delta \vdash A$, $\Delta$ is a
 state, and $A$ is a goal formula. If a complete proof tree can be formed with
 that sequent as its root, then the sequent can be said to be \emph{derivable}.
@@ -1297,9 +1297,9 @@ However, a more fluid approach could be useful when modelling emotions with agen
 
 Russell's circumplex model of emotion is a well-known dimensional model \citep{russell1980circumplex}. In this case, the dimensional variables are \emph{valence} (how agreeable or otherwise a situation is to an agent) and \emph{arousal} (how excited an agent is).
 
-Russell's original paper proposes a model similar to that shown in figure \ref{fig:circumplex}, where the $x$ axis is a person's valence level and the $y$ axis is their arousal level. He argues that the full range of human emotions lie as points along these axes. Eight such examples are shown in Figure \ref{fig:circumplex}.
+Russell's original paper proposes a model similar to that shown in Figure~\ref{fig:circumplex}, where the $x$ axis is a person's valence level and the $y$ axis is their arousal level. He argues that the full range of human emotions lie as points along these axes. Eight such examples are shown in Figure~\ref{fig:circumplex}.
 
-This model is very easy to adapt to human-like agents. \citet{ahn2012nvc} adapt this model by adding a third dimension, dominance, to create conversational agents in a 3D environment. This `dominance' dimension was first proposed in Mehrabian and Russell's original work \citep{mehrabian1974approach}, but later removed due to being perceived as the consequences of the \emph{effects\/} of emotion \citep{russell1980circumplex}, rather than being a component of emotion itself. Like Ahn et al, I found it useful to add the dominance-submission dimension, and so left it in my emotional model. This is the approach I take in creating my Punch and Judy simulation, and so it is described in more detail in Section \ref{sec:emotion}.
+This model is very easy to adapt to human-like agents. \citet{ahn2012nvc} adapt this model by adding a third dimension, dominance, to create conversational agents in a 3D environment. This `dominance' dimension was first proposed in Mehrabian and Russell's original work \citep{mehrabian1974approach}, but later removed due to being perceived as the consequences of the \emph{effects\/} of emotion \citep{russell1980circumplex}, rather than being a component of emotion itself. Like Ahn et al, I found it useful to add the dominance-submission dimension, and so left it in my emotional model. This is the approach I take in creating my Punch and Judy simulation, and so it is described in more detail in Section~\ref{sec:emotion}.
 
 \subsubsection{Appraisal theory}
 Appraisal theories of emotion lend well to simulation with agents, due to their taking a person's beliefs, desires and intentions into account with respect to external events. Emotions arise when an event occurs and a person internally \emph{appraises} its consequences with respect to their beliefs, desires and intentions. This fits well with the popular BDI architecture for intelligent agents.
@@ -1337,7 +1337,7 @@ is also likely to be a network effect, where Propp has become the formalism that
 most researchers have heard of, and therefore the one that they end up using.
 
 Though there have been attempts to create more expressive formalisms as
-described in section~\ref{sec:formalisms}, none have been expressive enough to
+described in Section~\ref{sec:formalisms}, none have been expressive enough to
 overcome Propp's ``good enough'' properties. In order for a story model to
 significantly improve upon Propp, it should add features that it and other
 existing formalisms lack. We identify these features as:
@@ -1379,7 +1379,7 @@ representing files spread out over a ``desktop'' surface.
 
 When creating a story model, it is easy to fall into the trap of creating
 something complicated but arbitrary. As with Vonnegut's ``Shapes of Stories''
-metaphor (described in section~\ref{sec:structure}, sometimes the simplest
+metaphor (described in Section~\ref{sec:structure}, sometimes the simplest
 explanations are the easiest to grasp and most enduring. We believe that our
 ``trope'' analogy for modelling stories (Chapter~\ref{cha:tropes}) is an
 elegant, expressive and accessible way of describing parts of stories.
@@ -1564,14 +1564,14 @@ As Kripke later points out to Prior, this model lacks the expressiveness needed 
 
 Linear Temporal Logic (LTL), though still limited to the description of linear sequences of events, is an evolution of the work done by Prior and Kamp. Proposed by Amir Pnueli in 1977 \citep{pnueli1977temporal}, its original use is for the formal verification of computer programs.
 Computational Tree Logic (CTL) \citep{ben1983temporal} is similar to LTL, but allows for the representation of non-linear time through the presence of branches. Through CTL it is possible to describe several alternative pathways through time, though only one may ever be actualised. Like LTL, its original purpose is for formal verification of software, and in model checkers.
-Both CTL and LTL are subsets of CTL* (Computational Tree Logic) \citep{emerson1986sometimes}, which can both describe both multiple branches of temporal paths and their durations. CTL* formulae must refer to a specific Kripke structure, however (a description of Kripke structures appears in section \ref{sec:kripke}).
+Both CTL and LTL are subsets of CTL* (Computational Tree Logic) \citep{emerson1986sometimes}, which can both describe both multiple branches of temporal paths and their durations. CTL* formulae must refer to a specific Kripke structure, however (a description of Kripke structures appears in Section~\ref{sec:kripke}).
 
 \paragraph{Interval Temporal Logic}
 In order to model fabula with modal logic, we employ Interval Temporal Logic (ITL), composed of the temporal intervals defined by \citet{allen1983maintaining} and developed into modal operators by \citet{halpern1991propositional}. This allows the expressiveness necessary to describe branching, parallel and nested paths through stories.
 
 In most temporal logics (such as CTL* and its subsets), fixed \emph{time points} without duration are the basic unit of time. However, this can make it difficult to reason about the \emph{duration} of events that occur over a period of time. Temporal Interval Logic tackles this problem through the use of \emph{time intervals} or \emph{periods} as the basic temporal unit.
 
-The version of ITL used here is that described by Della Monica et al. in their overview paper \citep{della2013interval}. Table \ref{tab:itl} lists the temporal intervals described by Allen, along with their modal operator equivalents in \emph{Halpern-Shoham logic}.
+The version of ITL used here is that described by Della Monica et al. in their overview paper \citep{della2013interval}. Table~\ref{tab:itl} lists the temporal intervals described by Allen, along with their modal operator equivalents in \emph{Halpern-Shoham logic}.
 
 The operators defined by Halpern and Shoham are (a bar over an operator denotes its inverse):
 
@@ -1585,7 +1585,7 @@ The operators defined by Halpern and Shoham are (a bar over an operator denotes 
 \end{itemize}
 \begin{table}[!t]
   \centering
-  \caption{Operators in the Interval Temporal Logic (adapted from \cite{della2013interval})}
+  \caption{Operators in the Interval Temporal Logic (adapted from \citet{della2013interval})}
   \label{tab:itl}
   \begin{tabular}{l|l|l}
     {\bf Interval} & {\bf Allen notation} & {\bf HS notation} \\
@@ -1608,7 +1608,7 @@ The operators defined by Halpern and Shoham are (a bar over an operator denotes 
 \subsubsection{Propp Example with Punch and Judy}
 In this example, we combine Halpern and Shoham's temporal operators with the possibility ($\Diamond$) and necessity ($\Box$) operators of modal logic. We follow the convention of writing possibility operators inside angle brackets: $\langle \, \rangle$ and necessity operators within square brackets: $[ \, ]$.
 
-This example shows the ``sausages'' scene described in section \ref{sec:pjexample}, consisting of a set of situations $S$, containing Propp story functions $P$. The interval temporal logic operators used in this example are the set $T$. Figure \ref{fig:operators} shows the modal operators we use. $A, B$ and $C$ in formula \ref{eq:story} are variables that represent the characters and objects that appear in the story.
+This example shows the ``sausages'' scene described in Section~\ref{sec:pjexample}, consisting of a set of situations $S$, containing Propp story functions $P$. The interval temporal logic operators used in this example are the set $T$. Figure~\ref{fig:operators} shows the modal operators we use. $A, B$ and $C$ in Formula~\ref{eq:story} are variables that represent the characters and objects that appear in the story.
 \begin{figure}[!t]
 \begin{align}
     S &= \{S_0, S_1, S_2, S_{3a}, S_{3a_1}, S_4, S_{3b}, S_{3b_1}, S_4, S_5\}\\
@@ -1620,9 +1620,9 @@ This example shows the ``sausages'' scene described in section \ref{sec:pjexampl
 \end{figure}
 Hybrid logics allow worlds, time intervals, to be named. The hybrid logic nominal operator allows specific times to be uniquely referenced, allowing a logic to talk about specific states such as $S_0..S_5$. The nominal proposition is true of one specific time interval such that any two worlds with the same name represent co-extensive intervals of time. Anything true of one is true of the other.
 We also make use of a nominal modal operator so that it is possible to make assertions about these named worlds, ``It is necessary that in state $S_1$ Joey absents himself.'' This technique enables us to associate story functions with specific, named intervals.
-We use hybrid logic to identify nodes using the \emph{nominal} operator, shown as $@$. The nominal operator adds the capability of referring to possible worlds in formulas. In this way, each possible state of a system can be labelled and referenced from other states. As seen in figure \ref{fig:lotrec}, each nominal node must have its own name as a relation leading back to the root node, in order to be linked to and referred from the other nodes.
-We can combine this with the Interval Temporal Logic to make statements such as ``An absentation starts with state $@S_1$ and ends with state $@S_5$.'' (formula \ref{eq:absentation}).
-Figure \ref{fig:situations} describes the full sausages scene from Punch and Judy using the time intervals shown in figure \ref{fig:durations}.
+We use hybrid logic to identify nodes using the \emph{nominal} operator, shown as $@$. The nominal operator adds the capability of referring to possible worlds in formulas. In this way, each possible state of a system can be labelled and referenced from other states. As seen in Figure~\ref{fig:lotrec}, each nominal node must have its own name as a relation leading back to the root node, in order to be linked to and referred from the other nodes.
+We can combine this with the Interval Temporal Logic to make statements such as ``An absentation starts with state $@S_1$ and ends with state $@S_5$.'' (formula~\ref{eq:absentation}).
+Figure~\ref{fig:situations} describes the full sausages scene from Punch and Judy using the time intervals shown in Figure~\ref{fig:durations}.
 \begin{figure}[!t]
   \centering
     \centerline{\includegraphics[width=0.9\textwidth]{durations.png}}
@@ -1642,7 +1642,7 @@ Figure \ref{fig:situations} describes the full sausages scene from Punch and Jud
 \caption{Sausages scene with nominals and Interval Temporal Logic}\label{fig:situations}
 \end{figure}
 
-One notable feature of this approach is that it enables the building of reusable story components. For example, we have said that an interdiction must begin with an absentation and ends with a violation (formula \ref{eq:interdiction}). This pattern can be reused in different stories, or several times in the same story.
+One notable feature of this approach is that it enables the building of reusable story components. For example, we have said that an interdiction must begin with an absentation and ends with a violation (formula~\ref{eq:interdiction}). This pattern can be reused in different stories, or several times in the same story.
 
 \section{Describing Punch and Judy with Kripke Structures}\label{sec:kripke}
 \begin{figure}[!t]
@@ -1664,9 +1664,9 @@ In the case of a disjunction ($\lor$) operator, the current model is copied in i
 
 \paragraph{The Sausages Scene in LoTREC}
 The narrative is captured as a system of interval temporal logic assertions over story functions. The  assertions are interpreted using a tableaux reasoner by unpacking them to form a Kripke structure.
-Using the initial formulas from figure \ref{fig:situations} as input, figure \ref{fig:lotrec} shows the model for the case where Punch wins the fight with the Crocodile. One other model exists in this scenario, in which the Crocodile is instead the victor.
+Using the initial formulas from Figure~\ref{fig:situations} as input, Figure~\ref{fig:lotrec} shows the model for the case where Punch wins the fight with the Crocodile. One other model exists in this scenario, in which the Crocodile is instead the victor.
 
-The example in figure \ref{fig:lotrec} describes the fabula of a branching story, where either Punch or the Crocodile may win the fight for the sausages. This corresponds to the disjunction in figure \ref{fig:situations}, formula \ref{eq:struggle}. This leads to the creation of two models: the one in which the Crocodile wins and then goes on to eat the sausages (situation $@S_{3a}$), and the one in which Punch wins (situation $@S_{3b}$).
+The example in Figure~\ref{fig:lotrec} describes the fabula of a branching story, where either Punch or the Crocodile may win the fight for the sausages. This corresponds to the disjunction in Figure~\ref{fig:situations}, Formula~\ref{eq:struggle}. This leads to the creation of two models: the one in which the Crocodile wins and then goes on to eat the sausages (situation $@S_{3a}$), and the one in which Punch wins (situation $@S_{3b}$).
 Using a breadth-first strategy like LoTREC we can build all models simultaneously. This enables them to be checked for internal consistency, eliminating potentially impossible temporal arrangements. For example, no interval may come after (later than) itself.
 
 The first node contains the logical description of the story, which is then unpacked into subsequent nodes. It starts with the initial situation, $S_0$, which contains an interdiction: $\mathit{interdiction(Joey, Punch, Sausages)}$, where Joey tells Punch to look after the sausages. The other situations, $S_1$ to $S_5$ are listed using the necessity operator, with their accessibility relations being each situation's nominal operator (such as $@S_1$). This means that these situations are all created as new nodes, linked to the root node using their nominal accessibility relation, and so can be referred to later using the nominal operator. In this way, situations can refer to other situations.
@@ -1698,7 +1698,7 @@ their intelligence? By contrast, modelling stories with social norms and
 institutions offers a more flexible way to encourage agents actions to conform
 to the shape of a story.
 
-An institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describe how an institutional model can be used to regiment the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\cite{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
+An institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describe how an institutional model can be used to regiment the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
 
 Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with Propp's concepts of \emph{roles} and \emph{story moves}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.
 
@@ -1708,7 +1708,7 @@ The permissions an agent has, on the one hand, constrain the choices of actions 
 
 \subsection{Institution example}
 \label{sec:pjexample-insts}
-To illustrate the application of institutional modelling, we here continue the `sausages and crocodile' scene example from section~\ref{sec:pjexample}, taking the Propp story functions and describing them in an institutional model.  We define our institution in terms of \emph{fluents}, \emph{events}, \emph{powers}, \emph{permissions} and \emph{obligations}, following~\cite{cliffe2007specifying}, to which the interested reader is referred for the full details of the formal model, including the generate ($\cal G$) and consequence ($\cal C$) relations, which are only described here in sufficient depth for the model being presented.
+To illustrate the application of institutional modelling, we here continue the `sausages and crocodile' scene example from Section~\ref{sec:pjexample}, taking the Propp story functions and describing them in an institutional model.  We define our institution in terms of \emph{fluents}, \emph{events}, \emph{powers}, \emph{permissions} and \emph{obligations}, following~\citet{cliffe2007specifying}, to which the interested reader is referred for the full details of the formal model, including the generate ($\cal G$) and consequence ($\cal C$) relations, which are only described here in sufficient depth for the model being presented.
 
 \subsubsection{Fluents}
 These are properties that may or may not hold true at some instant in time, and that change over the course of time. \emph{Institutional events} are able to \emph{initiate} or \emph{terminate} fluents at points in time. A fluent could describe whether a character is currently on stage, the scene of the story that is currently being acted out, or whether or not the character is happy at that moment in time.
@@ -1748,7 +1748,7 @@ The first argument is the external event that must be triggered according to the
 % actually 3 kinds, including violation events
 Cliffe's model specifies three types of \textbf{event}: \emph{external events} (or `observed events', $\mathcal{E}_{obs}$), \emph{institutional events} ($\mathcal{E}_{instevent}$) and \emph{violation events} ($\mathcal{E}_{viol}$). Examples of each are given in Figure~\ref{fig:events}.
 \emph{External events} are observed to happen in the agents' environment, which can \emph{generate} \emph{institutional events} which occur only within the institional model, leading to the \emph{initiation} or \emph{termination} of (domain) fluents, permissions, obligations or institutional powers.
-An external event could be an agent leaving the stage, an agent hitting another, or an agent dying. Internal events include narrative events such as scene changes, or the triggering of Propp story functions such as \emph{absentation} or \emph{interdiction} (described in section~\ref{sec:propp}). \emph{Violation} is the name of a Propp story function, and is included as an internal event, although it has no relation to the violation events of an institution.
+An external event could be an agent leaving the stage, an agent hitting another, or an agent dying. Internal events include narrative events such as scene changes, or the triggering of Propp story functions such as \emph{absentation} or \emph{interdiction} (described in Section~\ref{sec:propp}). \emph{Violation} is the name of a Propp story function, and is included as an internal event, although it has no relation to the violation events of an institution.
 Violation events occur when an agent has failed to fulfil an obligation before the specified deadline. These can be implemented in the form of a penalty, by decreasing an agent's health, for example.
 
 \begin{figure}[!t]
@@ -1771,11 +1771,11 @@ Violation events occur when an agent has failed to fulfil an obligation before t
 \subsubsection{Event Generation and Consequences}
 An \textbf{event generation} function, $\mathcal{G}$, describes how events
 ($\mathcal{E}$, usually external, but can also be internal) %
-can generate other (usually institutional) events, conditional upon the current institutional state ($\cal X$). This is the counts-as relation.  For example, if an agent leaves the stage while the \emph{interdiction} event holds, they trigger the \emph{leavestage} event. This combination generates the \emph{absentation} institutional event (rule~\ref{eq:absentation}). Further examples appear in figure~\ref{fig:gen}.
+can generate other (usually institutional) events, conditional upon the current institutional state ($\cal X$). This is the counts-as relation.  For example, if an agent leaves the stage while the \emph{interdiction} event holds, they trigger the \emph{leavestage} event. This combination generates the \emph{absentation} institutional event (rule~\ref{eq:absentation}). Further examples appear in Figure~\ref{fig:gen}.
 
 Event generation functions follow a $\langle \mathtt{preconditions} \rangle \rightarrow \{\mathtt{postconditions}\}$ format. The preconditions consist of a set of fluents that hold at that time, along with an event to have occurred. The postconditions are the events that are generated. The generation functions are used to generate internal, institutional events from external events.
 
-Consider the Punch and Judy scenario described in section~\ref{sec:pjexample}. There are seven institutional events (story functions) that occur during this scene: \emph{interdiction}, \emph{complicity}, \emph{receipt} (from Propp's \emph{receipt of a magical agent}) \emph{absentation}, \emph{violation}, \emph{struggle}, \emph{return}.
+Consider the Punch and Judy scenario described in Section~\ref{sec:pjexample}. There are seven institutional events (story functions) that occur during this scene: \emph{interdiction}, \emph{complicity}, \emph{receipt} (from Propp's \emph{receipt of a magical agent}) \emph{absentation}, \emph{violation}, \emph{struggle}, \emph{return}.
 These institutional events are all generated by external events. The \emph{interdiction} is generated when Joey tells Punch to protect the sausages. Punch agreeing amounts to \emph{complicity}. Joey \emph{gives} punch the sausages (\emph{receipt}), then leaves the stage (\emph{absentation}). The crocodile eating the sausages is a \emph{violation} of Punch's oath, the agents fight (\emph{struggle}), then Joey enters the stage again (\emph{return}).
 
 It is desirable that these story functions occur in this sequence in order for a satisfying narrative to emerge. Agents may decide to perform actions that diverge from this set of events, but the institution is guiding them towards the most fitting outcome for a \emph{Punch and Judy} world. For this reason, a currently active story function can be the precondition for event generation. For example, the \emph{receipt} event may only be triggered if an agent externally performs a \emph{give} action \textbf{and} if the \emph{complicity} event currently holds (rule~\ref{eq:receipt}).
@@ -1815,7 +1815,7 @@ $\mathcal{G(X, E)}:\left\{\mbox{%
 \caption{Event generation in the sausage scene} \label{fig:gen}
 \end{figure}
 
-\textbf{Consequences} consist of fluents, permissions and obligations that are \emph{initiated} ($\mathcal{C}^{\uparrow}$) or \emph{terminated} ($\mathcal{C}^{\downarrow}$) by institutional events. For example, the institutional event \emph{receipt} initiates the donor agent's permission to leave the stage, triggering the \emph{absentation} event (rule~\ref{eq:initgive}). When the \emph{interdiction} event is currently active and a \emph{violation} event occurs, the interdiction event is terminated (\ref{eq:interm}). Rules~\ref{eq:cfirst}--\ref{eq:clast} in Figures~\ref{fig:init} and~\ref{fig:term} describe the initiation and termination of fluents in the Punch and Judy sausages scene detailed in section~\ref{sec:pjexample}.
+\textbf{Consequences} consist of fluents, permissions and obligations that are \emph{initiated} ($\mathcal{C}^{\uparrow}$) or \emph{terminated} ($\mathcal{C}^{\downarrow}$) by institutional events. For example, the institutional event \emph{receipt} initiates the donor agent's permission to leave the stage, triggering the \emph{absentation} event (rule~\ref{eq:initgive}). When the \emph{interdiction} event is currently active and a \emph{violation} event occurs, the interdiction event is terminated (\ref{eq:interm}). Rules~\ref{eq:cfirst}--\ref{eq:clast} in Figures~\ref{fig:init} and~\ref{fig:term} describe the initiation and termination of fluents in the Punch and Judy sausages scene detailed in Section~\ref{sec:pjexample}.
 
 \begin{figure}[!t]
 \abovedisplayskip=0pt
@@ -1895,7 +1895,7 @@ with live audiences interacting with and changing the narrative.
 % {\includegraphics[height=5in]{VAD.png}}
   \centering
   \includegraphics[height=0.6\textheight]{VAD.png}
-\caption{VAD emotional values (figure adapted from Ahn et al.)~\cite{ahn2012nvc}} \label{fig:vad}
+\caption{VAD emotional values (figure adapted from~\citet{ahn2012nvc})} \label{fig:vad}
 \end{figure}
 
 In order to make the agents acting out the Punch and Judy show more believable,
@@ -1914,7 +1914,7 @@ model~\citep{russell1980circumplex}, illustrates how valence, arousal and
 dominance values map to identifiable emotions. Valence, arousal and dominance
 can each have a value of low, medium or high. This allows the agents to have a
 total of 27 distinct emotional states, shown in Figure~\ref{fig:vad}.
-The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\cite{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
+The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\citep{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
 
 An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
 
@@ -2002,7 +2002,7 @@ emotional model as described above.
 \paragraph{Institutional Framework}
 % \subsection{Institutional Framework}
 % How you used instAL to model Propp
-To describe our institutional model, we use InstAL~\cite{cliffe2007specifying}, a domain-specific (action) language for describing institutions that compiles to AnsProlog, a declarative programming language for Answer Set Programming (ASP). InstAL's semantics are inspired by the Situation Calculus~\cite{reiter1991frame} and the Event Calculus~\cite{kowalski1989logic}. InstAL describes how external events generate institutional events, which then initiate or terminate fluents that hold at certain points in time. These fluents can include the permissions and obligations that describe what an agent is permitted or obliged to do when, as described in section~\ref{sec:institutional model}.
+To describe our institutional model, we use InstAL~\citep{cliffe2007specifying}, a domain-specific (action) language for describing institutions that compiles to AnsProlog, a declarative programming language for Answer Set Programming (ASP). InstAL's semantics are inspired by the Situation Calculus~\citep{reiter1991frame} and the Event Calculus~\citep{kowalski1989logic}. InstAL describes how external events generate institutional events, which then initiate or terminate fluents that hold at certain points in time. These fluents can include the permissions and obligations that describe what an agent is permitted or obliged to do when, as described in Section~\ref{sec:institutional model}.
 For example, if an agent with the role of \emph{dispatcher\/} leaves the stage,
 it generates the Propp \emph{absentation\/} move in the institution, but only if
 the \emph{interdiction} function is active (i.e., the
@@ -2096,7 +2096,7 @@ intAbsentation(X) terminates onStage(X), perm(leaveStage(X));%\mylabel{t5}%
 \end{figure}
 By combining statements such as the above, we can build a complete description
 of the sausages scene in terms of agent norms, such as the Propp
-\emph{absentation} function, shown in Listing~\ref{lst:absentation}. InstAL rules like those shown above and in Listing~\ref{lst:absentation} are compiled into AnsProlog, then we use the \emph{clingo} answer set solver~\cite{gebser2011potassco} to ground the program, and `solve' queries by finding all permissions and obligations that apply to any agents, given a sequence of events as the query input. The agents' percepts are then updated with their permitted and obliged actions from that time instant onwards.  Thus, the institutional model acts as a social narrative sensor, interpreting actors' actions in the context of the combination of the concrete narrative and the abstract story moves which detach (instantiate) the norms that guide the actors in the direction of the conclusion of the story arc.
+\emph{absentation} function, shown in Listing~\ref{lst:absentation}. InstAL rules like those shown above and in Listing~\ref{lst:absentation} are compiled into AnsProlog, then we use the \emph{clingo} answer set solver~\citep{gebser2011potassco} to ground the program, and `solve' queries by finding all permissions and obligations that apply to any agents, given a sequence of events as the query input. The agents' percepts are then updated with their permitted and obliged actions from that time instant onwards.  Thus, the institutional model acts as a social narrative sensor, interpreting actors' actions in the context of the combination of the concrete narrative and the abstract story moves which detach (instantiate) the norms that guide the actors in the direction of the conclusion of the story arc.
 
 A query is simply a list of external events in chronological order, also called
 a \emph{trace}. A possible trace describing the actions of agents acting out the
@@ -2157,7 +2157,7 @@ shows an extract from an answer set output for the trace queried against the ASP
 description of the sausages scenario, for events~5 to~7 of the scene. Starting with an initial set of fluents that hold at instant~5,
 only fluents that have been initiated and not terminated hold at the next
 instant. For ease of reading, the listing only shows roles that hold at
-certain instants when they have some effect on the scene, although in practice, all role fluents hold throughout the scene. Figure~\ref{fig:tracevis} shows a visualisation of the answer set for the trace in listing~\ref{lst:trace}.
+certain instants when they have some effect on the scene, although in practice, all role fluents hold throughout the scene. Figure~\ref{fig:tracevis} shows a visualisation of the answer set for the trace in Listing~\ref{lst:trace}.
 
 \begin{figure}[!t]
 \begin{minipage}{0.65\textwidth}
@@ -2256,7 +2256,7 @@ If the user allows the program access to their microphone, they can cheer or boo
 \end{figure}
 
 \paragraph{Bath Sensor Framework} The components communicate using the Bath Sensor Framework
-(BSF)~\cite{lee2013decoupling}, through publish / subscribe-style communication between distributed software components, in this case connecting intelligent agents with their virtual environments. It currently uses the XMPP publish/subscribe protocol for communication between agents, environment and other software components. Each agent subscribes to receive notifications of environment changes via the appropriate topic node in the XMPP server, which relays messages between publishers and subscribers. If any environment change occurs, all subscribed agents are informed of the changes.
+(BSF)~\citep{lee2013decoupling}, through publish / subscribe-style communication between distributed software components, in this case connecting intelligent agents with their virtual environments. It currently uses the XMPP publish/subscribe protocol for communication between agents, environment and other software components. Each agent subscribes to receive notifications of environment changes via the appropriate topic node in the XMPP server, which relays messages between publishers and subscribers. If any environment change occurs, all subscribed agents are informed of the changes.
 
 \paragraph{Audience Interaction} \label{sec:demo}
 % Explain what will happen
@@ -2400,7 +2400,7 @@ the end of the story. TV Trope describes ways that an author could ``play'' with
 \end{itemize}
 
 Many other examples of using tropes in this way can be found on the ``Playing
-with a Trope'' page of the TV Tropes website~\cite{playing-tropes}.
+with a Trope'' page of the TV Tropes website~\citep{playing-tropes}.
 
 \begin{figure}[p!]
 \centerline{\includegraphics[height=\textheight]{periodicTable.png}}
@@ -2558,7 +2558,7 @@ expressing how a trope differs from its parent.
 Another method of abstraction is the embedding of sub-tropes as parts of
 parent tropes. This is how tropes can be defined and then re-used inside stories: by allowing any
 trope to be a component that can be dropped inside any other trope.
-The example we described in section~\ref{litrev-discussion}
+The example we described in Section~\ref{litrev-discussion}
 describes how the ``Quest'' trope could form one part of a larger trope
 such as the ``Hero's Journey''. Another example of this would be the
 \textbf{Three Act Structure} (also known as Freytag's Pyramid) shown in Figure~\ref{fig:freytag}, which describes the shape of a
@@ -2649,7 +2649,7 @@ academic books and papers.
 
 \subsection{A Library of Re-usable Examples}
 
-One of the major strengths of Propp's system~\cite{propp1968morphology} is that
+One of the major strengths of Propp's system~\citep{propp1968morphology} is that
 the \emph{morphology} is not only a theory: it is also a library of 31 story functions
 that can be put together by story authors to create a narrative. The authors
 need not create their own story functions, they can simply use the ones that
@@ -2770,7 +2770,7 @@ Figure~\ref{fig:init} shows how internal events initiate
 ($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a
 trope. Because the \emph{Hero's Journey} trope has several stages, this example
 only shows the first two events of the trope (the \emph{phase} keywords are explained further in Section~\ref{sec:trope-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
-Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in figure~\ref{fig:term}.
+Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in Figure~\ref{fig:term}.
 
 While InstAL allows us to express tropes as social institutions, it would be difficult to use for non-programmers who are unfamiliar with logic programming paradigms. In order for story authors to be able to create their own tropes, a much more user-friendly language is needed. This is the motivation for TropICAL, the domain specific language we describe in the next section.
 
@@ -2889,7 +2889,7 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 
 \section{Punch and Judy as Tropes}
 \label{sec:punchjudy-tropes}
-In section~\ref{sec:pjexample}, we describe the \emph{sausages} scene of Punch
+In Section~\ref{sec:pjexample}, we describe the \emph{sausages} scene of Punch
 and Judy in terms of Propp's story functions. We begin this section in the same
 way, by building up a scene description in terms of tropes. Then, as in
 section~\ref{sec:pjexample-insts}, we create an institution out of the scene we
@@ -2929,7 +2929,7 @@ Judy, we will describe the sausages scene first mentioned in
 section~\ref{sec:pjexample} in terms of tropes, using this one piece of the
 story as an illustrative example. To help with this translation,
 TV Tropes even has a page on Vladimir Propp which maps his story functions
-directly into tropes~\cite{propp-tropes}:
+directly into tropes~\citep{propp-tropes}:
 
 \begin{enumerate}
   \item Joey tells Punch to look after the sausages (\emph{Rule Number One}).
@@ -3253,12 +3253,12 @@ sets described in Appendix~\ref{appendix:sausages-full}.
 \section{TropICAL: a DSL for Tropes} % 1
 \label{sec:tropical}
 
-We propose \tropical\ (the TROPe Interactive Chronical Language) as a DSL for describing tropes in a constrained natural language, which we compile to InstAL~\cite{cliffe2007specifying}, through which process we capture the events that can occur and the consequent state changes, and from which a model is constructed in ASP.  The model, when given an event trace, delivers the evolution of the trope state, including crucially, the addition or removal of permission associations between actors and actions and the addition of obligations as consequences of actors' actions.  The syntax of \tropical\ is heavily influenced by the Inform 7~\cite{reed2010creating} language for interactive fiction, with the tropes being expressed in constrained natural language mostly conforming to Attempto Controlled English (ACE)~\cite{fuchs1996attempto}. \tropical\ shares similar aims to Inform~7 in that it aims to make interactive fiction authoring accessible to non-programmer story authors, however its focus is on authoring and combining tropes written in terms of roles, in contrast to complete stories in terms of actual characters. This section describes the syntax and semantics of \tropical, as well as sketching its compilation to InstAL.
+We propose \tropical\ (the TROPe Interactive Chronical Language) as a DSL for describing tropes in a constrained natural language, which we compile to InstAL~\citep{cliffe2007specifying}, through which process we capture the events that can occur and the consequent state changes, and from which a model is constructed in ASP.  The model, when given an event trace, delivers the evolution of the trope state, including crucially, the addition or removal of permission associations between actors and actions and the addition of obligations as consequences of actors' actions.  The syntax of \tropical\ is heavily influenced by the Inform 7~\citep{reed2010creating} language for interactive fiction, with the tropes being expressed in constrained natural language mostly conforming to Attempto Controlled English (ACE)~\citep{fuchs1996attempto}. \tropical\ shares similar aims to Inform~7 in that it aims to make interactive fiction authoring accessible to non-programmer story authors, however its focus is on authoring and combining tropes written in terms of roles, in contrast to complete stories in terms of actual characters. This section describes the syntax and semantics of \tropical, as well as sketching its compilation to InstAL.
 
 The features of our trope description language are designed to be able to express the events, permissions and obligations of social institutions while addressing the shortcomings of planner and drama manager-based approaches:
 
 \begin{enumerate}[R1.]
-\item\label{perms} A way to express what certain characters are \textbf{permitted} to do at a given time.\footnote{An alternative approach would be to specify prohibitions, such that anything not prohibited is permitted, whereas we currently specify permissions, such that anything not permitted is prohibited.  This latter convention is the default semantics of InstAL, it is however straightforward from a technical point of view to adopt the alternative, as demonstrated in \cite{DBLP:conf/atal/KingLVDJPR15}.}
+\item\label{perms} A way to express what certain characters are \textbf{permitted} to do at a given time.\footnote{An alternative approach would be to specify prohibitions, such that anything not prohibited is permitted, whereas we currently specify permissions, such that anything not permitted is prohibited.  This latter convention is the default semantics of InstAL, it is however straightforward from a technical point of view to adopt the alternative, as demonstrated in \citet{DBLP:conf/atal/KingLVDJPR15}.}
 \item\label{obls} A way to express \textbf{obligations} on characters, with \emph{deadlines} and \emph{penalties} if the obligations are not fulfilled.
 \item\label{state} A way to describe the state of a character or object at a
   given point in the story.
@@ -3399,8 +3399,7 @@ The motivation for the creation of TropICAL is the lack of any methods of
 creating agent-based interactive narrative that are suitable for non-programmers
 to use. Inform 7~\citep{reed2010creating} enables non-programmers to create
 interactive fiction, but not in a way that can be integrated into a multi-agent
-system.\mnote{Qualified this by emphasising \emph{agent-based} and explaining
-  how Inform lacks in that regard}
+system.
 The systems described in the literature review in
 chapter~\ref{cha:literature-review}, such as those using the Mimesis
 architecture~\citep{young2004architecture}, a drama manager and planner such as
@@ -3412,7 +3411,7 @@ with intelligent agents by allowing authors to describe the components of their 
 natural language. These story components integrate with a multi-agent system by
 describing the constraints on the actions of each character agent in the story,
 telling each agent what they are permitted and obliged to do at any point in the
-narrative.\mnote{Added explanation of agent-oriented nature of TropICAL}
+narrative.
 
 Many authors using our system should not even need to
 write their own tropes using TropICAL, and will instead simply select the tropes
@@ -3420,8 +3419,7 @@ that they need for their story from a pre-created ``library'' of tropes. This
 process is facilitated through the ``StoryBuilder'' user interface described in
 Chapter~\ref{cha:storybuilder}
 
-Our TropICAL language design is as follows:\mnote{Changed to \emph{design},
-  rather than \emph{use}}
+Our TropICAL language design is as follows:
 
 \begin{itemize}
   \item It is based around the idea of using \emph{story tropes} as reusable
@@ -3438,10 +3436,10 @@ Our TropICAL language design is as follows:\mnote{Changed to \emph{design},
 \end{itemize}
 
 This chapter begins by describing TropICAL's constrained natural
-language syntax in section~\ref{sec:t-constrained}.
+language syntax in Section~\ref{sec:t-constrained}.
 Section~\ref{sec:t-requirements} explores the use cases for our language, deriving
 a set of requirements from them. Based upon these requirements, the features and
-design of the language are described in section~\ref{sec:language-design}.
+design of the language are described in Section~\ref{sec:language-design}.
 The translation of TropICAL to InstAL code is demonstrated in Section~\ref{sec:t-codegen}, with samples of generated InstAL
 institutions, Answer Set
 generation (section~\ref{sec:t-asp}), constraints
@@ -3527,8 +3525,7 @@ using ACE simply as an inspiration for our syntax, rather than following its
 design entirely. For more details, see the ``ACE in a Nutshell''
 page\footnote{Located at the following URL:
   \url{http://attempto.ifi.uzh.ch/site/docs/ace_nutshell.html}, accessed 20170826.} of its
-documentation for an overview of the language~\citep{ace-nutshell}.\mnote{Added
-  footnote with URL of documentation page}
+documentation for an overview of the language~\citep{ace-nutshell}.
 
 \subsection{Inform 7}
 Besides ACE, the other main inspiration for TropICAL's syntax is the
@@ -3603,7 +3600,7 @@ a controlled natural language syntax\footnote{The Interactive Fiction Database
   at \url{http://ifdb.tads.org} (accessed 20170826) lists 1078 games created
   with Inform 6, and 914 created with Inform 7. Inform 6 has been in use since
   1996, Inform 7 since 2006.}, it appears that the new programming
-paradigm is successful.\mnote{Added footnote with evidence for Inform 7's popularity}
+paradigm is successful.
 
 The wide adoption of Inform 7 by story authors with no other programming
 experience motivates our decision to create a controlled natural language syntax
@@ -3624,16 +3621,16 @@ The TropICAL language is designed to be used by authors of interactive
 narratives, enabling them to easily describe the ``rules'' of a story through
 tropes. As explained in Section~\ref{sec:character-agents}, it is designed to be used in interactive storytelling systems where
 intelligent software agents are acting out the roles of the characters in the
-story. \mnote{Added reference back to section where this is introduced} These agents, through an architecture such as BDI (Belief, Desire,
+story. These agents, through an architecture such as BDI (Belief, Desire,
 Intention), have their own goals and plans for how to achieve those goals.
 TropICAL does not assist in the authoring of these characters and their plans or
 lines of dialogue. Instead, its purpose is to guide the actions of these
 ``character'' agents so that certain behaviours are suggested by the rules of the author's
-story. \mnote{Made it clearer that control is not tight} TropICAL is designed to be used with a system where the character agents have
+story. TropICAL is designed to be used with a system where the character agents have
 already been authored. It guides them by allowing the characters to know what
 they are permitted and obliged to do according to the story. For a description of how this is
-implemented in practice, see section~\ref{sec:emotional-pj} of
-chapter~\ref{cha:agents}.\mnote{May need to change this ref when chapter moved}
+implemented in practice, see Section~\ref{sec:emotional-pj} of
+chapter~\ref{cha:agents}.
 
 \subsection{Use Cases}
 \label{sec:use-cases}
@@ -3710,7 +3707,7 @@ From Alice's story, we can derive the following requirements:
 \item She wants to be able to select existing story components from a library or database\label{req:alice5}
 \item She also wants the ability to create her own story components and save
   them to the database\label{req:alice6}
-\end{enumerate}\mnote{Numbered requirements}
+\end{enumerate}
 
 \subsubsection{Bob}
 
@@ -3779,7 +3776,7 @@ However, Bob also has some different requirements from Alice:
   \item He needs to embed tropes inside other tropes (as ``sub-tropes'')\label{req:bob4}
   \item He needs to be able to visualise all of the story branches that result
     when one or more tropes are combined together\label{req:bob5}
-\end{enumerate}\mnote{Numbered requirements}
+\end{enumerate}
 
 \subsubsection{Charlie}
 
@@ -3819,7 +3816,7 @@ Charlie's only unique requirement is:
 \begin{enumerate}[{Charlie} R1.]
   \item A way to describe the story such that the agents are told what to do
     next, but are able to break away from these commands when necessary.\label{req:charlie1}
-\end{enumerate}\mnote{Numbered requirements}
+\end{enumerate}
 
 \subsection{Requirement Specification}
 \label{sec:requirements}
@@ -3846,7 +3843,7 @@ following requirements:
   \item\label{req:norm} The story must tell the character agents what to do, but
     they should be free to break away from it in extreme circumstances, to add a
     degree of unpredictability (Charlie R\ref{req:charlie1})
-\end{enumerate}\mnote{Referred to user's requirements}
+\end{enumerate}
 
 The next section describes the design of the TropICAL language, relating each
 design decision back to these requirements derived from the use cases.
@@ -3873,12 +3870,12 @@ This section begins by showing how the entities (roles, objects and places) of a
 trope are defined by the author (Section~\ref{sec:dec-code}), then follows this with a description of how
 these entities' actions are composed together to form sequences of events (Section~\ref{sec:seq-code}).
 Normally, these events give the character entities \emph{permission} to perform
-certain actions, so section~\ref{sec:obl-code} shows how an author may
+certain actions, so Section~\ref{sec:obl-code} shows how an author may
 describe events that \emph{must} happen in the story through obliging characters
 to carry out specific actions.
 In cases where multiple story paths may be taken, TropICAL allows for the
 description of alternative narrative branches, the syntax for which is described
-in section~\ref{sec:branch-code}. Finally, the means for creating trope
+in Section~\ref{sec:branch-code}. Finally, the means for creating trope
 abstractions by embedding existing tropes into new ones is demonstrated in
 section~\ref{sec:subtrope-code}.
 
@@ -3930,8 +3927,7 @@ definition, they are able to use them inside the events of the trope itself.
 \label{sec:entity-instances}
 In cases where multiple characters fulfil the same role (a story could have two
 hero characters, for example), or there are multiple objects or locations of the
-same type, these entity instances can be declared separately. \mnote{Removed
-  technical details} An example with multiple Heroes, Swords and Evil Lairs would be:
+same type, these entity instances can be declared separately. An example with multiple Heroes, Swords and Evil Lairs would be:
 
 \begin{lstlisting}[label={lst:dec-instances}, caption={Entity instances}]
 Harry Potter is a Hero
@@ -3943,7 +3939,7 @@ The Secret Cave is an Evil Lair
 The Underground Bunker is an Evil Lair
 \end{lstlisting}
 
-If these separate instances are not declared, \mnote{removed reference to compiler} then each entity has just
+If these separate instances are not declared, then each entity has just
 one instance with the same name as its type (a hero called ``Hero'', a sword
 called ``Sword'', an evil lair called ``Evil Lair'', for example).
 
@@ -3962,12 +3958,11 @@ The Hero goes to the Land of Adventure
 This specifies that the first event that occurs in the trope is that the \emph{Hero}
 character goes to a place called \emph{The Land of Adventure}. It is important
 to note that this means the event \emph{can} happen, but no that it \emph{must}.
-\mnote{Removed implementation details and rephrased}
 We do this to fulfil requirement~\ref{req:norm}, so that we \emph{guide}
 the actions of character agents to fit our story, rather than regimenting their
 behaviour. Section~\ref{sec:seq-code} describes how this is implemented when compiled. It is
 possible to tell the agents what to do in a stronger fashion using
-\emph{obligations}, which we describe in section~\ref{sec:obl-code}.
+\emph{obligations}, which we describe in Section~\ref{sec:obl-code}.
 
 Typically, tropes tend to consist
 of a sequence of several events, as is stated in requirement R\ref{req:sequences}. So we can
@@ -4018,7 +4013,7 @@ stemmed using \emph{WordNet}~\citep{miller1995wordnet} so that, for example,
 tropes are compiled. The reason for this is consistency: it allows an author to
 re-use verbs in any form throughout the trope. For example, they can write ``The
 Hero goes Home'', ``The Hero went Home'' or ``The Hero may go Home'', and the
-compiled code will be the same.\mnote{Added reason why}
+compiled code will be the same.
 
 \subsection{Obligations}
 \label{sec:obl-code}
@@ -4110,7 +4105,7 @@ Then the Hero meets the Mentor
 
 \vspace{7mm}
 \centerline{\includegraphics[width=\textwidth]{branch3.png}}
-\vspace{7mm}\mnote{How can we improve this graph layout?}
+\vspace{7mm}
 
 In the previous example, only one event occurs in each branching story path
 before merging back into the main course of the story. In order to extend each
@@ -4165,7 +4160,7 @@ Then the Hero finds the Treasure
 Using this technique, branches can be extended indefinitely through increasing
 levels of indentation.
 Deeply indented tropes are often undesirable, however, and is usually a symptom
-that a trope needs to be subdivided. \mnote{Changed ``code'' to ``trope''} We can achieve this by
+that a trope needs to be subdivided. We can achieve this by
 embedding subtropes inside of other tropes.
 
 \subsection{Subtropes}
@@ -4197,7 +4192,7 @@ of the trope inside quotation marks. The reason for this is that it makes
 subtrope embedding statements easier to parse, as trope names may contain
 combinations of role, object and place names along with verbs. Putting the name
 of a trope inside quotation marks ensures that the parser will not confuse it
-with any other kind of statement. \mnote{Added reason for using quotation marks} An example of putting this trope at the end
+with any other kind of statement. An example of putting this trope at the end
 of another trope is shown in the following example:
 
 \begin{lstlisting}[showstringspaces=false, label={lst:subtrope2}, caption={Trope containing a subtrope}]
@@ -4242,14 +4237,11 @@ nested branches of its story:
 
 \vspace{7mm}
 \centerline{\includegraphics[width=\textwidth]{subtrope3.png}}
-\vspace{7mm}\mnote{This is a good demonstration of why a graph won't work as a
-  visualisation: we don't want \emph{kill_hero_villain} to happen after the
-  second time the \emph{Item Search} trope happens, just the first time. Will
-  redo as a tree visualisation instead.}
+\vspace{7mm}
 
 An author can create complex branching narrative by combining these tropes together. To see
 visualisations of the story paths of multiple tropes combined, see
-section~\ref{sec:story-vis} of chapter~\ref{cha:storybuilder}.
+section~\ref{sec:story-vis} of Chapter~\ref{cha:storybuilder}.
 
 For technical details of the parser implementation, including the EBNF grammar
 of the TropICAL language, refer to Appendix~\ref{appendix:t-grammar}.
@@ -4286,13 +4278,13 @@ following:
 
 Each TropICAL trope compiles to a separate InstAL institution, each of which is
 contained in its own file. Example pieces of code of the anatomy of an InstAL institution are
-shown in listing~\ref{lst:instal-anatomy}. 
+shown in Listing~\ref{lst:instal-anatomy}. 
 
 An InstAL institution contains the following parts:
 
 \begin{itemize}
 \item \emph{Institution Name}: the name of the insitution
-  (line~\ref{lne:inst-name} of listing~\ref{lst:instal-anatomy})
+  (line~\ref{lne:inst-name} of Listing~\ref{lst:instal-anatomy})
 \item \emph{Type Declarations}: types of entity that appear in the institution,
   such as Agent, Object, and Place (lines~\ref{lne:type-start} -~\ref{lne:type-end})
 \item \emph{Fluent Declarations}: fluents are facts that tell us something about
@@ -4514,14 +4506,14 @@ Tropes usually consist of multiple events, so it is not enough to have one event
 permitted at the start of a trope. Once this first event has occurred, the next
 event in the sequence must have permission to happen.
 
-As described previously in section~\ref{sec:inst-events}, an institution
+As described previously in Section~\ref{sec:inst-events}, an institution
 consists of three types of events: \emph{external events} (events that occur in
 the agents' environment), \emph{intstitutional
   events} (events triggered inside an institution) and \emph{violation events}
-(events that occur when an obligation is violated in an institution). \mnote{Added reference back to inst section} The institution watches for events to happen as \emph{external} events in the
+(events that occur when an obligation is violated in an institution). The institution watches for events to happen as \emph{external} events in the
 environment, and then has these events generate \emph{institutional} events that
 occur within the institution and create permissions or obligations for further
-external events to occur. Returning to listing~\ref{lst:seq4} above, the
+external events to occur. Returning to Listing~\ref{lst:seq4} above, the
 external events that happen are:
 
 \begin{itemize}
@@ -4534,10 +4526,10 @@ external events that happen are:
 These are translated into \emph{generates} statements in InstAL so that they
 generate the required institutional events (denoted with an ``int''
 prefix, following the naming convention introduced in
-Section~\ref{sec:inst-events}):\mnote{Explained int prefix for institutional events}
+Section~\ref{sec:inst-events}):
 
 \begin{lstlisting}[showstringspaces=false, label={lst:instal-generates},
-caption={InstAL code resulting from the compilation of listing~\ref{lst:seq4}}]
+caption={InstAL code resulting from the compilation of Listing~\ref{lst:seq4}}]
 find(R, T) generates
     intSequence3(R, S, T, U, V) if
         role(R, hero),
@@ -4590,7 +4582,7 @@ section~\ref{sec:termination}). This initiation and termination process then
 repeats through all phases of the trope, through phases B, C and D if they
 exist, until the final event occurs and the last phase is terminated.
 
-In the case of our example sequence of events from listing~\ref{lst:seq4}, there
+In the case of our example sequence of events from Listing~\ref{lst:seq4}, there
 are five phases in total:
 
 \begin{itemize}
@@ -4605,7 +4597,7 @@ The events and phases of this trope are initiated in InstAL through the
 following generated code:
 
 \begin{lstlisting}[label={lst:initiates}, caption={Institutional event
-initiation code for listing~\ref{lst:seq4}}]
+initiation code for Listing~\ref{lst:seq4}}]
 intSequence3(R, S, T, U, V) initiates
     phase(sequence3, phaseA),
     perm(find(R, T)) if
@@ -4639,12 +4631,12 @@ intSequence3(R, S, T, U, V) initiates
 % TODO explanation: 2
 
 The generated code that terminates the phases and permissions corresponding to
-those initiated in listing~\ref{lst:initiates} is shown in
+those initiated in Listing~\ref{lst:initiates} is shown in
 listing~\ref{lst:terminates} below. Once an external event occurs, its
 permission to occur again is terminated along with the phase in which it occurred:
 
 \begin{lstlisting}[label={lst:terminates}, caption={Institutional event
-termination code for listing~\ref{lst:seq4}}]
+termination code for Listing~\ref{lst:seq4}}]
 intSequence3(R, S, T, U, V) terminates
     phase(sequence3, active),
     perm(go(R, V)) if
@@ -4683,7 +4675,7 @@ intSequence3(R, S, T, U, V) terminates
 
 To represent branching events in InstAL, multiple events are permitted to occur
 during one phase. Take as an example the combination of event sequences and
-branches shown in listing~\ref{lst:branch3}:
+branches shown in Listing~\ref{lst:branch3}:
 
 \begin{lstlisting}
 The Hero goes Home
@@ -4707,7 +4699,7 @@ The Chamber of Secrets is a Realm of Mystery
 \end{lstlisting}
 
 The branching events are implemented in the \emph{initiates} and
-\emph{terminates} clauses. In listing~\ref{lst:branch-init} below, we see that three possible events are given
+\emph{terminates} clauses. In Listing~\ref{lst:branch-init} below, we see that three possible events are given
 permission to occur as part of Phase A: \emph{The Hero finds a Sword}, \emph{The
   Hero goes to the Land of Adventure}, and \emph{The Hero kills the Villain}. In
 Phase B, two events corresponding to the possible branches are given permission
@@ -4715,7 +4707,7 @@ to occur: \emph{The Hero meets the Mentor} and \emph{The Hero goes to the Realm
   of Mystery}:
 
 \begin{lstlisting}[label={lst:branch-init}, caption={Initiation events for the
-branching trope in listing~\ref{lst:branch3}}]
+branching trope in Listing~\ref{lst:branch3}}]
 intBranch3(R, S, T, U, V, W, X) initiates
     phase(branch3, phaseA),
     perm(find(R, U)),
@@ -4749,7 +4741,7 @@ termination event in the institution.
 In our tropes, obligations have optional deadline events and consequences. At
 the time of implementation, both of these were mandatory in InstAL, and so it
 was necessary to add ``dummy'' events for both if they were not specified in TropICAL.
-Returning to listing~\ref{lst:obl1} of section~\label{sec:obl-code}, which
+Returning to Listing~\ref{lst:obl1} of Section~\label{sec:obl-code}, which
 specifies an obligation without a deadline or a consequence:
 
 \begin{lstlisting}
@@ -4757,7 +4749,7 @@ The Hero goes Home
 Then the Hero must go to the Land of Adventure
 \end{lstlisting}
 
-Line~\ref{line:obl1-oblev} of listing~\ref{lst:obl1-init} shows the
+Line~\ref{line:obl1-oblev} of Listing~\ref{lst:obl1-init} shows the
 initiation rule for an obligation event with no deadline or consequence, and
 listing~\ref{lst:obl1-fluent} shows the fluent declaration for the obligation
 fluent. The \emph{intNoDeadline} and \emph{noViolation} events are dummy events
@@ -4770,16 +4762,16 @@ that must occur before the deadline. In this case, the event is
 \emph{go(hero, landOfAdventure)} external event generates the \emph{intGo(hero,
   landOfAdventure} institutional event. Due to the fact that it is this external
 event that triggers the obliged institutional event, it is given permission
-to occur on line~\ref{line:obl1-oblev} of listing~\ref{lst:obl1-init}, along with
+to occur on line~\ref{line:obl1-oblev} of Listing~\ref{lst:obl1-init}, along with
 the obliged institutional event itself.
 
 \begin{lstlisting}[label={lst:obl1-fluent}, caption={Fluent declaration for the
-obligation event in listing~\ref{lst:obl1}}]
+obligation event in Listing~\ref{lst:obl1}}]
 obligation fluent obl(intGo(Agent, PlaceName), intNoDeadline, noViolation);
 \end{lstlisting}
 
 \begin{lstlisting}[label={lst:obl1-init}, caption={Initiation rule for the
-second (obligation) event of the trope in listing~\ref{lst:obl1}}, escapechar=|]
+second (obligation) event of the trope in Listing~\ref{lst:obl1}}, escapechar=|]
 intObligation1(R, S, T) initiates
     phase(obligation1, phaseA),
     obl(intGo(R,T), intNoDeadline, noViolation), perm(go(R, T)), perm(intGo(R,T)), pow(intGo(R,T)) if|\label{line:obl1-oblev}|
@@ -4796,10 +4788,10 @@ go(R, S) generates
         place(S, landOfAdventure);
 \end{lstlisting}
 
-The full InstAL institution that this generates appears in listing~\ref{lst:obl1-instal} of appendix~\ref{appendix:instal}.
+The full InstAL institution that this generates appears in Listing~\ref{lst:obl1-instal} of appendix~\ref{appendix:instal}.
 
 \subsubsection{Obligations with Deadlines and Consequences}
-The trope shown in listing~\ref{lst:obl2-trope} describes a situation where an
+The trope shown in Listing~\ref{lst:obl2-trope} describes a situation where an
 obligation with both a deadline and a consequence occurs.
 
 \begin{lstlisting}[showstringspaces=false,label={lst:obl2-trope}, caption={Example of a trope
@@ -4809,7 +4801,7 @@ The Hero must go to the Land of Adventure before the Villain kills the Mentor
 \end{lstlisting}
 
 Listing~\ref{lst:obl2-fluent} shows the fluent declaration of the obligation
-event in listing~\ref{lst:obl2-trope}. The deadline event \emph{intKill(villain,
+event in Listing~\ref{lst:obl2-trope}. The deadline event \emph{intKill(villain,
   mentor)} is an institutional event, and so is generated by the
 \emph{kill(villain, mentor)} external event on
 lines~\ref{line:obl2-deadline1} to~\ref{line:obl2-deadline2} of
@@ -4820,7 +4812,7 @@ initiation event.
 
 If the violation event contained within this obligation were to occur, it would
 enable the story to begin another course of events. In this case, it initiates
-the permission of the villain to kill the hero. This is shown in the code of listing~\ref{lst:obl2-trope}.
+the permission of the villain to kill the hero. This is shown in the code of Listing~\ref{lst:obl2-trope}.
 
 \begin{lstlisting}[label={lst:obl2-fluent}, caption={Fluent declaration for an
 obligation fluent with both deadline and consequence events}]
@@ -4828,12 +4820,12 @@ obligation fluent obl(intGo(Agent, PlaceName), intKill(Agent, Agent), violHeroGo
 \end{lstlisting}
 
 \begin{lstlisting}[label={lst:obl2-init}, caption={An obligation fluent with
-both a deadline and a consequence, translated from the trope in listing~\ref{lst:obl2-trope}}]
+both a deadline and a consequence, translated from the trope in Listing~\ref{lst:obl2-trope}}]
 obl(intGo(R,U), intKill(S,T), violHeroGoLandOfAdventure), perm(go(R, U)), perm(intGo(R,U)), pow(intGo(R,U)) if role(R, hero), place(U, landOfAdventure);
 \end{lstlisting}
 
 \begin{lstlisting}[label={lst:obl2-viol}, caption={Permissions generated by the
-violation event of the trope in listing~\ref{lst:obl2-trope}}]
+violation event of the trope in Listing~\ref{lst:obl2-trope}}]
 violHeroGoLandOfAdventure initiates
     perm(kill(R, S)) if
         role(R, villain),
@@ -4841,7 +4833,7 @@ violHeroGoLandOfAdventure initiates
 \end{lstlisting}
 
 \begin{lstlisting}[label={lst:obl2-gen}, caption={Generation events for the
-trope in listing~\ref{lst:obl2-trope}}, escapechar=|]
+trope in Listing~\ref{lst:obl2-trope}}, escapechar=|]
 go(R, U) generates
     intGo(R,U) if
         role(R, hero),
@@ -4869,7 +4861,7 @@ listing~\ref{lst:obl2-instal} of appendix~\ref{appendix:instal}.
 % TODO explanation of bridge institutions: 2
 % TODO explanation: 2
 
-In section~\ref{sec:subtrope-code}, we describe how \emph{subtropes} are
+In Section~\ref{sec:subtrope-code}, we describe how \emph{subtropes} are
 implemented in InstAL through the embedding of existing tropes inside of new
 ones. This is translated into InstAL code through the use of a \emph{Bridge
   Institution}, a separate institution which is used to link two other
@@ -4940,7 +4932,7 @@ final action that occurs in the \emph{Kill then Search} trope: \emph{The Hero
   trope happens}. For this reason, the \emph{intStartItemSearch} institutional
 event is initiated, which further initiates the permission for the first event
 in the \emph{Item Search} institution to happen through the bridge institution
-in listing~\ref{lst:bridge-inst}.
+in Listing~\ref{lst:bridge-inst}.
 
 Full listings for the generated InstAL code for these tropes, along with several
 other examples, appear in Appendix~\ref{appendix:instal}.
@@ -5009,7 +5001,7 @@ events} are generated which carry consequences with them. By using a constraint
 such as the one in Listing~\ref{lst:constraints}, we can tell the answer set
 solver to generate only sequences of events that do not contain these violation
 events. This is what we have done in this section. For visualisations of these
-answer sets, refer to the diagrams in section~\ref{sec:story-vis}.
+answer sets, refer to the diagrams in Section~\ref{sec:story-vis}.
 
 \subsection{Evil Empire}
 Our first example trope is a simple sequence of events called the ``Evil Empire'':
@@ -5086,7 +5078,7 @@ distinguished due to the institutional event names beginning with ``int'' (such
 as \emph{intEvilEmpire}, for example). External events usually trigger
 institutional events with the institution name, which is why the \emph{chase} (line~\ref{lne:as-ex1}),
 \emph{capture} (line~\ref{lne:as-ex2}) and \emph{escape} (line~\ref{lne:ex-3}) events all trigger the \emph{intEvilEmpire}
-institutional event on lines~\ref{lne:as-int1}, \ref{lne:as-int2} and~\ref{lne:as-int3} of listing~\ref{lst:evil-trace}.
+institutional event on lines~\ref{lne:as-int1}, \ref{lne:as-int2} and~\ref{lne:as-int3} of Listing~\ref{lst:evil-trace}.
 
 \subsection{The Hero's Journey}
 
@@ -5202,7 +5194,7 @@ that would seem like a more suitable place to finish a story, rather than
 waiting for all of the events in the Evil Empire trope to occur.
 
 An example of a trace that runs the full six event length of both tropes put
-together is shown in listing~\ref{lst:hero-evil-trace}.
+together is shown in Listing~\ref{lst:hero-evil-trace}.
 
 \begin{lstlisting}[label={lst:hero-evil-trace},caption={Example trace for both the ``Evil Empire'' and
 ``Hero's Journey'' tropes combined together}]
@@ -5375,16 +5367,16 @@ occurred(escape(hero),herosJourney)
 occurred(viol(escape(hero)),herosJourney)
 occurred(intEvilEmpire(hero,empire),evilEmpire)
 occurred(escape(hero),evilEmpire)
-\end{lstlisting}\mnote{Move to appendix?}
+\end{lstlisting}
 
 These trace outputs do not assist the reader in visualising the possible
 sequences of events that they represent. For this reason, we suggest that the
-reader refer to the visualisations produced by the StoryBuilder tool in section~\ref{sec:story-vis}.
+reader refer to the visualisations produced by the StoryBuilder tool in Section~\ref{sec:story-vis}.
 
 
 \section{Summary}
 \label{sec:tropical-summary}
-Returning to the requirements listed in section~\ref{sec:requirements} (listed
+Returning to the requirements listed in Section~\ref{sec:requirements} (listed
 again here for the reader's convenience), we can now examine our language
 specification to see if the requirements are met:
 
@@ -5422,7 +5414,7 @@ through the use of permissions to regulate agent actions.
 \end{enumerate}
 
 As a text-based programming language, TropICAL addresses the requirements
-mentioned above (numbers \ref{req:agents}, \ref{req:direct},
+mentioned above (numbers~\ref{req:agents}, \ref{req:direct},
 \ref{req:sequences}, \ref{req:branches}, \ref{req:subtropes} and
 \ref{req:norm}). However, there are two requirements that cannot be fulfilled
 through a text-based programming paradigm alone: selecting pre-existing story
@@ -5498,7 +5490,7 @@ Figure~\ref{fig:sb-start} shows what the user sees when they first start the
 existing tropes, or to create a new trope of their own. While editing these
 tropes, their structures are visualised on the right side of the screen (which
 is blank in this initial screenshot). Figure~\ref{fig:sb-edit-ann} shows the
-same screen as figure~\ref{fig:sb-start}, with the addition of annotations that
+same screen as Figure~\ref{fig:sb-start}, with the addition of annotations that
 explain the function of each item in the interface.
 
 \subsubsection{The \emph{edit} tab}
@@ -5619,7 +5611,7 @@ to combine multiple tropes together in this way, a user must go through these st
 
 A particularly important feature of the visualisation is that each graph edge is
 labelled with the name of the trope that links two events. In the example
-shown in figure~\ref{fig:sb-combine-ann}, events that follow the \emph{Example
+shown in Figure~\ref{fig:sb-combine-ann}, events that follow the \emph{Example
   1} trope are connected with a red arrow, and events that follow the \emph{Item
 Search} trope are connected with a blue arrow. This allows the user to see
 the effect adding a certain trope has on the potential paths that their story
@@ -5638,40 +5630,40 @@ may take.
 
 \subsection{Usage Examples}
 
-The figures in this section show how the simple trope examples listed in sections~\ref{sec:seq-code}
+The figures in this section show how the simple trope examples listed in Sections~\ref{sec:seq-code}
 to~\ref{sec:subtrope-code} appear when edited and visualised using the
 \emph{StoryBuilder} tool.
 
 
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-seq1.png}}
-\caption{Two consecutive events (from listing~\ref{lst:seq2})}\label{fig:sb-seq1}
+\caption{Two consecutive events (from Listing~\ref{lst:seq2})}\label{fig:sb-seq1}
 \end{figure}
 
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-seq2.png}}
-\caption{A sequence of events (from listing~\ref{lst:seq4})}\label{fig:sb-seq2}
+\caption{A sequence of events (from Listing~\ref{lst:seq4})}\label{fig:sb-seq2}
 \end{figure}
 
 To demonstrate the visualisation of sequences of events,
 figure~\ref{fig:sb-seq1} shows a sequence just two events long, with the code
-from listing~\ref{lst:seq2} as input. Figure~\ref{fig:sb-seq2} uses the longer
-sequence of five events from listing~\ref{lst:seq4} as its input.
+from Listing~\ref{lst:seq2} as input. Figure~\ref{fig:sb-seq2} uses the longer
+sequence of five events from Listing~\ref{lst:seq4} as its input.
 
 
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-branch1.png}}
-\caption{Two branches (from listing~\ref{lst:branch1})}\label{fig:sb-branch1}
+\caption{Two branches (from Listing~\ref{lst:branch1})}\label{fig:sb-branch1}
 \end{figure}
 
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-branch2.png}}
-\caption{Five branches (from listing~\ref{lst:branch2})}\label{fig:sb-branch2}
+\caption{Five branches (from Listing~\ref{lst:branch2})}\label{fig:sb-branch2}
 \end{figure}
 
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-branch3.png}}
-\caption{A combination of branches and sequences (from listing~\ref{lst:branch3})}\label{fig:sb-branch3}
+\caption{A combination of branches and sequences (from Listing~\ref{lst:branch3})}\label{fig:sb-branch3}
 \end{figure}
 
 \emph{StoryBuilder}'s visualisation of branches are demonstrated in the figures
@@ -5679,23 +5671,23 @@ that follow. Figure~\ref{fig:sb-branch1} shows the simple two-branch trope of
 listing~\ref{lst:branch1}. Figure~\ref{fig:sb-branch2} shows the visualisation
 of a trope with five different branches, as described by the trope in
 listing~\ref{lst:branch2}. Finally, the more complicated combination of
-sequences and branches from listing~\ref{lst:branch3} is shown in figure~\ref{fig:sb-branch3}.
+sequences and branches from Listing~\ref{lst:branch3} is shown in Figure~\ref{fig:sb-branch3}.
 
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-subtrope1.png}}
-\caption{Subtrope to be embedded (from listing~\ref{lst:subtrope1})}\label{fig:sb-subtrope1}
+\caption{Subtrope to be embedded (from Listing~\ref{lst:subtrope1})}\label{fig:sb-subtrope1}
 \end{figure}
 
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-subtrope2.png}}
-\caption{Trope containing a subtrope (from listing~\ref{lst:subtrope2})}\label{fig:sb-subtrope2}
+\caption{Trope containing a subtrope (from Listing~\ref{lst:subtrope2})}\label{fig:sb-subtrope2}
 \end{figure}
 
 The final two figures in this section demonstrate the use of \emph{StoryBuilder}
 for embedding subtropes inside of other tropes. Figure~\ref{fig:sb-subtrope1} is
 the \emph{StoryBuilder} visualisation that corresponds to the subtrope that is
-to be embedded (described in listing~\ref{lst:subtrope1}). The actual embedding
-of this subtrope, as described in listing~\ref{lst:subtrope2}, and its resulting visualisation are shown in figure~\ref{fig:sb-subtrope2}.
+to be embedded (described in Listing~\ref{lst:subtrope1}). The actual embedding
+of this subtrope, as described in Listing~\ref{lst:subtrope2}, and its resulting visualisation are shown in Figure~\ref{fig:sb-subtrope2}.
 
 \subsection{Creating a story with StoryBuilder: Punch and Judy}
 
@@ -5724,7 +5716,7 @@ Because this trope is present throughout the Punch and Judy story, it can be
 either inserted as a subtrope into other tropes, or (perhaps more effectively)
 passed to the answer set solver along with the other tropes in the story, so
 that its events can occur at any point. This is done via the ``arrange'' tab in
-the user interface, described in section~\ref{sec:combining-tropes} below.
+the user interface, described in Section~\ref{sec:combining-tropes} below.
 
 \begin{lstlisting}[label={lst:audience-participation},caption={The ``Audience participation'' trope}]
 ``Audience Participation'' is a trope where:
@@ -5810,7 +5802,7 @@ listing~\ref{list:absentation-trope}.
 Similarly, many Punch and Judy scenes end
 with two characters chasing each other, such as when the Crocodile chases Punch,
 or the scene where the Policeman chases Punch. From this, we can create the
-``Chase Scene'' trope of listing~\ref{list:chase-trope}.
+``Chase Scene'' trope of Listing~\ref{list:chase-trope}.
 
 \begin{lstlisting}[label={list:chase-trope},caption={A ``Chase Scene'' trope}]
 ``Chase Scene'' is a trope where:
@@ -5941,7 +5933,7 @@ The StoryBuilder tool is not integrated into a multi-agent system. This is due
 to its focus on story structure design and visualisation using tropes, rather
 than for the creation of the character agents themselves. For this reason, the
 analysis is not designed to evaluate requirements~\ref{req:agents},
-\ref{req:direct} and \ref{req:norm} from Section~\ref{sec:requirements}, only
+\ref{req:direct} and~\ref{req:norm} from Section~\ref{sec:requirements}, only
 those related to the use of tropes for story construction:
 
 \begin{enumerate}[R1.]
@@ -6928,7 +6920,7 @@ Though TropICAL allows story authors to give roles to the characters in their
 tropes, the roles assigned to the agents do not affect their behaviour in any
 way. If the intelligent agents implement an emotional model such as the
 ``Pleasure, Arousal, Dominance''
-model described in section~\ref{sec:emotion}, then their character role could
+model described in Section~\ref{sec:emotion}, then their character role could
 determine their emotional state at the start of a story or scene. For example, a
 ``Hero'' character could start a story with high dominance, arousal and valence
 values (resulting in an ``excited'' emotion), while a ``Villain'' would have
@@ -7657,7 +7649,7 @@ initially
     place(landOfAdventure, landOfAdventure),
     place(realmOfMystery, realmOfMystery),
     object(sword, sword);
-\end{lstlisting}\mnote{Move this to the appendix}
+\end{lstlisting}
 
 \section{Parser Implementation}
 \label{appendix:t-grammar}
@@ -7666,7 +7658,7 @@ This section of the appendix describes the technical implementation of the TropI
 
 % TODO instaparse description: 1
 We use the Clojure programming language~\citep{clojure} with the Instaparse
-parser generator library~\cite{instaparse} to create the language parser for
+parser generator library~\citep{instaparse} to create the language parser for
 TropICAL. The method of parser creation with Instaparse is to describe the
 parser using a syntax that resembles \emph{Extended Backus-Naur Form} (EBNF)
 grammar, combined with regular expressions. According to the author, its
@@ -7698,7 +7690,7 @@ object'', then the \emph{role}
 The Extended Backus-Naur Form (EBNF) of the grammar is shown in
 listings~\ref{lst:ebnf1} and~\ref{lst:ebnf2}. Listing~\ref{lst:ebnf1} describes
 the syntax for the entity declarations at the top of each trope definition file,
-as described in section~\ref{sec:dec-code}. Listing~\ref{lst:ebnf2} shows the
+as described in Section~\ref{sec:dec-code}. Listing~\ref{lst:ebnf2} shows the
 grammar for the rest of the trope definition files.
 
 \begin{lstlisting}[showstringspaces=false,label={lst:ebnf1},caption={EBNF
@@ -7721,7 +7713,7 @@ label = <'\"'> words <'\"'>
 <cword> = #'[A-Z][0-9a-zA-Z\\-\\_\\']*'
 <the> = <'The ' | 'the '>
 <word> = #'[0-9a-zA-Z\\-\\_\\']*'
-\end{lstlisting}\mnote{I've taken this from the code verbatim. We need to meet and discuss how to simplify this.}
+\end{lstlisting}
 
 \begin{lstlisting}[showstringspaces=false,label={lst:ebnf2},caption={EBNF
 grammar for the main trope definitions in TropICAL}]
@@ -7770,7 +7762,7 @@ consequence = event
 <cword> = #'[A-Z][0-9a-zA-Z\\-\\_\\']*'
 <the> = <'The ' | 'the '>
 <word> = #'[0-9a-zA-Z\\-\\_\\']*'
-\end{lstlisting}\mnote{See above. Also, would it be best to move this to the appendix?}
+\end{lstlisting}
 
 
 \section{Parse Tree Examples}
@@ -7780,9 +7772,9 @@ consequence = event
 % TODO explain parse tree diagrams, hash-map notation (look up best way to do hmaps in latex)
 
 This section of the appendix shows visualisations of the parse tree that results from the trope
-code examples listed in sections~\ref{sec:dec-code} to~\ref{sec:subtrope-code}.
+code examples listed in Sections~\ref{sec:dec-code} to~\ref{sec:subtrope-code}.
 
-This is the parse tree output of the sequence of events in listing~\ref{lst:seq3}:
+This is the parse tree output of the sequence of events in Listing~\ref{lst:seq3}:
 
 \vspace{7mm}
 \centerline{\includegraphics[width=\textwidth]{seq2-tree.png}}
