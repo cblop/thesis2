@@ -75,6 +75,4 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO add intro to Institutions chapter to describe motivations (with outline of content at end)
 * TODO showstringspaces=false
 * TODO check for compilation warnings / errors
-
-
-
+* TODO fix section / line hyperlinks
