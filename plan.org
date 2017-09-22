@@ -44,7 +44,8 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 **** Initially
 * DONE check for citet and citep usage
   CLOSED: [2017-09-20 Wed 14:21]
-* TODO fix broken refs
+* DONE fix broken refs
+  CLOSED: [2017-09-21 Thu 11:09]
 * TODO add visualisation of adding audience participation trope (near fig:audience-participation)
 * TODO revise presentation of StoryBuilder chapter (messy with floats and listings)
 * TODO fix all figures so that they float
@@ -56,7 +57,8 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 # * TODO try replacing compactenum and compactitem
 * TODO tropes: set up "this is the problem / what are the options / choose this" argument (narrativise)
 * TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
-* TODO tropes: crop periodic table as suggested
+* DONE tropes: crop periodic table as suggested
+  CLOSED: [2017-09-21 Thu 11:10]
 * TODO revise the explanation of converting tropes to institutions (section 1.3)
 * TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
 * DONE capitalise all figs, sections, chapters, listings, formulas, rules
@@ -73,6 +75,35 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO line 989: look up refs for examples of planner systems
 * TODO write about using appraisal model in future work
 * TODO add intro to Institutions chapter to describe motivations (with outline of content at end)
-* TODO showstringspaces=false
+* TODO search all lstlistings, add showstringspaces=false
 * TODO check for compilation warnings / errors
 * TODO fix section / line hyperlinks
+* TODO change VAD to PAD
+* TODO Structural Fixes
+** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
+** TODO No real introduction explanation or motivation for institutions chapter
+** TODO maybe move VAD theory description back to lit review & back reference it
+** TODO before P&J emotions bit, really emphasise "this is how it fits into a MAS"
+** TODO maybe move the "architecture" section up to the top
+** DONE add that the system (P&J) was developed, and appeared as a demo at both AISB and CDE confs
+   CLOSED: [2017-09-21 Thu 11:03]
+** TODO consider splitting chapter 4 into two separate chapters
+** TROPES
+*** TODO new argument is that tropes aren't a formalism per se
+*** DONE maybe don't need the full questionnaire: just summarise its contents
+    CLOSED: [2017-09-21 Thu 11:04]
+*** TODO There is a description of translation from trope to institution that is not repeated in the TropICAL chapter
+*** TODO Consider splitting this chapter into 2 parts
+*** TODO Lot of repeated info between end of this chapter & start of TropICAL chapter
+*** TODO Rather than mentioning TropICAL at the end, set up the demand & expectation
+*** TODO How can this section be expanded with more trope theory?
+*** TODO end of chapter: delete all the TropICAL stuff (except that which motivates the language design)
+** INSTS
+*** TODO begin by stating the problem
+** STORYBUILDER
+*** TODO begin by stating the problem
+** INTRODUCTION
+*** TODO replace requirements with actual ones
+*** TODO summarise eval. findings in abstract
+*** TODO revise outline, remove reference to legal stuff & chapter 5
+
