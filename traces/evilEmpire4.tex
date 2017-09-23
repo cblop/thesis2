@@ -1,0 +1,111 @@
+
+        \documentclass{article}
+        \usepackage{todonotes}
+        \usepackage{array}
+        \usepackage{longtable}
+        \usepackage{enumitem}
+        \usepackage{tikz}
+        \pagestyle{empty}
+        \thispagestyle{empty}
+        \usetikzlibrary{shadows}
+        \usetikzlibrary{decorations}
+        \usetikzlibrary{shapes}
+        \usetikzlibrary{arrows}
+        \usetikzlibrary{calc}
+        \usetikzlibrary{fit}
+        \usetikzlibrary{backgrounds}
+        \usetikzlibrary{positioning}
+        \usetikzlibrary{chains}
+        \usetikzlibrary{scopes}
+        \renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+        \usepackage[normalem]{ulem}
+        \newenvironment{events}
+        {\begin{tabular}{>{\centering}m{\tableWidth}}}
+        {\end{tabular}}
+        \newenvironment{states}
+        {\begin{minipage}{\tableWidth}\raggedright\begin{description}[align=left,leftmargin=1em,noitemsep,labelsep=\parindent]}
+        {\end{description}\end{minipage}}
+        \begin{document}
+        
+% Event macro definitions
+% ------------------------------------------------------------------------
+\newcommand{\Ezero}{\begin{events}
+chase(\allowbreak{}hero, empire): evilEmpire\\
+intEvilEmpire(\allowbreak{}hero, empire): evilEmpire\\
+\end{events}}
+
+\newcommand{\Eone}{\begin{events}
+capture(\allowbreak{}hero, empire): evilEmpire\\
+intEvilEmpire(\allowbreak{}hero, empire): evilEmpire\\
+\end{events}}
+
+\newcommand{\Etwo}{\begin{events}
+escape(\allowbreak{}hero): evilEmpire\\
+intEvilEmpire(\allowbreak{}hero, empire): evilEmpire\\
+\end{events}}
+
+% State macro definitions
+% ------------------------------------------------------------------------
+\newcommand{\Szero}{\begin{states}
+\item\textbf{\sout{phase(\allowbreak{}evilEmpire, active): evilEmpire}}
+\item\textbf{{role(\allowbreak{}hero, hero): evilEmpire}}
+\item\textbf{{role(\allowbreak{}empire, empire): evilEmpire}}
+\item\end{states}}
+
+\newcommand{\Sone}{\begin{states}
+\item\textbf{\sout{phase(\allowbreak{}evilEmpire, phaseA): evilEmpire}}
+\item\textbf{{role(\allowbreak{}hero, hero): evilEmpire}}
+\item\textbf{{role(\allowbreak{}empire, empire): evilEmpire}}
+\end{states}}
+
+\newcommand{\Stwo}{\begin{states}
+\item\textbf{\sout{phase(\allowbreak{}evilEmpire, phaseB): evilEmpire}}
+\item{{role(\allowbreak{}empire, empire): evilEmpire}}
+\item{{role(\allowbreak{}hero, hero): evilEmpire}}
+\end{states}}
+
+\newcommand{\Sthree}{\begin{states}
+\item{{role(\allowbreak{}hero, hero): evilEmpire}}
+\item{{role(\allowbreak{}empire, empire): evilEmpire}}
+\end{states}}
+
+% Institutional trace
+% ------------------------------------------------------------------------
+\newlength{\tableWidth}
+\setlength{\tableWidth}{5cm}
+
+\begin{longtable}{@{}l@{}}
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}
+[
+start chain=trace going right,
+start chain=state0 going down,
+start chain=state1 going down,
+start chain=state2 going down,
+start chain=state3 going down,
+node distance=1cm and 5.2cm
+]
+{{ [continue chain=trace]
+\node[circle,draw,on chain=trace](i0) {$S_{0}$};
+\node[circle,draw,on chain=trace](i1) {$S_{1}$};
+\node[circle,draw,on chain=trace](i2) {$S_{2}$};
+\node[circle,draw,on chain=trace](i3) {$S_{3}$};
+{ [continue chain=state0 going below]
+\node [on chain=state0,below=of i0,rectangle,draw,inner frame sep=0pt] (s0) {\Szero};} % end node and chain
+\draw (i0) -- (s0);
+{ [continue chain=state1 going below]
+\node [on chain=state1,below=of i1,rectangle,draw,inner frame sep=0pt] (s1) {\Sone};} % end node and chain
+\draw (i1) -- (s1);
+{ [continue chain=state2 going below]
+\node [on chain=state2,below=of i2,rectangle,draw,inner frame sep=0pt] (s2) {\Stwo};} % end node and chain
+\draw (i2) -- (s2);
+{ [continue chain=state3 going below]
+\node [on chain=state3,below=of i3,rectangle,draw,inner frame sep=0pt] (s3) {\Sthree};} % end node and chain
+\draw (i3) -- (s3);
+}}
+\draw[-latex,thin](i0) -- node[above]{\Ezero}(i1);
+\draw[-latex,thin](i1) -- node[above]{\Eone}(i2);
+\draw[-latex,thin](i2) -- node[above]{\Etwo}(i3);
+\end{tikzpicture}}
+\end{longtable}
+\end{document}
