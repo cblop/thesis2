@@ -1325,7 +1325,10 @@ Appraisal theories of emotion lend well to simulation with agents, due to their 
 
 Different methods of appraisal may be used in order to produce emotions. \citet{gratch2004domain} use decision theoretic plans, but other approaches could include reactive plans, Markov-decision processes, or detailed cognitive models.
 
-Though the Punch and Judy simulation described in Section~\ref{sec:punchjudy} uses a dimensional model of emotion, an appraisal-based model would be worth investigating due to its tight coupling with belief desire intention psychological models used in agents. I describe my intention to explore this area further in Section~\ref{sec:future-emotion}.
+Though the Punch and Judy simulation described in Section~\ref{sec:punchjudy}
+uses a dimensional model of emotion, an appraisal-based model would be worth
+investigating due to its tight coupling with belief desire intention
+psychological models used in agents.
 
 \subsection{Discussion}\label{sec:litrev-discussion}
 Through this literature review, we have clearly identified these main issues in
@@ -6931,40 +6934,56 @@ changes they were making to their tropes and stories.
 The contributions of this thesis come from the use of tropes as a grammar for
 stories and their formalisation in social institutions. Though both techniques
 proved effective during their evaluation, some limitations and possibilities for
-expansion emerged during the study.
+expansion emerged during the study described in Section~\ref{sec:sb-eval}.
 
-Opportunities for future work come from two directions: the expansion of trope
-descriptions to affect the emotional state of character agents at different
-points in the story (explored in Sections~\ref{sec:role-emotions}
-and~\ref{sec:topicscript}), and the application of TropICAL to domains outside
-of interactive narrative (Section~\ref{sec:t-legal}).
+The main opportunities for future work are:
 
-\subsection{Use an Appraisal Model for Emotional Agents}
-\label{sec:future-emotion}
+\begin{enumerate}[{Opportunity} 1:]
+\item\label{opp:limitations} Address the limitations of the current \emph{TropICAL} and
+  \emph{StoryBuilder} systems
+\item\label{opp:agents} Create methods to allow non-programmer authors to author the
+    character agents that appear in their stories
+  \item\label{opp:domains} Explore how \emph{TropICAL} could be applied to domains outside of
+    interactive storytelling
+\end{enumerate}
 
-\subsection{Roles and Emotional Traits}
-\label{sec:role-emotions}
-Though TropICAL allows story authors to give roles to the characters in their
-tropes, the roles assigned to the agents do not affect their behaviour in any
-way. If the intelligent agents implement an emotional model such as the
-``Pleasure, Arousal, Dominance''
-model described in Section~\ref{sec:emotion}, then their character role could
-determine their emotional state at the start of a story or scene. For example, a
-``Hero'' character could start a story with high dominance, arousal and valence
-values (resulting in an ``excited'' emotion), while a ``Villain'' would have
-high dominance and arousal but low valence (resulting in a ``furious'' emotional
-state).
+Section~\ref{sec:future-address} describes how to address
+Opportunity~\ref{opp:limitations} by fixing the current limitations of TropICAL
+and StoryBuilder. Section~\ref{sec:future-agent}. Section~\ref{sec:future-domains}.
 
-Furthermore, stories contain many different types of characters, each of which can implement
-one or more role archetypes. Often these archetypes inherit characteristics from
-one or more roles. For example, TV Tropes lists 224 different types of Hero,
-including the Anti-Hero (which itself has 9 sub-types of anti-hero, including
-the ``Pragmatic Hero'' and ``Sociopathic Hero''), ``The Fool'', ``The
-Gunslinger'', ``Right Man in the Wrong Place'' and ``Science Hero''. Many of
-these roles not only inherit traits from the ``Hero'' archetype, but also from
-other types of role, such as ``The Sociopath'' and ``The Pragmatist''.
+\subsection{Addressing Limitations in \emph{TropICAL} and StoryBuilder}
+\label{sec:future-address}
 
-\subsection{Agent Dialogue Authoring for Interactive Narrative}
+During the study described in Section~\ref{sec:sb-eval}, users highlighted the
+following limitations of the StoryBuilder system:
+
+\begin{enumerate}[L1.]
+\item \textbf{Five event limit:}
+\item \textbf{Branch length limit:}
+\item \textbf{Subtrope at end:}
+\item \textbf{Error messages:}
+\end{enumerate}
+
+Users also suggested some improvements that could be made to the system:
+
+\begin{enumerate}[{I}1.]
+  \item \textbf{Event with Three Entities}
+  \item \textbf{Event Semantics}
+  \item \textbf{Other Types of Entities}
+  \item \textbf{Better Control Over Story Structure}
+  \item \textbf{Conditionals}
+\end{enumerate}
+
+\subsubsection{}
+
+\subsection{Methods for Character Agent Authoring}
+\label{sec:future-agent}
+
+
+\subsubsection{Authoring Character Agent Behaviour}
+\label{sec:future-agent-behaviour}
+
+\subsubsection{Agent Dialogue Authoring for Interactive Narrative}
 \label{sec:topicscript}
 If InstAL and StoryBuilder are to be used to write story rules that govern the
 actions of intelligent agents, the story author still needs to learn how to
@@ -7042,7 +7061,40 @@ account. Instead of an emotional identifier, a line of dialogue could be labeled
 with an event (or series of events) that could have taken place, or fluents that
 hold, for example.
 
-\subsection{Expanded Use of TropICAL for Policy Descriptions}
+\subsubsection{Roles and Emotional Traits}
+\label{sec:role-emotions}
+Though TropICAL allows story authors to give roles to the characters in their
+tropes, the roles assigned to the agents do not affect their behaviour in any
+way. If the intelligent agents implement an emotional model such as the
+``Pleasure, Arousal, Dominance''
+model described in Section~\ref{sec:emotion}, then their character role could
+determine their emotional state at the start of a story or scene. For example, a
+``Hero'' character could start a story with high dominance, arousal and valence
+values (resulting in an ``excited'' emotion), while a ``Villain'' would have
+high dominance and arousal but low valence (resulting in a ``furious'' emotional
+state).
+
+Furthermore, stories contain many different types of characters, each of which can implement
+one or more role archetypes. Often these archetypes inherit characteristics from
+one or more roles. For example, TV Tropes lists 224 different types of Hero,
+including the Anti-Hero (which itself has 9 sub-types of anti-hero, including
+the ``Pragmatic Hero'' and ``Sociopathic Hero''), ``The Fool'', ``The
+Gunslinger'', ``Right Man in the Wrong Place'' and ``Science Hero''. Many of
+these roles not only inherit traits from the ``Hero'' archetype, but also from
+other types of role, such as ``The Sociopath'' and ``The Pragmatist''.
+
+\subsection{Application of \emph{TropICAL} to Other Domains}
+\label{sec:future-domains}
+
+Due to the fact that tropes describe patterns of behaviour, the concept can be
+applied to domains outside of storytelling where patterns can be described.
+
+This section describes a worked example where TropICAL is used to compose legal
+contracts through the use of tropes to describe re-usable ``policies''. Once
+compiled to a formal representation, these contracts can be verified using an
+answer set solver, in the same way in which we check and generate stories in Section~\ref{sec:t-asp}.
+
+\subsubsection{Legal Policy Descriptions}
 % TODO explain: 3
 \label{sec:t-legal}
 Though TropICAL is designed to describe non-linear stories in systems with
