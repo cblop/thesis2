@@ -6958,30 +6958,76 @@ During the study described in Section~\ref{sec:sb-eval}, users highlighted the
 following limitations of the StoryBuilder system:
 
 \begin{enumerate}[L1.]
-\item \textbf{Five event limit:}
-\item \textbf{Branch length limit:}
-\item \textbf{Subtrope at end:}
-\item \textbf{Error messages:}
+\item\label{lim:five} \textbf{Five event limit:} StoryBuilder was limited to producing
+  answer-set ``stories'' of a maximum of five events in length to reduce the
+  time needed to generate complex, multi-trope stories
+\item\label{lim:branch} \textbf{Branch length limit:} Every time branching
+  possibilities were created using the \emph{Or} keyword, each branch could only
+  be one event long before merging back into the parent branch of the story.
+\item\label{lim:sub} \textbf{Subtrope at end:} Subtropes could only be embedded
+  at the end of a trope, in place of the last event that occurs.
+\item\label{lim:error} \textbf{Error messages:} Error messages in StoryBuilder
+  were vague and did not assist users in locating bugs in their TropICAL code.
 \end{enumerate}
 
-Users also suggested some improvements that could be made to the system:
+Limitation~\ref{lim:five} can be addressed by increasing the number of time steps
+that the answer set solver solves for, but the problem of it slowing down for multiple
+tropes will remain. More work is needed in the refining the generated
+institutions, along with the constraint rules that are input into the solver, in
+order to make sure less answer sets are generated as a whole.
+
+Limitation~\ref{lim:branch} is more difficult to solve. Fluents will have to be
+generated in the InstAL institution that keep track of the branch that the
+simulation is following, along with its phase. While we currently have
+``phases'' for a trope as a whole, additional phases need to be added for each
+branch. This would require adding phase fluents for each branching point in the
+story, for example: $\mathtt{branchPhase(branch1, phaseA)}$
+
+Limitation~\ref{lim:sub} 
+
+\\Users also suggested some improvements that could be made to the system:
 
 \begin{enumerate}[{I}1.]
-  \item \textbf{Event with Three Entities}
-  \item \textbf{Event Semantics}
-  \item \textbf{Other Types of Entities}
-  \item \textbf{Better Control Over Story Structure}
-  \item \textbf{Conditionals}
+  \item\label{im:three} \textbf{Event with Three Entities}
+  \item\label{im:sem} \textbf{Event Semantics}
+  \item\label{im:ent} \textbf{Other Types of Entities}
+  \item\label{im:struc} \textbf{Better Control Over Story Structure}
+  \item\label{im:cond} \textbf{Conditionals}
 \end{enumerate}
 
 \subsubsection{}
 
 \subsection{Methods for Character Agent Authoring}
 \label{sec:future-agent}
+TropICAL and StoryBuilder are tools that allow an author to create complex
+non-linear narratives. However, they are designed to be a single component of a
+system that also includes character agents that have their own behaviour defined
+by pre-written plans. The answer sets that emerge from the AnsProlog
+formalisation of TropICAL's tropes only describe the constraints (in terms of
+norms) of the agents''' behaviour.
 
+Our current implementation of the system integrates with the JASON multi-agent
+framework, which requires each agent plan library to be written in a language
+named ``AgentSpeak''. The declarative paradigm that this language uses, while
+familiar to many Computer Science researchers, would take time for programmers
+familiar with today's dominant paradigms (object-oriented, procedural,
+functional). For this reason, it would be even more challenging for
+non-programmer story authors to use. A simpler way to program the agents would
+enable authors to create the characters agent that fit into their TropICAL story
+without spending a lot of extra time learning a new programming language.
 
-\subsubsection{Authoring Character Agent Behaviour}
-\label{sec:future-agent-behaviour}
+Agent actions in a narrative would vary greatly according to the type of game
+world that they inhabit. An action game where the player visits many different
+locations to battle other characters without talking to them would be populated
+with agents that behave very differently from a dialogue-focused murder mystery
+game set in a country manor. \emph{TopicScript}, the example language we
+describe in the next section, is a domain-specific language designed for the
+authoring of character dialogue for agents with an emotional model. The inspiration
+for its syntax comes from Inkle Studios' \emph{ink} programming language
+\footnote{\url{https://www.inklestudios.com/ink/}, accessed 20171025.}, which is
+also a language for describing branching dialogue trees. TopicScript is designed
+with the authoring of primarily dialogue-focused games in mind, aiming to allow
+authors to write branching story scripts for their agents as quickly as possible.
 
 \subsubsection{Agent Dialogue Authoring for Interactive Narrative}
 \label{sec:topicscript}
@@ -6993,7 +7039,7 @@ An important part of any narrative-based story is the creation of engaging
 character dialogue. When creating an interactive narrative using a multi-agent
 system framework such as JASON (described in
 Section~\ref{sec:punchjudy}), these lines of dialogue would have to be
-placed at different points throughout the agents' plans. This would be a difficult
+placed at different points throughout the agents'' plans. This would be a difficult
 system for non-programmer story authors to work with, so a domain-specific
 language similar to TropICAL could be devised to allow the author to create
 their story dialogue with a controlled natural language syntax. This language
@@ -7004,7 +7050,8 @@ One way of authoring character dialogue to enable non-linear conversations would
 be to adjust the dialogue according to character emotion. When authoring character dialogue, their response to a topic can depend on their
 emotional state at the time. For example, asking a character about themselves will elicit a slightly different response if she is angry or if she is happy.
 
-The language grammar could be the following:
+Our \emph{TopicScript} programming language is designed to allow for fast
+authoring of this kind of affective dialogue. Its grammar is as follows:
 
 \begin{lstlisting}
 <SUBJECT>: <TOPIC>: <QUESTION>
@@ -7016,17 +7063,22 @@ The language grammar could be the following:
 
 The subject is the object, place or character that is being asked about. The
 topic is some specific question that is being asked about the subject. For
-example, the player could ask about the crown in a painting of a king. In this case, the crown is the topic and the painting is the subject.
+example, the player could ask about the crown in a painting of a king. In this
+case, the crown would be the topic and the painting would be the subject.
 
 \paragraph{Template for general topics:}
 
-Everything under General is character dialogue when there is no topic of conversation. It can be used as a template (for example) when a character is talking about something that is not in the database.
+Everything under General is character dialogue when there is no topic of
+conversation. It can be used as a template (for example) when a character is
+talking about something that is not in the database. This is useful as a kind of
+``fallback'' option when the character is prompted to speak about something that
+it has no lines of dialogue for.
 
 For example, if a character is happy and looking at something, they can say “Nice <something>!”. The <something> is represented with a _ in the language.
 
 \paragraph{Inserting detail from the topic/object database into the dialogue:}
 
-Each object/place/character in a story may have a string of descriptive text. This can be inserted into a character’s dialogue with the [detail] placeholder. If this is used, but no description scring exists, the character can have a (customizable) response such as “I don’t know anything about it.”.
+Each object/place/character in a story may have a string of descriptive text. This can be inserted into a character’s dialogue with the [detail] placeholder. If this is used, but no description string exists, the character can have a (customizable) response such as “I don’t know anything about it.”.
 
 \paragraph{Example:}
 
@@ -7063,6 +7115,8 @@ hold, for example.
 
 \subsubsection{Roles and Emotional Traits}
 \label{sec:role-emotions}
+Another enhancement that could be made our storytelling system would be to allow
+a character's role to determine their emotional states.
 Though TropICAL allows story authors to give roles to the characters in their
 tropes, the roles assigned to the agents do not affect their behaviour in any
 way. If the intelligent agents implement an emotional model such as the
@@ -7083,10 +7137,18 @@ Gunslinger'', ``Right Man in the Wrong Place'' and ``Science Hero''. Many of
 these roles not only inherit traits from the ``Hero'' archetype, but also from
 other types of role, such as ``The Sociopath'' and ``The Pragmatist''.
 
+Many opportunities exist in the combining of all of the components described
+here into a complete IDE for story authoring. The story structure could be
+written in TropICAL, visualised in StoryBuilder, and the dialogue described in
+TopicScript, with a character's role determining their initial emotional state.
+The extension of the StoryBuilder IDE to allow for rapid prototyping and testing
+of the resulting multi-agent simulation would be another way to make the system
+easier to use for story authors.
+
 \subsection{Application of \emph{TropICAL} to Other Domains}
 \label{sec:future-domains}
 
-Due to the fact that tropes describe patterns of behaviour, the concept can be
+Due to the fact that tropes describe recurring patterns of behaviour, the concept can be
 applied to domains outside of storytelling where patterns can be described.
 
 This section describes a worked example where TropICAL is used to compose legal
@@ -7234,6 +7296,13 @@ corresponding to an answer set produced by the solver, listing events and violat
 in a trace. To find an argument, a lawyer can simply read through the generated
 possibilities to find one that suits her needs.
 
+Though we describe here the adaptation of TropICAL to the context of legal
+policies, it could potentially be applied to any domain in which patterns can be
+identified, described in controlled natural language, and reused. TropICAL
+could also be used, for example, to describe the actions of a house-cleaning robot,
+delivery drone, personal assistant chatbot or automated hotel-booking agent. The
+simple, pattern-based nature of tropes make them easily adaptable to a range of implementations.
+
 \subsection{Concluding Remarks}
 There is great potential for the use of intelligent agents in narrative-based
 interactive entertainment. This potential has yet to be realised however, with
@@ -7247,7 +7316,7 @@ Fa\c{c}ade have only emerged from research groups that are already familiar with
 agent technology. There is a gulf between the world of research and practice in
 the realm of interactive narrative.
 
-The development of approachable tools such as TropICAL is one way to bridge
+The development of approachable tools such as TropICAL and StoryBuilder is one way to bridge
 this gulf. We hope that the contributions described in this dissertation are
 able to find their way out into the wider world in some form so that they can
 enable the creation of more interactive narrative content.
