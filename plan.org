@@ -22,6 +22,10 @@
 * DONE Line 1538 mentions constrasting temporal logic with insts, so put this in (or delete the mention)
   CLOSED: [2017-09-27 Wed 09:27]
 * TODO revise the appendices
+** TODO full trope examples
+** DONE full evil empire trope compiled to InstAL
+   CLOSED: [2017-09-27 Wed 20:52]
+** TODO refer to appendix:obl from somewhere
 * TODO look up Rumelhart's arrows (line 928) and explain
 * TODO consider adding detail to compilation strategy
 * TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
@@ -57,8 +61,10 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
   CLOSED: [2017-09-20 Wed 14:21]
 * DONE fix broken refs
   CLOSED: [2017-09-21 Thu 11:09]
-* TODO add visualisation of adding audience participation trope (near fig:audience-participation)
-* TODO revise presentation of StoryBuilder chapter (messy with floats and listings)
+* DONE add visualisation of adding audience participation trope (near fig:audience-participation)
+  CLOSED: [2017-09-27 Wed 17:57]
+* DONE revise presentation of StoryBuilder chapter (messy with floats and listings)
+  CLOSED: [2017-09-27 Wed 17:57]
 * TODO fix all figures so that they float
 * TODO add summary of eval to abstract
 * DONE un-delete old version of Institutions chapter
@@ -75,11 +81,11 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
 * DONE capitalise all figs, sections, chapters, listings, formulas, rules
   CLOSED: [2017-09-20 Wed 14:18]
-* TODO finish full sausages institution in appendix
+# * TODO finish full sausages institution in appendix
 * DONE remove "The Owner has an Object" from example PJ trope
   CLOSED: [2017-09-26 Tue 14:44]
-* TODO standardise fonts in all institution listings
-* TODO revise your emph policy: first use is probably best (rather than all)
+# * TODO standardise fonts in all institution listings
+# * TODO revise your emph policy: first use is probably best (rather than all)
 * TODO line 989: look up refs for examples of planner systems
 # * TODO write about using appraisal model in future work
 * DONE add intro to Institutions chapter to describe motivations (with outline of content at end)
@@ -88,7 +94,7 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO check for compilation warnings / errors
 * DONE fix section / line hyperlinks
   CLOSED: [2017-09-26 Tue 14:02]
-* TODO change VAD to PAD
+# * TODO change VAD to PAD
 * DONE answer set visualisations
   CLOSED: [2017-09-27 Wed 11:12]
 * TODO Move 2nd para (starting "Though there have been...") to start of tropes section
@@ -117,10 +123,10 @@ This is implemented through a controlled natural language approach to the specif
 # ** TODO maybe move VAD theory description back to lit review & back reference it
 ** DONE before P&J emotions bit, really emphasise "this is how it fits into a MAS"
    CLOSED: [2017-09-27 Wed 11:21]
-** TODO maybe move the "architecture" section up to the top
+# ** TODO maybe move the "architecture" section up to the top
 ** DONE add that the system (P&J) was developed, and appeared as a demo at both AISB and CDE confs
    CLOSED: [2017-09-21 Thu 11:03]
-** TODO consider splitting chapter 4 into two separate chapters
+# ** TODO consider splitting chapter 4 into two separate chapters
 ** TROPES
 *** TODO new argument is that tropes aren't a formalism per se
 *** DONE maybe don't need the full questionnaire: just summarise its contents
@@ -130,7 +136,7 @@ This is implemented through a controlled natural language approach to the specif
     CLOSED: [2017-09-26 Tue 14:50]
 *** TODO Lot of repeated info between end of this chapter & start of TropICAL chapter
 *** TODO Rather than mentioning TropICAL at the end, set up the demand & expectation
-*** TODO How can this section be expanded with more trope theory?
+# *** TODO How can this section be expanded with more trope theory?
 *** TODO end of chapter: delete all the TropICAL stuff (except that which motivates the language design)
 ** INSTS
 *** DONE begin by stating the problem

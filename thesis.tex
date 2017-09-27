@@ -4402,8 +4402,8 @@ section~\ref{sec:combining-tropes} of Chapter~\ref{cha:storybuilder}.
 
 For technical details of the parser implementation, including the EBNF grammar
 of the TropICAL language, refer to Appendix~\ref{appendix:t-grammar}.
-Appendix~\ref{appendix:parse-tree} shows visualisations of the parse tree output for some
-of the code examples described in this section.
+% Appendix~\ref{appendix:parse-tree} shows visualisations of the parse tree output for some
+% of the code examples described in this section.
 
 \section{InstAL Code Generation}
 \label{sec:t-codegen}
@@ -7956,60 +7956,105 @@ consequence = event
 <word> = #'[0-9a-zA-Z\\-\\_\\']*'
 \end{lstlisting}
 
-
-\section{Parse Tree Examples}
-\label{appendix:parse-tree}
-
-% TODO describe intermediate data structure, hash-map structure
-% TODO explain parse tree diagrams, hash-map notation (look up best way to do hmaps in latex)
-
-This section of the appendix shows visualisations of the parse tree that results from the trope
-code examples listed in Sections~\ref{sec:dec-code} to~\ref{sec:subtrope-code}.
-
-This is the parse tree output of the sequence of events in Listing~\ref{lst:seq3}:
-
-\vspace{7mm}
-\centerline{\includegraphics[width=\textwidth]{seq2-tree.png}}
-\vspace{7mm}
-
-\begin{lstlisting}[showstringspaces=false]
-{:label "Sequence 2", :events [{:role "Hero", :verb "go", :place "Land of Adventure"} {:role "Hero", :verb "find", :object "Sword"} {:verb "meet", :role-b "Villain", :role-a "Hero"} {:role "Hero", :verb "return", :place "Home"}], :roles ("The Hero" "The Villain"), :objects ("The Sword"), :locations ("Home" "The Land of Adventure")}
-\end{lstlisting}
-
-\vspace{7mm}
-\centerline{\includegraphics[width=\textwidth]{branch2-tree.png}}
-\vspace{7mm}
-
-\begin{lstlisting}[showstringspaces=false]
-{:label "Branch 2", :events [{:or [{:role "Hero", :verb "go", :place "Land of Adventure"} {:role "Hero", :verb "find", :object "Sword"} {:verb "kill", :role-b "Villain", :role-a "Hero"} {:role "Hero", :verb "return", :place "Home"}]}], :roles ("The Hero" "The Villain"), :objects ("The Sword"), :locations ("Home" "The Land of Adventure")}
-\end{lstlisting}
-
-\vspace{7mm}
-\centerline{\includegraphics[width=\textwidth]{branch3-tree.png}}
-\vspace{7mm}
-
-\begin{lstlisting}[showstringspaces=false]
-{:label "Branch 3", :events [{:role "Hero", :verb "go", :place "Home"} {:or [{:role "Hero", :verb "find", :object "Sword"} {:role "Hero", :verb "go", :place "Land of Adventure"} {:verb "kill", :role-b "Villain", :role-a "Hero"}]} {:or [{:verb "meet", :role-b "Mentor", :role-a "Hero"} {:role "Hero", :verb "go", :place "Realm of Mystery"}]}], :roles ("The Hero" "The Villain" "The Mentor"), :objects ("The Sword"), :locations ("Home" "The Land of Adventure" "The Realm of Mystery")}
-\end{lstlisting}
-
-\vspace{7mm}
-\centerline{\includegraphics[width=\textwidth]{item-search-tree.png}}
-\vspace{7mm}
-
-\begin{lstlisting}[showstringspaces=false]
-{:label "Item Search", :events [{:role "Hero", :verb "chase", :object "Macguffin"} {:or [{:role "Hero", :verb "find", :object "Macguffin"} {:role "Hero", :verb "go", :place "Home"}]}], :roles ("The Hero"), :objects ("The Macguffin"), :locations ("Home")}
-\end{lstlisting}
-
-\vspace{7mm}
-\centerline{\includegraphics[width=\textwidth]{kill-then-search-tree.png}}
-\vspace{7mm}
-
-\begin{lstlisting}[showstringspaces=false]
-{:label "Kill then Search", :events [{:role "Hero", :verb "go", :place "Away"} {:verb "kill", :role-b "Villain", :role-a "Hero"} {:subtrope "Item Search"}], :roles ("The Hero" "The Villain"), :objects (), :locations ("Away")}
-\end{lstlisting}
-
 \section{``Evil Empire'' Trope Example}
 \label{appendix:evil-empire}
+
+\begin{lstlisting}[showstringspaces=false,label={lst:evil-empire-full},caption={Full
+InstAL code for the ``Evil Empire'' trope, compiled from TropICAL}]
+institution evilEmpire;
+% TYPES ----------
+type Identity;
+type Agent;
+type Role;
+type Trope;
+type Phase;
+type Place;
+type PlaceName;
+type Object;
+type ObjectName;
+
+% FLUENTS ----------
+fluent role(Agent, Role);
+fluent phase(Trope, Phase);
+fluent place(PlaceName, Place);
+fluent object(ObjectName, Object);
+
+
+% EXTERNAL EVENTS: The Evil Empire ----------
+exogenous event chase(Agent, Agent);
+exogenous event escape(Agent);
+exogenous event capture(Agent, Agent);
+exogenous event noDeadline;
+
+% VIOLATION EVENTS: The Evil Empire ----------
+violation event noViolation;
+
+% INST EVENTS: The Evil Empire ----------
+inst event intChase(Agent, Agent);
+inst event intCapture(Agent, Agent);
+inst event intEscape(Agent);
+inst event intEvilEmpire(Agent, Agent);
+inst event intNoDeadline;
+
+
+
+% INITIATES: The Evil Empire ----------
+intEvilEmpire(R, S) initiates
+    phase(evilEmpire, phaseA),
+    perm(capture(R, S)) if
+        phase(evilEmpire, active),
+        role(S, empire),
+        role(R, hero);
+intEvilEmpire(R, S) initiates
+    phase(evilEmpire, phaseB),
+    perm(escape(R)) if
+        phase(evilEmpire, phaseA),
+        role(R, hero);
+% TERMINATES: The Evil Empire ----------
+intEvilEmpire(R, S) terminates
+    phase(evilEmpire, active),
+    perm(chase(R, S)) if
+        phase(evilEmpire, active),
+        role(S, empire),
+        role(R, hero);
+intEvilEmpire(R, S) terminates
+    phase(evilEmpire, phaseA),
+    perm(capture(R, S)) if
+        phase(evilEmpire, phaseA),
+        role(S, empire),
+        role(R, hero);
+intEvilEmpire(R, S) terminates
+    phase(evilEmpire, phaseB),
+    perm(escape(R)) if
+        phase(evilEmpire, phaseB),
+        role(R, hero);
+
+
+% GENERATES: The Evil Empire ----------
+escape(R) generates
+    intEvilEmpire(R, S) if
+        role(R, hero);
+chase(R, S) generates
+    intEvilEmpire(R, S) if
+        role(S, empire),
+        role(R, hero);
+capture(R, S) generates
+    intEvilEmpire(R, S) if
+        role(S, empire),
+        role(R, hero);
+
+% INITIALLY: -----------
+initially
+    pow(intEvilEmpire(R, S)) if role(R, hero), role(S, empire);
+initially
+    perm(intEvilEmpire(R, S)) if role(R, hero), role(S, empire);
+initially
+    perm(chase(R, S)) if role(S, empire), role(R, hero);
+initially
+    phase(evilEmpire, active),
+    role(empire, empire),
+    role(hero, hero);
+\end{lstlisting}
 
 \chapter{Full Trace for ``Evil Empire'' and ``Hero's Journey'' Tropes}
 \label{appendix:full-trace}
