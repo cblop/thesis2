@@ -1263,6 +1263,10 @@ whereas Ceptre's focus is on resource management within a game.
 
 \subsection{Normative Frameworks for Multi-Agent Systems}\label{sec:lit-insts}
 
+\citet{artikis2009specifying}
+\citet{fornara2007agent}
+\citet{cardoso2007institutional}
+\citet{cliffe2007specifying}
 
 \subsection{Modelling Characters with Emotional Models}\label{sec:emotional-models}
 In this section, we examine the use of emotional models in intelligent agents,
@@ -1336,7 +1340,7 @@ investigating due to its tight coupling with belief desire intention
 psychological models used in agents.
 
 \subsection{Discussion}\label{sec:litrev-discussion}
-Through this literature review, we have clearly identified these main issues in
+Through this literature review, we have identified these main issues in
 need of attention:
 
 \begin{enumerate}[{Issue} 1:]
@@ -1539,7 +1543,7 @@ is then described as a set of norms in an institution in
 Section~\ref{sec:norms-and-institutions}. Section~\ref{sec:punchjudy} describes
 an implementation of this system using the InstAL~\citep{cliffe2007specifying} language for institutions
 combined with agents with emotional models written using the
-JASON~\citep{bordini2007programming} framework. The chapter concludes with a
+Jason~\citep{bordini2007programming} framework. The chapter concludes with a
 summary in Section~\ref{sec:inst-summary}.
 
 \section{Describing Stories With Logic}
@@ -1795,7 +1799,7 @@ their intelligence? By contrast, modelling stories with social norms and
 institutions offers a more flexible way to encourage agents actions to conform
 to the shape of a story.
 
-An institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describe how an institutional model can be used to regiment the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
+An institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describes how an institutional model can be used to govern the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
 
 Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with Propp's concepts of \emph{roles} and \emph{story moves}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.
 
@@ -1974,6 +1978,13 @@ character agents in our story world.
 \section{An Interactive, Generative Punch and Judy Show with Institutions and
   Emotional Agents}
 \label{sec:punchjudy}
+The previous section defines a scene from the Punch and Judy story world as an
+institution, in terms of external events that can happen, the institutional
+events that are generated and the norms that are initiated and terminated during
+the scene. This is our formal model for the scene, describing the norms that
+govern the agents that act out our characters in the story. This section explains
+how these norms are used with a multi-agent system to guide the character agents
+towards courses of action that fit with our scene description.
 
 Our main criticism of the use of Interval Temporal Logic for the description of
 story worlds is its lack of flexibility in governing the actions of intelligent
@@ -1985,13 +1996,13 @@ to do this so that agents would be able to deviate from the narrative in times
 of extreme emotion, providing some level of unpredictability to the story.
 
 This section describes a fully realised and implemented interactive puppet show
-build with institutions and emotional agents. In this show, the characters
+built with institutions and emotional agents. In this show, the characters
 interact on screen in accordance with the Punch and Judy story world. At certain
 points in the show, the audience are encouraged to cheer or boo at the
 characters. When this happens, a character puppet's emotional state is changed
 in accordance with the audience response. The system was demonstrated at the CDE
 (Center for Digital Entertainment) and the AISB (Society for the Study of
-Artificial Intelligence and the Simulation of Behaviour) conference in 2015,
+Artificial Intelligence and the Simulation of Behaviour) conferences in 2015,
 with live audiences interacting with and changing the narrative.
 
 \subsection{VAD emotional model} \label{sec:emotion}
@@ -2100,7 +2111,7 @@ Similarly, at times of extreme emotion, an agent may decide to disregard their s
 
 \paragraph{Multi-Agent System:} \label{sec:arch-mas}
 % \subsection{Multi-Agent System} \label{sec:inst}
-We use the JASON~\citep{bordini2007programming} framework for belief-desire-intention (BDI) agents, with a VAD
+We use the Jason~\citep{bordini2007programming} framework for belief-desire-intention (BDI) agents, with a VAD
 emotional model as described above.
 
 \paragraph{Institutional Framework}
@@ -2371,7 +2382,9 @@ There are many different ways in which the audience's responses can affect the o
 \section{Summary}
 \label{sec:inst-summary}
 Our implementation of the interactive Punch and Judy show demonstrates several
-advantages in using social institutions to model narrative. Advantages include:
+advantages in using social institutions to model narrative. Addressing the issue
+of limited agent autonomy in existing systems (Issue~\ref{iss:freedom} from
+Section~\ref{sec:litrev-discussion}), the advantages of this approach are:
 
 \begin{itemize}
   \item Because norms encourage rather than enforce actions, agents are give
@@ -2380,7 +2393,7 @@ advantages in using social institutions to model narrative. Advantages include:
     by which agents are able to ``break away'' from the confines of the story.
     For example, if each agent were to have an emotional model, they could carry
     out story-disrupting actions in times of extreme emotional distress.
-  \item Rather than thinking about and discribing the goals of a story (as with
+  \item Rather than thinking about and describing the goals of a story (as with
     a planner-based system), a narrative is described in terms of what
     \emph{may} and \emph{must} happen. This gives an author more control over
     the flexibility of their stories, as they can describe optional paths
@@ -2403,9 +2416,9 @@ natural-language system for defining story components, which we describe in Chap
 
 \chapter{Tropes as Story Components}
 \label{cha:tropes}
-This chapter describes the foundations of our narrative components: story
+This chapter describes the foundation of our narrative components: story
 tropes. Though our use of tropes for the description of stories has many
-advantages, the main benefit is that they offer a means to compose and thereby
+advantages, the main benefit is that they offer a simple means to compose and thereby
 reuse existing story fragments. We describe this is more detail in Section~\ref{sec:abstraction}.
 
 Returning again to Section~\ref{sec:litrev-discussion} of the literature review in
@@ -2421,13 +2434,13 @@ interactive storytelling systems are:
 We address Issues~\ref{iss:goals} and~\ref{iss:models} by allowing creators to
 describe their narrative components informally, using the the concept of
 \emph{tropes} that we describe in this section. Tropes address
-Issue\ref{iss:goals} by allowing an author to describe the events that occur at
+Issue~\ref{iss:goals} by allowing an author to describe the events that occur at
 different parts in a story. As tropes can describe patterns that occur across
 stories, they can be re-used and combined together in a way that allows an
 author to think about the story structure rather than the goals and workings of
 a planner.
 
-Issue\ref{iss:models} is addressed by using tropes to provide an expressive, informal alternative to a strict formalism such as Propp's ``Morphology''. Formalisms require their users to learn their constituent rules in order to be useful. Our trope-based approach aims to allow the user to describe the parts of their story in as close to natural language as possible, while still allowing for their translation to a formal representation.
+Issue~\ref{iss:models} is addressed by using tropes to provide an expressive, informal alternative to a strict formalism such as Propp's ``Morphology''. Formalisms require their users to learn their constituent rules in order to be useful. Our trope-based approach aims to allow the user to describe the parts of their story in as close to natural language as possible, while still allowing for their translation to a formal representation.
 This is implemented through a controlled natural language approach to the specification of Tropes in our TropICAL programming language, described in Chapter~\ref{cha:tropical}.
 
 Story tropes are a familiar concept to many outside of the academic
@@ -3787,7 +3800,7 @@ Our first user story focuses on \emph{Alice}, a user with some programming knowl
 specialist expertise in the field of intelligent agents:
 
 \begin{quote}
-  Alice is an interactive narrative researcher using the JASON intelligent agent
+  Alice is an interactive narrative researcher using the Jason intelligent agent
   framework to create the characters of a story. The story is a classic
   detective noir story, with a private investigator as the main character and
   several suspects, one of which is the killer. She has coded their behaviour
@@ -3836,7 +3849,7 @@ From Alice's story, we can derive the following requirements:
 
 \begin{enumerate}[{Alice} R1.]
 \item She needs a system for describing stories that can be used with a
-  multi-agent system framework such as JASON\label{req:alice1}
+  multi-agent system framework such as Jason\label{req:alice1}
 \item The system needs to direct the behaviour of the agents so that their
   actions fit within the description of a story\label{req:alice2}
 \item She needs to be able to write and re-use story components that fit the
@@ -3929,7 +3942,7 @@ existing research techniques for interactive narrative generation:
   intelligent agents to simulate the characters in the story, she hopes that
   their intelligence and autonomy will result in some surprising narrative arcs.
 
-  First, she authors the character agents using the JASON library for
+  First, she authors the character agents using the Jason library for
   intelligent agents. To do this, she must give them a library of plans to
   execute in order to carry out certain goals. At any moment in the story, each agent has a set of
   \emph{beliefs} about its environment, plans that they \emph{desire} to carry
@@ -3965,7 +3978,7 @@ following requirements:
 
 \begin{enumerate}[R1.]
   \item\label{req:agents} The software must be able to integrate into a
-    multi-agent framework such as JASON (Alice R\ref{req:alice1})
+    multi-agent framework such as Jason (Alice R\ref{req:alice1})
   \item\label{req:direct} The system must direct the behaviour of agents to fit
     a story description (Alice R\ref{req:alice2})
   \item\label{req:components} The user must be able to write and re-use
@@ -5341,8 +5354,8 @@ specification to see if the requirements are met:
 
 \begin{enumerate}[R1.]
   \item \textbf{The software must be able to integrate into a
-    multi-agent framework such as JASON}: The ``Punch and Judy'' example in Section~\ref{sec:punchjudy} describes
-  how the normative framework of our system integrates with the JASON
+    multi-agent framework such as Jason}: The ``Punch and Judy'' example in Section~\ref{sec:punchjudy} describes
+  how the normative framework of our system integrates with the Jason
 multi-agent framework. The output of an answer set solver such as Clingo can be
 used to add beliefs to an agent's mental model to let it know what actions it is
 permitted and obliged to carry out as part of a story.
@@ -7015,7 +7028,7 @@ by pre-written plans. The answer sets that emerge from the AnsProlog
 formalisation of TropICAL's tropes only describe the constraints (in terms of
 norms) on the agents' behaviour.
 
-Our current implementation of the system integrates with the JASON~\citep{bordini2007programming} multi-agent
+Our current implementation of the system integrates with the Jason~\citep{bordini2007programming} multi-agent
 framework, which requires each agent plan library to be written in a language
 named ``AgentSpeak''. The declarative paradigm that this language uses, while
 familiar to many Computer Science researchers, would take time for programmers
@@ -7046,7 +7059,7 @@ authors to write branching story scripts for their agents as quickly as possible
 
 An important part of any narrative-based story is the creation of engaging
 character dialogue. When creating an interactive narrative using a multi-agent
-system framework such as JASON (described in
+system framework such as Jason (described in
 Section~\ref{sec:punchjudy}), these lines of dialogue would have to be
 placed at different points throughout the agents' plans. This would be a difficult
 system for non-programmer story authors to work with, so a domain-specific

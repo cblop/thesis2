@@ -88,9 +88,11 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * DONE fix section / line hyperlinks
   CLOSED: [2017-09-26 Tue 14:02]
 * TODO change VAD to PAD
-* TODO answer set visualisations
+* DONE answer set visualisations
+  CLOSED: [2017-09-27 Wed 11:12]
 * TODO Move 2nd para (starting "Though there have been...") to start of tropes section
-* TODO Revise the discussion at the end of section 2.2.6 to focus on the original three issues
+* DONE Revise the discussion at the end of section 2.2.6 to focus on the original three issues
+  CLOSED: [2017-09-27 Wed 11:13]
 * DONE insert the following into the Tropes intro
   CLOSED: [2017-09-27 Wed 07:18]
 The literature review in Chapter 2 identifies with current approaches to interactive storytelling in Section 2.2.6:
@@ -104,11 +106,16 @@ Tropes address issue 2 by allowing an author to describe the events that occur a
 This is implemented through a controlled natural language approach to the specification of Tropes in our TropICAL programming language, described in Chapter 5.
 
 * TODO spell check
+* TODO make sure paragraphs consistently end titles with colons
+* TODO re-read some planner papers
+* TODO Norms and Institutions: "as mentioned in the literature review..."
 * TODO Structural Fixes
 ** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
-** TODO No real introduction explanation or motivation for institutions chapter
-** TODO maybe move VAD theory description back to lit review & back reference it
-** TODO before P&J emotions bit, really emphasise "this is how it fits into a MAS"
+** DONE No real introduction explanation or motivation for institutions chapter
+   CLOSED: [2017-09-27 Wed 11:13]
+# ** TODO maybe move VAD theory description back to lit review & back reference it
+** DONE before P&J emotions bit, really emphasise "this is how it fits into a MAS"
+   CLOSED: [2017-09-27 Wed 11:21]
 ** TODO maybe move the "architecture" section up to the top
 ** DONE add that the system (P&J) was developed, and appeared as a demo at both AISB and CDE confs
    CLOSED: [2017-09-21 Thu 11:03]
@@ -125,7 +132,8 @@ This is implemented through a controlled natural language approach to the specif
 *** TODO How can this section be expanded with more trope theory?
 *** TODO end of chapter: delete all the TropICAL stuff (except that which motivates the language design)
 ** INSTS
-*** TODO begin by stating the problem
+*** DONE begin by stating the problem
+    CLOSED: [2017-09-27 Wed 11:20]
 ** STORYBUILDER
 *** TODO begin by stating the problem
 ** INTRODUCTION
