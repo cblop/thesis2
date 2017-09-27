@@ -42,6 +42,7 @@
     "todonotes"
     "tikz"
     "hyperref"
+    "float"
     "listings")
    (TeX-add-symbols
     '("lref" 1)

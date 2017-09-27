@@ -14,7 +14,8 @@
   CLOSED: [2017-09-20 Wed 14:24]
 * DONE tropes: set up "this is the problem / what are the options / choose this" argument (narrativise)
   CLOSED: [2017-09-27 Wed 07:18]
-* TODO insts: does the norms example describe the sausages scene as in the tropes chapter?
+* DONE insts: does the norms example describe the sausages scene as in the tropes chapter?
+  CLOSED: [2017-09-27 Wed 15:03]
 * DONE narrativise "institutions" chapter (beginning, glue, end)
   CLOSED: [2017-09-27 Wed 09:21]
 * TODO lit review: add background on institutions & norms (line 1239)

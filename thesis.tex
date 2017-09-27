@@ -31,6 +31,11 @@
 \usetikzlibrary{arrows}
 \usepackage[]{todonotes}
 \usepackage{hyperref}
+\usepackage{float}
+\usepackage{listings}
+
+\newfloat{lstfloat}{h}{lop}
+\floatname{lstfloat}{Listing}
 
 \newcommand{\llabel}[1]{\hypertarget{llineno:#1}{\linelabel{#1}}}
 \newcommand{\lref}[1]{\hyperlink{llineno:#1}{\ref*{#1}}}
@@ -5457,6 +5462,11 @@ explaining how it can be used for the creation, arrangement and visualisation of
 
 \subsection{Overview}
 
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=\textwidth]{storybuilder5.png}}
+\caption{The initial view when \emph{StoryBuilder} starts}\label{fig:sb-start}
+\end{figure}
+
 Figure~\ref{fig:sb-start} shows what the user sees when they first start the
 \emph{StoryBuilder} tool. On the left side of the screen are two tabs:
 \emph{edit} and \emph{arrange}. The \emph{edit} tab allows the user to edit
@@ -5465,6 +5475,11 @@ tropes, their structures are visualised on the right side of the screen (which
 is blank in this initial screenshot). Figure~\ref{fig:sb-edit-ann} shows the
 same screen as Figure~\ref{fig:sb-start}, with the addition of annotations that
 explain the function of each item in the interface.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-a1.png}}
+\caption{An explanation of the \emph{edit} tab}\label{fig:sb-edit-ann}
+\end{figure}
 
 \subsubsection{The \emph{edit} tab}
 To edit a trope that has been created previously, the user selects it from a
@@ -5475,25 +5490,20 @@ editor, and click the blue \emph{save trope} button to make the changes persist.
 The user may also click the red \emph{delete} button to remove the trope from
 the database.
 
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-a2.png}}
+\caption{An explanation of how the \emph{edit} tab is used}\label{fig:sb-edit-ann2}
+\end{figure}
+
 If the user selects a trope and then, at some point, clicks the green
 \emph{refresh} button, a visualisation of its path structure appears on the
 right side of the screen. An example visualisation appears in
 figure~\ref{fig:sb-edit-ann2}, with annotations that further explain the features
 of the interface in the \emph{edit} tab.
 
-\begin{figure}[!t]
-\centerline{\includegraphics[width=\textwidth]{storybuilder5.png}}
-\caption{The initial view when \emph{StoryBuilder} starts}\label{fig:sb-start}
-\end{figure}
-
-\begin{figure}[!t]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-a1.png}}
-\caption{An explanation of the \emph{edit} tab}\label{fig:sb-edit-ann}
-\end{figure}
-
-\begin{figure}[!t]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-a2.png}}
-\caption{An explanation of how the \emph{edit} tab is used}\label{fig:sb-edit-ann2}
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-new1.png}}
+\caption{An explanation of how a new trope is created}\label{fig:sb-new-ann}
 \end{figure}
 
 The user also uses the interface in the \emph{edit} tab to create a new trope.
@@ -5516,10 +5526,6 @@ to create a trope:
 Once a trope is created, then the user may return to the \emph{edit} tab to
 select and visualise it.
 
-\begin{figure}[!t]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-new1.png}}
-\caption{An explanation of how a new trope is created}\label{fig:sb-new-ann}
-\end{figure}
 
 \subsubsection{Trope Visualisation}
 \label{sec:trope-visualisation}
@@ -5560,6 +5566,11 @@ appearing in blue, Trope B's being red, and Trope C's being green, for example.
 The \emph{arrange} tab allows the user to combine multiple tropes into a story,
 and to visualise all the possible paths through that story.
 
+\begin{figure}[!th]
+\centerline{\includegraphics[width=\textwidth]{storybuilder6.png}}
+\caption{The view when the user clicks the \emph{arrange} tab}\label{fig:sb-arrange}
+\end{figure}
+
 Figure~\ref{fig:sb-arrange} shows the view that the user sees when the
 \emph{arrange} tab is first clicked. The screen appears mostly blank, with the
 exception of a green rectangle on the left side of the screen, where the user
@@ -5573,6 +5584,12 @@ user takes to combine tropes together in the interface, along with a part of the
 visualisation that appears as a result of selecting two example tropes. In order
 to combine multiple tropes together in this way, a user must go through these steps:
 
+\begin{figure}[!th]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-combine1.png}}
+\caption{An explanation of tropes are combined in the \emph{arrange} tab}\label{fig:sb-combine-ann}
+\end{figure}
+
+\begin{samepage}
 \begin{enumerate}
   \item The user clicks on the ``arrange'' tab at the top-left of the screen
   \item The user selects a trope from the dropdown box inside the green rectangle
@@ -5581,6 +5598,7 @@ to combine multiple tropes together in this way, a user must go through these st
   \item The user selects another trope from the dropdown box that has just appeared
   \item The user waits for the resulting visualisation to appear
 \end{enumerate}
+\end{samepage}
 
 A particularly important feature of the visualisation is that each graph edge is
 labelled with the name of the trope that links two events. In the example
@@ -5590,16 +5608,16 @@ Search} trope are connected with a blue arrow. This allows the user to see
 the effect adding a certain trope has on the potential paths that their story
 may take.
 
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder6.png}}
-\caption{The view when the user clicks the \emph{arrange} tab}\label{fig:sb-arrange}
+
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-seq1.png}}
+\caption{Two consecutive events (from Listing~\ref{lst:seq2})}\label{fig:sb-seq1}
 \end{figure}
 
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-combine1.png}}
-\caption{An explanation of tropes are combined in the \emph{arrange} tab}\label{fig:sb-combine-ann}
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-seq2.png}}
+\caption{A sequence of events (from Listing~\ref{lst:seq4})}\label{fig:sb-seq2}
 \end{figure}
-
 
 \subsection{Usage Examples}
 
@@ -5607,37 +5625,20 @@ The figures in this section show how the simple trope examples listed in Section
 to~\ref{sec:subtrope-code} appear when edited and visualised using the
 \emph{StoryBuilder} tool.
 
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-seq1.png}}
-\caption{Two consecutive events (from Listing~\ref{lst:seq2})}\label{fig:sb-seq1}
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-branch1.png}}
+\caption{Two branches (from Listing~\ref{lst:branch1})}\label{fig:sb-branch1}
 \end{figure}
 
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-seq2.png}}
-\caption{A sequence of events (from Listing~\ref{lst:seq4})}\label{fig:sb-seq2}
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-branch2.png}}
+\caption{Five branches (from Listing~\ref{lst:branch2})}\label{fig:sb-branch2}
 \end{figure}
 
 To demonstrate the visualisation of sequences of events,
 figure~\ref{fig:sb-seq1} shows a sequence just two events long, with the code
 from Listing~\ref{lst:seq2} as input. Figure~\ref{fig:sb-seq2} uses the longer
 sequence of five events from Listing~\ref{lst:seq4} as its input.
-
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-branch1.png}}
-\caption{Two branches (from Listing~\ref{lst:branch1})}\label{fig:sb-branch1}
-\end{figure}
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-branch2.png}}
-\caption{Five branches (from Listing~\ref{lst:branch2})}\label{fig:sb-branch2}
-\end{figure}
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-branch3.png}}
-\caption{A combination of branches and sequences (from Listing~\ref{lst:branch3})}\label{fig:sb-branch3}
-\end{figure}
 
 \emph{StoryBuilder}'s visualisation of branches are demonstrated in the figures
 that follow. Figure~\ref{fig:sb-branch1} shows the simple two-branch trope of
@@ -5646,21 +5647,28 @@ of a trope with five different branches, as described by the trope in
 listing~\ref{lst:branch2}. Finally, the more complicated combination of
 sequences and branches from Listing~\ref{lst:branch3} is shown in Figure~\ref{fig:sb-branch3}.
 
-\begin{figure}[!h]
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-branch3.png}}
+\caption{A combination of branches and sequences (from Listing~\ref{lst:branch3})}\label{fig:sb-branch3}
+\end{figure}
+
+
+\begin{figure}[!t]
 \centerline{\includegraphics[width=\textwidth]{storybuilder-subtrope1.png}}
 \caption{Subtrope to be embedded (from Listing~\ref{lst:subtrope1})}\label{fig:sb-subtrope1}
 \end{figure}
 
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{storybuilder-subtrope2.png}}
-\caption{Trope containing a subtrope (from Listing~\ref{lst:subtrope2})}\label{fig:sb-subtrope2}
-\end{figure}
 
 The final two figures in this section demonstrate the use of \emph{StoryBuilder}
 for embedding subtropes inside of other tropes. Figure~\ref{fig:sb-subtrope1} is
 the \emph{StoryBuilder} visualisation that corresponds to the subtrope that is
 to be embedded (described in Listing~\ref{lst:subtrope1}). The actual embedding
 of this subtrope, as described in Listing~\ref{lst:subtrope2}, and its resulting visualisation are shown in Figure~\ref{fig:sb-subtrope2}.
+
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{storybuilder-subtrope2.png}}
+\caption{Trope containing a subtrope (from Listing~\ref{lst:subtrope2})}\label{fig:sb-subtrope2}
+\end{figure}
 
 \subsection{Creating a story with StoryBuilder: Punch and Judy}
 
@@ -5677,6 +5685,21 @@ The two scenes that we will describe are the ``Babysitting scene'', where Judy l
 Baby, and the ``Crocodile Sausages'' scene, where a crocodile eats some sausages
 that Punch has been trusted with looking after.
 
+\begin{figure}[!t]
+\begin{lstlisting}[label={lst:audience-participation},caption={The ``Audience participation'' trope}]
+``Audience Participation'' is a trope where:
+The Character is a role
+The Audience is a role
+The Character shouts at the Audience
+Then the Audience shouts at the Character
+\end{lstlisting}
+
+\smallskip
+
+\centerline{\includegraphics[width=\textwidth]{audience-trope.png}}
+\caption{The ``Audience Participation'' trope in StoryBuilder}\label{fig:audience-participation}
+\end{figure}
+
 Listing~\ref{lst:audience-participation} shows a basic description of the events
 that happen in audience participation: a character calls out to the audience,
 then the audience calls back. When integrated into a multi-agent system, each
@@ -5691,25 +5714,13 @@ passed to the answer set solver along with the other tropes in the story, so
 that its events can occur at any point. This is done via the ``arrange'' tab in
 the user interface, described in Section~\ref{sec:combining-tropes} below.
 
-\begin{lstlisting}[label={lst:audience-participation},caption={The ``Audience participation'' trope}]
-``Audience Participation'' is a trope where:
-The Character is a role
-The Audience is a role
-The Character shouts at the Audience
-Then the Audience shouts at the Character
-\end{lstlisting}
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{audience-trope.png}}
-\caption{The ``Audience Participation'' trope in StoryBuilder}\label{fig:audience-participation}
-\end{figure}
-
 Listing~\ref{lst:babysitting-trope} shows a trope to describe the
 ``Babysitting'' scene from Punch and Judy. We have decided to put a branching
 point in this trope, where Punch may either kill the baby, or the baby escapes.
 This gives the option of a more ``family-friendly'' alternative of the scene,
 suitable for younger audiences. The StoryBuilder visualisation appears in Figure~\ref{fig:babysitting-trope}.
 
+\begin{figure}[!t]
 \begin{lstlisting}[label={lst:babysitting-trope},caption={The ``Babysitting'' trope}]
 ``Babysitting'' is a trope where:
   Punch is a role
@@ -5725,7 +5736,7 @@ suitable for younger audiences. The StoryBuilder visualisation appears in Figure
   Then Judy returns Home
 \end{lstlisting}
 
-\begin{figure}[!h]
+\smallskip
 \centerline{\includegraphics[width=\textwidth]{babysitting-trope.png}}
 \caption{The ``Babysitting'' trope in StoryBuilder}\label{fig:babysitting-trope}
 \end{figure}
@@ -5735,6 +5746,7 @@ Listing~\ref{lst:sausages-trope} shows the TropICAL definition of the
 of events, but we will see how to interpose events from other tropes between
 them below. Its StoryBuilder visualisation appears in Figure~\ref{fig:crocodile-sausages}.
 
+\begin{figure}[!t]
 \begin{lstlisting}[label={lst:sausages-trope},caption={The ``Crocodile Sausages'' trope}]
 ``Crocodile Sausages'' is a trope where:
   Punch is a role
@@ -5752,7 +5764,7 @@ them below. Its StoryBuilder visualisation appears in Figure~\ref{fig:crocodile-
   Then Joey returns Home
 \end{lstlisting}
 
-\begin{figure}[!h]
+\smallskip
 \centerline{\includegraphics[width=\textwidth]{crocodile-trope.png}}
 \caption{The ``Crocodile Sausages'' trope in StoryBuilder}\label{fig:crocodile-sausages}
 \end{figure}
@@ -5763,6 +5775,7 @@ leaves the stage, only to return later. With this knowledge, we can abstract
 these events into the ``Absentation'' trope, shown in
 listing~\ref{list:absentation-trope}.
 
+\begin{minipage}{\textwidth}
 \begin{lstlisting}[label={list:absentation-trope},caption={An ``Absentation'' trope}]
 ``Absentation'' is a trope where:
   Absentee is a role
@@ -5771,12 +5784,14 @@ listing~\ref{list:absentation-trope}.
   The Absentee goes Away
   Then the Absentee returns Home
 \end{lstlisting}
+\end{minipage}
 
 Similarly, many Punch and Judy scenes end
 with two characters chasing each other, such as when the Crocodile chases Punch,
 or the scene where the Policeman chases Punch. From this, we can create the
 ``Chase Scene'' trope of Listing~\ref{list:chase-trope}.
 
+\begin{minipage}{\textwidth}
 \begin{lstlisting}[label={list:chase-trope},caption={A ``Chase Scene'' trope}]
 ``Chase Scene'' is a trope where:
   Pursuer is a role
@@ -5785,6 +5800,7 @@ or the scene where the Policeman chases Punch. From this, we can create the
   Then the Pursuer catches the Pursued
     Or the Pursued escapes
 \end{lstlisting}
+\end{minipage}
 
 Creating these new abstractions allows us to rewrite our tropes without
 repeating ourselves. Listing~\ref{list:babysitting-trope-subtrope} shows how the
@@ -5792,6 +5808,7 @@ repeating ourselves. Listing~\ref{list:babysitting-trope-subtrope} shows how the
 and ``Chase Scene'' tropes as subtropes.
 Listing~\ref{list:sausages-trope-subtrope} does the same for the ``Sausages'' trope.
 
+\begin{minipage}{\textwidth}
 \begin{lstlisting}[label={list:babysitting-trope-subtrope},caption={The ``Babysitting''
 trope, redefined with a subtrope}]
 ``Babysitting'' is a trope where:
@@ -5804,7 +5821,9 @@ trope, redefined with a subtrope}]
   Then the ``Absentation'' trope happens
   Then the ``Chase Scene'' trope happens
 \end{lstlisting}
+\end{minipage}
 
+\begin{minipage}{\textwidth}
 \begin{lstlisting}[label={list:sausages-trope-subtrope},caption={The ``Sausages''
 trope, redefined with a subtrope}]
 ``Sausages'' is a trope where:
@@ -5821,9 +5840,15 @@ trope, redefined with a subtrope}]
   Then the Crocodile eats the Sausages
   Then Joey returns Home
 \end{lstlisting}
+\end{minipage}
 
 \subsection{Combining Tropes Together}
 \label{sec:combining-tropes}
+
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{trope-combining.png}}
+\caption{Combining the ``Babysitting'' and ``Audience Participation'' tropes in StoryBuilder}\label{fig:combining-tropes}
+\end{figure}
 
 Sometimes we want to combine two or more tropes together into a story, so that
 the characters are free to choose to follow the events of any of the tropes that
@@ -5859,10 +5884,6 @@ This corresponds to one of the permutations of combining the events of the
 ``Babysitting'' and ``Audience Participation'' tropes in different orders, and
 would be just one of the many paths through the visualised tree.
 
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{trope-combining.png}}
-\caption{Combining the ``Babysitting'' and ``Audience Participation'' tropes in StoryBuilder}\label{fig:combining-tropes}
-\end{figure}
 
 Using this part of the StoryBuilder tool, the user is able to interactively
 explore the different combinations of events that different tropes add to their
