@@ -14,9 +14,12 @@
   CLOSED: [2017-09-20 Wed 14:24]
 * DONE tropes: set up "this is the problem / what are the options / choose this" argument (narrativise)
   CLOSED: [2017-09-27 Wed 07:18]
-* TODO narrativise "institutions" chapter (beginning, glue, end)
+* TODO insts: does the norms example describe the sausages scene as in the tropes chapter?
+* DONE narrativise "institutions" chapter (beginning, glue, end)
+  CLOSED: [2017-09-27 Wed 09:21]
 * TODO lit review: add background on institutions & norms (line 1239)
-* TODO Line 1538 mentions constrasting temporal logic with insts, so put this in (or delete the mention)
+* DONE Line 1538 mentions constrasting temporal logic with insts, so put this in (or delete the mention)
+  CLOSED: [2017-09-27 Wed 09:27]
 * TODO revise the appendices
 * TODO look up Rumelhart's arrows (line 928) and explain
 * TODO consider adding detail to compilation strategy
@@ -60,7 +63,8 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * DONE un-delete old version of Institutions chapter
   CLOSED: [2017-09-20 Wed 10:46]
 * TODO ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?
-* TODO relate tasks to requirements at start of eval section
+* DONE relate tasks to requirements at start of eval section
+  CLOSED: [2017-09-27 Wed 09:40]
 # * TODO try replacing compactenum and compactitem
 * TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * DONE tropes: crop periodic table as suggested

@@ -1641,12 +1641,16 @@ formally constructing narrative and trope descriptions with social institutions
 and norms. This technique uses ideas from \emph{deontic} logic, a modal logic
 that adds \emph{permission} and \emph{obligation} operators to logical
 statements. In order to demonstrate the advantanges of describing stories as
-social institutions, we first use a more straightforward modal logic to decsribe
+social institutions, we first use a more straightforward modal logic to describe
 the events of a story: Interval Temporal Logic (ITL). ITL allows us to formally
 describe the temporal ordering of events that occur in a story, enabling the use
 of theorem-proving tools to check whether certain sequences of events are
-possible. Later, we contrast this temporal-oriented approach to the character
-and socially-oriented approach of describing stories with institutions.
+possible. This temporal-oriented approach provides an example of a logical
+system that could be used to \emph{regiment} character behaviour by ordering agents
+to follow specific courses of action. Section~\ref{sec:pjexample-insts}
+then redefines the same example using an institution-oriented approach in order
+to provide a demonstration of how narrative rules can \emph{govern} rather than
+\emph{regiment}, giving the characters more autonomy.
 
 \paragraph{Temporal Logics}
 Arthur Prior is the first to employ modal logic as a way of describing sequences of time in his 1957 work \emph{Time and Modality} \citep{prior2003time}. Here he uses just two modal operators, $P$ and $F$, representing \emph{some time in the past} and \emph{some time in the future} respectively.
@@ -1795,7 +1799,10 @@ Institutional models use concepts from deontic logic to provide obligations and 
 
 For example, in one Punch and Judy scene, a policeman enters the stage and attempts to apprehend Punch. According to the rules of the Punch and Judy world, Punch has an obligation to kill the policeman by the end of the scene (as this is what the audience expects to happen, having seen other Punch and Judy shows). The policeman has an obligation to try his best to catch Punch. Both agents have permission to be on the stage during the scene. The policeman only has permission to chase Punch if he can see him (Punch is obliged to hide from him at the start of the scene).
 
-The permissions an agent has, on the one hand, constrain the choices of actions available to them at any given moment. Obligations, on the other hand, affect the goals of an agent. Whether or not an agent actively tries to fulfil an obligation depends on their emotional state.
+The permissions an agent has, on the one hand, constrain the choices of actions
+available to them at any given moment. Obligations, on the other hand, affect
+the goals of an agent. Whether or not an agent actively tries to fulfil an
+obligation depends on the plan they are following, and their emotional state.
 
 \subsection{Institution example}
 \label{sec:pjexample-insts}
@@ -1957,6 +1964,10 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 \end{minipage}}\right.$
 \caption{Fluent termination in the sausage scene} \label{fig:term}
 \end{figure}%
+
+Now that the components of our \emph{Punch and Judy} institution have been
+defined, the next section describes how this institution is used to govern the
+character agents in our story world.
 
 \section{An Interactive, Generative Punch and Judy Show with Institutions and
   Emotional Agents}
@@ -2377,11 +2388,16 @@ advantages in using social institutions to model narrative. Advantages include:
     all of the possible actions in each story path as answer sets.
 \end{itemize}
 
-However, the major shortcoming of using InstAL to describe stories in terms of
-institutions is the learning effort required for a non-programmer (such as a
-story author) to use it. For this reason, we have developed our own constrained
-natural-language domain specific language for the description of tropes, which
-we describe in the next section.
+A major shortcoming describing stories in terms of
+institutions is the learning effort it requires from a non-programmer (such as a
+story author). An author would need to fully understand a narrative formalism (such as Propp's \emph{Morphology} from this chapter's
+example) in order to describe their story using logical components. Our aim is
+to allow authors to describe their stories without the burden of learning that
+comes with current approaches. For this reason, Chapter~\ref{cha:tropes} explains how
+\emph{story tropes} may be used by authors to describe parts of a story
+without the need to learn the rules of a narrative formalism such as Propp's.
+These tropes are used to develop \emph{TropICAL}, our controlled
+natural-language system for defining story components, which we describe in Chapter~\ref{cha:tropical}.
 
 \chapter{Tropes as Story Components}
 \label{cha:tropes}
@@ -6151,7 +6167,8 @@ In the 'edit' tab, select an existing trope from the dropdown box. Edit its text
 \end{framed}
 
 This task is designed to examine how easily the user is able to read and
-understand the TropICAL languages before making small changes to existing tropes.
+understand the TropICAL languages before making small changes to existing
+tropes, testing requirement R\ref{req:components}.
 
 \subsubsection*{Task 2: Create a Trope}
 \label{sec:org96a6276}
@@ -6193,6 +6210,7 @@ Make sure to declare your roles and objects first.
 This task is designed to allow the users to gently begin creating their own
 tropes, by limiting their role and place choices at first, as well as limiting
 their trope complexity by only allowing sequences of events without branches.
+This also tests requirements R\ref{req:components} and R\ref{req:sequences}.
 
 \subsubsection*{Task 3: Adding objects to your trope}
 \label{sec:org9cb2b36}
@@ -6237,7 +6255,8 @@ Then the Hero kills the Villain
 \end{quote}
 \end{framed}
 
-This task introduces the concept of branches to the user for the first time.
+This task introduces the concept of branches to the user for the first time,
+testing requirement R\ref{req:branches}.
 
 \subsubsection*{Task 5: Put two tropes into a story}
 \label{sec:orga5afeae}
@@ -6252,7 +6271,8 @@ Using the "Arrange" tab in Storybuilder, select two (or more) tropes from the dr
 \end{framed}
 
 Once this task is completed, the user is able to see a visualisation of all of the possible
-combinations of events that result from combining two tropes together.
+combinations of events that result from combining two tropes together. This task
+tests requirement R\ref{req:vis}.
 
 \subsubsection*{Task 6: Tropes within Tropes}
 \label{sec:orga5bc382}
@@ -6284,6 +6304,9 @@ In the above example, the first trope is used inside the second trope.
 \end{quote}
 \end{framed}
 
+As this task introduces the concept of \emph{subtropes} to the user, it tests
+requirement R\ref{req:subtropes}.
+
 \subsubsection*{Task 7: Free Story Creation}
 \label{sec:orgeed4725}
 
@@ -6297,6 +6320,10 @@ Using a combination of the techniques learned up until now, please create a stor
 Once you have created the story, you can explore the possible paths through it with the tree visualisation.
 \end{quote}
 \end{framed}
+
+This task tests requirements R\ref{req:components} to R\ref{req:vis} by asking
+the user to use all of the components of TropICAL and StoryBuilder to freely
+create a story of their own.
 
 \subsection{Limitations of the System}
 \label{sec:limitations}
