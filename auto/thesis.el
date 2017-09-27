@@ -6,15 +6,15 @@
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("fontenc" "T2A") ("inputenc" "utf8") ("geometry" "hmargin=3cm" "vmargin=2cm") ("xcolor" "usenames" "dvipsnames" "svgnames" "table")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-run-style-hooks
     "latex2e"
     "report"
@@ -313,12 +313,13 @@
     "lne:as-ex2"
     "lne:as-int3"
     "lne:as-ex3"
+    "fig:evil-trace"
     "lne:hj-ev1"
     "lne:hj-ev2a"
     "lne:hj-ev2b"
     "lne:hj-ev3"
     "lst:hero-trace"
-    "lst:hero-evil-trace"
+    "fig:hero-trace"
     "sec:tropical-summary"
     "cha:storybuilder"
     "fig:sb-start"
@@ -415,7 +416,9 @@
     "lst:ebnf2"
     "appendix:parse-tree"
     "appendix:evil-empire"
-    "appendix:evil-empire-traces"
+    "appendix:full-trace"
+    "lst:hero-evil-trace"
+    "fig:hjee-trace"
     "appendix:transcripts")
    (LaTeX-add-environments
     "myenumerate")

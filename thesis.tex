@@ -46,6 +46,8 @@
 \definecolor{light-gray}{gray}{0.95}
 \def\tropical{TropICAL}
 
+\graphicspath{{./traces/}}
+
 \usepackage{listings}
 \lstset{ %
    language=prolog,
@@ -2406,7 +2408,7 @@ tropes. Though our use of tropes for the description of stories has many
 advantages, the main benefit is that they offer a means to compose and thereby
 reuse existing story fragments. We describe this is more detail in Section~\ref{sec:abstraction}.
 
-Returning again to Section~\ref{litrev-discussion} of the literature review in
+Returning again to Section~\ref{sec:litrev-discussion} of the literature review in
 Chapter~\ref{cha:literature-review}, the three issues we identify with current
 interactive storytelling systems are:
 
@@ -5159,8 +5161,7 @@ produces four answer sets. Each answer set corresponds to a possible sequence of
 events that can happen in the trope. One answer set contains all the events of
 the tropes in sequence, another contains just the first two events, another has
 just the first event and one answer set contains no events at all. The compiled institution is listed in
-Appendix~\ref{appendix:evil-empire}, and all of the resulting traces appear in
-Appendix~\ref{appendix:evil-empire-traces}. The listed traces are solved by
+Appendix~\ref{appendix:evil-empire}. The traces listed below are solved by
 looking up to three events into the trope, as that is its maximum length due to
 the fact that only three events occur in it (\emph{The Empire chases the Hero,
   The Empire captures the Hero, The Hero escapes}). The sequences of events in the four
@@ -5174,11 +5175,15 @@ answer sets are:
     Hero Escapes
 \end{enumerate}
 
+
 Listing~\ref{lst:evil-trace} shows one of the four traces from the solver
 output. This trace contains each event of the trope, happening one after
 another. The other traces stop short of the final event, so that trace one has
 zero events, trace two has only the first event, and trace three has the first
 two events of the trope. 
+
+Figure~\ref{fig:evil-trace} shows a visualisation of the events that occur in
+the answer set in Listing~\ref{lst:evil-trace}.
 
 
 \begin{lstlisting}[label={lst:evil-trace}, caption={Example trace for the ``Evil
@@ -5206,6 +5211,11 @@ Time Step 3:
 occurred(intEvilEmpire(hero,empire),evilEmpire)~\label{lne:as-int3}~
 occurred(escape(hero),evilEmpire)~\label{lne:as-ex3}~
 \end{lstlisting}
+
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{evilEmpire4-crop.pdf}}
+\caption{Visualisation of the ``Evil Empire'' example trace in Listing~\ref{lst:evil-trace}}\label{fig:evil-trace}
+\end{figure}
 
 The events that appear at the start of the listing (starting with the
 \emph{holdsat} predicate) on line~\ref{lne:as-holdsat} describe the \emph{fluents} that hold for a certain
@@ -5252,7 +5262,7 @@ and three events long). The six answer sets are:
 \end{enumerate}
 
 The fourth answer set produced is shown in
-listing~\ref{lst:hero-trace} as an example.
+listing~\ref{lst:hero-trace} as an example, and a visualisation appears in Figure~\ref{fig:hero-trace}.
 
 \begin{lstlisting}[label={lst:hero-trace},caption={Example trace for the
 ``Hero's Journey'' trope}]
@@ -5260,50 +5270,32 @@ Answer Set 4:
 
 Time Step 1:
 
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
 holdsat(phase(herosJourney,phaseA),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
 holdsat(perm(kill(hero,villain)),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
 holdsat(perm(escape(villain)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
 occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
 occurred(go(hero,evilLair),herosJourney)
 
 
 Time Step 2:
 
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
 holdsat(phase(herosJourney,phaseB),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
 holdsat(perm(go(hero,home)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
 occurred(kill(hero,villain),herosJourney)
 occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
 
 
 Time Step 3:
 
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
 occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
 occurred(go(hero,home),herosJourney)
 \end{lstlisting}
+
+
+\begin{figure}[!t]
+\centerline{\includegraphics[width=\textwidth]{herosJourney4-crop.pdf}}
+\caption{Visualisation of the ``Hero's Journey'' example trace in Listing~\ref{lst:hero-trace}}\label{fig:hero-trace}
+\end{figure}
 
 So far, the \emph{Evil Empire} and \emph{Hero's Journey} tropes produce
 unremarkable results. Due to their simple natures, they only produce a small
@@ -5332,180 +5324,9 @@ that would seem like a more suitable place to finish a story, rather than
 waiting for all of the events in the Evil Empire trope to occur.
 
 An example of a trace that runs the full six event length of both tropes put
-together is shown in Listing~\ref{lst:hero-evil-trace}.
-
-\begin{lstlisting}[label={lst:hero-evil-trace},caption={Example trace for both the ``Evil Empire'' and
-``Hero's Journey'' tropes combined together}]
-Answer Set 70:
-
-Time Step 1:
-
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(role(empire,empire),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
-holdsat(phase(herosJourney,phaseA),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(kill(hero,villain)),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(escape(villain)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
-holdsat(role(villain,villain),evilEmpire)
-holdsat(role(hero,hero),evilEmpire)
-holdsat(role(empire,empire),evilEmpire)
-holdsat(place(home,home),evilEmpire)
-holdsat(place(evilLair,evilLair),evilEmpire)
-holdsat(phase(evilEmpire,active),evilEmpire)
-holdsat(pow(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(null),evilEmpire)
-holdsat(perm(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(chase(hero,empire)),evilEmpire)
-holdsat(live(evilEmpire),evilEmpire)
-occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
-occurred(go(hero,evilLair),herosJourney)
-occurred(null,evilEmpire)
-
-
-Time Step 2:
-
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(role(empire,empire),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
-holdsat(phase(herosJourney,phaseA),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(kill(hero,villain)),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(escape(villain)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
-holdsat(role(villain,villain),evilEmpire)
-holdsat(role(hero,hero),evilEmpire)
-holdsat(role(empire,empire),evilEmpire)
-holdsat(place(home,home),evilEmpire)
-holdsat(place(evilLair,evilLair),evilEmpire)
-holdsat(phase(evilEmpire,phaseA),evilEmpire)
-holdsat(pow(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(null),evilEmpire)
-holdsat(perm(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(capture(hero,empire)),evilEmpire)
-holdsat(live(evilEmpire),evilEmpire)
-occurred(null,herosJourney)
-occurred(intEvilEmpire(hero,empire),evilEmpire)
-occurred(chase(hero,empire),evilEmpire)
-
-
-Time Step 3:
-
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(role(empire,empire),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
-holdsat(phase(herosJourney,phaseB),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(go(hero,home)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
-holdsat(role(villain,villain),evilEmpire)
-holdsat(role(hero,hero),evilEmpire)
-holdsat(role(empire,empire),evilEmpire)
-holdsat(place(home,home),evilEmpire)
-holdsat(place(evilLair,evilLair),evilEmpire)
-holdsat(phase(evilEmpire,phaseA),evilEmpire)
-holdsat(pow(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(null),evilEmpire)
-holdsat(perm(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(capture(hero,empire)),evilEmpire)
-holdsat(live(evilEmpire),evilEmpire)
-occurred(kill(hero,villain),herosJourney)
-occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
-occurred(null,evilEmpire)
-
-
-Time Step 4:
-
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(role(empire,empire),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
-holdsat(role(villain,villain),evilEmpire)
-holdsat(role(hero,hero),evilEmpire)
-holdsat(role(empire,empire),evilEmpire)
-holdsat(place(home,home),evilEmpire)
-holdsat(place(evilLair,evilLair),evilEmpire)
-holdsat(phase(evilEmpire,phaseA),evilEmpire)
-holdsat(pow(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(null),evilEmpire)
-holdsat(perm(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(capture(hero,empire)),evilEmpire)
-holdsat(live(evilEmpire),evilEmpire)
-occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
-occurred(go(hero,home),herosJourney)
-occurred(null,evilEmpire)
-
-
-Time Step 5:
-
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(role(empire,empire),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
-holdsat(role(villain,villain),evilEmpire)
-holdsat(role(hero,hero),evilEmpire)
-holdsat(role(empire,empire),evilEmpire)
-holdsat(place(home,home),evilEmpire)
-holdsat(place(evilLair,evilLair),evilEmpire)
-holdsat(phase(evilEmpire,phaseB),evilEmpire)
-holdsat(pow(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(null),evilEmpire)
-holdsat(perm(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(escape(hero)),evilEmpire)
-holdsat(live(evilEmpire),evilEmpire)
-occurred(null,herosJourney)
-occurred(intEvilEmpire(hero,empire),evilEmpire)
-occurred(capture(hero,empire),evilEmpire)
-
-
-Time Step 6:
-
-holdsat(role(villain,villain),herosJourney)
-holdsat(role(hero,hero),herosJourney)
-holdsat(role(empire,empire),herosJourney)
-holdsat(place(home,home),herosJourney)
-holdsat(place(evilLair,evilLair),herosJourney)
-holdsat(pow(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(perm(null),herosJourney)
-holdsat(perm(intHerosJourney(hero,villain,evilLair,home)),herosJourney)
-holdsat(live(herosJourney),herosJourney)
-holdsat(role(villain,villain),evilEmpire)
-holdsat(role(hero,hero),evilEmpire)
-holdsat(role(empire,empire),evilEmpire)
-holdsat(place(home,home),evilEmpire)
-holdsat(place(evilLair,evilLair),evilEmpire)
-holdsat(pow(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(perm(null),evilEmpire)
-holdsat(perm(intEvilEmpire(hero,empire)),evilEmpire)
-holdsat(live(evilEmpire),evilEmpire)
-occurred(escape(hero),herosJourney)
-occurred(viol(escape(hero)),herosJourney)
-occurred(intEvilEmpire(hero,empire),evilEmpire)
-occurred(escape(hero),evilEmpire)
-\end{lstlisting}
+together is shown in Listing~\ref{lst:hero-evil-trace} in
+Appendix~\ref{appendix:full-trace}. A visualisation is shown in
+Figure~\ref{fig:hjee-trace} in the same appendix.
 
 These trace outputs do not assist the reader in visualising the possible
 sequences of events that they represent. For this reason, we suggest that the
@@ -8156,8 +7977,71 @@ This is the parse tree output of the sequence of events in Listing~\ref{lst:seq3
 \section{``Evil Empire'' Trope Example}
 \label{appendix:evil-empire}
 
-\subsection{Traces}
-\label{appendix:evil-empire-traces}
+\chapter{Full Trace for ``Evil Empire'' and ``Hero's Journey'' Tropes}
+\label{appendix:full-trace}
+
+\begin{lstlisting}[label={lst:hero-evil-trace},caption={Example trace for both the ``Evil Empire'' and
+``Hero's Journey'' tropes combined together}]
+Answer Set 70:
+
+Time Step 1:
+
+holdsat(phase(herosJourney,phaseA),herosJourney)
+holdsat(perm(kill(hero,villain)),herosJourney)
+holdsat(perm(escape(villain)),herosJourney)
+holdsat(phase(evilEmpire,active),evilEmpire)
+holdsat(perm(chase(hero,empire)),evilEmpire)
+occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
+occurred(go(hero,evilLair),herosJourney)
+
+
+Time Step 2:
+
+holdsat(phase(herosJourney,phaseA),herosJourney)
+holdsat(perm(kill(hero,villain)),herosJourney)
+holdsat(perm(escape(villain)),herosJourney)
+holdsat(phase(evilEmpire,phaseA),evilEmpire)
+holdsat(perm(capture(hero,empire)),evilEmpire)
+occurred(intEvilEmpire(hero,empire),evilEmpire)
+occurred(chase(hero,empire),evilEmpire)
+
+
+Time Step 3:
+
+holdsat(phase(herosJourney,phaseB),herosJourney)
+holdsat(perm(go(hero,home)),herosJourney)
+holdsat(phase(evilEmpire,phaseA),evilEmpire)
+holdsat(perm(capture(hero,empire)),evilEmpire)
+occurred(kill(hero,villain),herosJourney)
+occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
+
+
+Time Step 4:
+
+holdsat(phase(evilEmpire,phaseA),evilEmpire)
+holdsat(perm(capture(hero,empire)),evilEmpire)
+occurred(intHerosJourney(hero,villain,evilLair,home),herosJourney)
+occurred(go(hero,home),herosJourney)
+
+
+Time Step 5:
+
+holdsat(phase(evilEmpire,phaseB),evilEmpire)
+holdsat(perm(escape(hero)),evilEmpire)
+occurred(intEvilEmpire(hero,empire),evilEmpire)
+occurred(capture(hero,empire),evilEmpire)
+
+
+Time Step 6:
+
+occurred(intEvilEmpire(hero,empire),evilEmpire)
+occurred(escape(hero),evilEmpire)
+\end{lstlisting}
+
+\begin{figure}[!p]
+\centerline{\includegraphics[height=0.9\textheight]{hjee70-rot.pdf}}
+\caption{Visualisation of trace for both the ``Evil Empire'' and ``Hero's Journey'' in Appendix~\ref{appendix:full-trace}}\label{fig:hjee-trace}
+\end{figure}
 
 \chapter{Thematic Analysis Transcripts}
 \label{appendix:transcripts}
@@ -8222,7 +8106,7 @@ Lair.\feature{State management}\llabel{lne:feature2a}
 
 \textbf{Myself:} Sure.
 
-\textbf{Participant:} I was looking for like "oh, is 'goes' another keyword?", so to speak.
+\textbf{Participant:} I was looking for like "oh, is 'goes'' another keyword?", so to speak.
 
 \textbf{Myself:} That's a good idea. I tried this before on some people, and it \emph{wasn't} OK with every verb, so I wasn't saying it before. But now it is! I changed it a lot. So, that's a good point, I should make that explicit. Have you used any programming languages similar to this before, with like a controlled natural language?
 
