@@ -1,3 +1,58 @@
+* TODO lit review: add background on institutions & norms (line 1239)
+* TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
+* TODO Move 2nd para (starting "Though there have been...") to start of tropes section
+** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
+* TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
+* TODO TROPES: There is a description of translation from trope to institution that is not repeated in the TropICAL chapter
+* TODO TROPES: Lot of repeated info between end of this chapter & start of TropICAL chapter
+* TODO TROPES: Rather than mentioning TropICAL at the end, set up the demand & expectation
+* TODO TROPES: end of chapter: delete all the TropICAL stuff (except that which motivates the language design)
+* TODO STORYBUILDER: begin by stating the problem
+* TODO INTRO: replace requirements with actual ones
+* TODO final checks
+** TODO does it fit the new argument is that tropes aren't a formalism per se?
+** TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
+
+** TODO spell check
+** TODO make sure paragraphs consistently end titles with colons
+** TODO fix all figures so that they float (just check they're OK)
+** TODO look through listings for stringspace character
+** TODO re-read some planner papers
+** TODO check for compilation warnings / errors
+# * TODO line 989: look up refs for examples of planner systems
+* DONE /Norms and Institutions: "as mentioned in the literature review..."
+  CLOSED: [2017-09-27 Wed 22:01]
+* DONE look up Rumelhart's arrows (line 928) and explain
+  CLOSED: [2017-09-27 Wed 21:30]
+* DONE add summary of eval to abstract
+  CLOSED: [2017-09-27 Wed 21:43]
+* DONE Structural Fixes
+  CLOSED: [2017-09-27 Wed 21:14]
+** DONE No real introduction explanation or motivation for institutions chapter
+   CLOSED: [2017-09-27 Wed 11:13]
+# ** TODO maybe move VAD theory description back to lit review & back reference it
+** DONE before P&J emotions bit, really emphasise "this is how it fits into a MAS"
+   CLOSED: [2017-09-27 Wed 11:21]
+# ** TODO maybe move the "architecture" section up to the top
+** DONE add that the system (P&J) was developed, and appeared as a demo at both AISB and CDE confs
+   CLOSED: [2017-09-21 Thu 11:03]
+# ** TODO consider splitting chapter 4 into two separate chapters
+** TROPES
+*** DONE maybe don't need the full questionnaire: just summarise its contents
+    CLOSED: [2017-09-21 Thu 11:04]
+*** DONE Consider splitting this chapter into 2 parts
+    CLOSED: [2017-09-26 Tue 14:50]
+# *** TODO How can this section be expanded with more trope theory?
+** INSTS
+*** DONE begin by stating the problem
+    CLOSED: [2017-09-27 Wed 11:20]
+** STORYBUILDER
+** INTRODUCTION
+*** DONE revise outline, remove reference to legal stuff & chapter 5
+    CLOSED: [2017-09-26 Tue 14:55]
+
+# * TODO revise the explanation of converting tropes to institutions (section 1.3)
+# * TODO consider adding detail to compilation strategy
 * DONE storybuilder: discussion
   CLOSED: [2017-08-26 Sat 10:32]
 * DONE storybuilder: design justification
@@ -18,17 +73,16 @@
   CLOSED: [2017-09-27 Wed 15:03]
 * DONE narrativise "institutions" chapter (beginning, glue, end)
   CLOSED: [2017-09-27 Wed 09:21]
-* TODO lit review: add background on institutions & norms (line 1239)
 * DONE Line 1538 mentions constrasting temporal logic with insts, so put this in (or delete the mention)
   CLOSED: [2017-09-27 Wed 09:27]
-* TODO revise the appendices
-** TODO full trope examples
+* DONE revise the appendices
+  CLOSED: [2017-09-27 Wed 21:07]
+** DONE full trope examples
+   CLOSED: [2017-09-27 Wed 21:06]
 ** DONE full evil empire trope compiled to InstAL
    CLOSED: [2017-09-27 Wed 20:52]
-** TODO refer to appendix:obl from somewhere
-* TODO look up Rumelhart's arrows (line 928) and explain
-* TODO consider adding detail to compilation strategy
-* TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
+** DONE refer to appendix:obl from somewhere
+   CLOSED: [2017-09-27 Wed 21:07]
 * DONE generate trace visualisations with Julian
   CLOSED: [2017-09-20 Wed 10:46]
 * DONE move legal application to future work section
@@ -65,8 +119,6 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
   CLOSED: [2017-09-27 Wed 17:57]
 * DONE revise presentation of StoryBuilder chapter (messy with floats and listings)
   CLOSED: [2017-09-27 Wed 17:57]
-* TODO fix all figures so that they float
-* TODO add summary of eval to abstract
 * DONE un-delete old version of Institutions chapter
   CLOSED: [2017-09-20 Wed 10:46]
 * DONE ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?
@@ -74,30 +126,23 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * DONE relate tasks to requirements at start of eval section
   CLOSED: [2017-09-27 Wed 09:40]
 # * TODO try replacing compactenum and compactitem
-* TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
-* DONE tropes: crop periodic table as suggested
-  CLOSED: [2017-09-21 Thu 11:10]
-# * TODO revise the explanation of converting tropes to institutions (section 1.3)
-* TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
 * DONE capitalise all figs, sections, chapters, listings, formulas, rules
   CLOSED: [2017-09-20 Wed 14:18]
 # * TODO finish full sausages institution in appendix
+* DONE tropes: crop periodic table as suggested
+  CLOSED: [2017-09-21 Thu 11:10]
 * DONE remove "The Owner has an Object" from example PJ trope
   CLOSED: [2017-09-26 Tue 14:44]
 # * TODO standardise fonts in all institution listings
 # * TODO revise your emph policy: first use is probably best (rather than all)
-* TODO line 989: look up refs for examples of planner systems
 # * TODO write about using appraisal model in future work
 * DONE add intro to Institutions chapter to describe motivations (with outline of content at end)
   CLOSED: [2017-09-27 Wed 09:43]
-* TODO look through listings for stringspace character
-* TODO check for compilation warnings / errors
 * DONE fix section / line hyperlinks
   CLOSED: [2017-09-26 Tue 14:02]
 # * TODO change VAD to PAD
 * DONE answer set visualisations
   CLOSED: [2017-09-27 Wed 11:12]
-* TODO Move 2nd para (starting "Though there have been...") to start of tropes section
 * DONE Revise the discussion at the end of section 2.2.6 to focus on the original three issues
   CLOSED: [2017-09-27 Wed 11:13]
 * DONE insert the following into the Tropes intro
@@ -111,41 +156,4 @@ Issue 3: Most narrative systems use outdated, inflexible story models.
 We address issues 2 and 3 by allowing creators to describe their narrative components informally, using story tropes. [define tropes]
 Tropes address issue 2 by allowing an author to describe the events that occur at different parts in a story. As tropes can describe patterns that occur across stories, they can be re-used and combined together in a way that allows an author to think about the story structure rather than the goals and workings of a planner. Tropes address issue 3 by providing an expressive, informal alternative to a strict formalism such as Propp's ``Morphology''. Formalisms require their users to learn their constituent rules in order to be useful. Our trope-based approach aims to allow the user to describe the parts of their story in as close to natural language as possible, while still allowing for their translation to a formal representation.
 This is implemented through a controlled natural language approach to the specification of Tropes in our TropICAL programming language, described in Chapter 5.
-
-* TODO spell check
-* TODO make sure paragraphs consistently end titles with colons
-* TODO re-read some planner papers
-* TODO Norms and Institutions: "as mentioned in the literature review..."
-* TODO Structural Fixes
-** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
-** DONE No real introduction explanation or motivation for institutions chapter
-   CLOSED: [2017-09-27 Wed 11:13]
-# ** TODO maybe move VAD theory description back to lit review & back reference it
-** DONE before P&J emotions bit, really emphasise "this is how it fits into a MAS"
-   CLOSED: [2017-09-27 Wed 11:21]
-# ** TODO maybe move the "architecture" section up to the top
-** DONE add that the system (P&J) was developed, and appeared as a demo at both AISB and CDE confs
-   CLOSED: [2017-09-21 Thu 11:03]
-# ** TODO consider splitting chapter 4 into two separate chapters
-** TROPES
-*** TODO new argument is that tropes aren't a formalism per se
-*** DONE maybe don't need the full questionnaire: just summarise its contents
-    CLOSED: [2017-09-21 Thu 11:04]
-*** TODO There is a description of translation from trope to institution that is not repeated in the TropICAL chapter
-*** DONE Consider splitting this chapter into 2 parts
-    CLOSED: [2017-09-26 Tue 14:50]
-*** TODO Lot of repeated info between end of this chapter & start of TropICAL chapter
-*** TODO Rather than mentioning TropICAL at the end, set up the demand & expectation
-# *** TODO How can this section be expanded with more trope theory?
-*** TODO end of chapter: delete all the TropICAL stuff (except that which motivates the language design)
-** INSTS
-*** DONE begin by stating the problem
-    CLOSED: [2017-09-27 Wed 11:20]
-** STORYBUILDER
-*** TODO begin by stating the problem
-** INTRODUCTION
-*** TODO replace requirements with actual ones
-*** TODO summarise eval. findings in abstract
-*** DONE revise outline, remove reference to legal stuff & chapter 5
-    CLOSED: [2017-09-26 Tue 14:55]
 

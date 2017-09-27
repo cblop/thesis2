@@ -147,7 +147,9 @@
   The participants complete tasks in which they have to describe stories with different degrees
   of complexity, finally requiring them to reuse existing tropes in their own trope abstractions.
   The thematic analysis identifies and examines the themes and patterns that emerge from the
-  story authors’ use of the tool.
+  story authors’ use of the tool, revealing that non-programmer story authors
+  are able to create their own stories using tropes without having to learn a
+  strict narrative formalism.
 
 \end{abstract}
 
@@ -940,7 +942,11 @@ Inspired by Chomsky's theories of generative grammar \citep{chomsky1968sound}, r
   \caption{Example rules from Rumelhart's story grammar}\label{fig:rumelhart}
 \end{figure}
 
-\citet{rumelhart1975notes} provides one early and influential model for the grammatical generation of natural language. Figure~\ref{fig:rumelhart} shows two example rewrite rules from this grammar. The `+' symbol denotes items happening in a sequence, the `\textbar' showing possible alternatives. `*' denotes one or more item being generated. Capitalised words (such as ALLOW, MOTIVATE, etc) describe relationships between items. For example, MOTIVATE is a relationship between a character's thought and their reaction to that thought.
+\citet{rumelhart1975notes} provides one early and influential model for the
+grammatical generation of natural language. Figure~\ref{fig:rumelhart} shows two
+example rewrite rules from this grammar. Each rule pair consists of a
+syntactic rule (following the `$\rightarrow$' symbol) and a semantic
+interpretation rule (following the `$\Rightarrow$' symbol). The `+' symbol denotes items happening in a sequence, the `\textbar' showing possible alternatives. `*' denotes one or more item being generated. Capitalised words (such as ALLOW, MOTIVATE, etc) describe relationships between items. For example, MOTIVATE is a relationship between a character's thought and their reaction to that thought.
 
 Other systems draw inspiration from generative grammar, such as GESTER \citep{pemberton1989modular}, which generates stories based on a grammar synthesised from old French epic tales. \citet{lang1999declarative} describes a declarative model for narrative, consisting of lists of first-order predicate calculus expressions. These expressions describe events, states, goals and beliefs which combine to form a narrative. More specifically, it combines:
 
@@ -1804,7 +1810,7 @@ their intelligence? By contrast, modelling stories with social norms and
 institutions offers a more flexible way to encourage agents actions to conform
 to the shape of a story.
 
-An institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describes how an institutional model can be used to govern the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
+As mentioned in Section~\ref{sec:lit-insts} of the literature review, an institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describes how an institutional model can be used to govern the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
 
 Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with Propp's concepts of \emph{roles} and \emph{story moves}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.
 
@@ -3405,7 +3411,7 @@ and~\ref{eq:phase-done-term}), so that the new phase fluent replaces its predece
 
 Extending this example to include all events, along with the corresponding
 permissions and obligations that they grant our story characters, results in the
-sets described in Appendix~\ref{appendix:sausages-full}.
+institution described in Appendix~\ref{appendix:sausages-full}.
 
 \section{TropICAL: a DSL for Tropes} % 1
 \label{sec:tropical}
@@ -4018,10 +4024,10 @@ language:
   \item Subtropes (Section~\ref{sec:subtrope-code})
 \end{itemize}
 
-Each part of this section contains code samples to demonstrate the use and
-implementation of each language feature. Many of these samples are only extracts from
-full trope definitions in TropICAL, however. More extensive examples of trope
-definitions can be found in Appendix~\ref{appendix:tropes}.
+% Each part of this section contains code samples to demonstrate the use and
+% implementation of each language feature. Many of these samples are only extracts from
+% full trope definitions in TropICAL, however. More extensive examples of trope
+% definitions can be found in Appendix~\ref{appendix:tropes}.
 
 This section begins by showing how the entities (roles, objects and places) of a
 trope are defined by the author (Section~\ref{sec:dec-code}), then follows this with a description of how
@@ -7415,6 +7421,47 @@ enable the creation of more interactive narrative content.
 \chapter{Full Sausages Scene Institution}
 \label{appendix:sausages-full}
 
+\begin{figure}[!th]
+\begin{align*}
+   \mathcal{D} &= \left\{\mathtt{onstage, hero, villain, victim, donor, item}\right\} %\label{eq:domain}
+\end{align*}
+\caption{Domain fluents for the sausages scene}\label{eq:sausages-domain}
+\end{figure}
+
+\begin{figure}[!th]
+\begin{align*}
+  \mathcal{W} =&\left\{\mathtt{pow(introduction), pow(interdiction), pow(give),}\right.\\ %\nonumber\\
+               &\left. {} \mathtt{pow(absentation), pow(violation), pow(return)}\right\} %\label{eq:power}
+\end{align*}
+\caption{Empowerments for the sausages scene}\label{eq:sausages-power}
+\end{figure}
+
+\begin{figure}[!th]
+\begin{align*}
+\mathcal{P} =& \left\{\mathtt{perm(leavestage), perm(enterstage), perm(die), perm(kill),}\right.\nonumber\\
+             &\left. {} \mathtt{perm(hit), perm(give), perm(fight)}\right\} %\label{eq:perm}
+\end{align*}
+\caption{Permissions for the sausages scene}\label{eq:sausages-perms}
+\end{figure}
+
+\begin{figure}[!th]\small
+\begin{align}
+  \mathcal{E}_{external} = & \left\{\begin{array}{c}
+\mathtt{go(Agent, Place)},\\
+\mathtt{meet(Agent, Agent)},\\
+\mathtt{kill(Agent, Agent)}\\
+\mathtt{escape(Agent)}
+\end{array}
+\right\}\label{eq:eobs-hero}\\
+  \mathcal{E}_{internal} = &\left\{\begin{array}{l}
+\mathtt{intHerosJourney(Agent,}\\
+\;\;\mathtt{Agent, Agent, Place, Place)}
+\end{array}\right\}
+\label{eq:einst-hero}
+\end{align}
+\caption{External and institutional events ($\mathcal{E}$) for the sausages scene} trope} \label{fig:events}
+\end{figure}
+
 \begin{figure}[!h]
 \abovedisplayskip=0pt
 \abovedisplayshortskip=0pt
@@ -7513,14 +7560,12 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 \end{figure}
 
 
-\chapter{Full TropICAL Examples}
-\label{appendix:tropes}
+% \chapter{Full TropICAL Examples}
+% \label{appendix:tropes}
 
 \chapter{Generated InstAL Code}
 \label{appendix:instal}
 
-\section{Obligation Examples}
-\label{appendix:obls}
 \begin{lstlisting}[label={lst:obl1-instal},caption={An obligation event with no
 deadline or consequence events}]
 institution obligation1;
