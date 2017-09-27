@@ -44,6 +44,8 @@
     "hyperref"
     "listings")
    (TeX-add-symbols
+    '("lref" 1)
+    '("llabel" 1)
     "mnote"
     "minote"
     "jnote"
@@ -94,7 +96,11 @@
     "sec:circumplex"
     "fig:circumplex"
     "sec:litrev-discussion"
+    "iss:freedom"
+    "iss:goals"
+    "iss:models"
     "cha:institutions"
+    "sec:stories-logic"
     "sec:pjexample"
     "tab:itl"
     "eq:story"
@@ -142,6 +148,7 @@
     "fig:tracevis"
     "fig:pjshow"
     "sec:demo"
+    "sec:inst-summary"
     "cha:tropes"
     "fig:evil-empire"
     "fig:periodic-table"

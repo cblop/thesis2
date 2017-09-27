@@ -12,6 +12,13 @@
   CLOSED: [2017-09-20 Wed 15:41]
 * DONE go through mnotes and delete old ones
   CLOSED: [2017-09-20 Wed 14:24]
+* DONE tropes: set up "this is the problem / what are the options / choose this" argument (narrativise)
+  CLOSED: [2017-09-27 Wed 07:18]
+* TODO narrativise "institutions" chapter (beginning, glue, end)
+* TODO lit review: add background on institutions & norms (line 1239)
+* TODO Line 1538 mentions constrasting temporal logic with insts, so put this in (or delete the mention)
+* TODO revise the appendices
+* TODO look up Rumelhart's arrows (line 928) and explain
 * TODO consider adding detail to compilation strategy
 * TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
 * DONE generate trace visualisations with Julian
@@ -55,7 +62,6 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * TODO ask Julian about section 7.3.3 (User Tasks). What's an example of what I want a task to demonstrate? Are the existing descriptions eliciting?
 * TODO relate tasks to requirements at start of eval section
 # * TODO try replacing compactenum and compactitem
-* TODO tropes: set up "this is the problem / what are the options / choose this" argument (narrativise)
 * TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * DONE tropes: crop periodic table as suggested
   CLOSED: [2017-09-21 Thu 11:10]
@@ -64,21 +70,33 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 * DONE capitalise all figs, sections, chapters, listings, formulas, rules
   CLOSED: [2017-09-20 Wed 14:18]
 * TODO finish full sausages institution in appendix
-* TODO remove "The Owner has an Object" from example PJ trope
-* TODO Line 1538 mentions constrasting temporal logic with insts, so put this in
+* DONE remove "The Owner has an Object" from example PJ trope
+  CLOSED: [2017-09-26 Tue 14:44]
 * TODO standardise fonts in all institution listings
-* TODO narrativise "institutions" chapter (beginning, glue, end)
-* TODO revise the appendices
-* TODO lit review: add background on institutions & norms (line 1239)
 * TODO revise your emph policy: first use is probably best (rather than all)
-* TODO look up Rumelhart's arrows (line 928) and explain
 * TODO line 989: look up refs for examples of planner systems
 * TODO write about using appraisal model in future work
 * TODO add intro to Institutions chapter to describe motivations (with outline of content at end)
-* TODO search all lstlistings, add showstringspaces=false
+* TODO look through listings for stringspace character
 * TODO check for compilation warnings / errors
-* TODO fix section / line hyperlinks
+* DONE fix section / line hyperlinks
+  CLOSED: [2017-09-26 Tue 14:02]
 * TODO change VAD to PAD
+* TODO Move 2nd para (starting "Though there have been...") to start of tropes section
+* TODO Revise the discussion at the end of section 2.2.6 to focus on the original three issues
+* DONE insert the following into the Tropes intro
+  CLOSED: [2017-09-27 Wed 07:18]
+The literature review in Chapter 2 identifies with current approaches to interactive storytelling in Section 2.2.6:
+
+Issue 1: Character agents need some freedom to generate story details
+Issue 2: Story authors do not want to think in terms of goals.
+Issue 3: Most narrative systems use outdated, inflexible story models.
+
+We address issues 2 and 3 by allowing creators to describe their narrative components informally, using story tropes. [define tropes]
+Tropes address issue 2 by allowing an author to describe the events that occur at different parts in a story. As tropes can describe patterns that occur across stories, they can be re-used and combined together in a way that allows an author to think about the story structure rather than the goals and workings of a planner. Tropes address issue 3 by providing an expressive, informal alternative to a strict formalism such as Propp's ``Morphology''. Formalisms require their users to learn their constituent rules in order to be useful. Our trope-based approach aims to allow the user to describe the parts of their story in as close to natural language as possible, while still allowing for their translation to a formal representation.
+This is implemented through a controlled natural language approach to the specification of Tropes in our TropICAL programming language, described in Chapter 5.
+
+* TODO spell check
 * TODO Structural Fixes
 ** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
 ** TODO No real introduction explanation or motivation for institutions chapter
@@ -93,7 +111,8 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 *** DONE maybe don't need the full questionnaire: just summarise its contents
     CLOSED: [2017-09-21 Thu 11:04]
 *** TODO There is a description of translation from trope to institution that is not repeated in the TropICAL chapter
-*** TODO Consider splitting this chapter into 2 parts
+*** DONE Consider splitting this chapter into 2 parts
+    CLOSED: [2017-09-26 Tue 14:50]
 *** TODO Lot of repeated info between end of this chapter & start of TropICAL chapter
 *** TODO Rather than mentioning TropICAL at the end, set up the demand & expectation
 *** TODO How can this section be expanded with more trope theory?
@@ -105,5 +124,6 @@ So, I think for each thing that is compiled (inits, terms, gens, etc), best to l
 ** INTRODUCTION
 *** TODO replace requirements with actual ones
 *** TODO summarise eval. findings in abstract
-*** TODO revise outline, remove reference to legal stuff & chapter 5
+*** DONE revise outline, remove reference to legal stuff & chapter 5
+    CLOSED: [2017-09-26 Tue 14:55]
 
