@@ -1273,6 +1273,14 @@ describe is more concerned with representing different temporal relations,
 whereas Ceptre's focus is on resource management within a game.
 
 \subsection{Normative Frameworks for Multi-Agent Systems}\label{sec:lit-insts}
+\emph{Social Institutions} (or \emph{Normative Frameworks}) govern the behaviour
+of agents within a multi-agent system. The agents act according to norms
+described within the institutions that govern their society, which act as a
+social contract that the agents follow in order to cooperate. We use these
+institutions to govern the character agents in our story world (described in
+Chapter~\ref{cha:institutions}) because they regulate agent behaviour without
+strict enforcement of their actions. This gives the characters in a story the
+autonomy to break away from a predefined narrative in certain situations.
 
 Noriega's Ph.D. thesis~\citep{noriega1999agent} uses a fish market as a metaphor for
 institutional governance of agents. The thesis explains that Spanish fish
@@ -1340,7 +1348,33 @@ performing roles with certain institutional powers. The implementation of their
 system (the ``Institutional Reality Engine'') uses a rule-based inference engine
 to determine when norms are violated or fulfilled.
 
-\citet{cliffe2007specifying}
+\citet{cliffe2007specifying} develop \emph{InstAL}, the Institution Action
+Language, a domain-specific language for the specification of social
+institutions that govern the behaviour of multi-agent systems. An InstAL
+institution consists of:
+
+\begin{itemize}
+\item \emph{Domain fluents}: symbols to track the state of the institution.
+\item \emph{Institutional Empowerments}: rules that determine which events have
+  the institutional power to occur.
+\item \emph{Exogeneous (or external) Events}: these resemble the instrumental actions
+  of~\citet{fornara2007agent}'s system, as they describe the actions that occur
+  in the agents' physical environment.
+\item \emph{Institutional Events}: these events are the same
+  as~\citet{fornara2007agent}'s institutional actions, which are events that are
+  triggered by exogeneous events and occur within the institution.
+\item \emph{Violation Events}: these are events that are triggered when a
+  forbidden action is carried out, or if an obligation is not met, acting as the
+  punishment for non-compliance.
+\item \emph{Permissions}: the set of actions that agents are allowed to carry out.
+\item \emph{Obligations}: the set of actions that agents are expected to take
+  before certain deadlines.
+\end{itemize}
+
+Section~\ref{sec:pjexample} contains a more detailed description of the InstAL
+semantics, including an example of how a scene from the ``Punch and Judy''
+story is expressed as an InstAL institution. This example is then expressed in
+InstAL syntax in Section~\ref{sec:arch-mas}.
 
 \subsection{Modelling Characters with Emotional Models}\label{sec:emotional-models}
 In this section, we examine the use of emotional models in intelligent agents,

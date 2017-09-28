@@ -1,4 +1,3 @@
-* TODO lit review: add background on institutions & norms (line 1239)
 * TODO tropes: FINISH archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * TODO Move 2nd para (starting "Though there have been...") to start of tropes section
 ** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
@@ -19,6 +18,8 @@
 # ** TODO re-read some planner papers
 ** TODO check for compilation warnings / errors
 # * TODO line 989: look up refs for examples of planner systems
+* DONE lit review: add background on institutions & norms (line 1239)
+  CLOSED: [2017-09-28 Thu 11:16]
 * DONE /Norms and Institutions: "as mentioned in the literature review..."
   CLOSED: [2017-09-27 Wed 22:01]
 * DONE look up Rumelhart's arrows (line 928) and explain
