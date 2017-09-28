@@ -1,4 +1,3 @@
-* TODO tropes: FINISH archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * TODO Move 2nd para (starting "Though there have been...") to start of tropes section
 ** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
 * TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
@@ -6,7 +5,6 @@
 * TODO TROPES: Lot of repeated info between end of this chapter & start of TropICAL chapter
 * TODO TROPES: Rather than mentioning TropICAL at the end, set up the demand & expectation
 * TODO TROPES: end of chapter: delete all the TropICAL stuff (except that which motivates the language design)
-* TODO STORYBUILDER: begin by stating the problem
 * TODO INTRO: replace requirements with actual ones
 * TODO final checks
 ** TODO read through: does it fit the new argument is that tropes aren't a formalism per se?
@@ -18,6 +16,16 @@
 # ** TODO re-read some planner papers
 ** TODO check for compilation warnings / errors
 # * TODO line 989: look up refs for examples of planner systems
+* DONE tropes: FINISH archetypical institutional model for a trope (is this the sausages scene in the appendix?)
+  CLOSED: [2017-09-28 Thu 13:22]
+* DONE add "away" to all intDontTouchItYouIdiots
+  CLOSED: [2017-09-28 Thu 13:22]
+* DONE rename "sausages scene" to "don't touch it you idiot trope"
+  CLOSED: [2017-09-28 Thu 13:22]
+* DONE check the sausages scene description matches the full inst described
+  CLOSED: [2017-09-28 Thu 13:22]
+* DONE STORYBUILDER: begin by stating the problem
+  CLOSED: [2017-09-28 Thu 11:48]
 * DONE lit review: add background on institutions & norms (line 1239)
   CLOSED: [2017-09-28 Thu 11:16]
 * DONE /Norms and Institutions: "as mentioned in the literature review..."

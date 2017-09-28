@@ -3400,15 +3400,15 @@ which cater for branching story lines.
 Now that we have determined the events that occur as part of the trope, we can describe its domain fluents, which include all the
 actions of the characters, as well as their roles:
 \begin{align*}
-   \mathcal{D} &= \left\{\mathtt{owner, idiot, absentee, chaser, pursued, returnee, item, onstage, offstage}\right\} %\label{eq:domain}
+  \mathcal{D} =&\left\{\mathtt{owner, idiot, item, away, inactive, phaseA,}\right.\\\nonumber
+  &\left. {} \mathtt{phaseB, phaseC, phaseD, phaseE, done}\right\} %\label{eq:domain}
 \end{align*}
 
 Also based on the above sequence events is the list of actions that may be
 permitted to occur within the trope:
 \begin{align*}
-\mathcal{P} =& \left\{\mathtt{perm(go(offstage, absentee)), perm(go(onstage, returnee)),}\right.\nonumber\\
-             &\left. {} \mathtt{ perm(chase(chaser, pursued)), perm(tellprotect(owner, idiot)),}\right.\nonumber\\
-             &\left. {} \mathtt{perm(give(owner, idiot, object)), perm(break(idiot, item)),}\right.\nonumber\\
+  \mathcal{P} =& \left\{\mathtt{perm(tellprotect(owner, idiot, item)), perm(go(owner, away)),}\right.\nonumber\\
+  &\left. {} \mathtt{perm(break(idiot, item)), perm(return(owner)),}\right.\nonumber\\
              &\left. {} \mathtt{perm(fight(owner, idiot))}\right\} %\label{eq:perm}
 \end{align*}
 
@@ -3445,19 +3445,19 @@ $\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
 \begin{minipage}[c]{0.85\textwidth}
 \begin{align}
   &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
   &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA}), \nonumber\\
   &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{tellprotect(owner, idiot, item)})\}\label{eq:phase-inactive}\\
   &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
   &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB}), \nonumber\\
   &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{go(owner, away)})\}\label{eq:phase-a}\\
   &\langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},\nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle \rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle \rightarrow \nonumber\\
  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, done}\}\label{eq:phase-done}
 \end{align}
 \end{minipage}}\right.$
-\caption{Phase fluent initiation in the sausage scene} \label{fig:pj-phase-inits}
+\caption{Phase fluent initiation in the ``Don't Touch It, You Idiot'' trope} \label{fig:pj-phase-inits}
 \medskip
 \abovedisplayskip=0pt
 \abovedisplayshortskip=0pt
@@ -3465,20 +3465,20 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 \begin{minipage}[c]{0.85\textwidth}
 \begin{align}
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
                                  % &\qquad\qquad
 &\rightarrow \emptyset\label{eq:phase-inactive-term}\\
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle % \nonumber\\
                                  % &\qquad\qquad
 &\rightarrow \emptyset\label{eq:phase-a-term}\\
   \langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},
-  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
                                  %&\qquad\qquad
 &\rightarrow \emptyset\label{eq:phase-done-term}
 \end{align}
 \end{minipage}}\right.$
-\caption{Phase fluent termination in the sausage scene} \label{fig:pj-phase-terms}
+\caption{Phase fluent termination in the ``Don't Touch It, You Idiot'' trope} \label{fig:pj-phase-terms}
 \end{figure}
 
 Returning to our \emph{Don't Touch It, You Idiot} example,
@@ -5516,8 +5516,27 @@ our TropICAL language.
 \chapter{StoryBuilder: An Interface for Trope-based Interactive Story Creation}
 % Think of it as an IDE: what kind of support do users want? Helps to visualise the complexity of the stories. Helps authors to construct the stories that they intend to construct
 \label{cha:storybuilder}
-We offer StoryBuilder as a graphical user interface to enhance the usability of
-the TropICAL language. Specifically, it addresses requirements
+
+Though TropICAL is useful as a programming language that allows for the
+construction of stories using controlled natural language, there remain several
+barriers that would prevent its use by non-programmer story authors. It is
+implemented as a compiler that is invoked from a command line interface with one
+or more trope definitions as input. Its output is a set of InstAL institutions
+and the AnsProlog that these institutions compile to. The AnsProlog can then be
+input into the Clingo solver in order to produce answer sets
+that correspond to the set of all possible story paths. This interface presents
+the following challenges to non-programmers:
+
+\begin{itemize}
+  \item Users must be familiar with command-line tools
+  \item Users must know how to use the Clingo solver
+  \item Users must be able to parse and understand the answer sets that Clingo produces
+\end{itemize}
+
+These challenges would be difficult for a non-technical story author to
+overcome. Therefore, we offer StoryBuilder as a graphical user interface to enhance the usability of
+the TropICAL language. In addition to removing the barriers to TropICAL's use
+listed above, it addresses requirements
 R\ref{req:components} and R\ref{req:vis} in the requirements listed in Section~\ref{sec:requirements}:
 
 \begin{enumerate}[R1.]
@@ -5532,7 +5551,9 @@ R\ref{req:components} and R\ref{req:vis} in the requirements listed in Section~\
 These requirements suggest the implementation of an IDE (Interactive Development
 Environment) with visual tools that assist the selection and visualisation of
 tropes. StoryBuilder is designed to be an IDE that is specifically designed for
-trope-based story authoring.
+trope-based story authoring. It takes the form of a graphical user interface
+that runs in a web browser, sends snippets of TropICAL code to a server to be
+compiled and input into Clingo, and visualises the resulting answer sets.
 
 Although libraries can be stored and reused in text-based programming languages
 through methods such as ``import'' statements, our intention is to create a
@@ -7515,145 +7536,143 @@ enable the creation of more interactive narrative content.
   \item \textbf{5} (extremely useful): 4 (23.5\%)
 \end{itemize}
 
-\chapter{Full Sausages Scene Institution}
+\chapter{Full ``Don't Touch It, You Idiot'' Institution}
 \label{appendix:sausages-full}
+This appendix lists a full example of how ``phase'' fluents are used to store
+the state of a trope.
 
 \begin{figure}[!th]
 \begin{align*}
-   \mathcal{D} &= \left\{\mathtt{onstage, hero, villain, victim, donor, item}\right\} %\label{eq:domain}
+  \mathcal{D} =&\left\{\mathtt{owner, idiot, item, away, inactive, phaseA,}\right.\\\nonumber
+  &\left. {} \mathtt{phaseB, phaseC, phaseD, phaseE, done}\right\} %\label{eq:domain}
 \end{align*}
-\caption{Domain fluents for the sausages scene}\label{eq:sausages-domain}
+\caption{Domain fluents for the ``Don't Touch It, You Idiot'' trope}\label{eq:sausages-domain}
 \end{figure}
 
 \begin{figure}[!th]
 \begin{align*}
-  \mathcal{W} =&\left\{\mathtt{pow(introduction), pow(interdiction), pow(give),}\right.\\ %\nonumber\\
-               &\left. {} \mathtt{pow(absentation), pow(violation), pow(return)}\right\} %\label{eq:power}
+  \mathcal{W} =&\left\{\mathtt{pow(intDontTouchItYouIdiot(owner, idiot, item, away))}\right\}
 \end{align*}
-\caption{Empowerments for the sausages scene}\label{eq:sausages-power}
+\caption{Empowerments for the ``Don't Touch It, You Idiot'' trope}\label{eq:sausages-power}
 \end{figure}
 
 \begin{figure}[!th]
 \begin{align*}
-\mathcal{P} =& \left\{\mathtt{perm(leavestage), perm(enterstage), perm(die), perm(kill),}\right.\nonumber\\
-             &\left. {} \mathtt{perm(hit), perm(give), perm(fight)}\right\} %\label{eq:perm}
+  \mathcal{P} =& \left\{\mathtt{perm(tellprotect(owner, idiot, item)), perm(go(owner, away)),}\right.\nonumber\\
+  &\left. {} \mathtt{perm(break(idiot, item)), perm(return(owner)),}\right.\nonumber\\
+             &\left. {} \mathtt{perm(fight(owner, idiot))}\right\} %\label{eq:perm}
 \end{align*}
-\caption{Permissions for the sausages scene}\label{eq:sausages-perms}
+\caption{Permissions for the ``Don't Touch It, You Idiot'' trope}\label{eq:sausages-perms}
 \end{figure}
 
 \begin{figure}[!th]\small
 \begin{align}
-  \mathcal{E}_{external} = & \left\{\begin{array}{c}
-\mathtt{go(Agent, Place)},\\
-\mathtt{meet(Agent, Agent)},\\
-\mathtt{kill(Agent, Agent)}\\
-\mathtt{escape(Agent)}
+  \mathcal{E}_{external} = &\left\{\begin{array}{c}
+\mathtt{tellprotect(owner, idiot, item)},\\
+\mathtt{go(owner, away)},\\
+\mathtt{break(idiot, item)},\\
+\mathtt{return(owner)},\\
+\mathtt{fight(owner, idiot)}
 \end{array}
 \right\}\label{eq:eobs-hero}\\
   \mathcal{E}_{internal} = &\left\{\begin{array}{l}
-\mathtt{intHerosJourney(Agent,}\\
-\;\;\mathtt{Agent, Agent, Place, Place)}
+\mathtt{intDontTouchItYouIdiot(owner,}\\
+\;\;\mathtt{idiot, item, away)}
 \end{array}\right\}
 \label{eq:einst-hero}
 \end{align}
-\caption{External and institutional events ($\mathcal{E}$) for the sausages scene}\label{fig:sausage-events}
+\caption{External and institutional events ($\mathcal{E}$) for the ``Don't Touch
+  It, You Idiot'' trope}\label{fig:sausage-events}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!th]
 \abovedisplayskip=0pt
 \abovedisplayshortskip=0pt
 $\mathcal{G(X, E)}:\left\{\mbox{%
 {\begin{minipage}[c]{0.85\textwidth}
 % \vspace{-2.1em}\begin{align}
 \begin{align}
-\langle \emptyset,\mathit{tellprotect}\mathtt{(donor, villain, item)} \rangle%\nonumber\\
-             %         &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{interdiction}\right\}\label{eq:gfirst-full}\\
-                      \langle \{\mathit{interdiction}\}, \mathit{agree}\mathtt{(villain)}) \rangle %\nonumber\\
-            %          &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{complicity}\right\}\\
-                      \langle \emptyset, \mathit{give}\mathtt{(donor, villain, item)}) \rangle %\nonumber\\
-        %              &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{receipt}\right\}\label{eq:receipt-full}\\
-                      \langle \{\mathit{interdiction}\}, \mathit{leavestage}(\mathtt{donor}) \rangle %\nonumber\\
-              %        &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{absentation}\right\}\label{eq:absentation-full}\\
-                      \langle \{\mathit{interdiction}\}, \mathit{harmed}(\mathtt{item}) \rangle %\nonumber\\
-         %             &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{violation}\right\}\\
-                      \langle \{\mathit{interdiction, absentation}\},
-                      \mathit{enterstage}(\mathtt{donor}) \rangle %\nonumber\\
-              %        &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{return}\right\}\\
-                      \langle \emptyset, \mathit{hit}(\mathtt{donor, villain}) \rangle %\nonumber\\
-%                      &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{struggle}\right\}\label{eq:glast-full}
+\langle \mathit{tellprotect}&\mathtt{(owner, idiot, item)} \rangle\nonumber\\
+                     % &\qquad\qquad\qquad
+ &\rightarrow \left\{\mathit{intDontTouchItYouIdiot(owner, idiot, item, away)}\right\}\label{eq:gfirst-full}\\
+                      \langle \mathit{go}\mathtt{(owner, away)}) \rangle \nonumber\\
+                     % &\qquad\qquad\qquad
+ &\rightarrow \left\{\mathit{intDontTouchItYouIdiot(owner, idiot, item, away)}\right\}\\
+                      \langle \mathit{break}\mathtt{(idiot, item)}) \rangle \nonumber\\
+                     % &\qquad\qquad\qquad
+ &\rightarrow \left\{\mathit{intDontTouchItYouIdiot(owner, idiot, item, away)}\right\}\label{eq:receipt-full}\\
+                      \langle \mathit{return}(\mathtt{owner}) \rangle \nonumber\\
+                     % &\qquad\qquad\qquad
+ &\rightarrow \left\{\mathit{intDontTouchItYouIdiot(owner, idiot, item, away)}\right\}\label{eq:absentation-full}\\
+                      \langle \mathit{fight}(\mathtt{owner, idiot}) \rangle \nonumber\\
+                     % &\qquad\qquad\qquad
+ &\rightarrow \left\{\mathit{intDontTouchItYouIdiot(owner, idiot, item, away)}\right\}
 \end{align}
 \end{minipage}}}\right.$
-\caption{Event generation in the sausage scene} \label{fig:gen-full}
+\caption{Event generation in the ``Don't Touch It, You Idiot'' trope} \label{fig:gen-full}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \abovedisplayskip=0pt
 \abovedisplayshortskip=0pt
 $\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
 \begin{minipage}[c]{0.85\textwidth}
 \begin{align}
   &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
   &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA}), \nonumber\\
   &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{tellprotect(owner, idiot, item)})\}\label{eq:phase-inactive-full}\\
   &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
   &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB}), \nonumber\\
   &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{go(owner, away)})\}\label{eq:phase-a-full}\\
   &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\}, \nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
   &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseC}), \nonumber\\
   &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{break(idiot, item)})\}\label{eq:phase-b-full}\\
   &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseC})\}, \nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
   &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseD}), \nonumber\\
   &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{return(owner)})\}\label{eq:phase-c-full}\\
   &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseD})\}, \nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle\rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
   &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseE}), \nonumber\\
   &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{fight(owner, idiot)})\}\label{eq:phase-d-full}\\
   &\langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseE})\},\nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle \rightarrow \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle \rightarrow \nonumber\\
  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, done}\}\label{eq:phase-done-full}
 \end{align}
 \end{minipage}}\right.$
-\caption{Phase fluent initiation in the sausage scene} \label{fig:pj-phase-inits-full}
+\caption{Phase fluent initiation in the ``Don't Touch It You Idiot'' trope} \label{fig:pj-phase-inits-full}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \abovedisplayskip=0pt
 \abovedisplayshortskip=0pt
 $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 \begin{minipage}[c]{0.85\textwidth}
 \begin{align}
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
 &\rightarrow \emptyset\label{eq:phase-inactive-term-full}\\
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle % \nonumber\\
 &\rightarrow \emptyset\label{eq:phase-a-term-full}\\
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\}, \nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle % \nonumber\\
 &\rightarrow \emptyset\label{eq:phase-b-term-full}\\
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseC})\}, \nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle % \nonumber\\
 &\rightarrow \emptyset\label{eq:phase-c-term-full}\\
   \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseD})\}, \nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle % \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle % \nonumber\\
 &\rightarrow \emptyset\label{eq:phase-d-term-full}\\
   \langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseE})\},
-  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item)} \rangle %\nonumber\\
+  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
 &\rightarrow \emptyset\label{eq:phase-done-term-full}
 \end{align}
 \end{minipage}}\right.$
-\caption{Phase fluent termination in the sausage scene} \label{fig:pj-phase-terms-full}
+\caption{Phase fluent termination in the ``Don't Touch It, You Idiot'' trope} \label{fig:pj-phase-terms-full}
 \end{figure}
 
 

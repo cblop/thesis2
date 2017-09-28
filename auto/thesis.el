@@ -394,7 +394,6 @@
     "eq:gfirst-full"
     "eq:receipt-full"
     "eq:absentation-full"
-    "eq:glast-full"
     "fig:gen-full"
     "eq:phase-inactive-full"
     "eq:phase-a-full"
