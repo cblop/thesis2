@@ -1,5 +1,5 @@
 * TODO lit review: add background on institutions & norms (line 1239)
-* TODO tropes: archetypical institutional model for a trope (is this the sausages scene in the appendix?)
+* TODO tropes: FINISH archetypical institutional model for a trope (is this the sausages scene in the appendix?)
 * TODO Move 2nd para (starting "Though there have been...") to start of tropes section
 ** TODO Tropes seem to come out of nowhere at end of lit review. Might be better to move it.
 * TODO add bit on trope phases (in addition to what's there) earlier in the /tropes/ chapter
@@ -10,14 +10,13 @@
 * TODO STORYBUILDER: begin by stating the problem
 * TODO INTRO: replace requirements with actual ones
 * TODO final checks
-** TODO does it fit the new argument is that tropes aren't a formalism per se?
+** TODO read through: does it fit the new argument is that tropes aren't a formalism per se?
 ** TODO check that no lstlistings are split across pages. Put inside float/minipage to fix
-
 ** TODO spell check
 ** TODO make sure paragraphs consistently end titles with colons
 ** TODO fix all figures so that they float (just check they're OK)
 ** TODO look through listings for stringspace character
-** TODO re-read some planner papers
+# ** TODO re-read some planner papers
 ** TODO check for compilation warnings / errors
 # * TODO line 989: look up refs for examples of planner systems
 * DONE /Norms and Institutions: "as mentioned in the literature review..."

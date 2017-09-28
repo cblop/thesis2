@@ -1274,8 +1274,49 @@ whereas Ceptre's focus is on resource management within a game.
 
 \subsection{Normative Frameworks for Multi-Agent Systems}\label{sec:lit-insts}
 
-\citet{artikis2009specifying}
-\citet{fornara2007agent}
+Noriega's Ph.D. thesis~\citep{noriega1999agent} uses a fish market as a metaphor for
+institutional governance of agents. The thesis explains that Spanish fish
+markets seem to use a \emph{downward-bidding} auction protocol that emerges from
+a social institution with refined, socially acknowledged conventions. Noriega
+explains how agent-mediated institutions may use these social conventions to
+model such a market, with an agent governor to ensure that the conventions are enforced.
+
+The idea of agent ``societies'' being governed by social conventions is realised
+through several different implementations. \citet{artikis2009specifying} present
+a framework for the executable specification of open agent societies, where an
+open society is one with heterogeneous agents, conflicting individual goals and
+unpredictable behaviour. Emphasis is put on the fact that individuals in such
+societies can choose to ignore the social norms that govern them, so long as
+they are willing to accept the consequences of non-compliance. Their system is
+specified using two action languages (languages for specifying state transition
+systems): the $\mathcal{C}+$ language~\citep{giunchiglia2001causal, giunchiglia2004nonmonotonic} and the Event
+Calculus~\citep{kowalski1986logic, shanahan1999event}. The models are
+executing using the Causal Calculator, a software implementation of
+$\mathcal{C}+$. The social constraints of their agent society are expressed in
+terms of:
+
+\begin{itemize}
+  \item The agents' physical capabilities
+  \item Institutionalised powers
+  \item Permissions, prohibitions and obligations of the agents
+  \item Sanctions and enforcement policies that deal with the consequence of
+    non-compliance with obligations and performance of forbidden actions
+\end{itemize}
+
+Each agent in the society is assigned a social role that determines its
+permitted and obliged behaviours. The social constraints defined in $\mathcal{C}+$
+are described in terms of \emph{fluents} (symbols that characterise a state) and
+\emph{actions} (symbols that characterise state transitions).
+
+\citet{fornara2007agent} propose another institutional model for the definition
+of open multi-agent system societies. They use the notion of \emph{social
+  commitment} to define the semantics of an Agent Communication Language (ACL).
+Commitments, being objective and external to an agent's internal state,
+make it possible to verify whether an agent is conforming to the rules of its
+society. The authors use \emph{norms} as event-driven rules that create or
+cancel sets of social commitments, and are triggered by events that occur in the
+multi-agent system.
+
 \citet{cardoso2007institutional}
 \citet{cliffe2007specifying}
 
@@ -1810,7 +1851,7 @@ their intelligence? By contrast, modelling stories with social norms and
 institutions offers a more flexible way to encourage agents actions to conform
 to the shape of a story.
 
-As mentioned in Section~\ref{sec:lit-insts} of the literature review, an institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describes how an institutional model can be used to govern the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
+As we describe in Section~\ref{sec:lit-insts} of the literature review, an institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describes how an institutional model can be used to govern the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
 
 Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with Propp's concepts of \emph{roles} and \emph{story moves}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.
 
@@ -7459,7 +7500,7 @@ enable the creation of more interactive narrative content.
 \end{array}\right\}
 \label{eq:einst-hero}
 \end{align}
-\caption{External and institutional events ($\mathcal{E}$) for the sausages scene} trope} \label{fig:events}
+\caption{External and institutional events ($\mathcal{E}$) for the sausages scene}\label{fig:sausage-events}
 \end{figure}
 
 \begin{figure}[!h]

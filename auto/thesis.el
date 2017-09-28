@@ -390,6 +390,7 @@
     "eq:sausages-domain"
     "eq:sausages-power"
     "eq:sausages-perms"
+    "fig:sausage-events"
     "eq:gfirst-full"
     "eq:receipt-full"
     "eq:absentation-full"
