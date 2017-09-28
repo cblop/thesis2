@@ -1308,16 +1308,38 @@ permitted and obliged behaviours. The social constraints defined in $\mathcal{C}
 are described in terms of \emph{fluents} (symbols that characterise a state) and
 \emph{actions} (symbols that characterise state transitions).
 
-\citet{fornara2007agent} propose another institutional model for the definition
-of open multi-agent system societies. They use the notion of \emph{social
+\citet{fornara2007agent} propose a model for the definition
+of ``artificial institutions'' for the governance of open multi-agent system societies. They use the notion of \emph{social
   commitment} to define the semantics of an Agent Communication Language (ACL).
 Commitments, being objective and external to an agent's internal state,
-make it possible to verify whether an agent is conforming to the rules of its
+make it possible to verify whether or not an agent is conforming to the rules of its
 society. The authors use \emph{norms} as event-driven rules that create or
 cancel sets of social commitments, and are triggered by events that occur in the
-multi-agent system.
+multi-agent system. These norms are expressed as \emph{obligations} and
+\emph{prohibitions} on the agents'' actions. The system proposed consists of:
 
-\citet{cardoso2007institutional}
+\begin{itemize}
+\item A set of \emph{entities} that have \emph{natural} or \emph{institutional}
+  attributes, where natural attributes reflect physical properties of the
+  agents' world (such as the colour of a book), and institutional attributes
+  reflect properties that only exist due to agreement between the agents (such
+  as the price of a book).
+\item \emph{Instrumental actions}, which are actions that occur in the agents'
+  physical environment, possibly triggering institutional actions.
+\item \emph{Institutional actions}, which are events that change institutional
+  attributes, with preconditions and postconditions.
+\item \emph{Conventions}, which are the norms triggered by the institutional
+  actions in the system.
+\end{itemize}
+
+\citet{cardoso2007institutional} describe the creation of ``virtual
+organisations'', where agent cooperation is regulated by appropriate norms. In
+this case, the enforcement of the institutional norms (``Institutional
+Reality'') is carried out by agents
+performing roles with certain institutional powers. The implementation of their
+system (the ``Institutional Reality Engine'') uses a rule-based inference engine
+to determine when norms are violated or fulfilled.
+
 \citet{cliffe2007specifying}
 
 \subsection{Modelling Characters with Emotional Models}\label{sec:emotional-models}
