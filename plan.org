@@ -5,7 +5,8 @@
 * TODO TROPES: Lot of repeated info between end of this chapter & start of TropICAL chapter
 * TODO TROPES: Rather than mentioning TropICAL at the end, set up the demand & expectation
 * TODO TROPES: end of chapter: delete all the TropICAL stuff (except that which motivates the language design)
-* TODO INTRO: replace requirements with actual ones
+* DONE INTRO: replace requirements with actual ones
+  CLOSED: [2017-09-28 Thu 14:11]
 * TODO final checks
 ** TODO read through: does it fit the new argument is that tropes aren't a formalism per se?
 ** TODO check that no lstlistings are split across pages. Put inside float/minipage to fix

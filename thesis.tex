@@ -484,7 +484,7 @@ way that the character agents respond to these interactions.
 
 \section{Answer Set Programming for Story Solving}
 \label{sec:trope-interface}
-In Section~\ref{sec:tropical}, we describe TropICAL, our programming language
+In Chapter~\ref{cha:tropical}, we describe TropICAL, our programming language
 for defining of story tropes. The requirements for this language are:
 
 \begin{enumerate}
@@ -1587,7 +1587,7 @@ create a library of reusable formal descriptions of tropes.
 These three omissions (means of abstraction, conceptual simplicity and a
 re-usable library of components) from existing narrative systems are addressed
 by our trope-based approach to interactive narrative generation, which is
-described in further sections of this thesis.
+described in Chapters~\ref{cha:tropes} and~\ref{cha:tropical} of this dissertation.
 
 % Chapter~\ref{cha:tropes} describes
 % the trope concept further, with examples. Chapter~\ref{cha:institutions}
@@ -2678,6 +2678,7 @@ Storytelling~\citep{periodicTableOfStorytelling} is a visualisation of tropes as
 (Figure~\ref{fig:periodic-table}) arranges the tropes into different ``groups''
 according to the part of a story that they operate on. The leftmost groups
 describe the story as a whole, describing:
+
 \textbf{Story structure:}
 \begin{itemize}
   \item Three Act Structure
@@ -2924,7 +2925,7 @@ TropICAL, our domain-specific programming language for trope-oriented story
 authoring, aims to simplify the authoring of story tropes for non-programmer users.
 In the same vein as Inform 7~\citep{reed2010creating}, our language uses a
 constrained natural language syntax. Further details are described in
-section~\ref{sec:tropical}, where we describe the language in detail. In the same manner as a wiki, once a number of authors have contributed tropes,
+Chapter~\ref{cha:tropical}, where we describe the language in detail. In the same manner as a wiki, once a number of authors have contributed tropes,
 it could offer the capacity to be a library of reusable tropes for future authors to use in
 their stories.
 
@@ -3377,7 +3378,7 @@ and so is discussed further only in the ``future work'' Section~\ref{sec:future}
 
 Using the same process with which we described the \emph{Hero's Journey} in
 terms of an institution in Section~\ref{sec:tropes-as-insts}, this section shows
-the translation of the \emph{Don't Touch It, You Idiot} into a formal institution.
+the translation of the \emph{Don't Touch It, You Idiot} trope into a formal institution.
 
 First, we define the sequence of events that form the trope:
 
@@ -3510,136 +3511,135 @@ Extending this example to include all events, along with the corresponding
 permissions and obligations that they grant our story characters, results in the
 institution described in Appendix~\ref{appendix:sausages-full}.
 
-\section{TropICAL: a DSL for Tropes} % 1
-\label{sec:tropical}
+% \section{TropICAL: a DSL for Tropes} % 1
+% \label{sec:tropical}
 
-We propose \tropical\ (the TROPe Interactive Chronical Language) as a DSL for describing tropes in a constrained natural language, which we compile to InstAL~\citep{cliffe2007specifying}, through which process we capture the events that can occur and the consequent state changes, and from which a model is constructed in ASP.  The model, when given an event trace, delivers the evolution of the trope state, including crucially, the addition or removal of permission associations between actors and actions and the addition of obligations as consequences of actors' actions.  The syntax of \tropical\ is heavily influenced by the Inform 7~\citep{reed2010creating} language for interactive fiction, with the tropes being expressed in constrained natural language mostly conforming to Attempto Controlled English (ACE)~\citep{fuchs1996attempto}. \tropical\ shares similar aims to Inform~7 in that it aims to make interactive fiction authoring accessible to non-programmer story authors, however its focus is on authoring and combining tropes written in terms of roles, in contrast to complete stories in terms of actual characters. This section describes the syntax and semantics of \tropical, as well as sketching its compilation to InstAL.
+% We propose \tropical\ (the TROPe Interactive Chronical Language) as a DSL for describing tropes in a constrained natural language, which we compile to InstAL~\citep{cliffe2007specifying}, through which process we capture the events that can occur and the consequent state changes, and from which a model is constructed in ASP.  The model, when given an event trace, delivers the evolution of the trope state, including crucially, the addition or removal of permission associations between actors and actions and the addition of obligations as consequences of actors' actions.  The syntax of \tropical\ is heavily influenced by the Inform 7~\citep{reed2010creating} language for interactive fiction, with the tropes being expressed in constrained natural language mostly conforming to Attempto Controlled English (ACE)~\citep{fuchs1996attempto}. \tropical\ shares similar aims to Inform~7 in that it aims to make interactive fiction authoring accessible to non-programmer story authors, however its focus is on authoring and combining tropes written in terms of roles, in contrast to complete stories in terms of actual characters. This section describes the syntax and semantics of \tropical, as well as sketching its compilation to InstAL.
 
-The features of our trope description language are designed to be able to express the events, permissions and obligations of social institutions while addressing the shortcomings of planner and drama manager-based approaches:
+% The features of our trope description language are designed to be able to express the events, permissions and obligations of social institutions while addressing the shortcomings of planner and drama manager-based approaches:
 
-\begin{enumerate}[R1.]
-\item\label{perms} A way to express what certain characters are \textbf{permitted} to do at a given time.\footnote{An alternative approach would be to specify prohibitions, such that anything not prohibited is permitted, whereas we currently specify permissions, such that anything not permitted is prohibited.  This latter convention is the default semantics of InstAL, it is however straightforward from a technical point of view to adopt the alternative, as demonstrated in \citet{DBLP:conf/atal/KingLVDJPR15}.}
-\item\label{obls} A way to express \textbf{obligations} on characters, with \emph{deadlines} and \emph{penalties} if the obligations are not fulfilled.
-\item\label{state} A way to describe the state of a character or object at a
-  given point in the story.
-\item\label{seqs} A way of \textbf{sequencing} events in a trope.
-\item\label{conds} A way to express \textbf{conditionals}, so that some events may occur only if others have.
-\item\label{branches} A way to have \textbf{branches} in a trope, so that only one of two events may occur.
-\item\label{embed} A way to \textbf{embed} sub-tropes inside of parent tropes.
-\end{enumerate}
-Requirements~R\ref{perms} to~R\ref{seqs} allow \tropical\ to describe the
-permissions, obligations and sequences of events that occur in social
-institutions, while R\ref{conds} and~R\ref{branches} add the ability to specify
-alternative paths through a story, as planner-based systems are able to do when
-combined with formalisms such as Propp's. Finally, requirement~R\ref{embed}
-enables us to nest tropes to go beyond the capabilities of structuralist
-formalisms of narrative, addressing the limitations described in the ``Related
-Work'' chapter of this thesis (Chapter~\ref{cha:literature-review}). The TropICAL language satisfies these technical requirements, while being easy to learn for non-programmers, especially those familiar with the Inform 7 language (as is supported by the evaluation). It supports the expression of the above features in the following ways: 
+% \begin{enumerate}[R1.]
+% \item\label{perms} A way to express what certain characters are \textbf{permitted} to do at a given time.\footnote{An alternative approach would be to specify prohibitions, such that anything not prohibited is permitted, whereas we currently specify permissions, such that anything not permitted is prohibited.  This latter convention is the default semantics of InstAL, it is however straightforward from a technical point of view to adopt the alternative, as demonstrated in \citet{DBLP:conf/atal/KingLVDJPR15}.}
+% \item\label{obls} A way to express \textbf{obligations} on characters, with \emph{deadlines} and \emph{penalties} if the obligations are not fulfilled.
+% \item\label{state} A way to describe the state of a character or object at a
+%   given point in the story.
+% \item\label{seqs} A way of \textbf{sequencing} events in a trope.
+% \item\label{conds} A way to express \textbf{conditionals}, so that some events may occur only if others have.
+% \item\label{branches} A way to have \textbf{branches} in a trope, so that only one of two events may occur.
+% \item\label{embed} A way to \textbf{embed} sub-tropes inside of parent tropes.
+% \end{enumerate}
+% Requirements~R\ref{perms} to~R\ref{seqs} allow \tropical\ to describe the
+% permissions, obligations and sequences of events that occur in social
+% institutions, while R\ref{conds} and~R\ref{branches} add the ability to specify
+% alternative paths through a story, as planner-based systems are able to do when
+% combined with formalisms such as Propp's. Finally, requirement~R\ref{embed}
+% enables us to nest tropes to go beyond the capabilities of structuralist
+% formalisms of narrative, addressing the limitations described in the ``Related
+% Work'' chapter of this thesis (Chapter~\ref{cha:literature-review}). The TropICAL language satisfies these technical requirements, while being easy to learn for non-programmers, especially those familiar with the Inform 7 language (as is supported by the evaluation). It supports the expression of the above features in the following ways: 
 
-% Replace with ``hostage situation''?
-\begin{figure}[!t]
-% \begin{lstlisting}[float=t!,caption={The ``Hero's Journey'' trope in TropICAL},label=lst:hero]
-\begin{lstlisting}
-"The Hero's Journey" is a Trope where:
-  The Hero is at Home
-  Then the Hero meets the Dispatcher
-  Then the "Quest" trope happens
-  Then the Hero returns Home
-\end{lstlisting}%
-\caption{The ``Hero's Journey'' trope in TropICAL\label{lst:hero}}
-\medskip
-% \begin{lstlisting}[float=t!,caption={The ``Evil Empire'' trope in TropICAL},label=lst:evil]
-\begin{lstlisting}
-"The Evil Empire" is a Trope where:
-  The Villain has an Empire
-  The Empire is a Weapon
-  The Villain has a Victim
-  The Villain may kill the Victim
-  The Villain may kill the Hero
-\end{lstlisting}%
-\caption{The ``Evil Empire'' trope in TropICAL\label{lst:evil}}
-\medskip
-% \begin{lstlisting}[float=t!,caption={The ``Quest'' trope in TropICAL},label=lst:quest]
-\begin{lstlisting}
-"Quest" is a Trope where:
-  Then the Hero must go to the Land Of Adventure before the Villain kills the Victim
-    Otherwise, the Story ends
-  When the Hero goes to the Land Of Adventure:
-    The Hero may rescue the Victim
-    The Hero may kill the Villain
-      Or the Villain may escape
-\end{lstlisting}
-\caption{The ``Quest'' trope in TropICAL\label{lst:quest}}
-\end{figure}
+% % Replace with ``hostage situation''?
+% \begin{figure}[!t]
+% % \begin{lstlisting}[float=t!,caption={The ``Hero's Journey'' trope in TropICAL},label=lst:hero]
+% \begin{lstlisting}[showstringspaces=false]
+% "The Hero's Journey" is a Trope where:
+%   The Hero is at Home
+%   Then the Hero meets the Dispatcher
+%   Then the "Quest" trope happens
+%   Then the Hero returns Home
+% \end{lstlisting}%
+% \caption{The ``Hero's Journey'' trope in TropICAL\label{lst:hero}}
+% \medskip
+% % \begin{lstlisting}[float=t!,caption={The ``Evil Empire'' trope in TropICAL},label=lst:evil]
+% \begin{lstlisting}[showstringspaces=false]
+% "The Evil Empire" is a Trope where:
+%   The Villain has an Empire
+%   The Empire is a Weapon
+%   The Villain has a Victim
+%   The Villain may kill the Victim
+%   The Villain may kill the Hero
+% \end{lstlisting}%
+% \caption{The ``Evil Empire'' trope in TropICAL\label{lst:evil}}
+% \medskip
+% % \begin{lstlisting}[float=t!,caption={The ``Quest'' trope in TropICAL},label=lst:quest]
+% \begin{lstlisting}[showstringspaces=false]
+% "Quest" is a Trope where:
+%   Then the Hero must go to the Land Of Adventure before the Villain kills the Victim
+%     Otherwise, the Story ends
+%   When the Hero goes to the Land Of Adventure:
+%     The Hero may rescue the Victim
+%     The Hero may kill the Villain
+%       Or the Villain may escape
+% \end{lstlisting}
+% \caption{The ``Quest'' trope in TropICAL\label{lst:quest}}
+% \end{figure}
 
-\begin{compactdesc}
-% \subsection{Permissions}
-\item[Permissions:]
-Permissions on characters can be described by making statements in the simple present form, such as ``The Hero finds a weapon''. When compiled to InstAL code, these statements are equivalent to giving a character permission to do something. In this case, the Hero would have permission to find a weapon at that point in the trope.
-The reason that this statement is translated to a permission is so that character agents can at any time have multiple permitted actions from several active tropes. It makes sense to make permission the ``default'' norm, rather than obligation, to allow the agents as much freedom as possible within the constraints of the story. If an author wants to make sure an agent carries out a particular action, they would specify it as an obligation instead (``The Hero \emph{must} find a weapon'').
+% \begin{compactdesc}
+% % \subsection{Permissions}
+% \item[Permissions:]
+% Permissions on characters can be described by making statements in the simple present form, such as ``The Hero finds a weapon''. When compiled to InstAL code, these statements are equivalent to giving a character permission to do something. In this case, the Hero would have permission to find a weapon at that point in the trope.
+% The reason that this statement is translated to a permission is so that character agents can at any time have multiple permitted actions from several active tropes. It makes sense to make permission the ``default'' norm, rather than obligation, to allow the agents as much freedom as possible within the constraints of the story. If an author wants to make sure an agent carries out a particular action, they would specify it as an obligation instead (``The Hero \emph{must} find a weapon'').
 
-% \subsection{Obligations}
-\item[Obligations:]
-Figure~\ref{lst:quest} shows an example of an obligation with both a deadline and a violation event (both of which are optional). This obligation states that the hero must go to the Land of Adventure before the villain kills the victim, otherwise the story ends. In this case, the story ending is a particularly harsh penalty for the violation of the \emph{Quest} trope. Alternative violation events could be reduction of the hero's health, or the death of the victim.
+% % \subsection{Obligations}
+% \item[Obligations:]
+% Figure~\ref{lst:quest} shows an example of an obligation with both a deadline and a violation event (both of which are optional). This obligation states that the hero must go to the Land of Adventure before the villain kills the victim, otherwise the story ends. In this case, the story ending is a particularly harsh penalty for the violation of the \emph{Quest} trope. Alternative violation events could be reduction of the hero's health, or the death of the victim.
 
-\item[State:]
-There are certain properties of each character or object in a story that will hold (or not
-hold) at different points of time. For example, we want to be able to keep track
-of the physical location of each character or object, what items a character possesses, or the
-state of their health, for example. There are two keywords that we use to
-express the state of a character: \emph{is} and \emph{has}.
+% \item[State:]
+% There are certain properties of each character or object in a story that will hold (or not
+% hold) at different points of time. For example, we want to be able to keep track
+% of the physical location of each character or object, what items a character possesses, or the
+% state of their health, for example. There are two keywords that we use to
+% express the state of a character: \emph{is} and \emph{has}.
 
-For example, we can say that:
-The \emph{sword} \textbf{is} in the \emph{castle}.
-The \emph{hero} \textbf{is} at \emph{home}
+% For example, we can say that:
+% The \emph{sword} \textbf{is} in the \emph{castle}.
+% The \emph{hero} \textbf{is} at \emph{home}
 
-Or:
-The \emph{hero} \textbf{has} the \emph{sword}.
-The \emph{villain} \textbf{has} the \emph{macguffin}.
+% Or:
+% The \emph{hero} \textbf{has} the \emph{sword}.
+% The \emph{villain} \textbf{has} the \emph{macguffin}.
 
-These statements would be used to initiate and terminate fluents in their
-corresponding institutions. The state of the story will progress according to
-the combination of fluents that hold at a particular time.
+% These statements would be used to initiate and terminate fluents in their
+% corresponding institutions. The state of the story will progress according to
+% the combination of fluents that hold at a particular time.
 
-% \subsection{Sequencing}
-\item[Sequencing:]
-As well as specifying permissions and obligations, it is frequently necessary to be able to express that certain events can only occur in a certain order. The \emph{Then} keyword means that the succeeding statement can only occur once the previous event has occurred. This is the means of implementing the \emph{phases} described in the ``Ordering Events in Tropes'' part of this section. In the \emph{Hero's Journey} (Figure~\ref{lst:hero}) example, the Hero only has permission to return home (line 5) once everything in the \emph{Quest} trope has happened (Figure~\ref{lst:quest}).
-In some tropes, such as the \emph{Evil Empire} trope (Figure~\ref{lst:evil}), the permissions and obligations described do not always need to occur in a certain sequence. In this case the trope serves the purpose of describing certain themes and characters in a part of a story, or events that may occur at any time, rather than in a specific order. The \emph{Evil Empire} trope only needs a villain with an empire to be present to fight the hero, so all of its permissions and obligations will apply from the beginning of the story.
+% % \subsection{Sequencing}
+% \item[Sequencing:]
+% As well as specifying permissions and obligations, it is frequently necessary to be able to express that certain events can only occur in a certain order. The \emph{Then} keyword means that the succeeding statement can only occur once the previous event has occurred. This is the means of implementing the \emph{phases} described in the ``Ordering Events in Tropes'' part of this section. In the \emph{Hero's Journey} (Figure~\ref{lst:hero}) example, the Hero only has permission to return home (line 5) once everything in the \emph{Quest} trope has happened (Figure~\ref{lst:quest}).
+% In some tropes, such as the \emph{Evil Empire} trope (Figure~\ref{lst:evil}), the permissions and obligations described do not always need to occur in a certain sequence. In this case the trope serves the purpose of describing certain themes and characters in a part of a story, or events that may occur at any time, rather than in a specific order. The \emph{Evil Empire} trope only needs a villain with an empire to be present to fight the hero, so all of its permissions and obligations will apply from the beginning of the story.
 
-% \subsection{Branching}
-\item[Branching:]
-Tropes may also contain branching paths where one or more events may take place. This is expressed in TropICAL with the \emph{Or} operator. Lines 6 and 7 of the \emph{Quest} trope in Figure~\ref{lst:quest} express two alternatives: the Hero may kill the Villain or the Villain may escape. In this case, both permissions will hold at the same time, but both will be terminated once either permitted event has occurred. This makes it impossible for both events to happen in the story.
+% % \subsection{Branching}
+% \item[Branching:]
+% Tropes may also contain branching paths where one or more events may take place. This is expressed in TropICAL with the \emph{Or} operator. Lines 6 and 7 of the \emph{Quest} trope in Figure~\ref{lst:quest} express two alternatives: the Hero may kill the Villain or the Villain may escape. In this case, both permissions will hold at the same time, but both will be terminated once either permitted event has occurred. This makes it impossible for both events to happen in the story.
 
-% \subsection{Conditionals}
-\item[Conditionals:]
-Conditionals are another way to create branching paths in a narrative, by allowing certain actions to occur if a particular trope state is reached. For this purpose we add the \emph{When} keyword, to express that when a specified state or event occurs, then some norms will be activated. In our \emph{Quest} example, we see an example of this on line 4, stating what the hero may do once in the Land of Adventure. This is similar to the ``Simple Present Statement'' example, except for the addition of the \emph{When} keyword. In much the same way, the statement after the \emph{When} keyword is a permission that holds on a character during the trope, except that it is also used to describe the consequences of certain events occurring. In this case, it states that when the Hero goes to the Land of Adventure, they may either kill the Villain, or the Villain may escape.
+% % \subsection{Conditionals}
+% \item[Conditionals:]
+% Conditionals are another way to create branching paths in a narrative, by allowing certain actions to occur if a particular trope state is reached. For this purpose we add the \emph{When} keyword, to express that when a specified state or event occurs, then some norms will be activated. In our \emph{Quest} example, we see an example of this on line 4, stating what the hero may do once in the Land of Adventure. This is similar to the ``Simple Present Statement'' example, except for the addition of the \emph{When} keyword. In much the same way, the statement after the \emph{When} keyword is a permission that holds on a character during the trope, except that it is also used to describe the consequences of certain events occurring. In this case, it states that when the Hero goes to the Land of Adventure, they may either kill the Villain, or the Villain may escape.
 
-% \subsection{Embedding Tropes Within Tropes}
-\item[Embedding Tropes Within Tropes:]
-Tropes can be embedded inside other tropes by simply writing \emph{The X trope happens}.
-Line 4 of the \emph{Hero's Journey} trope (Figure~\ref{lst:hero}) shows an example of embedding one trope inside another. In this case, the \emph{Quest} trope occurs at a certain point in the \emph{Hero's Journey}, once the hero has met the dispatcher character. Because this is sequenced using the \emph{Then} keyword, these events must occur in the specified order, and the norms described in the \emph{Quest} trope cannot hold until the specified point in the trope. However, if the \emph{Then} keyword is omitted (\emph{The ``Quest'' trope happens}), this means that the norms contained inside the embedded trope apply from the start of its containing trope. In our example, this would mean that the Hero would be free to embark on a quest at any time, rather than waiting to first meet a dispatcher character.
+% % \subsection{Embedding Tropes Within Tropes}
+% \item[Embedding Tropes Within Tropes:]
+% Tropes can be embedded inside other tropes by simply writing \emph{The X trope happens}.
+% Line 4 of the \emph{Hero's Journey} trope (Figure~\ref{lst:hero}) shows an example of embedding one trope inside another. In this case, the \emph{Quest} trope occurs at a certain point in the \emph{Hero's Journey}, once the hero has met the dispatcher character. Because this is sequenced using the \emph{Then} keyword, these events must occur in the specified order, and the norms described in the \emph{Quest} trope cannot hold until the specified point in the trope. However, if the \emph{Then} keyword is omitted (\emph{The ``Quest'' trope happens}), this means that the norms contained inside the embedded trope apply from the start of its containing trope. In our example, this would mean that the Hero would be free to embark on a quest at any time, rather than waiting to first meet a dispatcher character.
 
-Rather than compiling all the tropes into one institution, they are compiled
-into separate institutions and coordinated using a ``bridge'' institution. This
-technique, described by~\citep{bath45254}, allows institutions to generate
-events inside of other institutions while keeping each one separate. The
-cross-institution event generation logic is described in the ``Institutional Bridges''
-section of the next chapter (Section~\ref{sec:bridges}).
-\end{compactdesc}
+% Rather than compiling all the tropes into one institution, they are compiled
+% into separate institutions and coordinated using a ``bridge'' institution. This
+% technique, described by~\citep{bath45254}, allows institutions to generate
+% events inside of other institutions while keeping each one separate. The
+% cross-institution event generation logic is described in the ``Institutional Bridges''
+% section of the next chapter (Section~\ref{sec:bridges}).
+% \end{compactdesc}
 
 This chapter has described the concept of tropes, breaking down several examples
 and describing them as normative institutions. We then returned to our
 \emph{Punch and Judy} example to describe a scene in terms of tropes rather than
-Propp functions. Using this knowledge, we created a set of requirements for the
-creation of a domain specific language for describing tropes that compile to
-formal descriptions of institutions in terms of social norms, as well as a
-high-level overview of the features of the language we have created (named \emph{TropICAL}).
+Propp functions. 
+% high-level overview of the features of the language we have created (named \emph{TropICAL}).
 
-The next chapter describes the actual implementation of \emph{TropICAL}, with snippets of code for example tropes and their
+The next chapter describes the design and implementation of \emph{TropICAL}, our
+domain-specific language for describing tropes. TropICAL compiles controlled
+natural-language trope descriptions to formal representations in terms of InstAL
+institutions. After discussing requirements and design rationale, the chapter
+lists annotated snippets of TropICAL code for example tropes and their
 corresponding translations to \emph{InstAL}.
-
-
-
 
 \chapter{TropICAL: A Language for Story Tropes}
 \label{cha:tropical}
@@ -4598,7 +4598,7 @@ roles, and the \emph{Land of Adventure} location. When the
 appears on lines~\ref{lne:init-vars} and~\ref{lne:init-end} of Listing~\ref{lst:instal-anatomy}.
 
 \begin{figure}[!h]
-\begin{minipage}{0.6\textwidth}
+\begin{minipage}{0.8\textwidth}
 \begin{lstlisting}[caption={Anatomy of an InstAL institution},basicstyle=\scriptsize\ttfamily,label=lst:instal-anatomy,escapechar=\~]
 institution herosJourney;~\label{lne:inst-name}~
 
@@ -4642,7 +4642,6 @@ intHerosJourney(R, S, T, U) terminates~\label{lne:term-start}~
         role(R, hero),
         place(U, landOfAdventure);~\mylabel{t7}\label{lne:term-end}~
 
-
 % GENERATES ----------
 go(R, U) generates~\label{lne:gen-start}~
     intHerosJourney(R, S, T, U) if
@@ -4666,7 +4665,7 @@ initially~\label{lne:initially-start}~
 
 \end{lstlisting}
 \end{minipage}\hspace{0.08\textwidth}%\hfill
-\begin{minipage}{0.3\textwidth}\scriptsize
+\begin{minipage}{0.12\textwidth}\scriptsize
   \myref{t0}{s0}{Type declarations}
   \myref{t1}{s1}{Fluent declarations}
   \myref{t2}{s2}{Exogenous event declarations}
@@ -7574,12 +7573,12 @@ the state of a trope.
 \mathtt{return(owner)},\\
 \mathtt{fight(owner, idiot)}
 \end{array}
-\right\}\label{eq:eobs-hero}\\
+\right\}\label{eq:eobs-hero-full}\\
   \mathcal{E}_{internal} = &\left\{\begin{array}{l}
 \mathtt{intDontTouchItYouIdiot(owner,}\\
 \;\;\mathtt{idiot, item, away)}
 \end{array}\right\}
-\label{eq:einst-hero}
+\label{eq:einst-hero-full}
 \end{align}
 \caption{External and institutional events ($\mathcal{E}$) for the ``Don't Touch
   It, You Idiot'' trope}\label{fig:sausage-events}
@@ -8004,7 +8003,109 @@ initially
     object(sword, sword);
 \end{lstlisting}
 
-\section{Parser Implementation}
+
+\section{``Evil Empire'' Trope Example}
+\label{appendix:evil-empire}
+
+\begin{lstlisting}[showstringspaces=false,label={lst:evil-empire-full},caption={Full
+InstAL code for the ``Evil Empire'' trope, compiled from TropICAL}]
+institution evilEmpire;
+% TYPES ----------
+type Identity;
+type Agent;
+type Role;
+type Trope;
+type Phase;
+type Place;
+type PlaceName;
+type Object;
+type ObjectName;
+
+% FLUENTS ----------
+fluent role(Agent, Role);
+fluent phase(Trope, Phase);
+fluent place(PlaceName, Place);
+fluent object(ObjectName, Object);
+
+
+% EXTERNAL EVENTS: The Evil Empire ----------
+exogenous event chase(Agent, Agent);
+exogenous event escape(Agent);
+exogenous event capture(Agent, Agent);
+exogenous event noDeadline;
+
+% VIOLATION EVENTS: The Evil Empire ----------
+violation event noViolation;
+
+% INST EVENTS: The Evil Empire ----------
+inst event intChase(Agent, Agent);
+inst event intCapture(Agent, Agent);
+inst event intEscape(Agent);
+inst event intEvilEmpire(Agent, Agent);
+inst event intNoDeadline;
+
+
+
+% INITIATES: The Evil Empire ----------
+intEvilEmpire(R, S) initiates
+    phase(evilEmpire, phaseA),
+    perm(capture(R, S)) if
+        phase(evilEmpire, active),
+        role(S, empire),
+        role(R, hero);
+intEvilEmpire(R, S) initiates
+    phase(evilEmpire, phaseB),
+    perm(escape(R)) if
+        phase(evilEmpire, phaseA),
+        role(R, hero);
+% TERMINATES: The Evil Empire ----------
+intEvilEmpire(R, S) terminates
+    phase(evilEmpire, active),
+    perm(chase(R, S)) if
+        phase(evilEmpire, active),
+        role(S, empire),
+        role(R, hero);
+intEvilEmpire(R, S) terminates
+    phase(evilEmpire, phaseA),
+    perm(capture(R, S)) if
+        phase(evilEmpire, phaseA),
+        role(S, empire),
+        role(R, hero);
+intEvilEmpire(R, S) terminates
+    phase(evilEmpire, phaseB),
+    perm(escape(R)) if
+        phase(evilEmpire, phaseB),
+        role(R, hero);
+
+
+% GENERATES: The Evil Empire ----------
+escape(R) generates
+    intEvilEmpire(R, S) if
+        role(R, hero);
+chase(R, S) generates
+    intEvilEmpire(R, S) if
+        role(S, empire),
+        role(R, hero);
+capture(R, S) generates
+    intEvilEmpire(R, S) if
+        role(S, empire),
+        role(R, hero);
+
+% INITIALLY: -----------
+initially
+    pow(intEvilEmpire(R, S)) if role(R, hero), role(S, empire);
+initially
+    perm(intEvilEmpire(R, S)) if role(R, hero), role(S, empire);
+initially
+    perm(chase(R, S)) if role(S, empire), role(R, hero);
+initially
+    phase(evilEmpire, active),
+    role(empire, empire),
+    role(hero, hero);
+\end{lstlisting}
+
+
+\chapter{Parser Implementation}
 \label{appendix:t-grammar}
 % TODO intro: 1
 This section of the appendix describes the technical implementation of the TropICAL parser.
@@ -8115,106 +8216,6 @@ consequence = event
 <cword> = #'[A-Z][0-9a-zA-Z\\-\\_\\']*'
 <the> = <'The ' | 'the '>
 <word> = #'[0-9a-zA-Z\\-\\_\\']*'
-\end{lstlisting}
-
-\section{``Evil Empire'' Trope Example}
-\label{appendix:evil-empire}
-
-\begin{lstlisting}[showstringspaces=false,label={lst:evil-empire-full},caption={Full
-InstAL code for the ``Evil Empire'' trope, compiled from TropICAL}]
-institution evilEmpire;
-% TYPES ----------
-type Identity;
-type Agent;
-type Role;
-type Trope;
-type Phase;
-type Place;
-type PlaceName;
-type Object;
-type ObjectName;
-
-% FLUENTS ----------
-fluent role(Agent, Role);
-fluent phase(Trope, Phase);
-fluent place(PlaceName, Place);
-fluent object(ObjectName, Object);
-
-
-% EXTERNAL EVENTS: The Evil Empire ----------
-exogenous event chase(Agent, Agent);
-exogenous event escape(Agent);
-exogenous event capture(Agent, Agent);
-exogenous event noDeadline;
-
-% VIOLATION EVENTS: The Evil Empire ----------
-violation event noViolation;
-
-% INST EVENTS: The Evil Empire ----------
-inst event intChase(Agent, Agent);
-inst event intCapture(Agent, Agent);
-inst event intEscape(Agent);
-inst event intEvilEmpire(Agent, Agent);
-inst event intNoDeadline;
-
-
-
-% INITIATES: The Evil Empire ----------
-intEvilEmpire(R, S) initiates
-    phase(evilEmpire, phaseA),
-    perm(capture(R, S)) if
-        phase(evilEmpire, active),
-        role(S, empire),
-        role(R, hero);
-intEvilEmpire(R, S) initiates
-    phase(evilEmpire, phaseB),
-    perm(escape(R)) if
-        phase(evilEmpire, phaseA),
-        role(R, hero);
-% TERMINATES: The Evil Empire ----------
-intEvilEmpire(R, S) terminates
-    phase(evilEmpire, active),
-    perm(chase(R, S)) if
-        phase(evilEmpire, active),
-        role(S, empire),
-        role(R, hero);
-intEvilEmpire(R, S) terminates
-    phase(evilEmpire, phaseA),
-    perm(capture(R, S)) if
-        phase(evilEmpire, phaseA),
-        role(S, empire),
-        role(R, hero);
-intEvilEmpire(R, S) terminates
-    phase(evilEmpire, phaseB),
-    perm(escape(R)) if
-        phase(evilEmpire, phaseB),
-        role(R, hero);
-
-
-% GENERATES: The Evil Empire ----------
-escape(R) generates
-    intEvilEmpire(R, S) if
-        role(R, hero);
-chase(R, S) generates
-    intEvilEmpire(R, S) if
-        role(S, empire),
-        role(R, hero);
-capture(R, S) generates
-    intEvilEmpire(R, S) if
-        role(S, empire),
-        role(R, hero);
-
-% INITIALLY: -----------
-initially
-    pow(intEvilEmpire(R, S)) if role(R, hero), role(S, empire);
-initially
-    perm(intEvilEmpire(R, S)) if role(R, hero), role(S, empire);
-initially
-    perm(chase(R, S)) if role(S, empire), role(R, hero);
-initially
-    phase(evilEmpire, active),
-    role(empire, empire),
-    role(hero, hero);
 \end{lstlisting}
 
 \chapter{Full Trace for ``Evil Empire'' and ``Hero's Journey'' Tropes}
