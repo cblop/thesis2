@@ -1,0 +1,90 @@
+* General
+** TODO fix ambiguous meanings of "role"
+** TODO rewrite many parts (intro, etc) with Tropes as the main argument
+** TODO remove the logic section
+** TODO Use \pageref{}s everywhere
+* Preamble
+** TODO Is it Digital Media or Digital Entertainment?
+* Introduction
+- Much is promised at the start, but what has vs hasn't been delivered needs to be summarised at the end. Trim it down.
+- Tone down the harsh criticisms (or make a better system).
+- Build the argument around _tropes_
+* Lit Review
+** TODO Propp is a _formalist_
+** TODO remove bit about structuralists
+** TODO Barthes, etc, are more flexible, but not used by CS researchers
+** TODO Too many different plot models. Remove unless you can refer back to them from later
+** TODO Need to refer back to Aarseth from later chapters, comparing it with my stuff
+** TODO _Perspective_: is the audience a character? Refer back to Aarseth.
+** TODO Describe how your system is interactive in accordance with Crawford's description
+** TODO Delete mention of Fabula & Syuzhet if you're not going to use it
+** TODO Propp uses _character functions_, not story functions
+*Story moves* are lots of character functions grouped together
+** TODO No need to mention French Structuralists
+** TODO Pg. 23: define "DSL"
+** TODO All lit review stuff should be referred back to later if you mention it. Grammar stuff, etc.
+** TODO Need examples of plans and planning operators
+** TODO But only use examples when you're going to refer back to them. Too many complex, unused examples in this lit review.
+** TODO Pg. 29: Replace Mateus et al with bibtex citation
+** TODO Exclusion, edontic, etc need to be explained. Same with constitutive vs regulative.
+** TODO Watch out for first person stuff. Do a search.
+** TODO Houw could you use institutional powers to _prevent_ things from happening?
+** TODO Pg. 37: Cite paper on appraisal theory.
+** TODO Introduce the problem in lit. rev discussion first, then... (?)
+** TODO Demonstrate how your approach can be used to enrich plans rather than alienating the planner people.
+** TODO Don't diss Propp: "Recovering the flexibility that Propp intended"
+** TODO Ending of lit. rev. is contestable. No need to argue at the end.
+** TODO Pablo's reuse of Propp for musicals (adaptation). Use this as a motivation for tropes.
+* Institutions
+** TODO Use an alternative example of why abstraction - just being able to embed is enough. At the very least give a theoretical example
+** TODO Find matching tropes that match a violation
+** TODO Introduce new tropes - as a way of introducing freedom
+** TODO Bridge institutions are not explained. Refer to a paper rather than TingTing's dissertation.
+** TODO Too many different types of violations: Propp, insts, etc. Make it clear.
+** TODO Check which version of InstAL you're using. Exogenous events (rather than institutional ones) have empowerment now.
+** TODO Could use empowerment to "ignore" certain character actions, so violations are more meaningful.
+** TODO Link roles back to the literature
+** TODO Can use InstAL's domain file & types to assign roles to agents
+** TODO Come up with examples of how your tropes are reusable
+** TODO Show 3 instances (examples) that show tropes are reusable.
+** TODO Would be good to show different instances of the same story. Or _all_ of P&J.
+** TODO Put the full code of P&J in the appendix.
+** TODO ASP is never explained
+** TODO Why is efficiency a problem? Breadth-first search
+** TODO Pg. 76: Address how these affect the player
+** TODO Two layers: action performed and their meaning (semantics)
+** TODO Would be good to specify what would happen in the case of a violation
+** TODO End of the TropICAL section (or in the appendix) should be some kind of user manual for TropICAL. Give a worked example of its use.
+** TODO Explain in future work if bridges are necessary. May want instead to compile it all into the same file.
+** TODO Pg. 115: No violations in the visualisation by default, but add if nodes are clicked on.
+** TODO Explain about combining tropes. Put this into the section on tropes. Give an example of what would happen if you combined tropes.
+** TODO Pg. 119: Author may want to have a say in how tropes are combined. Reduce the number of possibilities.
+** TODO Have a way of specifying where a trope can be _broken_ -> constraints
+** TODO Rather than having multiple institutions at the same time, consider compiling them into the same trope
+** TODO You have used a naive way of combining tropes. The results of the user study motivates the use of constraints.
+** TODO Explain UP FRONT that the roles, etc are simplified (e.g. not named instances)
+** TODO Explain how the 5-event limit could be overcome through sequentially composing tropes.
+* Tropes
+** TODO change Propp & PJ institution, replace with one of the tropes from earlier
+* TropICAL
+** TODO how does it save time? What work will it save?
+* StoryBuilder
+** TODO how does it save time? What work will it save?
+* Intelligent Agents
+** TODO signpost that the player's interaction is _limited_ in the case of P&J
+It's actually pretty interesting that the player's interaction is limited: make the most of describing this
+** TODO how would all this be applied in the traditional case where the user is free?
+** TODO could use empowerment as a way of terminating all permissions when character dies
+** TODO discuss the role of the player
+As audience, but also using more complicated examples
+* Evaluation
+** TODO make a separate chapter
+"System Validation" (evaluation)
+** TODO chapter structure
+- StoryBuilder user stories
+** TODO interesting examples of story violations for P&J
+- Address that some participants in the eval would actually prefer to use planners
+* Future Work
+** TODO role(A,B) is a fudge: explain how to do it better with types
+** TODO explain why TropICAL and StoryBuilder are time-saving. What work do they save?
+** TODO Be careful of the multiple meanings of "role"
