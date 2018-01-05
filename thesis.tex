@@ -27,7 +27,7 @@
 %\usepackage{mathpazo}
 %\usepackage{eulervm}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage[]{todonotes}
+\usepackage[colorinlistoftodos]{todonotes}
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage[]{todonotes}
@@ -38,27 +38,32 @@
 % \newfloat{lstfloat}{h}{lop}
 % \floatname{lstfloat}{Listing}
 
-\newcommand{\deleted}[1]{%
-  \cbcolor{red}
-  \begin{changebar}
-    #1
-  \end{changebar}%
-  }%
+\newif\ifdraft
 
-\newcommand{\added}[1]{%
+\drafttrue
+
+\ifdraft
+\newcommand{\added}[2]{%
+  \todo[noline,bordercolor=white,color=green,size=\scriptsize]{#2}
   \cbcolor{green}
   \begin{changebar}
     #1
   \end{changebar}%
   }%
-
   
-\newcommand{\changed}[1]{%
+\newcommand{\changed}[2]{%
+  \todo[noline,bordercolor=white,color=yellow,size=\scriptsize]{#2}
   \cbcolor{yellow}
   \begin{changebar}
     #1
   \end{changebar}%
   }%
+
+  \else
+  \newcommand{\added}[2]{#1}
+  \newcommand{\changed}[2]{#1}
+
+\fi
 
 \setlength{\changebarsep}{2ex}
 
@@ -68,6 +73,7 @@
 \newcounter{myenumi}
 \setcounter{myenumi}{0}
 \newenvironment{myenumerate}{\begin{enumerate} \setcounter{enumi}{\themyenumi}}{ \setcounter{myenumi}{\theenumi}\end{enumerate}}
+
 
 \def\mnote#1{\todo[color=Goldenrod,size=\scriptsize]{Matt: #1}}
 \def\minote#1{\todo[inline,color=Goldenrod,size=\scriptsize]{Matt: #1}}
@@ -115,6 +121,11 @@
 % ----------------------------------
 \maketitle
 
+\ifdraft
+\clearpage
+\listoftodos[List of Corrections]
+\clearpage
+\fi
 \clearpage
 \tableofcontents
 \clearpage
@@ -6118,15 +6129,14 @@ so that their actions may generate a wider range of interesting scenarios.
 
 \changed{
 This chapter begins by formally describing a narrative scene with an
-existing narrative formalism (Section~\ref{sec:stories-logic}). 
-then visualised as Kripke structures in Section~\ref{sec:kripke}. The same scene
+existing narrative formalism (Section~\ref{sec:stories-logic}). The same scene
 is then described as a set of norms in an institution in
 Section~\ref{sec:norms-and-institutions}. Section~\ref{sec:punchjudy} describes
 an implementation of this system using the InstAL~\citep{cliffe2007specifying} language for institutions
 combined with agents with emotional models written using the
 Jason~\citep{bordini2007programming} framework. The chapter concludes with a
 summary in Section~\ref{sec:inst-summary}.
-}
+}{Removed reference to Kripke section}
 
 \section{Describing Stories With Logic}
 \label{sec:stories-logic}
@@ -6848,6 +6858,63 @@ without the need to learn the rules of a narrative formalism such as Propp's.
 These tropes are used to develop \emph{TropICAL}, our controlled
 natural-language system for defining story components, which we describe in Chapter~\ref{cha:tropical}.
 
+\chapter{Evaluation \& Validation}
+\label{cha:evaluation}
+\added{
+
+}{New chapter for Evaluation and Validation}
+\section{A Full Specification of Punch and Judy}
+\label{sec:pj-fullspec}
+In section~\ref{sec:punchjudy-tropes}, we describe one scene from Punch and Judy
+in terms of tropes. The scene chosen in this example is one where a crocodile
+appears on stage to steal some sausages that Punch is guarding. This section
+gives an example of a \emph{full} Punch and Judy show described in terms of
+tropes, including the ``sausages'' scene described previously.
+
+Though each retelling of the Punch and Judy story may use a different number of
+scenes in varying order, we use the following scenes for our ``minimal'' Punch
+and Judy example:
+
+\begin{itemize}
+\item \textbf{Introduction}: Joey the clown introduces the show and interacts
+  with the audience
+\item \textbf{Punch, Judy and the Baby}: Judy asks Punch to look after the baby,
+  which he then kills. Punch then also kills Judy.
+\item \textbf{Punch and the Policeman}: A policeman comes to arrest Punch, and
+  is killed.
+\item \textbf{Crocodile and Sausages Scene}: Joey asks Punch to look after some
+  sausages, which are then eaten by a crocodile.
+\item \textbf{Punch and the Devil}: Punch fights the Devil, killing him.
+\end{itemize}
+
+\subsection{``Introduction'' Scene}
+% Tropes: audience participation, narrator, exposition?, exposition?
+
+\subsection{``Punch, Judy and the Baby'' Scene}
+% Tropes: don't touch it, you idiot, put on a bus, chase fight, the bus came back
+% We can make this into an abstraction, as it's also featured in the sausages scene
+% Call the new trope: set the scene for mischief
+% May want to possibly add parental abandonment as well
+
+\subsection{``Punch and the Policeman'' Scene}
+% Tropes: slapstick, amusing injuries, chase fight, mini-boss
+% Abstracted to: slapstick confrontation
+
+\subsection{``Crocodile and Sausages'' Scene}
+% Tropes: set the scene for mischief (see above)
+
+\subsection{``Punch and the Devil'' Scene}
+% Tropes: slapstick confrontation (can we change mini-boss to boss?)
+
+\subsection{Putting It All Together}
+% Look at chaining the above together, and adding meta-tropes that are present throughout (such as audience participation, which you should discuss before)
+
+\section{An Example of ``Character Freedom''}
+\label{sec:freedom-example}
+% Use the sausages scene
+
+\section{Evaluation Against Interactive Criteria}
+\label{sec:criteria-evaluation}
 
 \chapter{Conclusions \& Future Work}
 \label{cha:conclusions}
@@ -8055,7 +8122,7 @@ trope = (<whitespace> sequence)+ <'\\n'?>
 fluent = object <' is '> adjective
 adjective = word
 outcome =
-(<'\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'\\n'?>)+
+(<''''\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'\\n'?>)+
 happens =
 <the?> subtrope <(' happens' / ' trope happens' / ' policy applies') '.'?>
 block =
@@ -8166,17 +8233,25 @@ occurred(escape(hero),evilEmpire)
 \chapter{Thematic Analysis Transcripts}
 \label{appendix:transcripts}
 
+\ifdraft
+% features
+\def\feature#1{\todo[disable,color=green,size=\scriptsize]{\textbf{Feature:} #1}}
+% usability
+\def\usability#1{\todo[disable,color=cyan,size=\scriptsize]{\textbf{Usability:} #1}}
+% bug / limitation
+\def\bug#1{\todo[disable,color=red,size=\scriptsize]{\textbf{Limitation:} #1}}
+% syntax
+\def\syntax#1{\todo[disable,color=yellow,size=\scriptsize]{\textbf{Syntax:} #1}}
+\else
 % features
 \def\feature#1{\todo[color=green,size=\scriptsize]{\textbf{Feature:} #1}}
-
 % usability
 \def\usability#1{\todo[color=cyan,size=\scriptsize]{\textbf{Usability:} #1}}
-
 % bug / limitation
 \def\bug#1{\todo[color=red,size=\scriptsize]{\textbf{Limitation:} #1}}
-
 % syntax
 \def\syntax#1{\todo[color=yellow,size=\scriptsize]{\textbf{Syntax:} #1}}
+\fi
 
 \section{Participant A}
 Dialogue starts at at 16:00 in the recording.

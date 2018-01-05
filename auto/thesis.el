@@ -4,7 +4,7 @@
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("report" "11pt")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("changebar" "color") ("fontenc" "T2A") ("inputenc" "utf8") ("geometry" "hmargin=3cm" "vmargin=2cm") ("xcolor" "usenames" "dvipsnames" "svgnames" "table")))
+                     '(("changebar" "color") ("fontenc" "T2A") ("inputenc" "utf8") ("geometry" "hmargin=3cm" "vmargin=2cm") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("todonotes" "colorinlistoftodos")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
@@ -47,9 +47,8 @@
    (TeX-add-symbols
     '("lref" 1)
     '("llabel" 1)
-    '("changed" 1)
-    '("added" 1)
-    '("deleted" 1)
+    '("changed" 2)
+    '("added" 2)
     "mnote"
     "minote"
     "jnote"
@@ -346,6 +345,10 @@
     "fig:pjshow"
     "sec:demo"
     "sec:inst-summary"
+    "cha:evaluation"
+    "sec:pj-fullspec"
+    "sec:freedom-example"
+    "sec:criteria-evaluation"
     "cha:conclusions"
     "sec:future"
     "opp:limitations"
