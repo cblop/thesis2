@@ -1,3 +1,8 @@
+* Check
+- Where does ASP stuff have to go?
+- Compare by referring back to other approaches.
+- Where does the discussion on how to combine tropes go?
+- Outline in general terms what you wanted to be able to do, what the technical demands are. Why you concluded this was a more productive way forward vs changing Inform. Makes system entirely under my control.
 * General
 ** TODO fix ambiguous meanings of "role"
 ** TODO rewrite many parts (intro, etc) with Tropes as the main argument
