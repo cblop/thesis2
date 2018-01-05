@@ -1,0 +1,8 @@
+* Matt Thompson: Corrections
+** Moved chapter three to chapter six and renamed
+Chapter three ("Logic, Norms and Institutions as Story Worlds") has been moved from after the "Literature Review" chapter to after the "StoryBuilder" chapter, so that it is now chapter six.
+
+The chapter has also been renamed to "Using TropICAL with a Multi-Agent System"
+** Removed section on modelling Punch and Judy with modal logic and Kripke structures
+# TODO: page number
+

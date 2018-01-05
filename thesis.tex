@@ -1,5 +1,6 @@
 \documentclass[11pt]{report}
 \usepackage{baththesis}
+\usepackage[color]{changebar}
 \usepackage{graphicx}
 \usepackage{syntax}
 \usepackage{lineno}
@@ -26,16 +27,45 @@
 %\usepackage{mathpazo}
 %\usepackage{eulervm}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage[]{todonotes}
+\usepackage[colorinlistoftodos]{todonotes}
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage[]{todonotes}
 \usepackage{hyperref}
-\usepackage{float}
+% \usepackage{float}
 \usepackage{listings}
 
-\newfloat{lstfloat}{h}{lop}
-\floatname{lstfloat}{Listing}
+% \newfloat{lstfloat}{h}{lop}
+% \floatname{lstfloat}{Listing}
+
+\newif\ifdraft
+
+\drafttrue
+
+\ifdraft
+\newcommand{\added}[2]{%
+  \todo[noline,bordercolor=white,color=green,size=\scriptsize]{#2}
+  \cbcolor{green}
+  \begin{changebar}
+    #1
+  \end{changebar}%
+  }%
+  
+\newcommand{\changed}[2]{%
+  \todo[noline,bordercolor=white,color=yellow,size=\scriptsize]{#2}
+  \cbcolor{yellow}
+  \begin{changebar}
+    #1
+  \end{changebar}%
+  }%
+
+  \else
+  \newcommand{\added}[2]{#1}
+  \newcommand{\changed}[2]{#1}
+
+\fi
+
+\setlength{\changebarsep}{2ex}
 
 \newcommand{\llabel}[1]{\hypertarget{llineno:#1}{\linelabel{#1}}}
 \newcommand{\lref}[1]{\hyperlink{llineno:#1}{\ref*{#1}}}
@@ -43,6 +73,7 @@
 \newcounter{myenumi}
 \setcounter{myenumi}{0}
 \newenvironment{myenumerate}{\begin{enumerate} \setcounter{enumi}{\themyenumi}}{ \setcounter{myenumi}{\theenumi}\end{enumerate}}
+
 
 \def\mnote#1{\todo[color=Goldenrod,size=\scriptsize]{Matt: #1}}
 \def\minote#1{\todo[inline,color=Goldenrod,size=\scriptsize]{Matt: #1}}
@@ -90,6 +121,11 @@
 % ----------------------------------
 \maketitle
 
+\ifdraft
+\clearpage
+\listoftodos[List of Corrections]
+\clearpage
+\fi
 \clearpage
 \tableofcontents
 \clearpage
@@ -1598,929 +1634,6 @@ described in Chapters~\ref{cha:tropes} and~\ref{cha:tropical} of this dissertati
 % in section~\ref{sec:evaluation} and conclusions in section~\ref{sec:conclusions}.
 
 % insts
-
-\chapter{Logic, Norms and Institutions as Story Worlds}
-\label{cha:institutions}
-
-% Intro about justification/inspiration for using institutions for stories
-
-Section~\ref{sec:litrev-discussion} of the literature review identifies the following issues with current approaches to interactive storytelling:
-
-\begin{enumerate}[{Issue} 1:]
-\item Character agents need some freedom to generate story details
-\item Story authors do not want to think in terms of goals.
-\item Most narrative systems use outdated, inflexible story models.
-\end{enumerate}
-
-This chapter proposes the use of \emph{Social Institutions} (also referred to as
-\emph{Institutions} or \emph{Normative Frameworks}) to address
-Issue~\ref{iss:freedom} from the literature review. An institution is a
-collection of social norms that govern the behaviour of a set of interacting
-agents. In the real world, social norms encourage certain behaviours and
-discourage others. However, people are still able to carry out the discouraged
-behaviours, as there is no physical barrier preventing them. Instead, the
-discouraged behaviours are punished with \emph{social} consequences such as
-shaming or expulsion from a social group.
-
-For example, when a teacher is
-lecturing a class, there is an implicit social contract for the students to
-remain silent while the teacher is talking. Though it is physically possible for
-a student to interrupt the teacher, they face the possibility of being told to
-leave the class if they do so. The institutions we describe in this chapter
-follow the same model: behaviours are permitted or obliged to happen in a
-contract that all agents follow. When the agents perform actions that are not
-permitted, or do not perform obliged actions before their deadline, they
-\emph{violate} the norms in the institution. As a consequence, a punishment
-corresponding to the violated norm is applied to the offending agent.
-
-Using a social institution as a story model addresses Issue~\ref{iss:freedom} by
-governing character agents' actions instead of enforcing them. This allows
-agents to be guided by the norms described in the
-story model, but also allows them to break away from the model at times. An
-agent could either plan to break the norms of the story if it is willing to face
-the consequences, or it could deviate from the story in extreme situations (such
-as in times of extreme emotion as mentioned above). The benefit of this approach
-is that it gives agents more autonomy to act within the guidelines of a story,
-so that their actions may generate a wider range of interesting scenarios.
-
-This chapter begins by formally describing a narrative scene with an
-existing narrative formalism and a temporal logic
-(Section~\ref{sec:stories-logic}). The different possibilities of this scene are
-then visualised as Kripke structures in Section~\ref{sec:kripke}. The same scene
-is then described as a set of norms in an institution in
-Section~\ref{sec:norms-and-institutions}. Section~\ref{sec:punchjudy} describes
-an implementation of this system using the InstAL~\citep{cliffe2007specifying} language for institutions
-combined with agents with emotional models written using the
-Jason~\citep{bordini2007programming} framework. The chapter concludes with a
-summary in Section~\ref{sec:inst-summary}.
-
-\section{Describing Stories With Logic}
-\label{sec:stories-logic}
-Section~\ref{sec:model-logic} describes approaches that use formal logic to model interactive, non-linear narratives. Building on the work described in that section, we explore other possible ways with which to construct these kinds of stories.
-Our end goal is to make tools which assist in the creation of non-linear,
-interactive narratives for games by generating paths through the stories. This
-saves the author the time and effort required to author all of the individual
-paths through the stories themselves. When generating these story branches, we
-need some way to check whether or not each branch ``fits'' with the narrative.
-In a story with a hero and a villain, it would not seem right if the hero were
-to kill innocent civilians while the villain tries to rescue them, for example.
-Our approach is to model the story world using formal logic, which allows us to
-check whether or not actions that occur within the story are consistent with its description.
-
-Using the \emph{Punch and Judy} story world as our initial example, we formalise
-its narrative rules by describing them in terms of Propp's \emph{story
-  functions}. We do this as a basis of comparison for when we later redefine the
-story in terms of \emph{tropes}. For this section, the aim of which is to demonstrate the use of
-\emph{logic} for narrative rather than of tropes, Propp's formalism is used for
-simplicity and demonstrative purposes.
-
-\subsection{Introducing ``Punch and Judy''}
-Throughout this thesis we use the \emph{Punch and Judy} story world for our
-example narratives. \emph{Punch and Judy} is a traditional British-Italian
-puppet show often seen at seaside resorts. Its first recorded appearance in the
-UK is in Covent Garden, London in 1662, having been brought into the country by
-Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
-institution, delighting children and adults alike over the course of centuries.
-
-The show itself is an incredibly violent farce, where the titular character
-\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
-with him having an argument with another puppet, and end with Punch beating the
-other puppet to death. He starts by killing his wife and child, then the
-policeman that comes to arrest him, before finally murdering the Devil himself.
-
-Interestingly, there is no comeuppance for Punch's killing spree, as most modern
-audiences would expect. Instead, the story shows Punch as a buffoon, a
-ridiculous caricature of an angry man who blunders his way through life, yet is
-victorious nonetheless. The story has no moral message, only farcical violence.
-
-Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
-it a suitable narrative domain for the purposes of testing our research:
-
-\begin{itemize}
-\item It has many recognisable patterns, or \emph{tropes}. For example, most
-  scenes feature some kind of audience participation, and most end with
-  slapstick comedy.
-\item It can be as simple or sophisticated as we choose to make it. Some scenes
-  are relatively simple to model, such as the scene where Punch beats the
-  policeman. Others are more difficult, such as where Punch is asked to guard
-  some suasages, but then loses them to a crocodile. Combining several scenes
-  into a complete and recognisable \emph{Punch and Judy} narrative is, we
-  contend, a worthwhile challenge for a narrative generation system.
-\item Following from this, its scenes can either be self-contained and modelled
-  on their own, or can depend on the context of the previous scenes. For
-  example, Punch's foes increase in importance as his rampage progresses. In some
-  versions, he kills his wife, then a policeman, then the executioner sent to
-  hang him, then finally the Devil. This makes it useful for modelling a
-  narrative with a state that changes over time.
-\item Most (British) people know Punch and Judy when they see it. They are able
-  to recognise how characters in the story are supposed to behave, and what
-  should happen in each scene and in the story as a whole. This helps with
-  evaluation of the system: the audience will be able to say whether or not the
-  generated tropes are \emph{authentic} or not.
-\end{itemize}
-
-The minimal set of Punch and Judy characters would be Punch, his wife Judy,
-their baby, Joey the clown (who narrates the story and interacts with the
-audience, and is immune to Punch's attacks), a crocodile and a Policeman.
-Extended versions include other animals that Punch chases (such as a monkey or
-cat), and the previously mentioned hangman and Devil characters. These are not
-needed for a full Punch and Judy show, however. Indeed, many performers show
-just one or two scenes in a show, with the first featuring Punch, Judy and the
-baby, and then finishing with the scene where Punch wrestles with a crocodile
-for some sausages.
-
-\subsubsection{A Punch and Judy Scene Described as Propp Functions}\label{sec:pjexample}
-The common elements of Punch and Judy are easily described in terms of Propp's story functions. Here we pick one scene to use as an example: the scene where Punch battles a Crocodile in order to safeguard some sausages.  In this scene, Joey the clown (our narrator) asks Punch to guard the sausages. Once Joey has left the stage, a Crocodile appears and eats the sausages. Punch fights with the Crocodile, but it escapes. Joey then returns to find that his sausages are gone.
-The corresponding story functions are:
-\begin{enumerate}
-  \item Joey tells Punch to look after the sausages (\emph{interdiction}).
-  \item Joey has some reservations, but decides to trust Punch (\emph{complicity}).
-  \item Joey gives the sausages to Punch (\emph{provision or receipt of a magical agent}).
-  \item Joey leaves the stage (\emph{absentation}).
-  \item A Crocodile enters the stage and eats the sausages (\emph{violation}).
-  \item Punch fights with the Crocodile (\emph{struggle}).
-  \item Joey returns to find that the sausages are gone (\emph{return}).
-\end{enumerate}
-
-Some story functions map to Punch and Judy better than others (for example, it is debatable as to whether or not the sausages can be considered a ``magical agent''), but Propp's formalism seems well suited to Punch and Judy for the most part. The advantage of using Propp for the Punch and Judy story domain is that the story function concept maps well to the idea of internal events in institutional models.
-
-\paragraph{Modal Logic and Kripke Structures}
-Modal logic extends classical propositional and predicate logic with modalities, which are operators that qualify a statement. For example, rather than simply stating `The Crocodile eats the sausages', we could instead say ``the Crocodile sometimes eats the sausages'', or ``it's possible that the Crocodile eats the sausages''.
-Classic modal logic deals with \emph{alethic modality}, which describes whether a statement is \emph{possible} or \emph{necessary}. This is implemented using unary operators to qualify statements. For example, $\Diamond P$ states that $P$ is possible and $\Box P$ states that $P$ is necessary.
-Naturally, we can use modalities beyond just possibility and necessity. Any
-modal logic can be constructed using operators and modalities of the creator's choice.
-
-Later in this chapter (from Section~\ref{sec:norms-and-institutions}), we describe our method of
-formally constructing narrative and trope descriptions with social institutions
-and norms. This technique uses ideas from \emph{deontic} logic, a modal logic
-that adds \emph{permission} and \emph{obligation} operators to logical
-statements. In order to demonstrate the advantanges of describing stories as
-social institutions, we first use a more straightforward modal logic to describe
-the events of a story: Interval Temporal Logic (ITL). ITL allows us to formally
-describe the temporal ordering of events that occur in a story, enabling the use
-of theorem-proving tools to check whether certain sequences of events are
-possible. This temporal-oriented approach provides an example of a logical
-system that could be used to \emph{regiment} character behaviour by ordering agents
-to follow specific courses of action. Section~\ref{sec:pjexample-insts}
-then redefines the same example using an institution-oriented approach in order
-to provide a demonstration of how narrative rules can \emph{govern} rather than
-\emph{regiment}, giving the characters more autonomy.
-
-\paragraph{Temporal Logics}
-Arthur Prior is the first to employ modal logic as a way of describing sequences of time in his 1957 work \emph{Time and Modality} \citep{prior2003time}. Here he uses just two modal operators, $P$ and $F$, representing \emph{some time in the past} and \emph{some time in the future} respectively.
-Hans Kamp adds two extra operators to Prior's logic, \emph{Since} and \emph{Until}, in his 1968 thesis \citep{kamp1968tense}, enabling it to describe spans of time in addition to the ordering of temporal events.
-As Kripke later points out to Prior, this model lacks the expressiveness needed to describe all possible sequences of events. One major shortcoming is its restriction to describing only \emph{linear} events. 
-
-Linear Temporal Logic (LTL), though still limited to the description of linear sequences of events, is an evolution of the work done by Prior and Kamp. Proposed by Amir Pnueli in 1977 \citep{pnueli1977temporal}, its original use is for the formal verification of computer programs.
-Computational Tree Logic (CTL) \citep{ben1983temporal} is similar to LTL, but allows for the representation of non-linear time through the presence of branches. Through CTL it is possible to describe several alternative pathways through time, though only one may ever be actualised. Like LTL, its original purpose is for formal verification of software, and in model checkers.
-Both CTL and LTL are subsets of CTL* (Computational Tree Logic) \citep{emerson1986sometimes}, which can both describe both multiple branches of temporal paths and their durations. CTL* formulae must refer to a specific Kripke structure, however (a description of Kripke structures appears in Section~\ref{sec:kripke}).
-
-\paragraph{Interval Temporal Logic}
-In order to model fabula with modal logic, we employ Interval Temporal Logic (ITL), composed of the temporal intervals defined by \citet{allen1983maintaining} and developed into modal operators by \citet{halpern1991propositional}. This allows the expressiveness necessary to describe branching, parallel and nested paths through stories.
-
-In most temporal logics (such as CTL* and its subsets), fixed \emph{time points} without duration are the basic unit of time. However, this can make it difficult to reason about the \emph{duration} of events that occur over a period of time. Temporal Interval Logic tackles this problem through the use of \emph{time intervals} or \emph{periods} as the basic temporal unit.
-
-The version of ITL used here is that described by Della Monica et al. in their overview paper \citep{della2013interval}. Table~\ref{tab:itl} lists the temporal intervals described by Allen, along with their modal operator equivalents in \emph{Halpern-Shoham logic}.
-
-The operators defined by Halpern and Shoham are (a bar over an operator denotes its inverse):
-
-\begin{itemize}
-\item $\langle L \rangle / \langle \overline{L} \rangle$ (Later): The interval occurs at some point after another interval.
-\item $\langle A \rangle / \langle \overline{A} \rangle$ (After): The interval occurs immediately after another interval.
-\item $\langle O \rangle / \langle \overline{O} \rangle$ (Overlaps): The interval occurs both during and before or after another interval.
-\item $\langle E \rangle / \langle \overline{E} \rangle$ (Ends): The interval ends at exactly the same time as another interval.
-\item $\langle D \rangle / \langle \overline{D} \rangle$ (During): The interval both starts and ends inside the duration of another interval.
-\item $\langle B \rangle / \langle \overline{B} \rangle$ (Begins): The interval begins at exactly the same time as another interval.
-\end{itemize}
-\begin{table}[!t]
-  \centering
-  \caption{Operators in the Interval Temporal Logic (adapted from \citet{della2013interval})}
-  \label{tab:itl}
-  \begin{tabular}{l|l|l}
-    {\bf Interval} & {\bf Allen notation} & {\bf HS notation} \\
-    \hline& &\\
-    \multirow{7}{*}{\includegraphics[height=2.02in]{intervals.png}}&\emph{equals} \{=\} &\\
-    & &\\
-                   &\emph{before} \{\textless\} / \emph{after} \{\textgreater\} & $\langle L \rangle$ / $\langle \overline{L} \rangle$ \emph{(Later)}\\
-    & &\\
-                   &\emph{meets} \{\emph{m}\} / \emph{met-by} \{\emph{mi}\} &$\langle A \rangle$ / $\langle \overline{A} \rangle$ \emph{(After)}\\
-    & &\\
-    &\emph{overlaps} \{\emph{o}\} / \emph{overlapped-by} \{\emph{oi}\} &$\langle O \rangle$ / $\langle \overline{O} \rangle$ \emph{(Overlaps)}\\
-    & &\\
-    &\emph{finished-by} \{\emph{fi}\} / \emph{finishes} \{\emph{f}\} &$\langle E \rangle$ / $\langle \overline{E} \rangle$ \emph{(Ends)}\\
-    & &\\
-    &\emph{contains} \{\emph{di}\} / \emph{during} \{\emph{d}\} &$\langle D \rangle$ / $\langle \overline{D} \rangle$ \emph{(During)}\\
-    & &\\
-    &\emph{started-by} \{\emph{si}\} / \emph{starts} \{\emph{s}\} &$\langle B \rangle$ / $\langle \overline{B} \rangle$ \emph{(Begins)}
-  \end{tabular}
-\end{table}
-\subsubsection{Propp Example with Punch and Judy}
-In this example, we combine Halpern and Shoham's temporal operators with the possibility ($\Diamond$) and necessity ($\Box$) operators of modal logic. We follow the convention of writing possibility operators inside angle brackets: $\langle \, \rangle$ and necessity operators within square brackets: $[ \, ]$.
-
-This example shows the ``sausages'' scene described in Section~\ref{sec:pjexample}, consisting of a set of situations $S$, containing Propp story functions $P$. The interval temporal logic operators used in this example are the set $T$. Figure~\ref{fig:operators} shows the modal operators we use. $A, B$ and $C$ in Formula~\ref{eq:story} are variables that represent the characters and objects that appear in the story.
-\begin{figure}[!t]
-\begin{align}
-    S &= \{S_0, S_1, S_2, S_{3a}, S_{3a_1}, S_4, S_{3b}, S_{3b_1}, S_4, S_5\}\\
-    P &= \{\mathtt{interdiction(A, B, C), absentation(A), struggle(A, B),}\nonumber\\
-  &\qquad\qquad\mathtt{victory(A), villainy(A, B), violation(A, B), return(A)}\}\label{eq:story}\\
-  T &= \{D, \overline{D}, O, \overline{O}, A, \overline{A}, B, \overline{B}, L, \overline{L}, E, \overline{E}\}
-\end{align}
-\caption{Modal operators}\label{fig:operators}
-\end{figure}
-Hybrid logics allow worlds, time intervals, to be named. The hybrid logic nominal operator allows specific times to be uniquely referenced, allowing a logic to talk about specific states such as $S_0..S_5$. The nominal proposition is true of one specific time interval such that any two worlds with the same name represent co-extensive intervals of time. Anything true of one is true of the other.
-We also make use of a nominal modal operator so that it is possible to make assertions about these named worlds, ``It is necessary that in state $S_1$ Joey absents himself.'' This technique enables us to associate story functions with specific, named intervals.
-We use hybrid logic to identify nodes using the \emph{nominal} operator, shown as $@$. The nominal operator adds the capability of referring to possible worlds in formulas. In this way, each possible state of a system can be labelled and referenced from other states. As seen in Figure~\ref{fig:lotrec}, each nominal node must have its own name as a relation leading back to the root node, in order to be linked to and referred from the other nodes.
-We can combine this with the Interval Temporal Logic to make statements such as ``An absentation starts with state $@S_1$ and ends with state $@S_5$.'' (Formula~\ref{eq:absentation-pj}).
-Figure~\ref{fig:situations} describes the full sausages scene from Punch and Judy using the time intervals shown in Figure~\ref{fig:durations}.
-\begin{figure}[!t]
-  \centering
-    \centerline{\includegraphics[width=0.9\textwidth]{durations.png}}
-  \caption{Timings of the story functions in the sausages scene}\label{fig:durations}
-\begin{align}
-  &S_{0} \land \mathit{interdiction(Joey, Punch, Sausages)} \land\nonumber\\
-  &\qquad\qquad\qquad\qquad\qquad\langle B \rangle @S_{1} \land \langle E \rangle @S_{4} \land \langle A \rangle @S_{5}\label{eq:interdiction}\\
-  &[@S_{1}] \mathit{absentation(Joey)} \land \langle A \rangle @S_{2}\label{eq:absentation-pj}\\
-  &[@S_{2}] \mathit{struggle(Punch, Crocodile)} \land \langle E \rangle (@S_{3a} \lor @S_{3b})\label{eq:struggle}\\
-  &[@S_{3a}] \mathit{victory(Crocodile)} \land \langle A \rangle @S_{3a_1}\\
-  &[@S_{3a_1}] \mathit{villainy(Crocodile, Sausages)} \land \langle E \rangle @S_{4}\\
-  &[@S_{3b}] \mathit{victory(Punch)} \land \langle A \rangle @S_{3b_1}\\
-  &[@S_{3b_1}] \mathit{villainy(Punch, Sausages)} \land \langle E \rangle @S_{4}\\
-  &[@S_{4}] \mathit{violation(Punch, Sausages)}\\
-  &[@S_{5}] \mathit{return(Joey)}
-\end{align}
-\caption{Sausages scene with nominals and Interval Temporal Logic}\label{fig:situations}
-\end{figure}
-
-One notable feature of this approach is that it enables the building of reusable story components. For example, we have said that an interdiction must begin with an absentation and ends with a violation (formula~\ref{eq:interdiction}). This pattern can be reused in different stories, or several times in the same story.
-
-\section{Describing Punch and Judy with Kripke Structures}\label{sec:kripke}
-\begin{figure}[!t]
-  \centering
-    \centerline{\includegraphics[width=0.9\textwidth]{crocmodel.pdf}}
-  \caption{One model from the sausages scene in LoTREC}\label{fig:lotrec}
-\end{figure}
-
-Here we use Kripke structures \citep{kripke1963semantical} as a method of interpreting the combination of modal logic with Interval Temporal Logic. A Kripke structure is a graph, the nodes of which represent a possible world consisting of a set of assertions, and the edges of which are the accessibility relations between worlds.
-
-\subsubsection{LoTREC}
-% Read the book
-In order to build and visualise the Kripke structures, we use LoTREC \citep{del2001lotrec}, a generic tableaux prover for modal and description logics. It allows the user to build up Kripke models using a domain specific language and display those models in the form of a graph diagram.
-LoTREC uses the tableau method for model checking. This method checks whether or not its input is satisfiable by attempting to build a model for it. If the model construction fails, then the input is unsatisfiable.
-Building models in LoTREC consists of defining \emph{connectors}, \emph{rules} and \emph{strategies}. Connectors are the logical operators used in formulas, rules are the instructions LoTREC needs to expand them into new nodes and edges and strategies are ways of combining rules in order to form models.
-LoTREC takes an initial set of formulas as input and expands each formula into its components. These formulas are input using a simple prefix notation domain specific language consisting of operators and arguments, described in the LoTREC instruction book \emph{Kripke's Worlds} \citep{gasquet2013kripke}.
-In the expansion, if a $[\,]$ (necessary) operator is encountered, then the formulas that serve as its argument are propagated across to all subsequent nodes. In the case of a $\langle \, \rangle$ (possibility) operator, a new node (possible world) is created containing its arguments. In both cases, binary operators can be used where one argument is located inside the square or angle brackets. In these cases, the argument inside the brackets is the accessibility relation, and is used to label the edges leading to the subsequent nodes.
-In the case of a disjunction ($\lor$) operator, the current model is copied in its entirety and extended with one of the operator's arguments. The other argument is added onto the current model. This is an important way of creating alternative routes through the narrative, all of which can be checked for consistency.
-
-\paragraph{The Sausages Scene in LoTREC}
-The narrative is captured as a system of interval temporal logic assertions over story functions. The  assertions are interpreted using a tableaux reasoner by unpacking them to form a Kripke structure.
-Using the initial formulas from Figure~\ref{fig:situations} as input, Figure~\ref{fig:lotrec} shows the model for the case where Punch wins the fight with the Crocodile. One other model exists in this scenario, in which the Crocodile is instead the victor.
-
-The example in Figure~\ref{fig:lotrec} describes the fabula of a branching story, where either Punch or the Crocodile may win the fight for the sausages. This corresponds to the disjunction in Figure~\ref{fig:situations}, Formula~\ref{eq:struggle}. This leads to the creation of two models: the one in which the Crocodile wins and then goes on to eat the sausages (situation $@S_{3a}$), and the one in which Punch wins (situation $@S_{3b}$).
-Using a breadth-first strategy like LoTREC we can build all models simultaneously. This enables them to be checked for internal consistency, eliminating potentially impossible temporal arrangements. For example, no interval may come after (later than) itself.
-
-The first node contains the logical description of the story, which is then unpacked into subsequent nodes. It starts with the initial situation, $S_0$, which contains an interdiction: $\mathit{interdiction(Joey, Punch, Sausages)}$, where Joey tells Punch to look after the sausages. The other situations, $S_1$ to $S_5$ are listed using the necessity operator, with their accessibility relations being each situation's nominal operator (such as $@S_1$). This means that these situations are all created as new nodes, linked to the root node using their nominal accessibility relation, and so can be referred to later using the nominal operator. In this way, situations can refer to other situations.
-
-For example, in Propp's formalism, an interdiction must begin with the absentation of a character and end with the interdiction's violation. For this reason, the initial situation is connected to $@S_1$, ($\mathit{absentation(Joey)}$), with the $\langle B \rangle$ (begins) accessibility relation and to $@S_4$, ($\mathit{violation(Punch, Sausages)}$), with the $\langle E \rangle$ (ends) accessibility relation. As other situations are unpacked into nodes, they are linked to other situations in the same way. An example of this is shown in $S_1$, the absentation, which must end with Joey's return, $S_5$, and during which a struggle must occur ($S_2$). As the formulas inside $S_1$ are unpacked, $S_1$ is linked to the other situations with the appropriate temporal accessibility relations. This is all made possible with the hybrid logic, which allows nodes to be referred to by name and linked to.
-
-By describing situations that are linked together with temporal relations, we can build narratives and check them as we go. If a narrative is inconsistent in some way (by stating that a character is both dead and alive, for example), then the model will be unsatisfiable. This is useful for ensuring the construction of consistent narratives.
-
-Additionally, every time a story has the possibility of branching off, the model for each new branch can be checked to see if it is viable in the narrative world. This means that rather than relying on an author to write out each branch of a story, they can be generated automatically from a story description and checked for inconsistencies.
-
-As mentioned previously, the combination of Interval Temporal Logic and a narrative formalism such as Propp's allows us to create abstracted story components. For example, we have described the interdiction as being started by an absentation and ended with a violation. This pattern can be called the ``interdiction pattern'', and so can be easily reused in other narratives.
-
-The use of LoTREC has shown the utility of being able to visualise a branching narrative in its entirety. This suggests that our method enables the visual authoring of interactive narratives by non-technical creators. Rather than having to type in computer code, or logical formulas, a visual tool could be developed to create logically consistent narrative worlds.
-
-This approach for describing narrative has many potential real-world uses. One obvious use would be for computer game narratives, but it could also be used to describe a repeatable training scenario, and the possible choices available to a user at any point during the simulation.
-
-\section{Norms and Institutions}
-\label{sec:norms-and-institutions}
-
-While the use of Interval Temporal Logic and model checking techniques is useful
-for the creation and checking of paths through a story, its main limitation is
-its unsuitability for use in a multi-agent system (MAS). Similar to the
-planner-based systems described in Section~\ref{sec:planner-systems}, its implementation in a MAS
-would involve the use of a ``director'', which tells each agent what to do
-during the course of the story. This greatly reduces the flexibility of using a
-MAS for interactive narrative. What advantage is there of using intelligent
-agents as characters in a story world if they have no agency to make use of
-their intelligence? By contrast, modelling stories with social norms and
-institutions offers a more flexible way to encourage agents actions to conform
-to the shape of a story.
-
-As we describe in Section~\ref{sec:lit-insts} of the literature review, an institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describes how an institutional model can be used to govern the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
-
-Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with Propp's concepts of \emph{roles} and \emph{story moves}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.
-
-For example, in one Punch and Judy scene, a policeman enters the stage and attempts to apprehend Punch. According to the rules of the Punch and Judy world, Punch has an obligation to kill the policeman by the end of the scene (as this is what the audience expects to happen, having seen other Punch and Judy shows). The policeman has an obligation to try his best to catch Punch. Both agents have permission to be on the stage during the scene. The policeman only has permission to chase Punch if he can see him (Punch is obliged to hide from him at the start of the scene).
-
-The permissions an agent has, on the one hand, constrain the choices of actions
-available to them at any given moment. Obligations, on the other hand, affect
-the goals of an agent. Whether or not an agent actively tries to fulfil an
-obligation depends on the plan they are following, and their emotional state.
-
-\subsection{Institution example}
-\label{sec:pjexample-insts}
-To illustrate the application of institutional modelling, we here continue the `sausages and crocodile' scene example from Section~\ref{sec:pjexample}, taking the Propp story functions and describing them in an institutional model.  We define our institution in terms of \emph{fluents}, \emph{events}, \emph{powers}, \emph{permissions} and \emph{obligations}, following~\citet{cliffe2007specifying}, to which the interested reader is referred for the full details of the formal model, including the generate ($\cal G$) and consequence ($\cal C$) relations, which are only described here in sufficient depth for the model being presented.
-
-\subsubsection{Fluents}
-These are properties that may or may not hold true at some instant in time, and that change over the course of time. \emph{Institutional events} are able to \emph{initiate} or \emph{terminate} fluents at points in time. A fluent could describe whether a character is currently on stage, the scene of the story that is currently being acted out, or whether or not the character is happy at that moment in time.
-Domain fluents ($\mathcal{D}$) describe domain-specific properties that can hold at a certain point in time. In the Punch and Judy domain, these can be whether or not an agent is on stage, or their role in the narrative: % (equation~\ref{eq:domain}).
-\begin{align*}
-   \mathcal{D} &= \left\{\mathtt{onstage, hero, villain, victim, donor, item}\right\} %\label{eq:domain}
-\end{align*}
-
-Institutional fluents consist of (institutional) \emph{powers}, \emph{permissions} and \emph{obligations}.
-% check your facts on this one
-An \textbf{institutional power} ($\mathcal{W}$) describes whether or not an external event has the authority to generate a meaningful institutional event. Taking an example from Propp's formalism, an \emph{absentation\/} event can only be generated by an external event brought about by a \emph{donor\/} character (such as their leaving the stage). Therefore, any characters other than the donor character would not have the institutional power to generate an \emph{absentation\/} institutional event when they leave the stage.
-The possible empowerments (institutional events) from Propp used in Punch and Judy are:
-\begin{align*}
-  \mathcal{W} =&\left\{\mathtt{pow(introduction), pow(interdiction), pow(give),}\right.\\ %\nonumber\\
-               &\left. {} \mathtt{pow(absentation), pow(violation), pow(return)}\right\} %\label{eq:power}
-\end{align*}
-
-\subsubsection{Permissions} ($\mathcal{P}$) are associated with external actions that agents are permitted to do at a certain instant in time. These can be thought of as the set of \emph{socially permitted\/} actions available to an agent. While it is possible for an agent to perform other actions, societal norms usually discourage them from doing so.
-% PJ examples
-For example, it would not make sense in the world of Punch and Judy if Punch were to give the sausages to the Policeman. It is always Joey who gives the sausages to Punch. Also, it would be strange if Joey were to do this in the middle of a scene where Punch and Judy are arguing. We make sure agents'' actions are governed so as to allow them only a certain subset of permitted actions at any one time. The set of permission fluents is:
-\begin{align*}
-\mathcal{P} =& \left\{\mathtt{perm(leavestage), perm(enterstage), perm(die), perm(kill),}\right.\nonumber\\
-             &\left. {} \mathtt{perm(hit), perm(give), perm(fight)}\right\} %\label{eq:perm}
-\end{align*}
-
-\subsubsection{Obligations} ($\mathcal{O}$) are institutional facts that contain actions agents \emph{should} do before a certain deadline. If the action is not performed in time, a \emph{violation event} is triggered, which may result in a penalty being incurred. While an agent may be obliged to perform an action, it is entirely their choice whether or not they actually do so. They must weigh up whether or not pursuing other courses of action is worth accepting the penalty that an unfulfilled obligation brings.
-
-% replace with sausages obligation
-Anybody who has seen a Punch and Judy show knows that at some point Joey tells Punch to guard some sausages, before disappearing offstage. Joey's departure is modelled in the institution as the \emph{absentation\/} event. It could also be said that Joey has an obligation to leave the stage as part of the \emph{absentation} event, otherwise the story function is violated. This can be described in the institution as:
-\begin{align*}
-  \mathcal{O} =& \left\{\text{obl}(\mathtt{leavestage, absentation, viol(absentation)})\right\}%\label{eq:obl}
-\end{align*}
-The first argument is the external event that must be triggered according to the obligation, the second argument is the institutional deadline event, and the third argument is the violation event which is triggered if the obligation is not fulfilled before the deadline. 
-
-\subsubsection{Events}
-\label{sec:inst-events}
-% actually 3 kinds, including violation events
-Cliffe's model specifies three types of \textbf{event}: \emph{external events} (or `observed events', $\mathcal{E}_{obs}$), \emph{institutional events} ($\mathcal{E}_{instevent}$) and \emph{violation events} ($\mathcal{E}_{viol}$). Examples of each are given in Figure~\ref{fig:events-pj}.
-\emph{External events} are observed to happen in the agents' environment, which can \emph{generate} \emph{institutional events} which occur only within the institional model, leading to the \emph{initiation} or \emph{termination} of (domain) fluents, permissions, obligations or institutional powers.
-An external event could be an agent leaving the stage, an agent hitting another, or an agent dying. Internal events include narrative events such as scene changes, or the triggering of Propp story functions such as \emph{absentation} or \emph{interdiction} (described in Section~\ref{sec:formalisms}). \emph{Violation} is the name of a Propp story function, and is included as an internal event, although it has no relation to the violation events of an institution.
-Violation events occur when an agent has failed to fulfil an obligation before the specified deadline. These can be implemented in the form of a penalty, by decreasing an agent's health, for example.
-
-\begin{figure}[!t]
-\begin{align}
-  \mathcal{E}_{obs} =& \left\{\mathtt{startshow, leavestage, enterstage, die, give,}\right.\nonumber\\
-  &\left. {} \mathtt{harmed, hit, fight, kill, escape}\right\}\label{eq:eobs}\\
-  \mathcal{E}_{instevent} =& \left\{\mathtt{introduction, interdiction, receipt, absentation,}\right.\nonumber\\
-                         &\left. {} \mathtt{violation, return, struggle, defeat, complicity,}\right.\nonumber\\
-                         &\left. {} \mathtt{victory, escape}\right\}\label{eq:einst}\\
-  \mathcal{E}_{viol} =& \left\{\mathtt{viol(introduction), viol(interdiction), viol(receipt),}\right.\nonumber\\
- &\left. {} \mathtt{viol(absentation), viol(violation), viol(return),}\right.\nonumber\\
- &\left. {} \mathtt{viol(struggle), viol(defeat), viol(complicity)}\right.\nonumber\\
- &\left. {} \mathtt{viol(victory), viol(escape)}\right\}\label{eq:viol}
-\end{align}
-\caption{External, institutional and violation events for Punch and Judy} \label{fig:events-pj}
-\end{figure}
-
-% internal and external
-
-\subsubsection{Event Generation and Consequences}
-An \textbf{event generation} function, $\mathcal{G}$, describes how events
-($\mathcal{E}$, usually external, but can also be internal) %
-can generate other (usually institutional) events, conditional upon the current institutional state ($\cal X$). This is the counts-as relation.  For example, if an agent leaves the stage while the \emph{interdiction} event holds, they trigger the \emph{leavestage} event. This combination generates the \emph{absentation} institutional event (Rule~\ref{eq:absentation}). Further examples appear in Figure~\ref{fig:gen}.
-
-Event generation functions follow a $\langle \mathtt{preconditions} \rangle \rightarrow \{\mathtt{postconditions}\}$ format. The preconditions consist of a set of fluents that hold at that time, along with an event to have occurred. The postconditions are the events that are generated. The generation functions are used to generate internal, institutional events from external events.
-
-Consider the Punch and Judy scenario described in Section~\ref{sec:pjexample}. There are seven institutional events (story functions) that occur during this scene: \emph{interdiction}, \emph{complicity}, \emph{receipt} (from Propp's \emph{receipt of a magical agent}) \emph{absentation}, \emph{violation}, \emph{struggle}, \emph{return}.
-These institutional events are all generated by external events. The \emph{interdiction} is generated when Joey tells Punch to protect the sausages. Punch agreeing amounts to \emph{complicity}. Joey \emph{gives} punch the sausages (\emph{receipt}), then leaves the stage (\emph{absentation}). The crocodile eating the sausages is a \emph{violation} of Punch's oath, the agents fight (\emph{struggle}), then Joey enters the stage again (\emph{return}).
-
-It is desirable that these story functions occur in this sequence in order for a satisfying narrative to emerge. Agents may decide to perform actions that diverge from this set of events, but the institution is guiding them towards the most fitting outcome for a \emph{Punch and Judy} world. For this reason, a currently active story function can be the precondition for event generation. For example, the \emph{receipt} event may only be triggered if an agent externally performs a \emph{give} action \textbf{and} if the \emph{complicity} event currently holds (rule~\ref{eq:receipt}).
-Examples of event generation function for this scenario, complete with preconditions, are listed in rules~\ref{eq:gfirst}--\ref{eq:glast} (Figure~\ref{fig:gen}).
-
-\begin{figure}[!t]
-\abovedisplayskip=0pt
-\abovedisplayshortskip=0pt
-$\mathcal{G(X, E)}:\left\{\mbox{%
-{\begin{minipage}[c]{0.85\textwidth}
-% \vspace{-2.1em}\begin{align}
-\begin{align}
-\langle \emptyset,\mathit{tellprotect}\mathtt{(donor, villain, item)} \rangle%\nonumber\\
-             %         &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{interdiction}\right\}\label{eq:gfirst}\\
-                      \langle \{\mathit{interdiction}\}, \mathit{agree}\mathtt{(villain)}) \rangle %\nonumber\\
-            %          &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{complicity}\right\}\\
-                      \langle \emptyset, \mathit{give}\mathtt{(donor, villain, item)}) \rangle %\nonumber\\
-        %              &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{receipt}\right\}\label{eq:receipt}\\
-                      \langle \{\mathit{interdiction}\}, \mathit{leavestage}(\mathtt{donor}) \rangle %\nonumber\\
-              %        &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{absentation}\right\}\label{eq:absentation}\\
-                      \langle \{\mathit{interdiction}\}, \mathit{harmed}(\mathtt{item}) \rangle %\nonumber\\
-         %             &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{violation}\right\}\\
-                      \langle \{\mathit{interdiction, absentation}\},
-                      \mathit{enterstage}(\mathtt{donor}) \rangle %\nonumber\\
-              %        &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{return}\right\}\\
-                      \langle \emptyset, \mathit{hit}(\mathtt{donor, villain}) \rangle %\nonumber\\
-%                      &\qquad\qquad\qquad
-& \rightarrow \left\{\mathit{struggle}\right\}\label{eq:glast}
-\end{align}
-\end{minipage}}}\right.$
-\caption{Event generation in the sausage scene} \label{fig:gen}
-\end{figure}
-
-\textbf{Consequences} consist of fluents, permissions and obligations that are \emph{initiated} ($\mathcal{C}^{\uparrow}$) or \emph{terminated} ($\mathcal{C}^{\downarrow}$) by institutional events. For example, the institutional event \emph{receipt} initiates the donor agent's permission to leave the stage, triggering the \emph{absentation} event (rule~\ref{eq:initgive}). When the \emph{interdiction} event is currently active and a \emph{violation} event occurs, the interdiction event is terminated (\ref{eq:interm}). Rules~\ref{eq:cfirst}--\ref{eq:clast} in Figures~\ref{fig:init} and~\ref{fig:term} describe the initiation and termination of fluents in the Punch and Judy sausages scene detailed in Section~\ref{sec:pjexample}.
-
-\begin{figure}[!t]
-\abovedisplayskip=0pt
-\abovedisplayshortskip=0pt
-$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-    \langle \emptyset, \mathtt{interdiction} \rangle %\nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \{\text{active}(\mathtt{interdiction}), \nonumber\\&\qquad\text{perm}(\mathtt{give(donor, villain, item)})\}\label{eq:cfirst}\\
-                                 \langle \emptyset, \mathtt{receipt} \rangle % \nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \{\text{perm}(\mathtt{leavestage(donor)})\}\label{eq:initgive}\\
-                                 \langle\{\mathit{active(absentation)}\}, \nonumber\\\mathtt{enterstage(villain)} \rangle %\nonumber\\
-                                 %&\qquad\qquad
-&\rightarrow \{\text{obl}(\mathtt{eat(villain, sausages),} \nonumber\\&\qquad\qquad\mathtt{return, viol(violation)})\}\label{eq:obl1}\\
-                                 \langle\{\mathit{active(interdiction)}\}, \nonumber\\\mathtt{leavestage(donor)} \rangle % \nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \{\text{obl}(\mathtt{enterstage(donor),}\nonumber\\&\qquad\qquad\mathtt{eat(villain, sausages),}\nonumber\\&\qquad\qquad\mathtt{viol(return)})\}\label{eq:obl2}\\
-                                 \{\mathit{active(interdiction)}\},\nonumber\\ \mathtt{violation} \rangle %\nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \{\text{perm}(\mathtt{enterstage(dispatcher)})\}\\
-                                 \langle\{\mathit{active(absentation),}\nonumber\\\mathit{active(violation)}\},\nonumber\\ \mathtt{return} \rangle %\nonumber\\
-                                 %&\qquad\qquad
-&\rightarrow \{\text{perm}(\mathtt{hit(donor, villain)})\}
-\end{align}
-\end{minipage}}\right.$
-\caption{Fluent initiation in the sausage scene} \label{fig:init}
-\medskip
-\abovedisplayskip=0pt
-\abovedisplayshortskip=0pt
-$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-\langle \emptyset, \mathtt{interdiction} \rangle %\nonumber\\
-                                   %&\qquad\qquad
-&\rightarrow \{\text{perm}(\mathtt{give(donor, villain, item)})\}\\
-                                   \langle \{\mathit{active(interdiction)}\},\nonumber\\ \mathtt{absentation} \rangle %\nonumber\\
-                                   %&\qquad\qquad
-&\rightarrow \{\text{perm}(\mathtt{leavestage(donor)})\}\\
-                                   \langle \{\mathit{active(interdiction)}\},\nonumber\\ \mathtt{violation} \rangle %\nonumber\\
-                                   %&\qquad\qquad
-&\rightarrow \{\mathit{active(interdiction)}\}\label{eq:interm}\\
-                                   \langle \{\mathit{active(absentation),}\nonumber\\\mathit{ active(violation)}\},\nonumber\\ \mathtt{return} \rangle %\nonumber\\
-                                   %&\qquad\qquad
-&\rightarrow \{\mathit{active(absentation)}\}\label{eq:clast}
-\end{align}
-\end{minipage}}\right.$
-\caption{Fluent termination in the sausage scene} \label{fig:term}
-\end{figure}%
-
-Now that the components of our \emph{Punch and Judy} institution have been
-defined, the next section describes how this institution is used to govern the
-character agents in our story world.
-
-\section{An Interactive, Generative Punch and Judy Show with Institutions and
-  Emotional Agents}
-\label{sec:punchjudy}
-The previous section defines a scene from the Punch and Judy story world as an
-institution, in terms of external events that can happen, the institutional
-events that are generated and the norms that are initiated and terminated during
-the scene. This is our formal model for the scene, describing the norms that
-govern the agents that act out our characters in the story. This section explains
-how these norms are used with a multi-agent system to guide the character agents
-towards courses of action that fit with our scene description.
-
-Our main criticism of the use of Interval Temporal Logic for the description of
-story worlds is its lack of flexibility in governing the actions of intelligent
-agents in a multi-agent system. If agents are told precisely what to do in a
-story environment, there is little reason in giving them agency. We demonstrate
-this point further by modelling the characters in our Punch and Judy simulation
-with emotional models that affect their decision making and behaviour. We choose
-to do this so that agents would be able to deviate from the narrative in times
-of extreme emotion, providing some level of unpredictability to the story.
-
-This section describes a fully realised and implemented interactive puppet show
-built with institutions and emotional agents. In this show, the characters
-interact on screen in accordance with the Punch and Judy story world. At certain
-points in the show, the audience are encouraged to cheer or boo at the
-characters. When this happens, a character puppet's emotional state is changed
-in accordance with the audience response. The system was demonstrated at the CDE
-(Center for Digital Entertainment) and the AISB (Society for the Study of
-Artificial Intelligence and the Simulation of Behaviour) conferences in 2015,
-with live audiences interacting with and changing the narrative.
-
-\subsection{VAD emotional model} \label{sec:emotion}
-\begin{figure}[!t]
-% {\includegraphics[height=5in]{VAD.png}}
-  \centering
-  \includegraphics[height=0.6\textheight]{VAD.png}
-\caption{VAD emotional values (figure adapted from~\citet{ahn2012nvc})} \label{fig:vad}
-\end{figure}
-
-In order to make the agents acting out the Punch and Judy show more believable,
-we apply an emotional model to affect their actions and decisions. For this, we
-use the valence-arousal (circumplex) model first described
-by~\citet{russell1980circumplex}. To give each character its own distinct
-personality, we extend this model with an extra dimension: dominance, as used
-by~\citet{ahn2012nvc} in their model for conversational virtual humans. This
-dominance level is affected by the reactions of the audience to the agents'
-actions. For example, Judy may become more dominant as her suggestions to hit
-Punch with a stick are cheered on by the audience, emboldening her into acting
-out her impulses.
-
-The VAD model, an extension of Russell's circumplex
-model~\citep{russell1980circumplex}, illustrates how valence, arousal and
-dominance values map to identifiable emotions. Valence, arousal and dominance
-can each have a value of low, medium or high. This allows the agents to have a
-total of 27 distinct emotional states, shown in Figure~\ref{fig:vad}.
-The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\citep{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
-
-An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
-
-It is important to note that the emotional model is part of the agent belief state, and not held in the institution. We want to explore how the characters of the story might be able to choose actions based on their emotional state. While the institution could theoretically calculate the emotional state for each agent in turn and dictate this to them along with the norms of the narrative, it makes sense to decouple this feature from the narrative institution in order to separate the characters from the events of the story. %\jnote{review this paragraph}
-
-Agents' emotional states change according to their interactions with the audience. This is unrelated to what is happening in the narrative, and so this underscores the decision not to include any emotional modelling in the institution. Also, we want the agents to have some degree of freedom within the narrative world. They should be allowed to determine their emotions themselves, so that in extreme emotional states they can perform `irrational' or `extreme' actions that may not necessarily fit into the narrative.
-
-\subsection{VAD emotions in Jason}
-Emotions are implemented as beliefs inside an agent. An agent believes it has a certain level of valence, arousal and dominance, and it works out its emotional state based on a combination of these three factors. When the audience cheers or boos them, this changes the belief holding the relevant emotional variable, and their emotional state as a whole is recalculated.
-
-Valence, arousal and dominance values can take values of -1 (low), 0 (medium) or 1 (high). Listing~\ref{lst:emotions} shows the emotional belief rules for an agent with medium dominance (a dominance level of 0). Note that an agent maintains beliefs about both its current emotion label (such as sleepy or happy) and the separate valence, arousal and dominance values at the same time.  Similar sets of rules handle the belief emotion for the other dominance levels.  %We address the matter of how external stimuli affect dominance in section~\ref{sec:norms as percepts}.\jnote{still needs doing}
-
-Every time an emotional variable (valence, arousal, or dominance) changes, an agent's emotion is changed according to the rules in Listing~\ref{lst:emotions}. While an agent's valence, arousal and dominance belief values affect the way it makes decisions internally, the results of combinations of these values (sleepy, happy, etc) are broadcast as external actions. The reason for this is that an agent's emotional state may affect the way in which the character is animated: changing the speed at which they move or turning their smile into a frown, for example. For this reason, whenever an emotional change takes place, the new emotion is published as an external action of the agent so that observing entities may perceive it. The Bath sensor framework described in Section~\ref{sec:arch} provides the means for this evidence of the agent's internal state change to be received by the animation system and reflected accordingly in the display.
-
-\begin{lstlisting}[float=!t,caption={Emotional rules for a character with medium dominance},label=lst:emotions,escapechar=\%,basicstyle=\scriptsize\ttfamily]
-emotion(sleepy) :- valence(0) & arousal(-1) & dominance(0).
-emotion(neutral) :- valence(0) & arousal(0) & dominance(0).
-emotion(surprised) :- valence(0) & arousal(1) & dominance(0).
-emotion(anxious) :- valence(-1) & arousal(-1) & dominance(0).
-emotion(unhappy) :- valence(-1) & arousal(0) & dominance(0).
-emotion(embarrassed) :- valence(-1) & arousal(1) & dominance(0).
-emotion(glad) :- valence(1) & arousal(-1) & dominance(0).
-emotion(happy) :- valence(1) & arousal(0) & dominance(0).
-emotion(delighted) :- valence(1) & arousal(1) & dominance(0).
-\end{lstlisting}
-
-\begin{lstlisting}[float=!t,caption={AgentSpeak rules for changing an agent's
-emotional values from audience
-responses},label=lst:response,basicstyle=\scriptsize\ttfamily,escapechar=\%]
-+!changeMood%\label{lne:changemood-start}%
-  <- ?emotion(Z);
-     emotion(Z).%\label{lne:changemood-end}%
-+response(_, boo) : asking%\label{lne:response1-start}%
-  <- -+valence(-1);
-     -+dominance(-1);
-     !changeMood.%\label{lne:response1-end}%
-+response(_, cheer) : asking%\label{lne:response2-start}%
-  <- -+valence(1);
-     -+dominance(1);
-     !changeMood.%\label{lne:response2-end}%
-\end{lstlisting}
-
-Listing~\ref{lst:response} shows the AgentSpeak rules describing how an agent's
-valence and dominance levels are changed by the audience cheering or booing
-their actions. These AgentSpeak plans describe what the agent should do in
-response to a goal addition (denoted by a $\texttt{+!}$ at the start of the plan
-name) or a belief addition (prefixed by a simple $\texttt{+}$). In the case of
-Listing~\ref{lst:response}, the $\texttt{+!changeMood}$ plan on
-lines~\ref{lne:changemood-start} to~\ref{lne:changemood-end} updates the agent's
-emotional state based on its valence-arousal-dominance values and broadcasts the
-result as an external action. The $\texttt{+response}$ plans
-(Listing~\ref{lst:response}, lines~\ref{lne:response1-start} - \ref{lne:response1-end}
-and~\ref{lne:response2-start} - \ref{lne:response2-end}) raise or lower an agent's valence and dominance levels depending on whether the agent perceives a ``boo'' or ``cheer'' response from the audience.
-
-An agent announces what they intend to do, then waits three seconds. During this time, they have the belief that they are ``asking'' the audience, and listen for a response. A ``boo'' reduces an agent's valence and dominance, while a cheer raises them. For each response, the \texttt{changeMood} goal is triggered, which looks up and broadcasts the agent's emotional state to the other agents and environment.
-
-\subsection{Agent decision making} \label{sec:decisions}
-The agents choose which goals to pursue according to three factors: their permitted actions, their obliged actions and their emotional state. Though obliged actions are given priority, and while agents'' decisions are generally constrained by their permitted actions, an agent's emotional state has the final say in its decisions. In this way, an agent will follow the social norms of the narrative, but only according to their own mood.
-
-\paragraph{Agent goals and plans}
-% \subsection{Agent goals and plans}
-The agents are implemented using a belief-desire-intention (BDI) psychological model using the Jason platform ~\citep{bordini2007programming}. An agent's knowledge about the state of their world and themselves are stored as \emph{beliefs}, with new information coming in from the environment getting added to their belief base as \emph{percepts}, which are ephemeral and only last for one reasoning cycle of an agent.
-
-Agents are created with goals and plan libraries. Any goal that an agent is set on carrying out at any point is an \emph{intention}, whereas a goal that an agent has but is not yet pursuing is a \emph{desire}. Plan libraries describe the steps agents need to take in order to achieve goals, as well as how to react to changes in agents'' environments.
-
-\paragraph{Norms as percepts}\label{sec:norms-as-percepts}
-% \subsection{Norms as percepts}\label{sec:norms as percepts}
-When an event occurs, it is added to the event timeline, which is used to query the ASP (Answer Set Programming) solver to obtain the set of norms that hold after the new event has occurred. The new permissions and obligations are then added to each agent as \emph{percepts}. Each time this happens, the set of permitted and obliged actions that an agent sees is changed to be only those that apply at that instant in time, with the previous norms being discarded.
-
-Agents choose between permitted and obliged actions based on their emotional state at the point of decision making. Obliged actions are given a higher priority over permitted ones for most of the emotional states that an agent can be in, though not always. If an agent is in a sulky mood, for example, they may decide to ignore what they are obliged to do by the narrative, even though they know there will be consequences.
-
-For example, in the scene where Joey gives the sausages to Punch, Punch may see that he has permission to eat the sausages, drop them, fight the crocodile, run away (leave the stage) or shout for help at the crocodile or audience. His obligation for the scene, in accordance with the Punch and Judy narrative world, is to either eat the sausages himself, or let the crocodile have them. This ends Propp's \emph{interdiction\/} story function with a \emph{violation\/} function. Note that his obligation in this case is not to guard the sausages as asked to by Joey. While Joey's entrusting of the sausages is certainly an obligation in itself, Punch's main obligations are to the narrative. Lesser obligations towards characters in the story can be implemented as having a lower prority than those of the story itself.
-
-Similarly, at times of extreme emotion, an agent may decide to disregard their set of permitted actions entirely, instead acting out their innermost desires. For example, an angry Punch might decide to just attack Joey instead of agreeing to look after the sausages, or he might just decide to give up and leave if he is depressed. The key point is that the norms act as the will of the \emph{narrative}, guiding the story forward, rather than a strict set of rules that the agents must follow at all costs.
-
-\emph{Violation events\/} add percepts to the agents telling them that they are in violation of the narrative norms. Once an agent receives such a percept, an emotional variable is changed. Typically, their dominance will decrease. The reasoning behind this is that if agents are unwilling to participate in the story, they should have less influence in its course of events.
-
-\subsection{Architecture}\label{sec:arch}
-
-\paragraph{Multi-Agent System:} \label{sec:arch-mas}
-% \subsection{Multi-Agent System} \label{sec:inst}
-We use the Jason~\citep{bordini2007programming} framework for belief-desire-intention (BDI) agents, with a VAD
-emotional model as described above.
-
-\paragraph{Institutional Framework}
-% \subsection{Institutional Framework}
-% How you used instAL to model Propp
-To describe our institutional model, we use InstAL~\citep{cliffe2007specifying}, a domain-specific (action) language for describing institutions that compiles to AnsProlog, a declarative programming language for Answer Set Programming (ASP). InstAL's semantics are inspired by the Situation Calculus~\citep{reiter1991frame} and the Event Calculus~\citep{kowalski1989logic}. InstAL describes how external events generate institutional events, which then initiate or terminate fluents that hold at certain points in time. These fluents can include the permissions and obligations that describe what an agent is permitted or obliged to do when, as described in Section~\ref{sec:pjexample-insts}.
-For example, if an agent with the role of \emph{dispatcher\/} leaves the stage,
-it generates the Propp \emph{absentation\/} move in the institution, but only if
-the \emph{interdiction} function is active (i.e., the
-\emph{activeFunction(interdiction)} fluent holds): %\mnote{Added \emph{activeFunction} explanation}
-\begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
-leaveStage(X) generates intAbsentation(X)
-   if role(X, dispatcher), activeFunction(interdiction);
-\end{lstlisting}
-% \vspace{-1cm}
-which generates the following AnsProlog code:\\
-\begin{minipage}{0.6\textwidth}
-\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
-occurred(intAbsentation(X),pj,I) :-%\mylabel{t1}%
-   occurred(leaveStage(X),pj,I),%\mylabel{t2}%
-   holdsat(pow(pj,intAbsentation(X)),pj,I),%\mylabel{t3}%
-   holdsat(role(X,donor),pj,I),%\mylabel{t4}%
-   holdsat(activeFunction(interdiction),pj,I), %\mylabel{t5}%
-   agent(X), inst(pj), instant(I).%\mylabel{t6}%
-\end{lstlisting}
-\end{minipage}\hspace{0.08\textwidth}%\hfill
-\begin{minipage}{0.3\textwidth}\scriptsize
-\myref{t1}{s1}{The internal \emph{absentation} event occurs if the following conditions are met:}
-\myref{t2}{s2}{$\bullet X$ leaves the stage}
-\myref{t3}{s3}{$\bullet X$ has the power to leave the stage}
-\myref{t4}{s4}{$\bullet X$ has the role of donor}
-\myref{t5}{s5}{$\bullet$ the \emph{interdiction} function is active}
-\myref{t6}{s6}{$\bullet X$ is an agent, pj is an institution, $I$ is an instant}
-\end{minipage}\\
-The \emph{absentation\/} institutional event gives the crocodile permission to enter the stage if there are any sausages on the stage. It also terminates the permission of the absented agent to leave the stage, as they have already done so:\\
-\begin{minipage}{0.6\textwidth}
-\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
-intAbsentation(X) initiates perm(enterStage(croc)) if objStage(sausages);%\mylabel{t1}%
-intAbsentation(X) terminates onStage(X), perm(leaveStage(X));%\mylabel{t2}%
-\end{lstlisting}
-\end{minipage}\hspace{0.08\textwidth}%\hfill
-\begin{minipage}{0.3\textwidth}\scriptsize
-  \myref{t1}{s1}{The \emph{absentation} function gives the crocodile permission to enter the stage if the sausages are on stage}
-  \myref{t2}{s2}{The \emph{absentation} function means that once X leaves the stage, they are no longer on stage}
-\end{minipage}\\
-which generates the following:\\
-\begin{minipage}{0.6\textwidth}
-\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
-initiated(perm(enterStage(croc)),pj,I) :-%\mylabel{t1}%
-   occurred(intAbsentation(X),pj,I),%\mylabel{t2}%
-   holdsat(live(pj),pj,I), inst(pj),%\mylabel{t3}%
-   holdsat(objStage(sausages),pj,I),%\mylabel{t4}%
-   agent(X), inst(pj), instant(I).%\mylabel{t5}%
-\end{lstlisting}
-\end{minipage}\hspace{0.08\textwidth}%\hfill
-\begin{minipage}{0.3\textwidth}\scriptsize
-\myref{t1}{s1}{The crocodile gets permission to enter the stage if the following
-  conditions are met:}
-\myref{t2}{s2}{$\bullet$ the \emph{absentation} function event has occured}
-\myref{t3}{s3}{$\bullet$ the pj institution is running}
-\myref{t4}{s4}{$\bullet$ the sausages are on stage}
-% \myref{t5}{s5}{$\bullet X$ is an agent, pj is an institution, $I$ is an instant}
-\end{minipage}\\
-%% \begin{comment}
-%% If the ``defeat'' institutional event occurs (as a result of a struggle between
-%% two agents), it initiates a fluent signifying that that agent is dead, along
-%% with an obligation for the agent to leave the stage. If they don't leave the
-%% stage, then they are in violation of the scene, and an appropriate violation
-%% event is triggered. Also note that the fluent and obligation event are only
-%% initiated \emph{if} the agent is playing the role of a victim:
-%% \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
-%% intDefeat(X, Y) initiates dead(Y), obl(leaveStage(Y), deadline, vioScene(Y)) if role(Y, victim);
-%% \end{lstlisting}
-%% \end{comment}
-\begin{figure}[!t]
-\begin{minipage}{0.6\textwidth}
-\begin{lstlisting}[caption={Encoding of Propp's \emph{absentation\/} function},basicstyle=\scriptsize\ttfamily,label=lst:absentation,escapechar=\%]
-intAbsentation(X) initiates activeFunction(absentation);%\mylabel{t0}%
-intAbsentation(X) initiates perm(harm(Y, Z)) if role(Y, villain), objStage(Z), onStage(Y), activeFunction(interdiction);%\mylabel{t1}%
-intAbsentation(X) initiates perm(harm(Y, Z)) if role(Y, ambusher), objStage(Z), onStage(Y), activeFunction(interdiction);%\mylabel{t2}%
-intAbsentation(X) initiates perm(enterStage(X)), activeFunction(absentation);%\mylabel{t3}%
-intAbsentation(X) initiates perm(enterStage(croc)) if objStage(sausages);%\mylabel{t4}% 
-intAbsentation(X) terminates onStage(X), perm(leaveStage(X));%\mylabel{t5}%
-\end{lstlisting}
-\end{minipage}\hspace{0.08\textwidth}%\hfill
-\begin{minipage}{0.3\textwidth}\scriptsize
-  \myref{t0}{s0}{The \emph{activeFunction(absentation)} function holds after any
-    \emph{intAbsentation} institutional event, indicating that that Propp
-    function is currently underway}
-  \myref{t1}{s1}{The \emph{absentation} function gives the villain permission to harm
-    an object, if both are on stage and the \emph{interdiction} function is active}
-  \myref{t2}{s2}{Same as above, but for \emph{ambusher} role}
-  \myref{t3}{s3}{The absented character has permission the re-enter the stage at any point during the \emph{absentation} function}
-  \myref{t4}{s4}{The crocodile has permission to enter the stage if the sausages are on stage}
-  \myref{t5}{s5}{The \emph{absentation} function means that the absented character is no longer on stage, and cannot leave the stage (as they have already done so)}
-\end{minipage}
-\end{figure}
-By combining statements such as the above, we can build a complete description
-of the sausages scene in terms of agent norms, such as the Propp
-\emph{absentation} function, shown in Listing~\ref{lst:absentation}. InstAL rules like those shown above and in Listing~\ref{lst:absentation} are compiled into AnsProlog, then we use the \emph{clingo} answer set solver~\citep{gebser2011potassco} to ground the program, and `solve' queries by finding all permissions and obligations that apply to any agents, given a sequence of events as the query input. The agents' percepts are then updated with their permitted and obliged actions from that time instant onwards.  Thus, the institutional model acts as a social narrative sensor, interpreting actors' actions in the context of the combination of the concrete narrative and the abstract story moves which detach (instantiate) the norms that guide the actors in the direction of the conclusion of the story arc.
-
-A query is simply a list of external events in chronological order, also called
-a \emph{trace}. A possible trace describing the actions of agents acting out the
-\emph{sausages} is described in Listing~\ref{lst:trace}. The `pj' in the trace
-is the name of the institution that observes the events, while the
-number is the enumeration of events in the sequence.
-
-\begin{figure}[!t]
-\begin{minipage}{0.6\textwidth}
-% \newsavebox{\lstasp}
-% \begin{lrbox}{\lstasp}
-\begin{lstlisting}[caption={Possible full trace for sausages scene},label=lst:trace,basicstyle=\scriptsize\ttfamily,escapechar=\%]
-observed(startShow,pj,0). %\mylabel{t1}%
-observed(startScene(sausages),pj,1). %\mylabel{t2}%
-observed(enterStage(punch),pj,2). %\mylabel{t3}%
-observed(enterStage(joey),pj,3). %\mylabel{t4}%
-observed(say(joey, give),pj,4). %\mylabel{t5}%
-observed(say(joey,  protect),pj,5). %\mylabel{t6}%
-observed(give(joey,punch,sausages),pj,6). %\mylabel{t7}%
-observed(leaveStage(joey),pj,7). %\mylabel{t8}%
-observed(say(punch, harm),pj,8). %\mylabel{t9}%
-observed(enterStage(croc),pj,9). %\mylabel{t10}%
-observed(take(croc, sausages),pj,10). %\mylabel{t11}%
-observed(eat(croc, sausages),pj,11). %\mylabel{t12}%
-observed(leaveStage(croc),pj,12). %\mylabel{t13}%
-observed(enterStage(joey),pj,13). %\mylabel{t14}%
-observed(hit(joey, punch),pj,14). %\mylabel{t15}%
-observed(leaveStage(joey),pj,15). %\mylabel{t16}%
-observed(leaveStage(punch),pj,16). %\mylabel{t17}%
-observed(startScene(end),pj,17). %\mylabel{t18}%
-\end{lstlisting}
-\end{minipage}\hspace{0.08\textwidth}%\hfill
-\begin{minipage}{0.3\textwidth}\scriptsize
-  \myref{t1}{s1}{The show has started}
-  \myref{t2}{s2}{The sausages scene has started}
-  \myref{t3}{s3}{Punch has entered the stage}
-  \myref{t4}{s4}{Joey has entered the stage}
-  \myref{t5}{s5}{Joey says he will give Punch the sausages}
-  \myref{t6}{s6}{Joey tells Punch to protect the sausages}
-  \myref{t7}{s7}{Joey gives the sausages to Punch}
-  \myref{t8}{s8}{Joey leaves the stage}
-  \myref{t9}{s9}{Punch says he will eat the sausages}
-  \myref{t10}{s10}{The crocodile enters the stage}
-  \myref{t11}{s11}{The crocodile takes the sausages}
-  \myref{t12}{s12}{The crocodile eats the sausages}
-  \myref{t13}{s13}{The crocodile leaves the stage}
-  \myref{t14}{s14}{Joey enters the stage}
-  \myref{t15}{s15}{Joey hits Punch}
-  \myref{t16}{s16}{Joey leaves the stage}
-  \myref{t17}{s17}{Punch leaves the stage}
-  \myref{t18}{s18}{The scene ends}
-\end{minipage}
-\end{figure}
-
-Each \emph{observed} event triggers a corresponding \emph{occurs} event inside the
-institution, as determined by the generates relation. Listing~\ref{lst:asp}
-shows an extract from an answer set output for the trace queried against the ASP
-description of the sausages scenario, for events~5 to~7 of the scene. Starting with an initial set of fluents that hold at instant~5,
-only fluents that have been initiated and not terminated hold at the next
-instant. For ease of reading, the listing only shows roles that hold at
-certain instants when they have some effect on the scene, although in practice, all role fluents hold throughout the scene. Figure~\ref{fig:tracevis} shows a visualisation of the answer set for the trace in Listing~\ref{lst:trace}.
-
-\begin{figure}[!t]
-\begin{minipage}{0.65\textwidth}
-%% \newsavebox{\lstasp}
-%% \begin{lrbox}{\lstasp}
-\begin{lstlisting}[caption={Sausages scene using ASP},label=lst:asp,basicstyle=\scriptsize\ttfamily,label=lst:asp,escapechar=\%]
-holdsat(perm(say(donor, protect),pj,5).%\mylabel{t1}%
-holdsat(role(joey, donor),pj,5).%\mylabel{t2}%
-occurred(say(joey, protect),pj,5).%\mylabel{t3}%
-
-initiated(activeFunction(interdiction),pj,6).%\mylabel{t4}%
-initiated(perm(give(donor, villain, object)),pj,6).%\mylabel{t5}%
-terminated(perm(say(donor, protect)),pj,6).%\mylabel{t6}%
-holdsat(perm(give(donor, villain, object)),pj,6).%\mylabel{t7}%
-holdsat(activeFunction(interdiction),pj,6).%\mylabel{t8}%
-holdsat(role(joey, donor),pj,6).%\mylabel{t9}%
-holdsat(role(punch, villain),pj,6).%\mylabel{t10}%
-holdsat(object(sausages),pj,6).%\mylabel{t11}%
-occurred(give(joey, punch, sausages),pj,6).%\mylabel{t12}%
-
-initiated(activeFunction(absentation),pj,7).%\mylabel{t13}%
-initiated(perm(leavestage(donor)),pj,7).%\mylabel{t14}%
-terminated(perm(give(donor, villain, object)),pj,7).%\mylabel{t15}%
-holdsat(activeFunction(interdiction),pj,7).%\mylabel{t16}%
-holdsat(activeFunction(absentation),pj,7).%\mylabel{t17}%
-holdsat(role(joey, donor),pj,7).%\mylabel{t18}%
-holdsat(perm(leavestage(donor)),pj,7).%\mylabel{t19}%
-\end{lstlisting}
-\end{minipage}\hspace{0.03\textwidth}%\hfill
-% \end{lrbox}
-% \noindent\usebox{\lstasp}\hfill
-\begin{minipage}{0.3\textwidth}\scriptsize
-  \myref{t1}{s1}{The donor role can tell someone to protect an object at instant 5}
-  \myref{t2}{s2}{Joey is the donor at instant 5}
-  \myref{t3}{s3}{Joey tells another character to protect an object at instant 5}
-  \myref{t4}{s4}{The \emph{interdiction} function becomes active at instant 6}
-  \myref{t5}{s5}{The donor has permission to give an object to the villain at instant 6}
-  \myref{t6}{s6}{The donor can no longer tell anyone to protect an object at instant 6}
-  \myref{t7}{s7}{The donor can give an object to the villain at instant 6}
-  \myref{t8}{s8}{The \emph{interdiction} function is active at instant 6}
-  \myref{t9}{s9}{Joey is the donor at instant 6}
-  \myref{t10}{s10}{Punch is the villain at instant 6}
-  \myref{t11}{s11}{Sausages are an object at instant 6}
-  \myref{t12}{s12}{Joey gives the sausages to Punch at instant 6}
-  \myref{t13}{s13}{The \emph{absentation} function becomes active at instant 7}
-  \myref{t14}{s14}{The donor can leave the stage at instant 7}
-  \myref{t15}{s15}{The donor can give an object to the villain at instant 7}
-  \myref{t16}{s16}{The \emph{interdiction} function is active at instant 7}
-  \myref{t17}{s17}{The \emph{absentation} function is active at instant 7}
-  \myref{t18}{s18}{Joey is the donor at instant 7}
-  \myref{t19}{s19}{The donor can leave the stage at instant 7}
-\end{minipage}
-\end{figure}
-
-% \begin{figure}[!t]
-% \includegraphics[width=1.3\linewidth]{trace.pdf}
-% \caption{Visualised trace of the sausages scene} \label{fig:vis}
-% \end{figure}
-
-\begin{figure}[!p]
-%     \includegraphics[width=\linewidth]{trace.pdf}
-    \includegraphics[height=0.95\textheight]{trace.pdf}
-    \caption{Trace visualisation} \label{fig:tracevis}
-\end{figure}
-
-% \includepdf{trace.pdf}
-
-%\lstinputlisting[language=prolog, firstline=74, lastline=74]{pj_model.ial}
-
-%\begin{lstlisting}[language=prolog, frame=single]  % Start your code-block
-%enterStage(X) generates intReturn(X, Z) if role(X, dispatcher), role(Y, villain), onStage(Y);
-%\end{lstlisting}
-
-\begin{figure}[!t]
-% \includegraphics[height=3in]{arch1.png}
-% \begin{minipage}{0.58\textwidth}
-% \includegraphics[width=\textwidth]{arch1.png}
-% \end{minipage}\hfill
-% \begin{minipage}{0.38\textwidth}\raggedright
-% \end{minipage}
-% \caption{System architecture} \label{fig:arch}
-% % \end{figure}
-% % \begin{figure}[!t]
-% \medskip
-\begin{minipage}{0.56\textwidth}
-\includegraphics[width=\textwidth]{punchjudy.png}
-\end{minipage}\hfill%
-% \includegraphics[height=2in]{punchjudy.png}
-\begin{minipage}{0.4\textwidth}
-% The animation engine that shows the visual output of the agents actions is written in Javascript and the Phaser game framework. It runs entirely in a browser, and communicates with BSF using the Strophe XMPP library.
-The animation engine that shows the visual output of the agents actions is written in Javascript and the Phaser game framework. It runs entirely in a browser, and communicates with BSF using the Strophe XMPP library.
-
-If the user allows the program access to their microphone, they can cheer or boo the actions of the agents by shouting into the microphone. Otherwise, they can simulate these actions by clicking on `cheer' or `boo' buttons at the bottom of the screen.
-\end{minipage}
-\caption{A screenshot of the Punch and Judy show} \label{fig:pjshow}
-\end{figure}
-
-\paragraph{Bath Sensor Framework} The components communicate using the Bath Sensor Framework
-(BSF)~\citep{lee2013decoupling}, through publish / subscribe-style communication between distributed software components, in this case connecting intelligent agents with their virtual environments. It currently uses the XMPP publish/subscribe protocol for communication between agents, environment and other software components. Each agent subscribes to receive notifications of environment changes via the appropriate topic node in the XMPP server, which relays messages between publishers and subscribers. If any environment change occurs, all subscribed agents are informed of the changes.
-
-\paragraph{Audience Interaction} \label{sec:demo}
-% Explain what will happen
-The puppet show is designed to be run in front of either a single user's computer, or on a large display in front of an audience. The user/audience is instructed to cheer or boo the actions of the characters of the show, which will be picked up by a microphone and `heard' by the agents. This will then affect the emotional state of the agents and change the actions they make in the show. Their actions are constrained by the set of `Punch and Judy' world norms as described in the institutional model.
-
-There are many different ways in which the audience's responses can affect the outcomes of the show. If the audience craves a more `traditional' Punch and Judy experience, then they can cheer Punch into beating and killing all of his adversaries (including his wife, Judy). Alternatively, a more mischievous audience could goad Judy into killing Punch and then taking over his role as sadist and killer for the rest of the show. The narrative outcomes are dependent on how the audience responds to the action, yet still conform to the rules of the Punch and Judy story world.
-
-\section{Summary}
-\label{sec:inst-summary}
-Our implementation of the interactive Punch and Judy show demonstrates several
-advantages in using social institutions to model narrative. Addressing the issue
-of limited agent autonomy in existing systems (Issue~\ref{iss:freedom} from
-Section~\ref{sec:litrev-discussion}), the advantages of this approach are:
-
-\begin{itemize}
-  \item Because norms encourage rather than enforce actions, agents are give
-    more flexibility in their behaviour. While their actions are encouraged to
-    conform to a narrative for the most part, an author could insert mechanisms
-    by which agents are able to ``break away'' from the confines of the story.
-    For example, if each agent were to have an emotional model, they could carry
-    out story-disrupting actions in times of extreme emotional distress.
-  \item Rather than thinking about and describing the goals of a story (as with
-    a planner-based system), a narrative is described in terms of what
-    \emph{may} and \emph{must} happen. This gives an author more control over
-    the flexibility of their stories, as they can describe optional paths
-    through a story rather than setting hards goals that must always be
-    satisfied.
-  \item Through the use of InstAL and its compilation to ASP, we can generate
-    all of the possible actions in each story path as answer sets.
-\end{itemize}
-
-A major shortcoming describing stories in terms of
-institutions is the learning effort it requires from a non-programmer (such as a
-story author). An author would need to fully understand a narrative formalism (such as Propp's \emph{Morphology} from this chapter's
-example) in order to describe their story using logical components. Our aim is
-to allow authors to describe their stories without the burden of learning that
-comes with current approaches. For this reason, Chapter~\ref{cha:tropes} explains how
-\emph{story tropes} may be used by authors to describe parts of a story
-without the need to learn the rules of a narrative formalism such as Propp's.
-These tropes are used to develop \emph{TropICAL}, our controlled
-natural-language system for defining story components, which we describe in Chapter~\ref{cha:tropical}.
 
 \chapter{Tropes as Story Components}
 \label{cha:tropes}
@@ -6970,6 +6083,839 @@ of the tropes (the branching story tree visualisation that is generated by the
 answer set solver) matches the authors' expectations suggests that the
 translation from informal to formal is successful with this system.
 
+\chapter{Using TropICAL with a Multi-Agent System}
+\label{cha:institutions}
+
+% Intro about justification/inspiration for using institutions for stories
+
+Section~\ref{sec:litrev-discussion} of the literature review identifies the following issues with current approaches to interactive storytelling:
+
+\begin{enumerate}[{Issue} 1:]
+\item Character agents need some freedom to generate story details
+\item Story authors do not want to think in terms of goals.
+\item Most narrative systems use outdated, inflexible story models.
+\end{enumerate}
+
+This chapter proposes the use of \emph{Social Institutions} (also referred to as
+\emph{Institutions} or \emph{Normative Frameworks}) to address
+Issue~\ref{iss:freedom} from the literature review. An institution is a
+collection of social norms that govern the behaviour of a set of interacting
+agents. In the real world, social norms encourage certain behaviours and
+discourage others. However, people are still able to carry out the discouraged
+behaviours, as there is no physical barrier preventing them. Instead, the
+discouraged behaviours are punished with \emph{social} consequences such as
+shaming or expulsion from a social group.
+
+For example, when a teacher is
+lecturing a class, there is an implicit social contract for the students to
+remain silent while the teacher is talking. Though it is physically possible for
+a student to interrupt the teacher, they face the possibility of being told to
+leave the class if they do so. The institutions we describe in this chapter
+follow the same model: behaviours are permitted or obliged to happen in a
+contract that all agents follow. When the agents perform actions that are not
+permitted, or do not perform obliged actions before their deadline, they
+\emph{violate} the norms in the institution. As a consequence, a punishment
+corresponding to the violated norm is applied to the offending agent.
+
+Using a social institution as a story model addresses Issue~\ref{iss:freedom} by
+governing character agents' actions instead of enforcing them. This allows
+agents to be guided by the norms described in the
+story model, but also allows them to break away from the model at times. An
+agent could either plan to break the norms of the story if it is willing to face
+the consequences, or it could deviate from the story in extreme situations (such
+as in times of extreme emotion as mentioned above). The benefit of this approach
+is that it gives agents more autonomy to act within the guidelines of a story,
+so that their actions may generate a wider range of interesting scenarios.
+
+\changed{
+This chapter begins by formally describing a narrative scene with an
+existing narrative formalism (Section~\ref{sec:stories-logic}). The same scene
+is then described as a set of norms in an institution in
+Section~\ref{sec:norms-and-institutions}. Section~\ref{sec:punchjudy} describes
+an implementation of this system using the InstAL~\citep{cliffe2007specifying} language for institutions
+combined with agents with emotional models written using the
+Jason~\citep{bordini2007programming} framework. The chapter concludes with a
+summary in Section~\ref{sec:inst-summary}.
+}{Removed reference to Kripke section}
+
+\section{Describing Stories With Logic}
+\label{sec:stories-logic}
+Section~\ref{sec:model-logic} describes approaches that use formal logic to model interactive, non-linear narratives. Building on the work described in that section, we explore other possible ways with which to construct these kinds of stories.
+Our end goal is to make tools which assist in the creation of non-linear,
+interactive narratives for games by generating paths through the stories. This
+saves the author the time and effort required to author all of the individual
+paths through the stories themselves. When generating these story branches, we
+need some way to check whether or not each branch ``fits'' with the narrative.
+In a story with a hero and a villain, it would not seem right if the hero were
+to kill innocent civilians while the villain tries to rescue them, for example.
+Our approach is to model the story world using formal logic, which allows us to
+check whether or not actions that occur within the story are consistent with its description.
+
+Using the \emph{Punch and Judy} story world as our initial example, we formalise
+its narrative rules by describing them in terms of Propp's \emph{story
+  functions}. We do this as a basis of comparison for when we later redefine the
+story in terms of \emph{tropes}. For this section, the aim of which is to demonstrate the use of
+\emph{logic} for narrative rather than of tropes, Propp's formalism is used for
+simplicity and demonstrative purposes.
+
+\subsection{Introducing ``Punch and Judy''}
+Throughout this thesis we use the \emph{Punch and Judy} story world for our
+example narratives. \emph{Punch and Judy} is a traditional British-Italian
+puppet show often seen at seaside resorts. Its first recorded appearance in the
+UK is in Covent Garden, London in 1662, having been brought into the country by
+Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
+institution, delighting children and adults alike over the course of centuries.
+
+The show itself is an incredibly violent farce, where the titular character
+\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
+with him having an argument with another puppet, and end with Punch beating the
+other puppet to death. He starts by killing his wife and child, then the
+policeman that comes to arrest him, before finally murdering the Devil himself.
+
+Interestingly, there is no comeuppance for Punch's killing spree, as most modern
+audiences would expect. Instead, the story shows Punch as a buffoon, a
+ridiculous caricature of an angry man who blunders his way through life, yet is
+victorious nonetheless. The story has no moral message, only farcical violence.
+
+Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
+it a suitable narrative domain for the purposes of testing our research:
+
+\begin{itemize}
+\item It has many recognisable patterns, or \emph{tropes}. For example, most
+  scenes feature some kind of audience participation, and most end with
+  slapstick comedy.
+\item It can be as simple or sophisticated as we choose to make it. Some scenes
+  are relatively simple to model, such as the scene where Punch beats the
+  policeman. Others are more difficult, such as where Punch is asked to guard
+  some suasages, but then loses them to a crocodile. Combining several scenes
+  into a complete and recognisable \emph{Punch and Judy} narrative is, we
+  contend, a worthwhile challenge for a narrative generation system.
+\item Following from this, its scenes can either be self-contained and modelled
+  on their own, or can depend on the context of the previous scenes. For
+  example, Punch's foes increase in importance as his rampage progresses. In some
+  versions, he kills his wife, then a policeman, then the executioner sent to
+  hang him, then finally the Devil. This makes it useful for modelling a
+  narrative with a state that changes over time.
+\item Most (British) people know Punch and Judy when they see it. They are able
+  to recognise how characters in the story are supposed to behave, and what
+  should happen in each scene and in the story as a whole. This helps with
+  evaluation of the system: the audience will be able to say whether or not the
+  generated tropes are \emph{authentic} or not.
+\end{itemize}
+
+The minimal set of Punch and Judy characters would be Punch, his wife Judy,
+their baby, Joey the clown (who narrates the story and interacts with the
+audience, and is immune to Punch's attacks), a crocodile and a Policeman.
+Extended versions include other animals that Punch chases (such as a monkey or
+cat), and the previously mentioned hangman and Devil characters. These are not
+needed for a full Punch and Judy show, however. Indeed, many performers show
+just one or two scenes in a show, with the first featuring Punch, Judy and the
+baby, and then finishing with the scene where Punch wrestles with a crocodile
+for some sausages.
+
+\subsubsection{A Punch and Judy Scene Described as Propp Functions}\label{sec:pjexample}
+The common elements of Punch and Judy are easily described in terms of Propp's story functions. Here we pick one scene to use as an example: the scene where Punch battles a Crocodile in order to safeguard some sausages.  In this scene, Joey the clown (our narrator) asks Punch to guard the sausages. Once Joey has left the stage, a Crocodile appears and eats the sausages. Punch fights with the Crocodile, but it escapes. Joey then returns to find that his sausages are gone.
+The corresponding story functions are:
+\begin{enumerate}
+  \item Joey tells Punch to look after the sausages (\emph{interdiction}).
+  \item Joey has some reservations, but decides to trust Punch (\emph{complicity}).
+  \item Joey gives the sausages to Punch (\emph{provision or receipt of a magical agent}).
+  \item Joey leaves the stage (\emph{absentation}).
+  \item A Crocodile enters the stage and eats the sausages (\emph{violation}).
+  \item Punch fights with the Crocodile (\emph{struggle}).
+  \item Joey returns to find that the sausages are gone (\emph{return}).
+\end{enumerate}
+
+Some story functions map to Punch and Judy better than others (for example, it is debatable as to whether or not the sausages can be considered a ``magical agent''), but Propp's formalism seems well suited to Punch and Judy for the most part. The advantage of using Propp for the Punch and Judy story domain is that the story function concept maps well to the idea of internal events in institutional models.
+
+\section{Norms and Institutions}
+\label{sec:norms-and-institutions}
+
+While the use of Interval Temporal Logic and model checking techniques is useful
+for the creation and checking of paths through a story, its main limitation is
+its unsuitability for use in a multi-agent system (MAS). Similar to the
+planner-based systems described in Section~\ref{sec:planner-systems}, its implementation in a MAS
+would involve the use of a ``director'', which tells each agent what to do
+during the course of the story. This greatly reduces the flexibility of using a
+MAS for interactive narrative. What advantage is there of using intelligent
+agents as characters in a story world if they have no agency to make use of
+their intelligence? By contrast, modelling stories with social norms and
+institutions offers a more flexible way to encourage agents actions to conform
+to the shape of a story.
+
+As we describe in Section~\ref{sec:lit-insts} of the literature review, an institution consists of a set of `social' norms describing the permitted and obliged behaviour of interacting agents. Noriega's ``Fish Market'' thesis~\citep{noriega1999agent} describes how an institutional model can be used to govern the actions of agents in a fish market auction. Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional} extend this idea to build systems where institutions actively regulate the actions of agents, while still allowing them to decide what to do. We build on the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to adapt it for the world of narrative, using an institutional model to describe the story world of Punch and Judy in terms of Propp's story moves and character roles, through which the actors acquire powers and permissions appropriate to the character and the story function in which they are participating.
+
+Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with Propp's concepts of \emph{roles} and \emph{story moves}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.
+
+For example, in one Punch and Judy scene, a policeman enters the stage and attempts to apprehend Punch. According to the rules of the Punch and Judy world, Punch has an obligation to kill the policeman by the end of the scene (as this is what the audience expects to happen, having seen other Punch and Judy shows). The policeman has an obligation to try his best to catch Punch. Both agents have permission to be on the stage during the scene. The policeman only has permission to chase Punch if he can see him (Punch is obliged to hide from him at the start of the scene).
+
+The permissions an agent has, on the one hand, constrain the choices of actions
+available to them at any given moment. Obligations, on the other hand, affect
+the goals of an agent. Whether or not an agent actively tries to fulfil an
+obligation depends on the plan they are following, and their emotional state.
+
+\subsection{Institution example}
+\label{sec:pjexample-insts}
+To illustrate the application of institutional modelling, we here continue the `sausages and crocodile' scene example from Section~\ref{sec:pjexample}, taking the Propp story functions and describing them in an institutional model.  We define our institution in terms of \emph{fluents}, \emph{events}, \emph{powers}, \emph{permissions} and \emph{obligations}, following~\citet{cliffe2007specifying}, to which the interested reader is referred for the full details of the formal model, including the generate ($\cal G$) and consequence ($\cal C$) relations, which are only described here in sufficient depth for the model being presented.
+
+\subsubsection{Fluents}
+These are properties that may or may not hold true at some instant in time, and that change over the course of time. \emph{Institutional events} are able to \emph{initiate} or \emph{terminate} fluents at points in time. A fluent could describe whether a character is currently on stage, the scene of the story that is currently being acted out, or whether or not the character is happy at that moment in time.
+Domain fluents ($\mathcal{D}$) describe domain-specific properties that can hold at a certain point in time. In the Punch and Judy domain, these can be whether or not an agent is on stage, or their role in the narrative: % (equation~\ref{eq:domain}).
+\begin{align*}
+   \mathcal{D} &= \left\{\mathtt{onstage, hero, villain, victim, donor, item}\right\} %\label{eq:domain}
+\end{align*}
+
+Institutional fluents consist of (institutional) \emph{powers}, \emph{permissions} and \emph{obligations}.
+% check your facts on this one
+An \textbf{institutional power} ($\mathcal{W}$) describes whether or not an external event has the authority to generate a meaningful institutional event. Taking an example from Propp's formalism, an \emph{absentation\/} event can only be generated by an external event brought about by a \emph{donor\/} character (such as their leaving the stage). Therefore, any characters other than the donor character would not have the institutional power to generate an \emph{absentation\/} institutional event when they leave the stage.
+The possible empowerments (institutional events) from Propp used in Punch and Judy are:
+\begin{align*}
+  \mathcal{W} =&\left\{\mathtt{pow(introduction), pow(interdiction), pow(give),}\right.\\ %\nonumber\\
+               &\left. {} \mathtt{pow(absentation), pow(violation), pow(return)}\right\} %\label{eq:power}
+\end{align*}
+
+\subsubsection{Permissions} ($\mathcal{P}$) are associated with external actions that agents are permitted to do at a certain instant in time. These can be thought of as the set of \emph{socially permitted\/} actions available to an agent. While it is possible for an agent to perform other actions, societal norms usually discourage them from doing so.
+% PJ examples
+For example, it would not make sense in the world of Punch and Judy if Punch were to give the sausages to the Policeman. It is always Joey who gives the sausages to Punch. Also, it would be strange if Joey were to do this in the middle of a scene where Punch and Judy are arguing. We make sure agents'' actions are governed so as to allow them only a certain subset of permitted actions at any one time. The set of permission fluents is:
+\begin{align*}
+\mathcal{P} =& \left\{\mathtt{perm(leavestage), perm(enterstage), perm(die), perm(kill),}\right.\nonumber\\
+             &\left. {} \mathtt{perm(hit), perm(give), perm(fight)}\right\} %\label{eq:perm}
+\end{align*}
+
+\subsubsection{Obligations} ($\mathcal{O}$) are institutional facts that contain actions agents \emph{should} do before a certain deadline. If the action is not performed in time, a \emph{violation event} is triggered, which may result in a penalty being incurred. While an agent may be obliged to perform an action, it is entirely their choice whether or not they actually do so. They must weigh up whether or not pursuing other courses of action is worth accepting the penalty that an unfulfilled obligation brings.
+
+% replace with sausages obligation
+Anybody who has seen a Punch and Judy show knows that at some point Joey tells Punch to guard some sausages, before disappearing offstage. Joey's departure is modelled in the institution as the \emph{absentation\/} event. It could also be said that Joey has an obligation to leave the stage as part of the \emph{absentation} event, otherwise the story function is violated. This can be described in the institution as:
+\begin{align*}
+  \mathcal{O} =& \left\{\text{obl}(\mathtt{leavestage, absentation, viol(absentation)})\right\}%\label{eq:obl}
+\end{align*}
+The first argument is the external event that must be triggered according to the obligation, the second argument is the institutional deadline event, and the third argument is the violation event which is triggered if the obligation is not fulfilled before the deadline. 
+
+\subsubsection{Events}
+\label{sec:inst-events}
+% actually 3 kinds, including violation events
+Cliffe's model specifies three types of \textbf{event}: \emph{external events} (or `observed events', $\mathcal{E}_{obs}$), \emph{institutional events} ($\mathcal{E}_{instevent}$) and \emph{violation events} ($\mathcal{E}_{viol}$). Examples of each are given in Figure~\ref{fig:events-pj}.
+\emph{External events} are observed to happen in the agents' environment, which can \emph{generate} \emph{institutional events} which occur only within the institional model, leading to the \emph{initiation} or \emph{termination} of (domain) fluents, permissions, obligations or institutional powers.
+An external event could be an agent leaving the stage, an agent hitting another, or an agent dying. Internal events include narrative events such as scene changes, or the triggering of Propp story functions such as \emph{absentation} or \emph{interdiction} (described in Section~\ref{sec:formalisms}). \emph{Violation} is the name of a Propp story function, and is included as an internal event, although it has no relation to the violation events of an institution.
+Violation events occur when an agent has failed to fulfil an obligation before the specified deadline. These can be implemented in the form of a penalty, by decreasing an agent's health, for example.
+
+\begin{figure}[!t]
+\begin{align}
+  \mathcal{E}_{obs} =& \left\{\mathtt{startshow, leavestage, enterstage, die, give,}\right.\nonumber\\
+  &\left. {} \mathtt{harmed, hit, fight, kill, escape}\right\}\label{eq:eobs}\\
+  \mathcal{E}_{instevent} =& \left\{\mathtt{introduction, interdiction, receipt, absentation,}\right.\nonumber\\
+                         &\left. {} \mathtt{violation, return, struggle, defeat, complicity,}\right.\nonumber\\
+                         &\left. {} \mathtt{victory, escape}\right\}\label{eq:einst}\\
+  \mathcal{E}_{viol} =& \left\{\mathtt{viol(introduction), viol(interdiction), viol(receipt),}\right.\nonumber\\
+ &\left. {} \mathtt{viol(absentation), viol(violation), viol(return),}\right.\nonumber\\
+ &\left. {} \mathtt{viol(struggle), viol(defeat), viol(complicity)}\right.\nonumber\\
+ &\left. {} \mathtt{viol(victory), viol(escape)}\right\}\label{eq:viol}
+\end{align}
+\caption{External, institutional and violation events for Punch and Judy} \label{fig:events-pj}
+\end{figure}
+
+% internal and external
+
+\subsubsection{Event Generation and Consequences}
+An \textbf{event generation} function, $\mathcal{G}$, describes how events
+($\mathcal{E}$, usually external, but can also be internal) %
+can generate other (usually institutional) events, conditional upon the current institutional state ($\cal X$). This is the counts-as relation.  For example, if an agent leaves the stage while the \emph{interdiction} event holds, they trigger the \emph{leavestage} event. This combination generates the \emph{absentation} institutional event (Rule~\ref{eq:absentation}). Further examples appear in Figure~\ref{fig:gen}.
+
+Event generation functions follow a $\langle \mathtt{preconditions} \rangle \rightarrow \{\mathtt{postconditions}\}$ format. The preconditions consist of a set of fluents that hold at that time, along with an event to have occurred. The postconditions are the events that are generated. The generation functions are used to generate internal, institutional events from external events.
+
+Consider the Punch and Judy scenario described in Section~\ref{sec:pjexample}. There are seven institutional events (story functions) that occur during this scene: \emph{interdiction}, \emph{complicity}, \emph{receipt} (from Propp's \emph{receipt of a magical agent}) \emph{absentation}, \emph{violation}, \emph{struggle}, \emph{return}.
+These institutional events are all generated by external events. The \emph{interdiction} is generated when Joey tells Punch to protect the sausages. Punch agreeing amounts to \emph{complicity}. Joey \emph{gives} punch the sausages (\emph{receipt}), then leaves the stage (\emph{absentation}). The crocodile eating the sausages is a \emph{violation} of Punch's oath, the agents fight (\emph{struggle}), then Joey enters the stage again (\emph{return}).
+
+It is desirable that these story functions occur in this sequence in order for a satisfying narrative to emerge. Agents may decide to perform actions that diverge from this set of events, but the institution is guiding them towards the most fitting outcome for a \emph{Punch and Judy} world. For this reason, a currently active story function can be the precondition for event generation. For example, the \emph{receipt} event may only be triggered if an agent externally performs a \emph{give} action \textbf{and} if the \emph{complicity} event currently holds (rule~\ref{eq:receipt}).
+Examples of event generation function for this scenario, complete with preconditions, are listed in rules~\ref{eq:gfirst}--\ref{eq:glast} (Figure~\ref{fig:gen}).
+
+\begin{figure}[!t]
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{G(X, E)}:\left\{\mbox{%
+{\begin{minipage}[c]{0.85\textwidth}
+% \vspace{-2.1em}\begin{align}
+\begin{align}
+\langle \emptyset,\mathit{tellprotect}\mathtt{(donor, villain, item)} \rangle%\nonumber\\
+             %         &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{interdiction}\right\}\label{eq:gfirst}\\
+                      \langle \{\mathit{interdiction}\}, \mathit{agree}\mathtt{(villain)}) \rangle %\nonumber\\
+            %          &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{complicity}\right\}\\
+                      \langle \emptyset, \mathit{give}\mathtt{(donor, villain, item)}) \rangle %\nonumber\\
+        %              &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{receipt}\right\}\label{eq:receipt}\\
+                      \langle \{\mathit{interdiction}\}, \mathit{leavestage}(\mathtt{donor}) \rangle %\nonumber\\
+              %        &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{absentation}\right\}\label{eq:absentation}\\
+                      \langle \{\mathit{interdiction}\}, \mathit{harmed}(\mathtt{item}) \rangle %\nonumber\\
+         %             &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{violation}\right\}\\
+                      \langle \{\mathit{interdiction, absentation}\},
+                      \mathit{enterstage}(\mathtt{donor}) \rangle %\nonumber\\
+              %        &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{return}\right\}\\
+                      \langle \emptyset, \mathit{hit}(\mathtt{donor, villain}) \rangle %\nonumber\\
+%                      &\qquad\qquad\qquad
+& \rightarrow \left\{\mathit{struggle}\right\}\label{eq:glast}
+\end{align}
+\end{minipage}}}\right.$
+\caption{Event generation in the sausage scene} \label{fig:gen}
+\end{figure}
+
+\textbf{Consequences} consist of fluents, permissions and obligations that are \emph{initiated} ($\mathcal{C}^{\uparrow}$) or \emph{terminated} ($\mathcal{C}^{\downarrow}$) by institutional events. For example, the institutional event \emph{receipt} initiates the donor agent's permission to leave the stage, triggering the \emph{absentation} event (rule~\ref{eq:initgive}). When the \emph{interdiction} event is currently active and a \emph{violation} event occurs, the interdiction event is terminated (\ref{eq:interm}). Rules~\ref{eq:cfirst}--\ref{eq:clast} in Figures~\ref{fig:init} and~\ref{fig:term} describe the initiation and termination of fluents in the Punch and Judy sausages scene detailed in Section~\ref{sec:pjexample}.
+
+\begin{figure}[!t]
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+    \langle \emptyset, \mathtt{interdiction} \rangle %\nonumber\\
+                                 % &\qquad\qquad
+&\rightarrow \{\text{active}(\mathtt{interdiction}), \nonumber\\&\qquad\text{perm}(\mathtt{give(donor, villain, item)})\}\label{eq:cfirst}\\
+                                 \langle \emptyset, \mathtt{receipt} \rangle % \nonumber\\
+                                 % &\qquad\qquad
+&\rightarrow \{\text{perm}(\mathtt{leavestage(donor)})\}\label{eq:initgive}\\
+                                 \langle\{\mathit{active(absentation)}\}, \nonumber\\\mathtt{enterstage(villain)} \rangle %\nonumber\\
+                                 %&\qquad\qquad
+&\rightarrow \{\text{obl}(\mathtt{eat(villain, sausages),} \nonumber\\&\qquad\qquad\mathtt{return, viol(violation)})\}\label{eq:obl1}\\
+                                 \langle\{\mathit{active(interdiction)}\}, \nonumber\\\mathtt{leavestage(donor)} \rangle % \nonumber\\
+                                 % &\qquad\qquad
+&\rightarrow \{\text{obl}(\mathtt{enterstage(donor),}\nonumber\\&\qquad\qquad\mathtt{eat(villain, sausages),}\nonumber\\&\qquad\qquad\mathtt{viol(return)})\}\label{eq:obl2}\\
+                                 \{\mathit{active(interdiction)}\},\nonumber\\ \mathtt{violation} \rangle %\nonumber\\
+                                 % &\qquad\qquad
+&\rightarrow \{\text{perm}(\mathtt{enterstage(dispatcher)})\}\\
+                                 \langle\{\mathit{active(absentation),}\nonumber\\\mathit{active(violation)}\},\nonumber\\ \mathtt{return} \rangle %\nonumber\\
+                                 %&\qquad\qquad
+&\rightarrow \{\text{perm}(\mathtt{hit(donor, villain)})\}
+\end{align}
+\end{minipage}}\right.$
+\caption{Fluent initiation in the sausage scene} \label{fig:init}
+\medskip
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+\langle \emptyset, \mathtt{interdiction} \rangle %\nonumber\\
+                                   %&\qquad\qquad
+&\rightarrow \{\text{perm}(\mathtt{give(donor, villain, item)})\}\\
+                                   \langle \{\mathit{active(interdiction)}\},\nonumber\\ \mathtt{absentation} \rangle %\nonumber\\
+                                   %&\qquad\qquad
+&\rightarrow \{\text{perm}(\mathtt{leavestage(donor)})\}\\
+                                   \langle \{\mathit{active(interdiction)}\},\nonumber\\ \mathtt{violation} \rangle %\nonumber\\
+                                   %&\qquad\qquad
+&\rightarrow \{\mathit{active(interdiction)}\}\label{eq:interm}\\
+                                   \langle \{\mathit{active(absentation),}\nonumber\\\mathit{ active(violation)}\},\nonumber\\ \mathtt{return} \rangle %\nonumber\\
+                                   %&\qquad\qquad
+&\rightarrow \{\mathit{active(absentation)}\}\label{eq:clast}
+\end{align}
+\end{minipage}}\right.$
+\caption{Fluent termination in the sausage scene} \label{fig:term}
+\end{figure}%
+
+Now that the components of our \emph{Punch and Judy} institution have been
+defined, the next section describes how this institution is used to govern the
+character agents in our story world.
+
+\section{An Interactive, Generative Punch and Judy Show with Institutions and
+  Emotional Agents}
+\label{sec:punchjudy}
+The previous section defines a scene from the Punch and Judy story world as an
+institution, in terms of external events that can happen, the institutional
+events that are generated and the norms that are initiated and terminated during
+the scene. This is our formal model for the scene, describing the norms that
+govern the agents that act out our characters in the story. This section explains
+how these norms are used with a multi-agent system to guide the character agents
+towards courses of action that fit with our scene description.
+
+Our main criticism of the use of Interval Temporal Logic for the description of
+story worlds is its lack of flexibility in governing the actions of intelligent
+agents in a multi-agent system. If agents are told precisely what to do in a
+story environment, there is little reason in giving them agency. We demonstrate
+this point further by modelling the characters in our Punch and Judy simulation
+with emotional models that affect their decision making and behaviour. We choose
+to do this so that agents would be able to deviate from the narrative in times
+of extreme emotion, providing some level of unpredictability to the story.
+
+This section describes a fully realised and implemented interactive puppet show
+built with institutions and emotional agents. In this show, the characters
+interact on screen in accordance with the Punch and Judy story world. At certain
+points in the show, the audience are encouraged to cheer or boo at the
+characters. When this happens, a character puppet's emotional state is changed
+in accordance with the audience response. The system was demonstrated at the CDE
+(Center for Digital Entertainment) and the AISB (Society for the Study of
+Artificial Intelligence and the Simulation of Behaviour) conferences in 2015,
+with live audiences interacting with and changing the narrative.
+
+\subsection{VAD emotional model} \label{sec:emotion}
+\begin{figure}[!t]
+% {\includegraphics[height=5in]{VAD.png}}
+  \centering
+  \includegraphics[height=0.6\textheight]{VAD.png}
+\caption{VAD emotional values (figure adapted from~\citet{ahn2012nvc})} \label{fig:vad}
+\end{figure}
+
+In order to make the agents acting out the Punch and Judy show more believable,
+we apply an emotional model to affect their actions and decisions. For this, we
+use the valence-arousal (circumplex) model first described
+by~\citet{russell1980circumplex}. To give each character its own distinct
+personality, we extend this model with an extra dimension: dominance, as used
+by~\citet{ahn2012nvc} in their model for conversational virtual humans. This
+dominance level is affected by the reactions of the audience to the agents'
+actions. For example, Judy may become more dominant as her suggestions to hit
+Punch with a stick are cheered on by the audience, emboldening her into acting
+out her impulses.
+
+The VAD model, an extension of Russell's circumplex
+model~\citep{russell1980circumplex}, illustrates how valence, arousal and
+dominance values map to identifiable emotions. Valence, arousal and dominance
+can each have a value of low, medium or high. This allows the agents to have a
+total of 27 distinct emotional states, shown in Figure~\ref{fig:vad}.
+The valence and arousal levels of each agent are affected by the actions of other agents. For example, a character being chased around the stage by Punch will see their valence level drop while their arousal increases. According to Russell's circumplex model of emotion~\citep{russell1980circumplex}, this would result in them becoming \emph{afraid\/} (if their dominance level is low).
+
+An agent's emotional state affects its ability to fulfil its institutional obligations. An agent that is \emph{furious\/} might have no problem carrying out an obligation that requires them to kill another agent. If that same agent is \emph{happy\/} or \emph{depressed}, however, they might not have the appropriate motivation to perform such a violent action.
+
+It is important to note that the emotional model is part of the agent belief state, and not held in the institution. We want to explore how the characters of the story might be able to choose actions based on their emotional state. While the institution could theoretically calculate the emotional state for each agent in turn and dictate this to them along with the norms of the narrative, it makes sense to decouple this feature from the narrative institution in order to separate the characters from the events of the story. %\jnote{review this paragraph}
+
+Agents' emotional states change according to their interactions with the audience. This is unrelated to what is happening in the narrative, and so this underscores the decision not to include any emotional modelling in the institution. Also, we want the agents to have some degree of freedom within the narrative world. They should be allowed to determine their emotions themselves, so that in extreme emotional states they can perform `irrational' or `extreme' actions that may not necessarily fit into the narrative.
+
+\subsection{VAD emotions in Jason}
+Emotions are implemented as beliefs inside an agent. An agent believes it has a certain level of valence, arousal and dominance, and it works out its emotional state based on a combination of these three factors. When the audience cheers or boos them, this changes the belief holding the relevant emotional variable, and their emotional state as a whole is recalculated.
+
+Valence, arousal and dominance values can take values of -1 (low), 0 (medium) or 1 (high). Listing~\ref{lst:emotions} shows the emotional belief rules for an agent with medium dominance (a dominance level of 0). Note that an agent maintains beliefs about both its current emotion label (such as sleepy or happy) and the separate valence, arousal and dominance values at the same time.  Similar sets of rules handle the belief emotion for the other dominance levels.  %We address the matter of how external stimuli affect dominance in section~\ref{sec:norms as percepts}.\jnote{still needs doing}
+
+Every time an emotional variable (valence, arousal, or dominance) changes, an agent's emotion is changed according to the rules in Listing~\ref{lst:emotions}. While an agent's valence, arousal and dominance belief values affect the way it makes decisions internally, the results of combinations of these values (sleepy, happy, etc) are broadcast as external actions. The reason for this is that an agent's emotional state may affect the way in which the character is animated: changing the speed at which they move or turning their smile into a frown, for example. For this reason, whenever an emotional change takes place, the new emotion is published as an external action of the agent so that observing entities may perceive it. The Bath sensor framework described in Section~\ref{sec:arch} provides the means for this evidence of the agent's internal state change to be received by the animation system and reflected accordingly in the display.
+
+\begin{lstlisting}[float=!t,caption={Emotional rules for a character with medium dominance},label=lst:emotions,escapechar=\%,basicstyle=\scriptsize\ttfamily]
+emotion(sleepy) :- valence(0) & arousal(-1) & dominance(0).
+emotion(neutral) :- valence(0) & arousal(0) & dominance(0).
+emotion(surprised) :- valence(0) & arousal(1) & dominance(0).
+emotion(anxious) :- valence(-1) & arousal(-1) & dominance(0).
+emotion(unhappy) :- valence(-1) & arousal(0) & dominance(0).
+emotion(embarrassed) :- valence(-1) & arousal(1) & dominance(0).
+emotion(glad) :- valence(1) & arousal(-1) & dominance(0).
+emotion(happy) :- valence(1) & arousal(0) & dominance(0).
+emotion(delighted) :- valence(1) & arousal(1) & dominance(0).
+\end{lstlisting}
+
+\begin{lstlisting}[float=!t,caption={AgentSpeak rules for changing an agent's
+emotional values from audience
+responses},label=lst:response,basicstyle=\scriptsize\ttfamily,escapechar=\%]
++!changeMood%\label{lne:changemood-start}%
+  <- ?emotion(Z);
+     emotion(Z).%\label{lne:changemood-end}%
++response(_, boo) : asking%\label{lne:response1-start}%
+  <- -+valence(-1);
+     -+dominance(-1);
+     !changeMood.%\label{lne:response1-end}%
++response(_, cheer) : asking%\label{lne:response2-start}%
+  <- -+valence(1);
+     -+dominance(1);
+     !changeMood.%\label{lne:response2-end}%
+\end{lstlisting}
+
+Listing~\ref{lst:response} shows the AgentSpeak rules describing how an agent's
+valence and dominance levels are changed by the audience cheering or booing
+their actions. These AgentSpeak plans describe what the agent should do in
+response to a goal addition (denoted by a $\texttt{+!}$ at the start of the plan
+name) or a belief addition (prefixed by a simple $\texttt{+}$). In the case of
+Listing~\ref{lst:response}, the $\texttt{+!changeMood}$ plan on
+lines~\ref{lne:changemood-start} to~\ref{lne:changemood-end} updates the agent's
+emotional state based on its valence-arousal-dominance values and broadcasts the
+result as an external action. The $\texttt{+response}$ plans
+(Listing~\ref{lst:response}, lines~\ref{lne:response1-start} - \ref{lne:response1-end}
+and~\ref{lne:response2-start} - \ref{lne:response2-end}) raise or lower an agent's valence and dominance levels depending on whether the agent perceives a ``boo'' or ``cheer'' response from the audience.
+
+An agent announces what they intend to do, then waits three seconds. During this time, they have the belief that they are ``asking'' the audience, and listen for a response. A ``boo'' reduces an agent's valence and dominance, while a cheer raises them. For each response, the \texttt{changeMood} goal is triggered, which looks up and broadcasts the agent's emotional state to the other agents and environment.
+
+\subsection{Agent decision making} \label{sec:decisions}
+The agents choose which goals to pursue according to three factors: their permitted actions, their obliged actions and their emotional state. Though obliged actions are given priority, and while agents'' decisions are generally constrained by their permitted actions, an agent's emotional state has the final say in its decisions. In this way, an agent will follow the social norms of the narrative, but only according to their own mood.
+
+\paragraph{Agent goals and plans}
+% \subsection{Agent goals and plans}
+The agents are implemented using a belief-desire-intention (BDI) psychological model using the Jason platform ~\citep{bordini2007programming}. An agent's knowledge about the state of their world and themselves are stored as \emph{beliefs}, with new information coming in from the environment getting added to their belief base as \emph{percepts}, which are ephemeral and only last for one reasoning cycle of an agent.
+
+Agents are created with goals and plan libraries. Any goal that an agent is set on carrying out at any point is an \emph{intention}, whereas a goal that an agent has but is not yet pursuing is a \emph{desire}. Plan libraries describe the steps agents need to take in order to achieve goals, as well as how to react to changes in agents'' environments.
+
+\paragraph{Norms as percepts}\label{sec:norms-as-percepts}
+% \subsection{Norms as percepts}\label{sec:norms as percepts}
+When an event occurs, it is added to the event timeline, which is used to query the ASP (Answer Set Programming) solver to obtain the set of norms that hold after the new event has occurred. The new permissions and obligations are then added to each agent as \emph{percepts}. Each time this happens, the set of permitted and obliged actions that an agent sees is changed to be only those that apply at that instant in time, with the previous norms being discarded.
+
+Agents choose between permitted and obliged actions based on their emotional state at the point of decision making. Obliged actions are given a higher priority over permitted ones for most of the emotional states that an agent can be in, though not always. If an agent is in a sulky mood, for example, they may decide to ignore what they are obliged to do by the narrative, even though they know there will be consequences.
+
+For example, in the scene where Joey gives the sausages to Punch, Punch may see that he has permission to eat the sausages, drop them, fight the crocodile, run away (leave the stage) or shout for help at the crocodile or audience. His obligation for the scene, in accordance with the Punch and Judy narrative world, is to either eat the sausages himself, or let the crocodile have them. This ends Propp's \emph{interdiction\/} story function with a \emph{violation\/} function. Note that his obligation in this case is not to guard the sausages as asked to by Joey. While Joey's entrusting of the sausages is certainly an obligation in itself, Punch's main obligations are to the narrative. Lesser obligations towards characters in the story can be implemented as having a lower prority than those of the story itself.
+
+Similarly, at times of extreme emotion, an agent may decide to disregard their set of permitted actions entirely, instead acting out their innermost desires. For example, an angry Punch might decide to just attack Joey instead of agreeing to look after the sausages, or he might just decide to give up and leave if he is depressed. The key point is that the norms act as the will of the \emph{narrative}, guiding the story forward, rather than a strict set of rules that the agents must follow at all costs.
+
+\emph{Violation events\/} add percepts to the agents telling them that they are in violation of the narrative norms. Once an agent receives such a percept, an emotional variable is changed. Typically, their dominance will decrease. The reasoning behind this is that if agents are unwilling to participate in the story, they should have less influence in its course of events.
+
+\subsection{Architecture}\label{sec:arch}
+
+\paragraph{Multi-Agent System:} \label{sec:arch-mas}
+% \subsection{Multi-Agent System} \label{sec:inst}
+We use the Jason~\citep{bordini2007programming} framework for belief-desire-intention (BDI) agents, with a VAD
+emotional model as described above.
+
+\paragraph{Institutional Framework}
+% \subsection{Institutional Framework}
+% How you used instAL to model Propp
+To describe our institutional model, we use InstAL~\citep{cliffe2007specifying}, a domain-specific (action) language for describing institutions that compiles to AnsProlog, a declarative programming language for Answer Set Programming (ASP). InstAL's semantics are inspired by the Situation Calculus~\citep{reiter1991frame} and the Event Calculus~\citep{kowalski1989logic}. InstAL describes how external events generate institutional events, which then initiate or terminate fluents that hold at certain points in time. These fluents can include the permissions and obligations that describe what an agent is permitted or obliged to do when, as described in Section~\ref{sec:pjexample-insts}.
+For example, if an agent with the role of \emph{dispatcher\/} leaves the stage,
+it generates the Propp \emph{absentation\/} move in the institution, but only if
+the \emph{interdiction} function is active (i.e., the
+\emph{activeFunction(interdiction)} fluent holds): %\mnote{Added \emph{activeFunction} explanation}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+leaveStage(X) generates intAbsentation(X)
+   if role(X, dispatcher), activeFunction(interdiction);
+\end{lstlisting}
+% \vspace{-1cm}
+which generates the following AnsProlog code:\\
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
+occurred(intAbsentation(X),pj,I) :-%\mylabel{t1}%
+   occurred(leaveStage(X),pj,I),%\mylabel{t2}%
+   holdsat(pow(pj,intAbsentation(X)),pj,I),%\mylabel{t3}%
+   holdsat(role(X,donor),pj,I),%\mylabel{t4}%
+   holdsat(activeFunction(interdiction),pj,I), %\mylabel{t5}%
+   agent(X), inst(pj), instant(I).%\mylabel{t6}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+\myref{t1}{s1}{The internal \emph{absentation} event occurs if the following conditions are met:}
+\myref{t2}{s2}{$\bullet X$ leaves the stage}
+\myref{t3}{s3}{$\bullet X$ has the power to leave the stage}
+\myref{t4}{s4}{$\bullet X$ has the role of donor}
+\myref{t5}{s5}{$\bullet$ the \emph{interdiction} function is active}
+\myref{t6}{s6}{$\bullet X$ is an agent, pj is an institution, $I$ is an instant}
+\end{minipage}\\
+The \emph{absentation\/} institutional event gives the crocodile permission to enter the stage if there are any sausages on the stage. It also terminates the permission of the absented agent to leave the stage, as they have already done so:\\
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
+intAbsentation(X) initiates perm(enterStage(croc)) if objStage(sausages);%\mylabel{t1}%
+intAbsentation(X) terminates onStage(X), perm(leaveStage(X));%\mylabel{t2}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The \emph{absentation} function gives the crocodile permission to enter the stage if the sausages are on stage}
+  \myref{t2}{s2}{The \emph{absentation} function means that once X leaves the stage, they are no longer on stage}
+\end{minipage}\\
+which generates the following:\\
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,escapechar=\%]
+initiated(perm(enterStage(croc)),pj,I) :-%\mylabel{t1}%
+   occurred(intAbsentation(X),pj,I),%\mylabel{t2}%
+   holdsat(live(pj),pj,I), inst(pj),%\mylabel{t3}%
+   holdsat(objStage(sausages),pj,I),%\mylabel{t4}%
+   agent(X), inst(pj), instant(I).%\mylabel{t5}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+\myref{t1}{s1}{The crocodile gets permission to enter the stage if the following
+  conditions are met:}
+\myref{t2}{s2}{$\bullet$ the \emph{absentation} function event has occured}
+\myref{t3}{s3}{$\bullet$ the pj institution is running}
+\myref{t4}{s4}{$\bullet$ the sausages are on stage}
+% \myref{t5}{s5}{$\bullet X$ is an agent, pj is an institution, $I$ is an instant}
+\end{minipage}\\
+%% \begin{comment}
+%% If the ``defeat'' institutional event occurs (as a result of a struggle between
+%% two agents), it initiates a fluent signifying that that agent is dead, along
+%% with an obligation for the agent to leave the stage. If they don't leave the
+%% stage, then they are in violation of the scene, and an appropriate violation
+%% event is triggered. Also note that the fluent and obligation event are only
+%% initiated \emph{if} the agent is playing the role of a victim:
+%% \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+%% intDefeat(X, Y) initiates dead(Y), obl(leaveStage(Y), deadline, vioScene(Y)) if role(Y, victim);
+%% \end{lstlisting}
+%% \end{comment}
+\begin{figure}[!t]
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[caption={Encoding of Propp's \emph{absentation\/} function},basicstyle=\scriptsize\ttfamily,label=lst:absentation,escapechar=\%]
+intAbsentation(X) initiates activeFunction(absentation);%\mylabel{t0}%
+intAbsentation(X) initiates perm(harm(Y, Z)) if role(Y, villain), objStage(Z), onStage(Y), activeFunction(interdiction);%\mylabel{t1}%
+intAbsentation(X) initiates perm(harm(Y, Z)) if role(Y, ambusher), objStage(Z), onStage(Y), activeFunction(interdiction);%\mylabel{t2}%
+intAbsentation(X) initiates perm(enterStage(X)), activeFunction(absentation);%\mylabel{t3}%
+intAbsentation(X) initiates perm(enterStage(croc)) if objStage(sausages);%\mylabel{t4}% 
+intAbsentation(X) terminates onStage(X), perm(leaveStage(X));%\mylabel{t5}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t0}{s0}{The \emph{activeFunction(absentation)} function holds after any
+    \emph{intAbsentation} institutional event, indicating that that Propp
+    function is currently underway}
+  \myref{t1}{s1}{The \emph{absentation} function gives the villain permission to harm
+    an object, if both are on stage and the \emph{interdiction} function is active}
+  \myref{t2}{s2}{Same as above, but for \emph{ambusher} role}
+  \myref{t3}{s3}{The absented character has permission the re-enter the stage at any point during the \emph{absentation} function}
+  \myref{t4}{s4}{The crocodile has permission to enter the stage if the sausages are on stage}
+  \myref{t5}{s5}{The \emph{absentation} function means that the absented character is no longer on stage, and cannot leave the stage (as they have already done so)}
+\end{minipage}
+\end{figure}
+By combining statements such as the above, we can build a complete description
+of the sausages scene in terms of agent norms, such as the Propp
+\emph{absentation} function, shown in Listing~\ref{lst:absentation}. InstAL rules like those shown above and in Listing~\ref{lst:absentation} are compiled into AnsProlog, then we use the \emph{clingo} answer set solver~\citep{gebser2011potassco} to ground the program, and `solve' queries by finding all permissions and obligations that apply to any agents, given a sequence of events as the query input. The agents' percepts are then updated with their permitted and obliged actions from that time instant onwards.  Thus, the institutional model acts as a social narrative sensor, interpreting actors' actions in the context of the combination of the concrete narrative and the abstract story moves which detach (instantiate) the norms that guide the actors in the direction of the conclusion of the story arc.
+
+A query is simply a list of external events in chronological order, also called
+a \emph{trace}. A possible trace describing the actions of agents acting out the
+\emph{sausages} is described in Listing~\ref{lst:trace}. The `pj' in the trace
+is the name of the institution that observes the events, while the
+number is the enumeration of events in the sequence.
+
+\begin{figure}[!t]
+\begin{minipage}{0.6\textwidth}
+% \newsavebox{\lstasp}
+% \begin{lrbox}{\lstasp}
+\begin{lstlisting}[caption={Possible full trace for sausages scene},label=lst:trace,basicstyle=\scriptsize\ttfamily,escapechar=\%]
+observed(startShow,pj,0). %\mylabel{t1}%
+observed(startScene(sausages),pj,1). %\mylabel{t2}%
+observed(enterStage(punch),pj,2). %\mylabel{t3}%
+observed(enterStage(joey),pj,3). %\mylabel{t4}%
+observed(say(joey, give),pj,4). %\mylabel{t5}%
+observed(say(joey,  protect),pj,5). %\mylabel{t6}%
+observed(give(joey,punch,sausages),pj,6). %\mylabel{t7}%
+observed(leaveStage(joey),pj,7). %\mylabel{t8}%
+observed(say(punch, harm),pj,8). %\mylabel{t9}%
+observed(enterStage(croc),pj,9). %\mylabel{t10}%
+observed(take(croc, sausages),pj,10). %\mylabel{t11}%
+observed(eat(croc, sausages),pj,11). %\mylabel{t12}%
+observed(leaveStage(croc),pj,12). %\mylabel{t13}%
+observed(enterStage(joey),pj,13). %\mylabel{t14}%
+observed(hit(joey, punch),pj,14). %\mylabel{t15}%
+observed(leaveStage(joey),pj,15). %\mylabel{t16}%
+observed(leaveStage(punch),pj,16). %\mylabel{t17}%
+observed(startScene(end),pj,17). %\mylabel{t18}%
+\end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The show has started}
+  \myref{t2}{s2}{The sausages scene has started}
+  \myref{t3}{s3}{Punch has entered the stage}
+  \myref{t4}{s4}{Joey has entered the stage}
+  \myref{t5}{s5}{Joey says he will give Punch the sausages}
+  \myref{t6}{s6}{Joey tells Punch to protect the sausages}
+  \myref{t7}{s7}{Joey gives the sausages to Punch}
+  \myref{t8}{s8}{Joey leaves the stage}
+  \myref{t9}{s9}{Punch says he will eat the sausages}
+  \myref{t10}{s10}{The crocodile enters the stage}
+  \myref{t11}{s11}{The crocodile takes the sausages}
+  \myref{t12}{s12}{The crocodile eats the sausages}
+  \myref{t13}{s13}{The crocodile leaves the stage}
+  \myref{t14}{s14}{Joey enters the stage}
+  \myref{t15}{s15}{Joey hits Punch}
+  \myref{t16}{s16}{Joey leaves the stage}
+  \myref{t17}{s17}{Punch leaves the stage}
+  \myref{t18}{s18}{The scene ends}
+\end{minipage}
+\end{figure}
+
+Each \emph{observed} event triggers a corresponding \emph{occurs} event inside the
+institution, as determined by the generates relation. Listing~\ref{lst:asp}
+shows an extract from an answer set output for the trace queried against the ASP
+description of the sausages scenario, for events~5 to~7 of the scene. Starting with an initial set of fluents that hold at instant~5,
+only fluents that have been initiated and not terminated hold at the next
+instant. For ease of reading, the listing only shows roles that hold at
+certain instants when they have some effect on the scene, although in practice, all role fluents hold throughout the scene. Figure~\ref{fig:tracevis} shows a visualisation of the answer set for the trace in Listing~\ref{lst:trace}.
+
+\begin{figure}[!t]
+\begin{minipage}{0.65\textwidth}
+%% \newsavebox{\lstasp}
+%% \begin{lrbox}{\lstasp}
+\begin{lstlisting}[caption={Sausages scene using ASP},label=lst:asp,basicstyle=\scriptsize\ttfamily,label=lst:asp,escapechar=\%]
+holdsat(perm(say(donor, protect),pj,5).%\mylabel{t1}%
+holdsat(role(joey, donor),pj,5).%\mylabel{t2}%
+occurred(say(joey, protect),pj,5).%\mylabel{t3}%
+
+initiated(activeFunction(interdiction),pj,6).%\mylabel{t4}%
+initiated(perm(give(donor, villain, object)),pj,6).%\mylabel{t5}%
+terminated(perm(say(donor, protect)),pj,6).%\mylabel{t6}%
+holdsat(perm(give(donor, villain, object)),pj,6).%\mylabel{t7}%
+holdsat(activeFunction(interdiction),pj,6).%\mylabel{t8}%
+holdsat(role(joey, donor),pj,6).%\mylabel{t9}%
+holdsat(role(punch, villain),pj,6).%\mylabel{t10}%
+holdsat(object(sausages),pj,6).%\mylabel{t11}%
+occurred(give(joey, punch, sausages),pj,6).%\mylabel{t12}%
+
+initiated(activeFunction(absentation),pj,7).%\mylabel{t13}%
+initiated(perm(leavestage(donor)),pj,7).%\mylabel{t14}%
+terminated(perm(give(donor, villain, object)),pj,7).%\mylabel{t15}%
+holdsat(activeFunction(interdiction),pj,7).%\mylabel{t16}%
+holdsat(activeFunction(absentation),pj,7).%\mylabel{t17}%
+holdsat(role(joey, donor),pj,7).%\mylabel{t18}%
+holdsat(perm(leavestage(donor)),pj,7).%\mylabel{t19}%
+\end{lstlisting}
+\end{minipage}\hspace{0.03\textwidth}%\hfill
+% \end{lrbox}
+% \noindent\usebox{\lstasp}\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The donor role can tell someone to protect an object at instant 5}
+  \myref{t2}{s2}{Joey is the donor at instant 5}
+  \myref{t3}{s3}{Joey tells another character to protect an object at instant 5}
+  \myref{t4}{s4}{The \emph{interdiction} function becomes active at instant 6}
+  \myref{t5}{s5}{The donor has permission to give an object to the villain at instant 6}
+  \myref{t6}{s6}{The donor can no longer tell anyone to protect an object at instant 6}
+  \myref{t7}{s7}{The donor can give an object to the villain at instant 6}
+  \myref{t8}{s8}{The \emph{interdiction} function is active at instant 6}
+  \myref{t9}{s9}{Joey is the donor at instant 6}
+  \myref{t10}{s10}{Punch is the villain at instant 6}
+  \myref{t11}{s11}{Sausages are an object at instant 6}
+  \myref{t12}{s12}{Joey gives the sausages to Punch at instant 6}
+  \myref{t13}{s13}{The \emph{absentation} function becomes active at instant 7}
+  \myref{t14}{s14}{The donor can leave the stage at instant 7}
+  \myref{t15}{s15}{The donor can give an object to the villain at instant 7}
+  \myref{t16}{s16}{The \emph{interdiction} function is active at instant 7}
+  \myref{t17}{s17}{The \emph{absentation} function is active at instant 7}
+  \myref{t18}{s18}{Joey is the donor at instant 7}
+  \myref{t19}{s19}{The donor can leave the stage at instant 7}
+\end{minipage}
+\end{figure}
+
+% \begin{figure}[!t]
+% \includegraphics[width=1.3\linewidth]{trace.pdf}
+% \caption{Visualised trace of the sausages scene} \label{fig:vis}
+% \end{figure}
+
+\begin{figure}[!p]
+%     \includegraphics[width=\linewidth]{trace.pdf}
+    \includegraphics[height=0.95\textheight]{trace.pdf}
+    \caption{Trace visualisation} \label{fig:tracevis}
+\end{figure}
+
+% \includepdf{trace.pdf}
+
+%\lstinputlisting[language=prolog, firstline=74, lastline=74]{pj_model.ial}
+
+%\begin{lstlisting}[language=prolog, frame=single]  % Start your code-block
+%enterStage(X) generates intReturn(X, Z) if role(X, dispatcher), role(Y, villain), onStage(Y);
+%\end{lstlisting}
+
+\begin{figure}[!t]
+% \includegraphics[height=3in]{arch1.png}
+% \begin{minipage}{0.58\textwidth}
+% \includegraphics[width=\textwidth]{arch1.png}
+% \end{minipage}\hfill
+% \begin{minipage}{0.38\textwidth}\raggedright
+% \end{minipage}
+% \caption{System architecture} \label{fig:arch}
+% % \end{figure}
+% % \begin{figure}[!t]
+% \medskip
+\begin{minipage}{0.56\textwidth}
+\includegraphics[width=\textwidth]{punchjudy.png}
+\end{minipage}\hfill%
+% \includegraphics[height=2in]{punchjudy.png}
+\begin{minipage}{0.4\textwidth}
+% The animation engine that shows the visual output of the agents actions is written in Javascript and the Phaser game framework. It runs entirely in a browser, and communicates with BSF using the Strophe XMPP library.
+The animation engine that shows the visual output of the agents actions is written in Javascript and the Phaser game framework. It runs entirely in a browser, and communicates with BSF using the Strophe XMPP library.
+
+If the user allows the program access to their microphone, they can cheer or boo the actions of the agents by shouting into the microphone. Otherwise, they can simulate these actions by clicking on `cheer' or `boo' buttons at the bottom of the screen.
+\end{minipage}
+\caption{A screenshot of the Punch and Judy show} \label{fig:pjshow}
+\end{figure}
+
+\paragraph{Bath Sensor Framework} The components communicate using the Bath Sensor Framework
+(BSF)~\citep{lee2013decoupling}, through publish / subscribe-style communication between distributed software components, in this case connecting intelligent agents with their virtual environments. It currently uses the XMPP publish/subscribe protocol for communication between agents, environment and other software components. Each agent subscribes to receive notifications of environment changes via the appropriate topic node in the XMPP server, which relays messages between publishers and subscribers. If any environment change occurs, all subscribed agents are informed of the changes.
+
+\paragraph{Audience Interaction} \label{sec:demo}
+% Explain what will happen
+The puppet show is designed to be run in front of either a single user's computer, or on a large display in front of an audience. The user/audience is instructed to cheer or boo the actions of the characters of the show, which will be picked up by a microphone and `heard' by the agents. This will then affect the emotional state of the agents and change the actions they make in the show. Their actions are constrained by the set of `Punch and Judy' world norms as described in the institutional model.
+
+There are many different ways in which the audience's responses can affect the outcomes of the show. If the audience craves a more `traditional' Punch and Judy experience, then they can cheer Punch into beating and killing all of his adversaries (including his wife, Judy). Alternatively, a more mischievous audience could goad Judy into killing Punch and then taking over his role as sadist and killer for the rest of the show. The narrative outcomes are dependent on how the audience responds to the action, yet still conform to the rules of the Punch and Judy story world.
+
+\section{Summary}
+\label{sec:inst-summary}
+Our implementation of the interactive Punch and Judy show demonstrates several
+advantages in using social institutions to model narrative. Addressing the issue
+of limited agent autonomy in existing systems (Issue~\ref{iss:freedom} from
+Section~\ref{sec:litrev-discussion}), the advantages of this approach are:
+
+\begin{itemize}
+  \item Because norms encourage rather than enforce actions, agents are give
+    more flexibility in their behaviour. While their actions are encouraged to
+    conform to a narrative for the most part, an author could insert mechanisms
+    by which agents are able to ``break away'' from the confines of the story.
+    For example, if each agent were to have an emotional model, they could carry
+    out story-disrupting actions in times of extreme emotional distress.
+  \item Rather than thinking about and describing the goals of a story (as with
+    a planner-based system), a narrative is described in terms of what
+    \emph{may} and \emph{must} happen. This gives an author more control over
+    the flexibility of their stories, as they can describe optional paths
+    through a story rather than setting hards goals that must always be
+    satisfied.
+  \item Through the use of InstAL and its compilation to ASP, we can generate
+    all of the possible actions in each story path as answer sets.
+\end{itemize}
+
+A major shortcoming describing stories in terms of
+institutions is the learning effort it requires from a non-programmer (such as a
+story author). An author would need to fully understand a narrative formalism (such as Propp's \emph{Morphology} from this chapter's
+example) in order to describe their story using logical components. Our aim is
+to allow authors to describe their stories without the burden of learning that
+comes with current approaches. For this reason, Chapter~\ref{cha:tropes} explains how
+\emph{story tropes} may be used by authors to describe parts of a story
+without the need to learn the rules of a narrative formalism such as Propp's.
+These tropes are used to develop \emph{TropICAL}, our controlled
+natural-language system for defining story components, which we describe in Chapter~\ref{cha:tropical}.
+
+\chapter{Evaluation \& Validation}
+\label{cha:evaluation}
+\added{
+
+}{New chapter for Evaluation and Validation}
+\section{A Full Specification of Punch and Judy}
+\label{sec:pj-fullspec}
+In section~\ref{sec:punchjudy-tropes}, we describe one scene from Punch and Judy
+in terms of tropes. The scene chosen in this example is one where a crocodile
+appears on stage to steal some sausages that Punch is guarding. This section
+gives an example of a \emph{full} Punch and Judy show described in terms of
+tropes, including the ``sausages'' scene described previously.
+
+Though each retelling of the Punch and Judy story may use a different number of
+scenes in varying order, we use the following scenes for our ``minimal'' Punch
+and Judy example:
+
+\begin{itemize}
+\item \textbf{Introduction}: Joey the clown introduces the show and interacts
+  with the audience
+\item \textbf{Punch, Judy and the Baby}: Judy asks Punch to look after the baby,
+  which he then kills. Punch then also kills Judy.
+\item \textbf{Punch and the Policeman}: A policeman comes to arrest Punch, and
+  is killed.
+\item \textbf{Crocodile and Sausages Scene}: Joey asks Punch to look after some
+  sausages, which are then eaten by a crocodile.
+\item \textbf{Punch and the Devil}: Punch fights the Devil, killing him.
+\end{itemize}
+
+\subsection{``Introduction'' Scene}
+% Tropes: audience participation, narrator, exposition?, exposition?
+
+\subsection{``Punch, Judy and the Baby'' Scene}
+% Tropes: don't touch it, you idiot, put on a bus, chase fight, the bus came back
+% We can make this into an abstraction, as it's also featured in the sausages scene
+% Call the new trope: set the scene for mischief
+% May want to possibly add parental abandonment as well
+
+\subsection{``Punch and the Policeman'' Scene}
+% Tropes: slapstick, amusing injuries, chase fight, mini-boss
+% Abstracted to: slapstick confrontation
+
+\subsection{``Crocodile and Sausages'' Scene}
+% Tropes: set the scene for mischief (see above)
+
+\subsection{``Punch and the Devil'' Scene}
+% Tropes: slapstick confrontation (can we change mini-boss to boss?)
+
+\subsection{Putting It All Together}
+% Look at chaining the above together, and adding meta-tropes that are present throughout (such as audience participation, which you should discuss before)
+
+\section{An Example of ``Character Freedom''}
+\label{sec:freedom-example}
+% Use the sausages scene
+
+\section{Evaluation Against Interactive Criteria}
+\label{sec:criteria-evaluation}
+
 \chapter{Conclusions \& Future Work}
 \label{cha:conclusions}
 
@@ -8176,7 +8122,7 @@ trope = (<whitespace> sequence)+ <'\\n'?>
 fluent = object <' is '> adjective
 adjective = word
 outcome =
-(<'\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'\\n'?>)+
+(<''''\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'\\n'?>)+
 happens =
 <the?> subtrope <(' happens' / ' trope happens' / ' policy applies') '.'?>
 block =
@@ -8287,17 +8233,25 @@ occurred(escape(hero),evilEmpire)
 \chapter{Thematic Analysis Transcripts}
 \label{appendix:transcripts}
 
+\ifdraft
+% features
+\def\feature#1{\todo[disable,color=green,size=\scriptsize]{\textbf{Feature:} #1}}
+% usability
+\def\usability#1{\todo[disable,color=cyan,size=\scriptsize]{\textbf{Usability:} #1}}
+% bug / limitation
+\def\bug#1{\todo[disable,color=red,size=\scriptsize]{\textbf{Limitation:} #1}}
+% syntax
+\def\syntax#1{\todo[disable,color=yellow,size=\scriptsize]{\textbf{Syntax:} #1}}
+\else
 % features
 \def\feature#1{\todo[color=green,size=\scriptsize]{\textbf{Feature:} #1}}
-
 % usability
 \def\usability#1{\todo[color=cyan,size=\scriptsize]{\textbf{Usability:} #1}}
-
 % bug / limitation
 \def\bug#1{\todo[color=red,size=\scriptsize]{\textbf{Limitation:} #1}}
-
 % syntax
 \def\syntax#1{\todo[color=yellow,size=\scriptsize]{\textbf{Syntax:} #1}}
+\fi
 
 \section{Participant A}
 Dialogue starts at at 16:00 in the recording.

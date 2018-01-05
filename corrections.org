@@ -1,8 +1,31 @@
-* Check
-- Where does ASP stuff have to go?
-- Compare by referring back to other approaches.
-- Where does the discussion on how to combine tropes go?
-- Outline in general terms what you wanted to be able to do, what the technical demands are. Why you concluded this was a more productive way forward vs changing Inform. Makes system entirely under my control.
+* Summary
+** 1 Marking Changes
+For the corrections, please provide a short document detailing how you addressed our concerns. Please use the changebars package or colour where you have changed/added text unless it concerns typos.
+** 2 Requested Changes
+*** 2.1 Contribution of the dissertation
+The contribution of the dissertation, as discussed during the viva, should be an interpretation of the theory of Propp using Tropes and a normative multi-agent system.
+*** 2.2 Revise the introductory chapters
+**** 2.2.1 Rewrite the introduction (chapter 1) to rephrase the overall objectives of the thesis ensuring that humbler appropriate objectives are set. This was because the objectives in the original introduction could not be seen to be supported by the results in the thesis.
+**** 2.2.2 Tidy-up the literature review (chapter 2) in light of discussion in the viva: your approach is also planning, is maybe not as interactive as you claim. Tone down some of your critique.
+*** 2.3 Bringing the contribution to the forefront
+Reorganise the bulk of the contribution - which was presented in chapters 3 (on institutions), 4 (on tropes), 5 (on the TropICAL language) and 6 (StoryBuilder plus some evaluation of it) - by shifting the example of how the Punch and Judy experience can be phrased in terms of institutions towards the end. This would present two advantages:
+- There would be no need to first explain the Punch and Judy experience in terms of Proppian functions and then re-explain it in terms of tropes (a single explanation in terms of tropes would suffice)
+- The example in terms of institutions would serve to exemplify how the rest of the developments (the trope representation, the TropICAL language and the StoryBuilder application) would allow users to access significant expressive and computational power for their stories
+**** 2.3.1 Rearrange the chapters and rewrite the connecting text to support this:
+a. New chapter 3 - Current chapter 4
+b. New chapter 4 - Current chapter 5
+c. New chapter 5 - Current chapter 6 excluding the evaluation
+d. New chapter 6 - Current chapter 3 from on section 3.3 in the context of how to combine StoryBuilder with agents
+e. New chapter 7 - new chapter: Evaluation and Validation: including the work on evaluation already present in the original version (section 6.3) but also possibly the questionnaire appearing in Appendix A and reference to the thematic analysis transcripts in Appendix E
+**** 2.3.2 The new chapter needs to include:
+a. A full specification of Punch and Judy
+b. Add an example of "Character Freedom", as in breaking away from the norms
+c. Evaluation of your own approach against interactive criteria, including complexity.
+**** 2.3.3 Add a discussion of how to combine tropes
+*** 2.4 Other additions and Changes
+**** 2.4.1 Explain the Hashmaps: what are they
+**** 2.4.2 Provide a short introduction to ASP and InstAL including why you selected them
+**** 2.4.3 Add pagerefs when you are referring to sections/tables/figures in other chapters (the fancyref package does this for you).
 * General
 ** TODO fix ambiguous meanings of "role"
 ** TODO rewrite many parts (intro, etc) with Tropes as the main argument
@@ -31,9 +54,9 @@
 ** TODO Need examples of plans and planning operators
 ** TODO But only use examples when you're going to refer back to them. Too many complex, unused examples in this lit review.
 ** TODO Pg. 29: Replace Mateus et al with bibtex citation
-** TODO Exclusion, edontic, etc need to be explained. Same with constitutive vs regulative.
+** TODO Exclusion, deontic, etc need to be explained. Same with constitutive vs regulative.
 ** TODO Watch out for first person stuff. Do a search.
-** TODO Houw could you use institutional powers to _prevent_ things from happening?
+** TODO How could you use institutional powers to _prevent_ things from happening?
 ** TODO Pg. 37: Cite paper on appraisal theory.
 ** TODO Introduce the problem in lit. rev discussion first, then... (?)
 ** TODO Demonstrate how your approach can be used to enrich plans rather than alienating the planner people.
