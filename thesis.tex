@@ -6889,12 +6889,57 @@ and Judy example:
 
 \subsection{``Introduction'' Scene}
 % Tropes: audience participation, narrator, exposition?, exposition?
+In the \emph{introduction} scene of Punch and Judy, Joey the Clown appears on stage to
+introduce the show to the audience. During the scene, Joey provokes an audience
+response by asking the audience to, for example, summon the Punch and Judy
+characters from backstage.
+
+The tropes that appear in this scene would be:
+
+\textbf{Narrator:} Joey the Clown appears to be a narrator of sorts, who
+introduces the show. Due to his narrator status, he appears to be immune from
+Punch's attacks.
+\textbf{Audience Participation:} Joey asks the audience to call out certain
+phrases during the introduction, often getting them to repeat themselves by
+calling out ``Louder! I can't hear you!'', for example.
+
+The essence of the ``Narrator'' trope is simply to have a character that is able
+to talk to the audience. Listing~\ref{lst:pjfull-narrator} shows how this trope
+would be described in TropICAL.
+
+\begin{lstlisting}[label={lst:pjfull-narrator}, caption={The ``Narrator'' trope}]
+"Narrator" is a trope where:
+  The Narrator is a role
+  The Narrator talks to the audience
+\end{lstlisting}
+
+In the ``Audience Participation'' trope, characters can talk to the audience,
+and the audience is also able to talk back.
+Listing~\ref{lst:pjfull-participation} shows how this trope could be translated
+to TropICAL. In this example, certain characters can be assigned the role of
+``Audience-aware character''. Any character with this role would be able to talk
+to the audience, and the audience would be able to talk back to them.
+
+\begin{lstlisting}[label={lst:pjfull-participation}, caption={The ``Audience Participation'' trope}]
+"Audience Participation" is a trope where:
+  Audience-Aware Character is a role
+  The Audience is a role
+  The Audience-Aware Character talks to the Audience
+  Then the Audience talks to the Audience-Aware Character
+\end{lstlisting}
 
 \subsection{``Punch, Judy and the Baby'' Scene}
 % Tropes: don't touch it, you idiot, put on a bus, chase fight, the bus came back
 % We can make this into an abstraction, as it's also featured in the sausages scene
 % Call the new trope: set the scene for mischief
 % May want to possibly add parental abandonment as well
+
+In this scene, Punch and Judy appear on stage. After some comic dialogue, Judy
+announces that she needs to leave the stage, leaving Punch to take care of their
+baby. Punch chases the baby around the stage, finally hitting it with his stick,
+knocking it off stage and killing it. Judy returns to find that the baby is
+missing, and Punch and Judy have an argue. The argument ends with Punch hitting
+his wife with a stick, killing her.
 
 \subsection{``Punch and the Policeman'' Scene}
 % Tropes: slapstick, amusing injuries, chase fight, mini-boss
@@ -8124,7 +8169,7 @@ adjective = word
 outcome =
 (<''''\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'\\n'?>)+
 happens =
-<the?> subtrope <(' happens' / ' trope happens' / ' policy applies') '.'?>
+<the?> subtrope <(''' happens'''' / '' trope happens' / ' policy applies') '.'?>
 block =
 <the?> subtrope <' policy does not apply' / ' does not happen' / ' trope does not happen''> <'.'?>
 sequence =

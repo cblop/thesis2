@@ -347,6 +347,8 @@
     "sec:inst-summary"
     "cha:evaluation"
     "sec:pj-fullspec"
+    "lst:pjfull-narrator"
+    "lst:pjfull-participation"
     "sec:freedom-example"
     "sec:criteria-evaluation"
     "cha:conclusions"
