@@ -2488,6 +2488,7 @@ fill the roles of \emph{murderer}, \emph{idiot}, \emph{pursuer}, and
 and so is discussed further only in the ``future work'' Section~\ref{sec:future}.
 
 \subsection{Return to the Sausages Scene}
+\label{sec:dont-touch-inst}
 
 Using the same process with which we described the \emph{Hero's Journey} in
 terms of an institution in Section~\ref{sec:tropes-as-insts}, this section shows
@@ -6888,6 +6889,7 @@ and Judy example:
 \end{itemize}
 
 \subsection{``Introduction'' Scene}
+\label{sec:full-introduction}
 % Tropes: audience participation, narrator, exposition?, exposition?
 In the \emph{introduction} scene of Punch and Judy, Joey the Clown appears on stage to
 introduce the show to the audience. During the scene, Joey provokes an audience
@@ -6896,18 +6898,20 @@ characters from backstage.
 
 The tropes that appear in this scene would be:
 
-\textbf{Narrator:} Joey the Clown appears to be a narrator of sorts, who
+\begin{itemize}
+\item \textbf{Narrator}: Joey the Clown appears to be a narrator of sorts, who
 introduces the show. Due to his narrator status, he appears to be immune from
 Punch's attacks.
-\textbf{Audience Participation:} Joey asks the audience to call out certain
+\item \textbf{Audience Participation}: Joey asks the audience to call out certain
 phrases during the introduction, often getting them to repeat themselves by
 calling out ``Louder! I can't hear you!'', for example.
+\end{itemize}
 
 The essence of the ``Narrator'' trope is simply to have a character that is able
 to talk to the audience. Listing~\ref{lst:pjfull-narrator} shows how this trope
 would be described in TropICAL.
 
-\begin{lstlisting}[label={lst:pjfull-narrator}, caption={The ``Narrator'' trope}]
+\begin{lstlisting}[showstringspaces=false, label={lst:pjfull-narrator}, caption={The ``Narrator'' trope}]
 "Narrator" is a trope where:
   The Narrator is a role
   The Narrator talks to the audience
@@ -6920,7 +6924,7 @@ to TropICAL. In this example, certain characters can be assigned the role of
 ``Audience-aware character''. Any character with this role would be able to talk
 to the audience, and the audience would be able to talk back to them.
 
-\begin{lstlisting}[label={lst:pjfull-participation}, caption={The ``Audience Participation'' trope}]
+\begin{lstlisting}[showstringspaces=false, label={lst:pjfull-participation}, caption={The ``Audience Participation'' trope}]
 "Audience Participation" is a trope where:
   Audience-Aware Character is a role
   The Audience is a role
@@ -6941,12 +6945,115 @@ knocking it off stage and killing it. Judy returns to find that the baby is
 missing, and Punch and Judy have an argue. The argument ends with Punch hitting
 his wife with a stick, killing her.
 
+This scene contains the following tropes:
+
+\begin{itemize}
+\item \textbf{Audience Participation}: as defined above
+\item \textbf{Don't touch it, you idiot!}: as defined earlier in
+Section~\ref{sec:dont-touch-inst}, this is where Judy tells Punch to look after
+the baby.
+\item \textbf{Put on a bus / the bus came back}: Judy then leaves the stage, only to
+come back later to discover that Punch has killed the baby
+\item \textbf{Chase fight}: Punch chases Judy around the stage with a stick
+\item \textbf{Domestic Abuse}: Punch beats and kills Judy
+\end{itemize}
+
+We define the TropICAL translation of the audience participation trope in the
+previous section (Section~\ref{sec:full-introduction}).
+
+The combination of ``Don't Touch It, You Idiot!'' and ``Put On a Bus / The Bus
+Came Back'' is a common occurrence in Punch and Judy - it also appears in the
+``Sausages and Crocodile'' scene. For this reason, it makes sense to create a new
+trope which is a hybrid of the two. We call this trope ``Setting the Scene for
+Mischief'', and its TropICAL interpretation appears in Listing~\ref{lst:pjfull-mischief}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:pjfull-mischief}, caption={The ``Setting the Scene
+For Mischief'' trope}]
+"Setting the Scene for Mischief" is a trope where:
+  The Owner is a role
+  The Idiot is a role
+  The Item is an object
+  Away is a place
+  The Owner tells the Idiot to protect the Item
+  Then the Owner goes Away
+  Then the Idiot breaks the Item
+  Then the Owner returns
+  Then the Owner fights the Idiot
+\end{lstlisting}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:pjfull-chasefight}, caption={The ``Chase
+Fight'' trope}]
+"Chase Fight" is a trope where:
+  The Pursuer is a role
+  The Pursuee is a role
+  The Pursuer chases the Pursuee
+  Then the Pursuee fights the Pursuer
+  Then the Pursuer kills the Pursuee
+    Or the Pursuee escapes
+\end{lstlisting}
+
+The ``Domestic Abuse'' trope simply describes a situation in which a husband and
+wife fight with each other, as described in the TropICAL code in Listing~\ref{lst:pjfull-domesticabuse}.
+
+\begin{lstlisting}[showstringspaces=false, label={lst:pjfull-domesticabuse}, caption={The ``Domestic
+Abuse'' trope}]
+"Domestic Abuse" is a trope where:
+  The Wife is a role
+  The Husband is a role
+  The Wife fights the Husband
+    Or the Husband fights the Wife
+\end{lstlisting}
+
 \subsection{``Punch and the Policeman'' Scene}
 % Tropes: slapstick, amusing injuries, chase fight, mini-boss
 % Abstracted to: slapstick confrontation
 
+In this scene, Punch is confronted by the Policeman character, who attempts to
+arrest him for the murder of his wife and baby. Punch chases the Policeman
+around the stage, hitting him with a stick and finally murdering him as well.
+
+This scene contains the following tropes:
+
+\begin{itemize}
+\item \textbf{Slapstick}: the characters hit each other in a comedic way
+\item \textbf{Chase Fight}: one character chases another and fights them, as defined above
+\item \textbf{Mini-boss}: the protagonist must defeat an enemy to continue the quest
+\end{itemize}
+
+The slapstick trope can be defined in TropICAL with the code shown in Listing~\ref{lst:pjfull-slapstick}.
+
+\begin{lstlisting}[showstringspaces=false, label={lst:pjfull-slapstick}, caption={The ``Slapstick'' trope}]
+"Slapstick" is a trope where:
+  The Slapper is a role
+  The Slapped is a role
+  The Slapper slaps the Slapped
+  Then the Slapped slaps the Slapper
+\end{lstlisting}
+
+The ``Chase Fight'' trope already appears in the previous scene where Punch kills his baby and wife (Listing~\ref{lst:pjfull-chasefight}), 
+so we can re-use that trope for this scene.
+
+\begin{lstlisting}[showstringspaces=false, label=lst:pjfull-miniboss,caption={The
+``Mini-boss'' trope in TropICAL}]
+"Mini-boss" is a trope where:
+  The Hero is a role
+  The Mini-Boss is a role
+  The Hero fights the Mini-Boss
+  Then the Hero defeats the Mini-Boss
+    Or the Hero dies
+      Then the story ends
+  Then the Hero escapes
+\end{lstlisting}
+
+The translation of the ``Mini-boss'' trope into TropICAL code is shown in Listing~\ref{lst:pjfull-miniboss}.
+
 \subsection{``Crocodile and Sausages'' Scene}
 % Tropes: set the scene for mischief (see above)
+
+This scene can simply re-use the ``Setting the Scene for Mischief'' trope from
+the previous scene with Punch, Judy and the baby. In this case, Joey the Clown
+takes the place of Judy as the ``Owner'', telling him to look after an ``Item''.
+In this case, the item takes the form of some sausages instead of a baby.
 
 \subsection{``Punch and the Devil'' Scene}
 % Tropes: slapstick confrontation (can we change mini-boss to boss?)
@@ -8163,11 +8270,11 @@ label = <'\"'> words <'\"'>
 \begin{lstlisting}[showstringspaces=false,label={lst:ebnf2},caption={EBNF
 grammar for the main trope definitions in TropICAL}]
 trope = (<whitespace> sequence)+ <'\\n'?>
-(str "label = '''" label "'")
-fluent = object <' is '> adjective
+(str "label = '''" label "''")
+fluent = object <''' is '> adjective
 adjective = word
 outcome =
-(<''''\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'\\n'?>)+
+(<''''\\n' whitespace whitespace> (event | obligation | happens) (or? | if?) <'''''\\n'?>)+
 happens =
 <the?> subtrope <(''' happens'''' / '' trope happens' / ' policy applies') '.'?>
 block =

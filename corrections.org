@@ -20,7 +20,7 @@ e. New chapter 7 - new chapter: Evaluation and Validation: including the work on
 **** 2.3.2 The new chapter needs to include:
 a. A full specification of Punch and Judy
 b. Add an example of "Character Freedom", as in breaking away from the norms
-c. Evaluation of your own approach against interactive criteria, including complexity.
+c. Evaluation of your own approach against interactive criteria (from the lit. review), including complexity.
 **** 2.3.3 Add a discussion of how to combine tropes
 *** 2.4 Other additions and Changes
 **** 2.4.1 Explain the Hashmaps: what are they
