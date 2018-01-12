@@ -20,7 +20,7 @@ e. New chapter 7 - new chapter: Evaluation and Validation: including the work on
 **** 2.3.2 The new chapter needs to include:
 a. A full specification of Punch and Judy
 b. Add an example of "Character Freedom", as in breaking away from the norms
-c. Evaluation of your own approach against interactive criteria, including complexity.
+c. Evaluation of your own approach against interactive criteria (from the lit. review), including complexity.
 **** 2.3.3 Add a discussion of how to combine tropes
 *** 2.4 Other additions and Changes
 **** 2.4.1 Explain the Hashmaps: what are they
@@ -28,6 +28,9 @@ c. Evaluation of your own approach against interactive criteria, including compl
 **** 2.4.3 Add pagerefs when you are referring to sections/tables/figures in other chapters (the fancyref package does this for you).
 * General
 ** TODO fix ambiguous meanings of "role"
+** TODO describe simultaneously active tropes (for the croc scene also in the full PJ spec)
+** TODO mention the role of the player somewhere
+** TODO make sure you introduce the concepts of "scene" and "story" in the TropICAL chapter
 ** TODO rewrite many parts (intro, etc) with Tropes as the main argument
 ** TODO remove the logic section
 ** TODO Use \pageref{}s everywhere
