@@ -7251,7 +7251,34 @@ label=lst:pjfull-fullstory,caption={The full ``Punch and Judy'' story in TropICA
 
 \subsection{Compiling the Code to InstAL}
 
+\subsection{Common Agent Code}
+\subsubsection{Movement}
+\subsubsection{Emotions}
+% Include emotions that make a character ``desperate''
+
 \subsection{Authoring the Character Agents}
+The institutions that are compiled from TropICAL code are designed to be used to
+govern the agents of a Multi-Agent System.
+
+\subsection{Code for Character Roles}
+% A character role's ``sphere of action'' consists of everything they are
+% permitted / obliged to do in \emph{all} of the tropes in the library
+
+\subsection{The Idiot}
+
+\subsection{Code for Punch Agent}
+\subsubsection{Punch's Plans}
+
+\subsection{Code for Judy Agent}
+\subsubsection{Judy's Plans}
+
+\subsection{Code for Joey Agent}
+\subsubsection{Joey's Plans}
+
+\subsection{Handling Trope Violations: The Director Agent}
+
+\subsection{Code for ``Director'' Agent}
+\subsubsection{The Director's Plans}
 
 \section{An Example of ``Character Freedom''}
 \label{sec:freedom-example}
@@ -8466,7 +8493,7 @@ trope = (<whitespace> sequence)+ <'\\n'?>
 fluent = object <''' is '> adjective
 adjective = word
 outcome =
-(<''''\\n'' whitespace whitespace> (event | obligation | happens) (or? | if?) <''''''''''\\n'''''''?>)+
+(<''''\\n'''' whitespace whitespace> (event | obligation | happens) (or? | if?) <''''''''''\\n'''''''?>)+
 happens =
 <the?> subtrope <('''''' happens'''''' / '' trope happens' / ' policy applies') '.'?>
 block =
