@@ -22,6 +22,29 @@
   <- !lose(X);
 
 // ---------------------------------------------------------------------------
+
+// Hero agent
+
+// "Mini-boss"
+
++startTrope(miniBoss)
+  <- !fightMiniBoss;
+     !defeatOrDie;
+     !escape;
+
++!breakItem : not perm(break(X)) & type(X, item)
+              <- !breakItem;
+
++!breakItem : (desperate | perm(break(X))) & type(X, item)
+              <- !break(X);
+
++!loseItem : not perm(lose(X)) & type(X, item)
+             <- !loseItem;
+
++!loseItem : perm(lose(X)) & type(X, item)
+             <- !lose(X);
+
+// ---------------------------------------------------------------------------
 // Director agent
 
 // How can we decide which trope is best to replace the violated one with?

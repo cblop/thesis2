@@ -7266,6 +7266,27 @@ govern the agents of a Multi-Agent System.
 
 \subsection{The Idiot}
 
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-idiotagent,caption={AgentSpeak code for the ``Idiot'' role}]
+// "Mishandling of an Item" trope
+
++startTrope(mishandling)
+  <- !breakItem;
+     !loseItem;
+
++!breakItem : not perm(break(X)) & type(X, item)
+  <- !breakItem;
+
++!breakItem : (desperate | perm(break(X))) & type(X, item)
+  <- !break(X);
+
++!loseItem : not perm(lose(X)) & type(X, item)
+  <- !loseItem;
+
++!loseItem : perm(lose(X)) & type(X, item)
+  <- !lose(X);
+\end{lstlisting}
+
 \subsection{Code for Punch Agent}
 \subsubsection{Punch's Plans}
 
