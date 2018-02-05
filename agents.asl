@@ -27,13 +27,13 @@
 
 // "Mini-boss"
 
-+startTrope(miniBoss)
++startTrope(miniBossTrope)
   <- !fightMiniBoss;
      !defeatOrDie;
      !escape;
 
-+!breakItem : not perm(break(X)) & type(X, item)
-              <- !breakItem;
++!fightMiniBoss : not perm(fight(X, Y)) & role(X, hero) & role(Y, miniBoss)
+              <- !fightMiniBoss;
 
 +!breakItem : (desperate | perm(break(X))) & type(X, item)
               <- !break(X);
@@ -63,12 +63,14 @@ object(magicalAgent, herosJourney);
 
 // get tropes that share at least one role, object and place
 getSimilarTropes(X, T)
- :- trope(T) &
+ :- 1{trope(T) &
     trope(X) &
     role(R, X) &
     role(R, T) &
     object(O, X) &
     object(O, T) &
     place(P, X) &
-    place(P, T);
+    place(P, T)}1;
+
+// lowerbound{}upperbound
 
