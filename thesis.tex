@@ -59,13 +59,18 @@
   \end{changebar}%
   }%
 
+\newcommand{\deleted}[1]{%
+  \todo[noline,bordercolor=white,color=red,size=\scriptsize]{#1}
+  }%
+
   \else
   \newcommand{\added}[2]{#1}
   \newcommand{\changed}[2]{#1}
+  \newcommand{\deleted}[1]{#1}
 
 \fi
 
-\setlength{\changebarsep}{2ex}
+\setlength{\changebarsep}{1ex}
 
 \newcommand{\llabel}[1]{\hypertarget{llineno:#1}{\linelabel{#1}}}
 \newcommand{\lref}[1]{\hyperlink{llineno:#1}{\ref*{#1}}}
@@ -110,7 +115,7 @@
 
 \title{Building Abstractable Story Components with Institutions and Tropes}
 \author{Matt Thompson}
-\degree{EngD Digital Media}
+\degree{Doctor of Engineering (EngD) Digital Media}
 \department{Department of Computer Science}
 \degreemonthyear{September 2017}
 \norestrictions
@@ -334,20 +339,24 @@ by authors with no previous programming experience remains a challenge.
 
 % Talk about components
 Another challenge in the field is the identification of a suitable formalism for
-narrative. Researchers still use structuralist formalisms created almost a
+narrative. \changed{Researchers still use formalisms created almost a
 century ago, such as Aarne-Thompson's ``Tale-Type
 Index''~\citep{aarne1987types}, or Propp's ``Morphology of the
 Folktale''~\citep{propp1968morphology}, due to inertia, familiarity, and the fact
-that they are ``good enough'' for most purposes.
+that they are ``good enough'' for most purposes.}{Removed description of Propp
+as a structuralist}
 
-The two contributions of this thesis are the use of a \emph{social institutions}
+\changed{The contribution of this thesis is the interpretation of Propp's theory to use
+\emph{story tropes} as re-usable story components that can be combined together to
+form non-linear stories. These tropes are integrated into a multi-agent system
+through the concept of  of a \emph{social institutions}
 (also known as normative frameworks) for the governance of intelligent agent
-characters in an interactive narrative, and the definitions of these institutions as story
-\emph{tropes} using controlled natural language. The normative framework can be
+characters in an interactive narrative. These institutions are defined as story tropes using controlled natural language.}{2.2.1: Redefined contribution
+of the thesis to an interpretation of Propp's theory}The normative framework can be
 thought of as the director that governs the behaviours of the actors in the
 story, telling them what they are \emph{permitted} and \emph{obliged} to do as
 part of the story. The tropes can be considered as a screenplay of sorts, a user interface that contains a high-level description of what
-the director has to do. This thesis introduces the concept of \emph{tropes} as a
+the director has to do. This thesis introduces the concept of story tropes as a
 story formalism for
 the first time into the interactive narrative literature, where tropes are formal, composable components
 of stories. Tropes describe identifiable patterns that recur throughout multiple
@@ -549,7 +558,6 @@ constraints expressed in the described tropes.
 
 \section{Outline}
 
-
 % Outline of sections goes here
 The structure of this thesis is as follows:
 
@@ -681,9 +689,16 @@ This draws from classic narratological texts, as well as work done on
 examination of recent research into non-linear narratives is essential for the
 construction of interactive narratives for games or simulations.
 
-Structuralist formalisms of narrative attempt to explain how stories work by dividing them into commonly occuring themes and motifs. This is a natural fit to the modelling of narratives by computer. This overview of narratology starts with structuralism for this reason.
+\changed{Formalisms of narrative attempt to explain how stories work by dividing
+  them into commonly occuring themes and motifs. This is a natural fit to the
+  modelling of narratives by computer. This overview of narratology starts with
+  an examination of formalisms for this reason.
 
-After the overview of structuralists' narrative models there follows a section on the use of formal logic for narrative modelling. The section ends with descriptions of other types of story components, taxonomies and ontologies used in the literature.
+After the overview of narrative models there follows a section
+on the use of formal logic for narrative modelling. The section ends with
+descriptions of other types of story components, taxonomies and ontologies used
+in the literature.}{Removed reference to structuralists: we look at different
+types of formalisms}
 
 \subsection{Narrative Structure}
 \label{sec:structure}
@@ -695,8 +710,9 @@ facts, and when is it a story?
 Narratologists from \citet{bal2009narratology} onwards refer to the
 chronological ordering of events as \emph{fabula} (from the Russian фабула, ``scene''), and the retelling and
 reordering of those events in a narrative as \emph{syuzhet} (сюжет, ``plot'').
-In fact, Russian structuralists~\citet{propp1968morphology} and~\citet{shklovsky1991theory} were the first to use these terms in the
-context of narrative, before their rediscovery by modern narrative theorists.
+\changed{In fact, Russian formalists~\citet{propp1968morphology} and structuralists~\citet{shklovsky1991theory} were the first to use these terms in the
+context of narrative, before their rediscovery by modern narrative
+theorists.}{Corrected mention of Propp to a formalist rather than structuralist}
 
 The concepts of \emph{fabula} and \emph{syuzhet} are key to the understanding of
 narrative structure. Thanks to Aristotle's
@@ -900,7 +916,8 @@ too far removed from its practical implementations to be of use, we provide an
 overview of these implementations and their underlying research in Section~\ref{sec:implementations}. Has narrative theory research informed the creation of computer-generated or interactive narrative at all, or do they all take approaches grounded in computer science and artificial intelligence? If narrative theory has not been used, then we must ask: why not?
 
 
-\subsection{Structuralist Formalisms of Narrative}
+\subsection{Formalisms of Narrative}\changed{}{Renamed section from
+  ``Structuralist Formalisms of Narrative'' to just ``Formalisms of Narrative''}
 \label{sec:formalisms}
 
 Attempts to organise recurring themes, roles and motifs of narrative go back at least a century. The Aarne-Thompson tale-type index \citep{aarne1987types}, first published in 1910 and later refined by Stith Thompson in 1928 and 1961, is well known amongst folklorists as a classification and analysis method for traditional folktales and myths. Aarne-Thompson's index is a taxonomy of tale themes, arranging tales into categories such as \emph{animal tales} and \emph{jokes and anecdotes}, and then sub-categories (\emph{tales of magic} and \emph{numskull [sic] stories} being two examples). This taxonomy is only two levels deep however, and only serves as a useful way to categorise individual stories or tales. In order to break down and analyse components of tales, we must dig deeper.
@@ -912,7 +929,12 @@ His theory is that myths describe opposing forces which are resolved through med
 Like much of early narrative theory, there is no rigorous evaluation of L\'{e}vi-Strauss' ideas, leaving them seeming opinionated and arbitrary. While interesting, L\'{e}vi-Strauss' ideas bring us no closer to developing a formal model of narrative structure. For that, we must go even further back in time, and turn to Vladimir Propp.
 
 \subsubsection{Propp's Morphology of the Folktale}
-A notable narrative structuralist is Vladimir Propp, creator of \emph{The Morphology of the Folktale}~\citep{propp1968morphology}, a formalism for Russian folktales. Propp's formalism, though originally limited in scope, generalises well, and is still used by researchers to procedurally generate stories~\citep{grasbon2001morphological,gervas2005story,hartmann2005motif}. Drawing from a corpus of one hundred Russian folktales, Propp identifies thirty-one distinct \emph{story functions}, each of which is identified by a number and symbol. These functions are executed by characters fulfilling certain roles, each of which has a \emph{sphere of action} consisting of the functions that they are able to perform at any given point of the story. Stories are created by chaining story functions together, with subplots expressed as parallel chains of story functions.
+\changed{A notable narrative formalist is Vladimir Propp, creator of \emph{The
+    Morphology of the Folktale}~\citep{propp1968morphology}, a formalism for
+  Russian folktales. Propp's formalism, though originally limited in scope,
+  generalises well, and is still used by researchers to procedurally generate
+  stories~\citep{grasbon2001morphological,gervas2005story,hartmann2005motif}.}{Propp
+is a formalist instead of structuralist} Drawing from a corpus of one hundred Russian folktales, Propp identifies thirty-one distinct \emph{story functions}, each of which is identified by a number and symbol. These functions are executed by characters fulfilling certain roles, each of which has a \emph{sphere of action} consisting of the functions that they are able to perform at any given point of the story. Stories are created by chaining story functions together, with subplots expressed as parallel chains of story functions.
 
 In this formalism, characters have \emph{roles}, such as \emph{hero}, \emph{villain}, \emph{dispatcher}, \emph{false hero}, and more. Characters performing a certain role are able to perform a subset of \emph{story functions}, which are actions that make the narrative progress. For example, the \emph{dispatcher} might send the \emph{hero} on a quest, or the \emph{victim} may issue an \emph{interdiction} to the \emph{villain}, which is then \emph{violated}.
 
@@ -939,7 +961,20 @@ Each of these functions can vary to some degree. For example, the \emph{villainy
 
 In a typical story, one story function will follow another as the tale progresses in a sequential series of cause and effect (figure~\ref{fig:propp1}). However, Propp's formalism also allows for simultaneous story functions to be occuring at once (figure~\ref{fig:propp2}).
 
-Though flexible, Propp's formalism is limited in its expressiveness. All story functions describe events at the same level of abstraction, describing one event after another. Also, Propp insists that the story functions occur in a prescribed order. Later French structuralists such as \citet{bremond1980logic}, \citet{greimas1983structural} and~\citet{todorov1969grammaire} address the latter problem by generalising Propp's work outside of Russian Folktales, though each represents only incremental improvements on Propp, lacking a means of nesting story functions to create abstractions. \citet{barthes1975introduction} broadly describe hierarchically composing \emph{narrative units} but, lacking implementation details, these can only be used as a template from which to build a new narrative model.
+% Though flexible, Propp's formalism is limited in its expressiveness. All story
+% functions describe events at the same level of abstraction, describing one event
+% after another. Also, Propp insists that the story functions occur in a
+% prescribed order. Later French structuralists such as \citet{bremond1980logic},
+% \citet{greimas1983structural} and~\citet{todorov1969grammaire} address the
+% latter problem by generalising Propp's work outside of Russian Folktales, though
+% each represents only incremental improvements on Propp, lacking a means of
+% nesting story functions to create abstractions. \citet{barthes1975introduction}
+% broadly describe hierarchically composing \emph{narrative units} but, lacking
+% implementation details, these can only be used as a template from which to build
+% a new narrative model.
+\deleted{Removed paragraph about French structuralists}
+
+
 % What are the shortcomings of Propp? (i.e. lack of abstractability, etc)
 
 % \subsection{Describing Stories with Logic}
@@ -953,8 +988,10 @@ to a single character in the story, so an author must always author story
 components with concrete characters in mind, making them difficult to re-use.
 Similar to Propp's system, the order of composition must always be in a certain
 sequence, and plot units cannot refer to other plot units. Again, we are left
-without a means of creating abstractions for our story components. In the
-``TropICAL: a DSL for Tropes'' section, we address this issue by describing how tropes allow the nesting of components to allow story authors to create their own abstractions.
+without a means of creating abstractions for our story components.
+\changed{Chapter~\ref{cha:tropical} addresses this issue by describing how
+  tropes allow the nesting of components to allow story authors to create their
+  own abstractions.}{Referenced chapter by number instead of name}
 
 \section{Implementations of Experimental Narrative}
 \label{sec:implementations}
@@ -1190,9 +1227,17 @@ As an example, there is a behaviour called ``Fix\_Drinks'', which specifies a se
 
 Fa\c{c}ade has become popular as a game outside of academia, with playthroughs of the game reaching millions of views on Youtube. This shows the promise of interactive narrative as being a unique and engaging new form of entertainment. Unfortunately, no other implementation of interactive narrative seems to have captured the public imagination since the release of Fa\c{c}ade.
 
-Fa\c{c}ade's popularity seems to reinforce Crawford's assertion (as we mention in Section~\ref{sec:narrative-types}) that interactive narratives must be social in nature. The gameplay comes entirely from the conversations and interactions between Grace, Trip and the player. Much of the excitement comes from the social consequences of certain conversation paths or actions. By modelling characters as agents, Mateas et al have created a truly interactive experience. However, by also using a drama manager to manage the agents, they have used these agents to tell a story.
+Fa\c{c}ade's popularity seems to reinforce Crawford's assertion (as we mention
+in Section~\ref{sec:narrative-types}) that interactive narratives must be social
+in nature. The gameplay comes entirely from the conversations and interactions
+between Grace, Trip and the player. Much of the excitement comes from the social
+consequences of certain conversation paths or actions. \changed{By modelling characters
+as agents, Mateas and Stern~\cite{mateas2003faccade} have created a truly
+interactive experience. However, by also using a drama manager to manage the
+agents, they have used these agents to tell a story.}{Replaced Mateas et al with
+bibtex reference}
 
-How might these agents be made more convincing? Outside of writing rules for their behaviour consisting of character goals and beliefs, how might an author create truly unique and idiosyncratic characters? To address the question, I next examine different types of emotional models in psychology, and how each might be used to model characters as agents.
+How might these agents be made more convincing? Outside of writing rules for their behaviour consisting of character goals and beliefs, how might an author create truly unique and idiosyncratic characters? To address the question, we next examine different types of emotional models in psychology, and how each might be used to model characters as agents.
 
 \subsubsection{Social Norms}
 Versu~\citep{evans2014versu} is an interactive drama system that uses a multi agent system as characters. The characters' actions are coordinated with \emph{social practices}, which describe types of social situations and is described by the authors as a successor to the Schankian script. These social practices are implemented as reactive joint plans, which agents can choose to participate in or not. Rather than directly telling the agents what to do, these social practices merely \emph{suggest} courses of action, leaving each agent to decide for itself what to do based on its individual goals.
@@ -1471,7 +1516,14 @@ Russell's circumplex model of emotion is a well-known dimensional model \citep{r
 
 Russell's original paper proposes a model similar to that shown in Figure~\ref{fig:circumplex}, where the $x$ axis is a person's valence level and the $y$ axis is their arousal level. He argues that the full range of human emotions lie as points along these axes. Eight such examples are shown in Figure~\ref{fig:circumplex}.
 
-This model is very easy to adapt to human-like agents. \citet{ahn2012nvc} adapt this model by adding a third dimension, dominance, to create conversational agents in a 3D environment. This `dominance' dimension was first proposed in Mehrabian and Russell's original work \citep{mehrabian1974approach}, but later removed due to being perceived as the consequences of the \emph{effects\/} of emotion \citep{russell1980circumplex}, rather than being a component of emotion itself. Like Ahn et al, I found it useful to add the dominance-submission dimension, and so left it in my emotional model. This is the approach I take in creating my Punch and Judy simulation, and so it is described in more detail in Section~\ref{sec:emotion}.
+This model is very easy to adapt to human-like agents. \citet{ahn2012nvc} adapt
+this model by adding a third dimension, dominance, to create conversational
+agents in a 3D environment. This `dominance' dimension was first proposed in
+Mehrabian and Russell's original work \citep{mehrabian1974approach}, but later
+removed due to being perceived as the consequences of the \emph{effects\/} of
+emotion \citep{russell1980circumplex}, rather than being a component of emotion
+itself. Like Ahn et al, we found it useful to add the dominance-submission
+dimension, and so left it in our emotional model. This is the approach we take in creating my Punch and Judy simulation, and so it is described in more detail in Section~\ref{sec:emotion}.
 
 \subsubsection{Appraisal theory}
 Appraisal theories of emotion lend well to simulation with agents, due to their taking a person's beliefs, desires and intentions into account with respect to external events. Emotions arise when an event occurs and a person internally \emph{appraises} its consequences with respect to their beliefs, desires and intentions. This fits well with the popular BDI architecture for intelligent agents.
@@ -6086,6 +6138,7 @@ translation from informal to formal is successful with this system.
 
 \chapter{Using TropICAL with a Multi-Agent System}
 \label{cha:institutions}
+\changed{}{2.3.1d: Moved chapter 3 from original thesis to here}
 
 % Intro about justification/inspiration for using institutions for stories
 
@@ -6975,7 +7028,7 @@ For Mischief'' trope}]
   The Idiot is a role
   The Item is an object
   Away is a place
-  The Owner tells the Idiot to protect the Item
+  The Owner entrusts the Idiot with the Item
   Then the Owner goes Away
   Then the Idiot breaks the Item
   Then the Owner returns
@@ -7241,6 +7294,9 @@ the same way that it is used to describe alternative sequences of events for tro
 label=lst:pjfull-fullstory,caption={The full ``Punch and Judy'' story in TropICAL}]
 "Punch and Judy" is a story where:
   The "Audience Participation" trope happens
+  Punch is an Audience-aware Character
+  Joey is an Audience-aware Character
+  Judy is an Audience-aware Character
 
   The "Introduction" scene happens
   Then the "Punch, Judy and the Baby" scene happens
@@ -7255,6 +7311,76 @@ label=lst:pjfull-fullstory,caption={The full ``Punch and Judy'' story in TropICA
 \subsubsection{Movement}
 \subsubsection{Emotions}
 % Include emotions that make a character ``desperate''
+
+
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-emotion,caption={AgentSpeak code for agent emotions}]
+emotion(annoyed) :- valence(0) & arousal(-1) & dominance(1).
+emotion(alert) :- valence(0) & arousal(0) & dominance(1).
+emotion(vigilant) :- valence(0) & arousal(1) & dominance(1).
+emotion(sulky) :- valence(-1) & arousal(-1) & dominance(1).
+emotion(angry) :- valence(-1) & arousal(0) & dominance(1).
+emotion(furious) :- valence(-1) & arousal(1) & dominance(1).
+emotion(vicious) :- valence(1) & arousal(-1) & dominance(1).
+emotion(malicious) :- valence(1) & arousal(0) & dominance(1).
+emotion(excited) :- valence(1) & arousal(1) & dominance(1).
+
+emotion(sleepy) :- valence(0) & arousal(-1) & dominance(0).
+emotion(neutral) :- valence(0) & arousal(0) & dominance(0).
+emotion(surprised) :- valence(0) & arousal(1) & dominance(0).
+emotion(anxious) :- valence(-1) & arousal(-1) & dominance(0).
+emotion(unhappy) :- valence(-1) & arousal(0) & dominance(0).
+emotion(embarrassed) :- valence(-1) & arousal(1) & dominance(0).
+emotion(glad) :- valence(1) & arousal(-1) & dominance(0).
+emotion(happy) :- valence(1) & arousal(0) & dominance(0).
+emotion(delighted) :- valence(1) & arousal(1) & dominance(0).
+
+
+emotion(tired) :- valence(0) & arousal(-1) & dominance(-1).
+emotion(doubtful) :- valence(0) & arousal(0) & dominance(-1).
+emotion(scared) :- valence(0) & arousal(1) & dominance(-1).
+emotion(bored) :- valence(-1) & arousal(-1) & dominance(-1).
+emotion(depressed) :- valence(-1) & arousal(0) & dominance(-1).
+emotion(afraid) :- valence(-1) & arousal(1) & dominance(-1).
+emotion(peaceful) :- valence(1) & arousal(-1) & dominance(-1).
+emotion(compassionate) :- valence(1) & arousal(0) & dominance(-1).
+emotion(empathic) :- valence(1) & arousal(1) & dominance(-1).
+
+desperate :- emotion(anxious) | emotion(scared) | emotion(furious) | emotion(angry).
+
++!changeMood
+  <- ?emotion(Z);
+     emotion(Z).
+
++slapped
+  <- -+valence(-1);
+     -+dominance(-1);
+     !changeMood.
+
++won
+  <- -+valence(1);
+     -+dominance(1);
+     !changeMood.
+
++defeated
+  <- -+valence(-1);
+     -+dominance(-1);
+     !changeMood.
+
++moved
+  <- -+arousal(1);
+     !changeMood.
+
++pursued
+  <- -+arousal(1);
+     -+dominance(-1);
+     !changeMood.
+
++pursuer
+  <- -+arousal(1);
+     -+dominance(1);
+     !changeMood.
+\end{lstlisting}
 
 \subsection{Authoring the Character Agents}
 The institutions that are compiled from TropICAL code are designed to be used to
@@ -7274,17 +7400,31 @@ label=lst:pjfull-idiotagent,caption={AgentSpeak code for the ``Idiot'' role}]
   <- !breakItem;
      !loseItem;
 
-+!breakItem : not perm(break(X)) & type(X, item)
++!breakItem : not (desperate | perm(break(X))) & type(X, item)
   <- !breakItem;
 
 +!breakItem : (desperate | perm(break(X))) & type(X, item)
-  <- !break(X);
+  <- break(X);
 
-+!loseItem : not perm(lose(X)) & type(X, item)
++!loseItem : not (desperate | perm(lose(X))) & type(X, item)
   <- !loseItem;
 
-+!loseItem : perm(lose(X)) & type(X, item)
-  <- !lose(X);
++!loseItem : (desperate | perm(lose(X))) & type(X, item)
+  <- lose(X);
+\end{lstlisting}
+
+\subsection{The Narrator}
+
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-heroagent,caption={AgentSpeak code for the ``Hero'' role}]
++startTrope(narratorTrope)
+ <- !talkToAudience;
+
++!talkToAudience : not perm(talk(X, Y)) & role (X, narrator) & role(Y, audience)
+  <- !talkToAudience;
+
++!talkToAudience : (desperate | perm(talk(X, Y))) & role(X, narrator) & role(Y, audience)
+  <- talkTo(X, Y);
 \end{lstlisting}
 
 \subsection{The Hero}
@@ -7293,14 +7433,83 @@ label=lst:pjfull-idiotagent,caption={AgentSpeak code for the ``Idiot'' role}]
 label=lst:pjfull-heroagent,caption={AgentSpeak code for the ``Hero'' role}]
 \end{lstlisting}
 
+
 \subsection{Code for Punch Agent}
-\subsubsection{Punch's Plans}
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-punchagent,caption={AgentSpeak code for the Punch agent}]
+// A lot of Punch's behaviour is inherited from the roles that he enacts in various tropes:
+
+{ include("movement.asl") }
+{ include("emotions.asl") }
+
+{ include("idiot.asl") } // "Punch, Judy, and the Baby", "Crocodile and Sausages"
+{ include("husband.asl") } // "Punch, Judy and the Baby"
+{ include("pursuer.asl") } // "Punch, Judy and the Baby", "Punch and the Policeman", "Punch and the Devil"
+{ include("hero.asl") } // "Punch and the Policeman", "Punch and the Devil"
+{ include("slapper.asl") } // "Punch and the Policeman", "Punch and the Devil"
+{ include("pursuee.asl") } // "Crocodile and Sausages"
+
+{ include("audience-aware-character.asl") } // All scenes
+
+// The user is also able to author any other plans they want to add in order to customise Punch's behaviour
+\end{lstlisting}
 
 \subsection{Code for Judy Agent}
-\subsubsection{Judy's Plans}
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-judyagent,caption={AgentSpeak code for the Judy agent}]
+{ include("movement.asl") }
+{ include("emotions.asl") }
+
+{ include("wife.asl") } // "Punch, Judy and the Baby" scene
+{ include("owner.asl") } // "Punch, Judy and the Baby" scene
+{ include("pursuee.asl") } // "Punch, Judy and the Baby" scene
+
+{ include("audience-aware-character.asl") } // All scenes
+\end{lstlisting}
 
 \subsection{Code for Joey Agent}
-\subsubsection{Joey's Plans}
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-joeyagent,caption={AgentSpeak code for the Joey agent}]
+{ include("movement.asl") }
+{ include("emotions.asl") }
+
+{ include("narrator.asl") } // "Introduction" scene
+\end{lstlisting}
+
+\subsection{Code for Crocodile Agent}
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-crocagent,caption={AgentSpeak code for the Crocodile agent}]
+{ include("movement.asl") }
+{ include("emotions.asl") }
+
+{ include("accomplice.asl") } // "Crocodile" scene
+{ include("pursuer.asl") } // "Crocodile" scene
+label=lst:pjfull-crocagent,caption={AgentSpeak code for the Crocodile agent}]
+\end{lstlisting}
+
+\subsection{Code for Policeman Agent}
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-policeagent,caption={AgentSpeak code for the Policeman agent}]
+{ include("movement.asl") }
+{ include("emotions.asl") }
+
+{ include("mini-boss.asl") } // "Punch and the Policeman" scene
+{ include("pursuee.asl") } // "Punch and the Policeman" scene
+{ include("slapped.asl") } // "Punch and the Policeman" scene
+label=lst:pjfull-policeagent,caption={AgentSpeak code for the Policeman agent}]
+\end{lstlisting}
+
+\subsection{Code for Devil Agent}
+\begin{lstlisting}[showstringspaces=false,
+label=lst:pjfull-devilagent,caption={AgentSpeak code for the Devil agent}]
+{ include("movement.asl") }
+{ include("emotions.asl") }
+
+{ include("mini-boss.asl") } // "Punch and the Devil" scene
+{ include("pursuee.asl") } // "Punch and the Devil" scene
+{ include("slapped.asl") } // "Punch and the Devil" scene
+label=lst:pjfull-devilagent,caption={AgentSpeak code for the Devil agent}]
+\end{lstlisting}
 
 \subsection{Handling Trope Violations: The Director Agent}
 

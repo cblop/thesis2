@@ -47,6 +47,7 @@
    (TeX-add-symbols
     '("lref" 1)
     '("llabel" 1)
+    '("deleted" 1)
     '("changed" 2)
     '("added" 2)
     "mnote"

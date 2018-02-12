@@ -1,0 +1,59 @@
+* Agent roles
+
+** Punch
+- idiot (p,j,baby, croc)
+- husband (p,j,baby)
+- pursuer (p,j,baby & police, devil)
+- hero (police, devil)
+- slapper (police, devil)
+- pursuee (croc)
+** Judy
+- wife (pjbaby)
+- owner (pjbaby)
+- pursuee (pjbaby)
+** Joey
+- narrator (intro)
+** Crocodile
+- accomplice (croc)
+- pursuer (croc)
+** Devil
+- mini-boss (devil)
+- pursuee (devil)
+- slapped (devil)
+** Policeman
+- mini-boss (police)
+- pursuee (police)
+- slapped (police)
+** Player
+Actually, there's no need to author this agent, as it's acted out by real people!
+
+- audience (intro)
+
+* Verbs
+- talkTo(X, Y)
+- tellProtect(X, Y) (needs revision)
+- chase(X, Y)
+- fight(X, Y)
+- kill(X, Y)
+- escape(X)
+- return(X)
+- go(X, Y)
+- break(X, Y)
+- slap(X, Y)
+- defeat(X, Y)
+- die
+- lose(X, Y)
+
+* What I have to define:
+- idiot
+- husband
+- pursuer
+- pursuee
+- hero
+- slapper
+- slapped
+- wife
+- owner
+- accomplice
+- mini-boss
+- audience

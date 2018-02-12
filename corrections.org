@@ -35,14 +35,20 @@ c. Evaluation of your own approach against interactive criteria (from the lit. r
 ** TODO remove the logic section
 ** TODO Use \pageref{}s everywhere
 * Preamble
-** TODO Is it Digital Media or Digital Entertainment?
+** DONE Is it Digital Media or Digital Entertainment?
+   CLOSED: [2018-02-09 Fri 22:36]
+DC: Doctor of Engineering (EngD) Digital Media
 * Introduction
 - Much is promised at the start, but what has vs hasn't been delivered needs to be summarised at the end. Trim it down.
 - Tone down the harsh criticisms (or make a better system).
 - Build the argument around _tropes_
 * Lit Review
-** TODO Propp is a _formalist_
-** TODO remove bit about structuralists
+** DONE Propp is a _formalist_
+   CLOSED: [2018-02-07 Wed 12:42]
+** DONE remove bit about structuralists
+   CLOSED: [2018-02-07 Wed 12:42]
+** TODO Propp shortcomings
+[[file:thesis.tex::977][file:~/repos/thesis2/thesis.tex]]
 ** TODO Barthes, etc, are more flexible, but not used by CS researchers
 ** TODO Too many different plot models. Remove unless you can refer back to them from later
 ** TODO Need to refer back to Aarseth from later chapters, comparing it with my stuff
@@ -52,13 +58,16 @@ c. Evaluation of your own approach against interactive criteria (from the lit. r
 ** TODO Propp uses _character functions_, not story functions
 *Story moves* are lots of character functions grouped together
 ** TODO No need to mention French Structuralists
-** TODO Pg. 23: define "DSL"
+** DONE Pg. 23: define "DSL"
+   CLOSED: [2018-02-07 Wed 12:45]
 ** TODO All lit review stuff should be referred back to later if you mention it. Grammar stuff, etc.
 ** TODO Need examples of plans and planning operators
 ** TODO But only use examples when you're going to refer back to them. Too many complex, unused examples in this lit review.
-** TODO Pg. 29: Replace Mateus et al with bibtex citation
+** DONE Pg. 29: Replace Mateus et al with bibtex citation
+   CLOSED: [2018-02-07 Wed 12:46]
 ** TODO Exclusion, deontic, etc need to be explained. Same with constitutive vs regulative.
-** TODO Watch out for first person stuff. Do a search.
+** DONE Watch out for first person stuff. Do a search.
+   CLOSED: [2018-02-07 Wed 12:47]
 ** TODO How could you use institutional powers to _prevent_ things from happening?
 ** TODO Pg. 37: Cite paper on appraisal theory.
 ** TODO Introduce the problem in lit. rev discussion first, then... (?)

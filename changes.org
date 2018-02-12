@@ -1,4 +1,6 @@
 * Matt Thompson: Corrections
+** Preamble
+*** Changed "Digital Media" to "Digital Entertainment"
 ** Moved chapter three to chapter six and renamed
 Chapter three ("Logic, Norms and Institutions as Story Worlds") has been moved from after the "Literature Review" chapter to after the "StoryBuilder" chapter, so that it is now chapter six.
 
