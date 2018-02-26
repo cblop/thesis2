@@ -7323,6 +7323,7 @@ scene, so we can re-use the same tropes: \textbf{Slapstick}, \textbf{Chase
   Fight} and \textbf{Mini-Boss}.
 
 \subsection{Putting It All Together}
+\label{sec:put-together-pj}
 % Look at chaining the above together, and adding meta-tropes that are present throughout (such as audience participation, which you should discuss before)
 Having defined the tropes for each \emph{Punch and Judy} scene in the previous
 section, we can now describe the scenes themselves in terms of the tropes and
@@ -7711,7 +7712,106 @@ getSimilarTropes(X, T)
 \section{Comparison with Planning Approaches}
 \label{sec:discussion-comparison}
 \added{}{2.3.3c: comparison with existing planning approaches from literature review}
-In this section
+In this section, we discuss the relative merits and shortcomings of our
+implementation, as demonstrated in the evaluated prototype described in
+Section~\ref{sec:sb-eval} (page~\pageref{sec:sb-eval}), by comparing it with two
+planner-based approaches mentioned in Section~\ref{sec:planner-systems}
+(page~\pageref{sec:planner-systems}) of the literature review: Young's
+\emph{Mimesis} architecture~\citep{young2004architecture} and Mateas and Stern's
+\emphu{Fa\c{c}ade} system~\citep{mateas2003faccade}.
+
+\subsection{Accommodation and Intervention}
+In implementations of Young's architecture, such as
+\emph{Mimesis}~\citep{young2004architecture} and
+\emph{I-Storytelling}~\citep{cavazza2002character}, the author specifies the
+situations that they would like to occur in the story through the story goals.
+For example, if the story were about a hostage rescue, the story goals could be
+to first find the hostages, and then escort them back to safety. A story planner
+module, given these goals and a logical description of the story world, is able
+to direct the intelligent agents in the story environment towards making sure
+these goals are achieved (by making sure that the hostages are not prematurely
+shot by the captor agents, for example).
+
+However, what if the player's actions threaten to prevent the story goals from
+occuring? The architecture has two strategies: accommodation (allowing the
+action to occur and replanning around it) and intervention (preventing the
+action from taking place, or having any meaningful effect).
+
+Compare this with the approach that our system takes. Our tropes are similar to
+the specification of story goals, except that they specify actions rather than
+goal states. The way in which they prevent story-breaking actions is similar to
+the \emph{intervention} strategy of Young's architecture: it makes sure that
+disallowed narrative actions are not permitted to occur. However, they may still
+occur if an agent is motivated enough to perform a narrative-threatening action,
+due to circumstances such as reaching an extreme emotional state.
+
+The equivalent of \emph{accommodation} in our system would be a director agent
+that sees the violation, and selects an appropriate trope to initiate to replace
+the one that has been violated. Such an agent is not present in the prototype
+system, however, and so further work is needed in order to implement this approach.
+
+Given that our system, as implemented, does not offer an alternative for
+Mimesis' accommodation strategy, does it offer any benefits over the system as a
+whole? The main motivation behind the creation of TropICAL is to ease the
+description of interactive story worlds for non-programmer story authors. This
+is achieved through the creation of a controlled natural language parser for
+narrative events. In the case of Mimesis, events are described as functions with
+parameters, such as \emph{Go(Sam, Vault)} or \emph{Take-out(Owner, gold,
+  vault)}. In addition to being in a controlled natural language format,
+TropICAL's stories are expressed in terms of tropes, which can contain multiple
+events, and can refer to other tropes. The goals expressed by story authors
+using Mimesis are limited to describing basic agent actions. Though the
+abstraction capabilities of our prototype are limited to chaining tropes at the
+end of existing tropes, the system still allows re-use and chaining together of
+tropes as abstractions.
+
+\subsection{Fa\c{c}ade's Beats and Drama Manager}
+On the other hand, Mateas and Stern's
+\emph{Fa\c{c}ade}~\citep{mateas2003faccade} implements something similar to our
+concept of tropes through its use of \emph{story beats}. Story beats are
+abstractions over multiple agent actions, describing a series of steps that the
+agent(s) need to perform in order to carry out a meaningful part of the story.
+Beat goals can refer to other beat goals as subgoals, so it is possible to
+create new abstractions with them. Beat goals are authored with a
+domain-specific language named ``A Behaviour Language'' (ABL). Though this
+language has a syntax that would be familiar to most Java or C programmers, it
+does not resemble natural England, and would likely take time for
+non-programmers to learn.
+
+\emph{Fa\c{c}ade} uses a ``drama manager'' to observe the actions that are
+unfolding in a story and schedule a series of ``beats'' with appropriate
+pre-conditions to occur. This means that if an agent were to ``break away'' from
+the story,they would simply end up triggering and acting out an alternative set
+of beats. AS the player can do whatever they like in the story, the
+``accommodation'' approach is the default in this case. In comparison, our
+approach is restrictive, ``intervening'' by default. Due to the accommodation
+approach giving the player more freedom to do as they wish in the story world,
+this arguably makes for a more entertaining experience, even though there is a
+resulting trade-off in story structure. Beast must have a fine level of
+granularity in order to make this approach effective. In contrast, a trope can
+have either fine or very coarse granularity, describing either a single dialogue
+line or an entire story. The coarser the granularity of a trope, the more
+difficult it should be to ``break'', in order to ensure that its structure is enforced.
+
+In summary, the primary benefit of our StoryBuilder and TropICAL tools, as
+demonstrated in the evaluation in Section~\ref{sec:sb-eval}
+(page~\pageref{sec:sb-eval}), is to allow non-programmer story authors to create
+non-linear narratives through a controlled natural language syntax.
+Additionally, they are able to combine pre-created narrative components from a
+library together in order to build their stories.
+
+However, the implementation of our system has several shortcomings when compared
+with Mimesis and Fa\c{c}ade. The main shortcoming is the lack of an
+implementation of a system to ``re-plan'' or ``accommodate'' story-breaking
+actions, such as Mimesis' mediating story planner or Fa\c{c}ade's drama manager
+allow. Section~\ref{sec:put-together-pj} describes how such a system could be
+implemented through a violation-detecting ``director'' institution.
+Another shortcoming is the lack of fine-grained control that an author can have
+over character agents, being limited to describing high-level goals without
+being able to describe the exact steps an agent would need to take to achieve
+them. This would still require the authoring of agent plans in a language such
+as AgentSpeak. Possible approaches for the generation of this code are discussed
+in Section~\ref{sec:future-agent} on page~\pageref{sec:future-agent}.
 
 \section{Extent of ``Character Freedom'' Achieved}
 \label{sec:discussion-freedom}

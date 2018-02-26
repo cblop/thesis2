@@ -359,6 +359,7 @@
     "lst:pjfull-chasefight"
     "lst:pjfull-domesticabuse"
     "lst:pjfull-slapstick"
+    "sec:put-together-pj"
     "sec:freedom-example"
     "cha:discussion"
     "sec:discussion-comparison"
