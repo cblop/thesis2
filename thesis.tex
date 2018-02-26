@@ -3106,9 +3106,57 @@ of the TropICAL language, refer to Appendix~\ref{appendix:t-grammar}.
 This section describes how and why language features translate to
 InstAL, with fully translated examples of InstAL code appearing in Appendix~\ref{appendix:instal}.
 
+\subsection{Answer Set Programming (ASP)}
+\added{
+Answer Set Programming (ASP) uses a \emph{declarative} programming paradigm, meaning
+that programs described in an ASP language (such as AnsProlog) describe the
+problem itself, whereas traditional programming languages (such as Java or
+Python) describe the solution to the problem. For example, a \emph{Sudoku} game
+would be created by logically describing the rules of the game, which are used
+to search for potential solutions when given number grids as input. Contrast
+this with the traditional programming approach, which would be to describe the
+steps that are taken when a Sudoku game is played.
+
+An ASP program consists of three elements: a knowledge base of ``facts'', rules
+for generating new facts, and constraints that limit the number of new facts
+that can be generated. In the example of a Sudoku solver, the program itself
+would consist of the game rules (that numbers 1-9 are arranged in 3-by-3 grids),
+along with the constraints of the game:
+
+\begin{itemize}
+\item No number can be repeated inside a grid
+\item No number can be in the same column or row
+\end{itemize}
+
+The ``knowledge base'' describes the initial conditions of a Sudoku game: the
+numbers that are filled in already. The job of the \emph{Answer Set Solver} is
+to generate new facts based on the game rules, but limited by the described
+constraints. In this way, it can find the set of possible solutions for any
+given game of Sudoku.
+
+Finding solutions for an ASP program is a two-step process. The first step is to
+\emph{ground} any free variables in the program rules. This is done by
+generating facts to replace all the possible values of each variable. The Answer
+Set Solver then searches the space of
+these possible solutions to find those that are \emph{stable} (ones that do not
+contain any contradictions).
+
+The benefit of using ASP over Prolog comes from its use of the \emph{stable
+  model semantics}, which allows for the use of \emph{negation as failure}
+without the risk of an ASP program getting stuck in an infinite loop. As each
+free variable is \emph{grounded} (the space of all possible values for a
+variable is generated), a search for solutions should terminate even when
+negation is used.
+}{2.4.2: Brief introduction to ASP}
+
+\subsection{InstAL: The Institution Action Language}
+\added{
+
+}{2.4.2: Brief Introduction to InstAL}
+
 \subsection{Why use ASP and InstAL?}
 \label{sec:why-asp-instal}
-\added{}{2.4.2: A short introduction to ASP and InstAL including why I selected them}
+\added{}{2.4.2: Explanation of why ASP and InstAL were chosen}
 
 \subsection{Compilation Strategy}
 
@@ -3874,6 +3922,7 @@ institutions. This solver can also be used to generate all of the possible
 sequences of events that fit a story described using one or more tropes, by
 generating all of the \emph{answer sets} that correspond to a set of institutions.
 
+
 \section{Adding Constraints}
 \label{sec:t-constraints}
 % TODO ASP intro: 1
@@ -4115,7 +4164,9 @@ reader refer to the visualisations produced by the StoryBuilder tool in Section~
 
 \subsection{Combining Tropes}
 \label{sec:trope-combination-exp}
-\added{}{2.3.3: Added a discussion on how to combine tropes}
+\added{
+
+}{2.3.3: Added a discussion on how to combine tropes}
 
 
 \section{Summary}
