@@ -2481,7 +2481,7 @@ story. TropICAL is designed to be used with a system where the character agents 
 already been authored. It guides them by allowing the characters to know what
 they are permitted and obliged to do according to the story. For a description of how this is
 implemented in practice, see Section~\ref{sec:punchjudy} of
-chapter~\ref{cha:institutions}.
+Chapter~\ref{cha:institutions}.
 
 \subsection{Use Cases}
 \label{sec:use-cases}
@@ -4165,9 +4165,79 @@ reader refer to the visualisations produced by the StoryBuilder tool in Section~
 \subsection{Combining Tropes}
 \label{sec:trope-combination-exp}
 \added{
+  This section describes an example of a situation where a user wants to combine
+  multiple tropes together. There are two ways in which TropICAL and
+  StoryBuilder allow this: by allowing tropes to happen ``at the same time'',
+  and by sequencing tropes to occur at certain points in other tropes.
+  Section~\ref{sec:subtrope-code} describes the use of subtropes in TropICAL,
+  which are used to implement the latter case of sequencing tropes within
+  scenes. Their implementation through institutional bridges is described in
+  Section~\ref{sec:bridges}. This section examines how our system allows
+  multiple tropes to occur at once.
 
-}{2.3.3: Added a discussion on how to combine tropes}
+  As an example, we can imagine that a user wants to use the following three
+  tropes in their story: the \emph{Hero's Journey}, the \emph{Evil Empire} and
+  the \emph{MacGuffin}. Using the StoryBuilder tool, the user can select all
+  three tropes to occur at once using the dropdown menus in the ``arrange tab''
+  (shown in Figure~\ref{fig:sb-combine-ann} on
+  page~\pageref{fig:sb-combine-ann}). Alternatively, if not using StoryBuilder,
+  the following code in Listing~\ref{lst:simultaneous-tropes} can be passed to
+  the TropICAL compiler along with the trope definition files.
 
+}{2.3.2b: Added a discussion on how to combine tropes}
+  
+\begin{lstlisting}[showstringspaces=false,
+label=lst:simultaneous-tropes,caption={Simultaneous tropes in TropICAL}]
+"Example Quest" is a scene where:
+  The "Hero's Journey" trope happens
+    And the "Evil Empire" trope happens
+    And the "MacGuffin" trope happens
+\end{lstlisting}
+
+  Due to the fact that each trope is expressed as a sequence of permissions and
+  obligations in an institution, a scene with multiple simultaneously active
+  tropes means that multiple institutions are active at once. This gives each
+  character the choice of participating in each institution in the order of
+  their choice.
+
+  Let us examine the ``Hero'' character role in this scene, for example. As all
+  three trope institutions are active from the start of the scene, the character
+  has permission to carry out the first event of any of the three tropes, as
+  long as the permission applies to that character.
+  Figure~\ref{fig:dot-combine1} shows an example where the first events of each
+  institution permit the agent to perform an action, and so the agent is able to
+  choose between these actions, in a similar manner to story branching.
+
+  If the first event of the ``Hero's Journey'' trope is for the Hero to leave
+  home, and the Hero does so, then the second event in the trope becomes
+  permitted or obliged to occur, as shown in Figure~\ref{fig:dot-combine2}. Now
+  we can see what happens if the Hero decides to follow the ``MacGuffin'' trope
+  next: the second events of both the Hero's Journey and MacGuffin tropes become
+  permitted, as well as the first event of the Evil Empire trope (as the Hero
+  has not chosen an action that follows that trope yet).
+  Figure~\ref{fig:dot-combine3} shows the situation after two choices from the Hero.
+
+  A trope ends when its final event has occurred. The scene will end when either
+  all the tropes have reached their points, or if the ``The story ends'' event occurs.
+
+\begin{figure}[!h]
+\centerline{\includegraphics[width=0.6\textwidth]{combine1.png}}
+\caption{An agent can choose between the events of all three tropes at the start
+of the scene.}\label{fig:dot-combine1}
+\end{figure}
+
+\begin{figure}[!h]
+\centerline{\includegraphics[width=\textwidth]{combine2.png}}
+\caption{Now that the agent has chosen to perform the first event from the
+  \emph{Hero's Journey} trope, the second event from that trope is now
+  permitted, along with the first event of the other two tropes.}\label{fig:dot-combine2}
+\end{figure}
+
+\begin{figure}[!h]
+\centerline{\includegraphics[width=\textwidth]{combine3.png}}
+\caption{After following the \emph{Hero's Journey}, then the \emph{MacGuffin}
+  tropes, there still three paths for us to choose from.}\label{fig:dot-combine3}
+\end{figure}
 
 \section{Summary}
 \label{sec:tropical-summary}
@@ -4510,8 +4580,7 @@ of this subtrope, as described in Listing~\ref{lst:subtrope2}, and its resulting
 \end{figure}
 
 \subsection{Introducing ``Punch and Judy''}
-\changed{}{Moved this back here from its previous position in
-  Ch.\ref{cha:institutions}, as this is now the first mention of P\&J}
+\changed{}{Moved this back here from its previous position in Ch.\ref{cha:institutions}, as this is now the first mention of P\&J}
 
 Throughout this thesis we use the \emph{Punch and Judy} story world for our
 example narratives. \emph{Punch and Judy} is a traditional British-Italian
@@ -7651,6 +7720,20 @@ getSimilarTropes(X, T)
 \added{}{2.3.3c: evaluation of prototype against narratology criteria from
   literature review}
 
+This section refers back to Section~\ref{sec:narrative-types} of the literature
+review to evaluate the interactivity of our system against the criteria defined
+by narrative theory research.
+
+Aarseth's theory of Ergodic literature~\citep{aarseth1997cybertext} describes
+the different ways in which a user can traverse a story in order to make it
+interactive. Aarseth's analysis identifies seven methods of story traversal:
+dynamics, determinability, transiency, perspective, access, linking and user
+functions. Our interactive story system, as assessed through these seven
+dimensions, implement the seven story traversal approaches to differing degrees:
+
+\begin{itemize}
+\end{itemize}
+
 \section{Complexity of Story Generation}
 \label{sec:complexity}
 \added{}{2.3.3c: discussion of complexity of generating different types of story}
@@ -7686,8 +7769,11 @@ Then the Hero returns Home
 The trope in Listing~\ref{lst:ex-seq} is a basic sequence, five events long, one
 event after another.
 
-\paragraph{Answer sets: 6}
-\paragraph{Time taken: 4442 msecs}
+\begin{quote}
+Answer sets: 6
+
+Time taken: 4442 msecs
+\end{quote}
 
 Already, we can see a source of inefficiency: instead of generating just one
 answer set for the full sequence of five events (the only full sequence
@@ -7811,6 +7897,12 @@ Then the Villain goes Home
 \paragraph{Time taken: 7979 msecs}
 
 This example shows that the answer set solver produces 61 different answer sets
+when two very basic tropes are active at the same time. The reason for this is
+that after every event occurs, there is always a choice between
+the next action in the same trope, or the next action in the other active trope.
+This means that automatically we have $m \times n$ possible full sequences of
+events that can occur (where $m$ and $n$ are the full sequence length of each trope), and the solver is also generating all sequence lengths
+less than $m$ and $n$ in this case.
 
 \subsection{Two Simultaneous Tropes (With Branches)}
 
@@ -7833,6 +7925,10 @@ Then the Villain kills the Mentor
 \paragraph{Answer sets: 109}
 \paragraph{Time taken: 13289 msecs}
 
+As before, adding branches to tropes greatly increases the number of answer sets
+produced. The effect is even more dramatic when two tropes are combined, where the solver
+takes over ten seconds to produce 109 answer sets.
+
 \subsection{Two Simultaneous Tropes (With Subtropes)}
 
 \begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope1b},
@@ -7853,6 +7949,12 @@ Then the ``Item Search'' trope happens
 
 \paragraph{Answer sets: 69}
 \paragraph{Time taken: 10849 msecs}
+
+Adding a subtrope does not seem to increase the complexity as much as branching
+in the middle of a trope. Though there is a branch in the ``Item Search'' trope
+in Listing~\ref{lst:ex-subtrope1}, which is included at the end of both active
+tropes here, the fact that it occurs at the end of the trope reduces the
+branching complexity significantly.
 
 \subsection{Two Simultaneous Tropes (With Subtropes and Branches)}
 
@@ -7877,6 +7979,10 @@ Then the ``Item Search'' trope happens
 \paragraph{Answer sets: 125}
 \paragraph{Time taken: 34696 msecs}
 
+As expected: adding branching events to the middle of the two simultaneous
+tropes greatly increases the number of answer sets produced, and the time taken
+to produce them.
+
 \subsection{Three Simultaneous Tropes (With Subtropes and Branches)}
 
 \begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope3},
@@ -7890,6 +7996,20 @@ Then the ``Item Search'' trope happens
 
 \paragraph{Answer sets: > 500}
 \paragraph{Time taken: 156772 msecs}
+
+Of course, adding a third simultaneous trope increases the complexity of
+generated answer sets significantly.
+
+It seems that the factors that have the largest effect on story complexity in
+these results are (from most to least significant):
+
+\begin{enumerate}
+  \item Multiple simultaneous tropes
+  \item Branches in the middle of a story
+  \item Branches at the end of a story
+  \item Subtropes in a story
+  \item Sequences of events
+\end{enumerate}
 
 \subsection{Possible Optimisation}
 The major source of inefficiency here is the generation of \emph{null} events
