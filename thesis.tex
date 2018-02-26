@@ -4236,7 +4236,7 @@ of the scene.}\label{fig:dot-combine1}
 \begin{figure}[!h]
 \centerline{\includegraphics[width=\textwidth]{combine3.png}}
 \caption{After following the \emph{Hero's Journey}, then the \emph{MacGuffin}
-  tropes, there still three paths for us to choose from.}\label{fig:dot-combine3}
+  tropes, there are still three paths for us to choose from.}\label{fig:dot-combine3}
 \end{figure}
 
 \section{Summary}
@@ -7711,6 +7711,7 @@ getSimilarTropes(X, T)
 \section{Comparison with Planning Approaches}
 \label{sec:discussion-comparison}
 \added{}{2.3.3c: comparison with existing planning approaches from literature review}
+In this section
 
 \section{Extent of ``Character Freedom'' Achieved}
 \label{sec:discussion-freedom}
@@ -7728,11 +7729,76 @@ Aarseth's theory of Ergodic literature~\citep{aarseth1997cybertext} describes
 the different ways in which a user can traverse a story in order to make it
 interactive. Aarseth's analysis identifies seven methods of story traversal:
 dynamics, determinability, transiency, perspective, access, linking and user
-functions. Our interactive story system, as assessed through these seven
+functions. Each of these variables describe how the story text (the ``texton'')
+is interpreted through traversal (the ``scripton'', or performance of the story). Our interactive story system, as assessed through these seven
 dimensions, implement the seven story traversal approaches to differing degrees:
 
 \begin{itemize}
+  \item \textbf{Dynamics} (whether or not the content and number of scriptons
+    changes): high. If a user is simply viewing all generated permutations of a story
+    through the StoryBuilder tool, then it would appear that there is a fixed
+    number of scriptons. However, this only represents the story's search space.
+    When a story is experienced through a Multi-Agent System, the actions of
+    both the player and other intelligent agents determine the resulting
+    \emph{scripton}. Therefore, the scripton changes every time a story is run,
+    meaning that the \emph{dynamics} of the system are high.
+  \item \textbf{Determinability} (will the same interactions result in the same
+    scripton being produced?): high. This depends on whether there is any
+    probabilistic behaviour on the parts of the character agents: assuming there
+    is none, then it is indeed the case that each story would be deterministic.
+    However, the determinability of the system could be adjusted by story
+    authors by giving the character agents plans that carry out actions with
+    different probabilities.
+  \item \textbf{Transiency} (to what extent scriptons are produced as time
+    flows, or whether user interactions are required to produce them): high. As the
+    agents in a Multi-Agent System will carry out their plans whether or not the
+    player takes any action, the level of \emph{transiency} could be said to be high.
+  \item \textbf{Perspective} (whether or not the user/reader plays a role as a
+    character in the narrative): Yes. The system is designed so that the user can
+    take the place of any character role in a trope. They do also have the
+    option of not participating in the system at all, and can simply run the
+    story as a simulation, where every character is played by an intelligent
+    agent. In the case where the player assumes the role of a character, the
+    interactions available to them would be determined by the permissions and
+    obligations of that character at each point in the story.
+  \item \textbf{Access} (whether a user has access to all scriptons at any point
+    in the story, or whether their access is restricted): No. By design, the
+    story unfolds according to the order of events described by the trope
+    author. As noted above, the user's actions are limited to their permitted
+    and obliged actions according to the active tropes. It would not be
+    desirable to allow them to jump to any point in the story at any time.
+  \item \textbf{Linking} (whether or not parts of the scripton are linked to
+    other parts, and whether these links are conditional): No. Aarseth's
+    analysis is mostly concerned with hypertext stories, the predominant form of
+    interactive story at the time, so this dimension (and possibly alse the
+    ``access'' dimension) is difficult to apply to our agent-based storytelling
+    system. The implementation of subtropes could be an example of linking
+    scriptons, however, as it gives an author a method by which they can link
+    one part of a story with another.
+  \item \textbf{User Functions} (the functions the user uses to traverse the
+    text: interpretive (simply traversing the text), explorative (traversing the
+    scripton according to whim) or configurative (specifying parts of the
+    scripton in advance)): our system is interpretive, as the user is limited to
+    acting out parts of the scripton as interaction possibilities emerge rather
+    than, for example, being able to jump back and forth between points in a story.
 \end{itemize}
+
+In order to compare our system to other criteria for interactive narrative, we
+refer once again to Chris Crawford's definition~\citep{crawford2012chris}:
+
+\begin{quote}
+A cyclic process between two or more active agents in which each agent alternately listens, thinks, and speaks.
+\end{quote}
+
+Due to the fact that our system is implemented using intelligent agents, our
+approach seems more suited to this criterion, so far as its description of
+alternating actions goes. However, Crawford's main assertion is that interactive
+stories must be \emph{social}, that each agent must react to the \emph{context}
+of what the other agents is saying. Due to the lack of a dialogue system in our
+implementation, it falls far short of Crawford's definition of an interactive
+narrative system. However, with the addition of topic-based agent dialogue such
+as we propose in Section~\ref{sec:topicscript}, our system could eventually meet
+this definition.
 
 \section{Complexity of Story Generation}
 \label{sec:complexity}
