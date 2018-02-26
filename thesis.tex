@@ -7634,8 +7634,270 @@ getSimilarTropes(X, T)
 \label{sec:freedom-example}
 % Use the sausages scene
 
+
+\chapter{Discussion}
+\label{cha:discussion}
+\added{}{2.3.4: New ``Discussion'' chapter}
+
+\section{Comparison with Planning Approaches}
+\label{sec:discussion-comparison}
+\added{}{2.3.3c: comparison with existing planning approaches from literature review}
+
+\section{Extent of ``Character Freedom'' Achieved}
+\label{sec:discussion-freedom}
+
 \section{Evaluation Against Interactive Criteria}
 \label{sec:criteria-evaluation}
+\added{}{2.3.3c: evaluation of prototype against narratology criteria from
+  literature review}
+
+\section{Complexity of Story Generation}
+\label{sec:complexity}
+\added{}{2.3.3c: discussion of complexity of generating different types of story}
+
+This section investigates the complexity in terms of the number of solutions
+(answer sets) produced, and the time taken to produce them, given different
+combinations of tropes using different language features. The intention is to
+identify the features of TropICAL that add complexity to the story generation
+process, and to discover how these features could be optimised so that TropICAL
+can generate narratives more efficiently, with more relevant answer sets of
+alternative paths through the stories.
+
+The listing examples from Section~\ref{sec:language-design} are used at first to
+isolate individual TropICAL features (Listings~\ref{lst:ex-seq}
+to~\ref{lst:ex-subtrope}), with Listings~\ref{lst:ex-sim} to~\ref{lst:ex-three} showing the combination of several tropes together.
+
+The answer set solver was set to generate a maximum of 500 answer sets with a
+maximum length of 5 events per answer set.
+
+All tests were performed on a 2016 Lenovo Thinkpad 13 with 8GB RAM and an Intel Core
+i5-6200U CPU. 
+
+\subsection{A Simple Sequence of Events}
+
+\begin{lstlisting}[label={lst:ex-seq}, caption={A sequence of events}]
+The Hero goes to the Land of Adventure
+Then the Hero finds the Sword
+Then the Hero meets the Villain
+Then the Hero kills the Villain
+Then the Hero returns Home
+\end{lstlisting}
+
+The trope in Listing~\ref{lst:ex-seq} is a basic sequence, five events long, one
+event after another.
+
+\paragraph{Answer sets: 6}
+\paragraph{Time taken: 4442 msecs}
+
+Already, we can see a source of inefficiency: instead of generating just one
+answer set for the full sequence of five events (the only full sequence
+possible), an answer set is generated for zero events, then the first one, then
+the first two, until finally an answer set for all five events is generated.
+
+% \subsection{Two Events and One Obligation}
+% \begin{lstlisting}[label={lst:ex-obl2}, caption={An obliged event with a deadline
+% and a consequence}]
+% The Hero must go to the Land of Adventure before the Villain kills the Mentor
+%   Otherwise, the Villain kills the Hero
+% \end{lstlisting}
+
+% \paragraph{Answer sets: 2}
+% \paragraph{Time taken: 685 msecs}
+
+\subsection{Basic Story Branching}
+
+\begin{lstlisting}[label={lst:ex-branch1}, caption={Two branches}]
+The Hero goes to the Land of Adventure
+  Or the Hero finds the Sword
+\end{lstlisting}
+
+\paragraph{Answer sets: 3}
+\paragraph{Time taken: 670 msecs}
+
+Again, there is one more answer set than expected here: the one that contains
+zero events. The other two are as expected, however: one answer set per
+alternative branch in the trope.
+
+\subsection{Five Branches}
+
+\begin{lstlisting}[label={lst:ex-branch2}, caption={Five branches}]
+The Hero goes to the Land of Adventure
+  Or the Hero finds the Sword
+  Or the Hero meets the Villain
+  Or the Hero kills the Villain
+  Or the Hero returns Home
+\end{lstlisting}
+
+\paragraph{Answer sets: 6}
+\paragraph{Time taken: 1153 msecs}
+
+As before, we have one answer set per story branch, with an extra answer set for
+a sequence with zero events. The fact that each story branch is only one event
+long means that we only get one answer set for every branch.
+
+\subsection{A Combination of Branches and Sequences}
+
+\begin{lstlisting}[label={lst:ex-branch3}, caption={A combination of branches and sequences}]
+The Hero goes Home
+Then the Hero finds a Sword
+  Or the Hero goes to the Land of Adventure
+  Or the Hero kills the Villain
+Then the Hero meets the Mentor
+  Or the Hero goes to the Realm of Mystery
+\end{lstlisting}
+
+\paragraph{Answers sets: 11}
+\paragraph{Time taken: 6643 msecs}
+
+Answer set generation for this trope takes a little longer than previous
+examples, due to the extra alternatives presented by adding events after story
+branches. For each of the three branching possibilities in the second event of
+the sequence, two branching alternatives are added to the end, giving $3 \times 2 =
+6$ separate branches, with each branch being three events long. Two are added
+for a zero-length sequence and the first event, then one for each of the first
+possibilities (representing sequences that are only 5 events long).
+
+\subsection{A Trope Containing a Subtrope}
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-subtrope1}, caption={Subtrope
+to be embedded}]
+"Item Search" is a trope where:
+   The Macguffin is an object
+   The Hero is a role
+   Home is a place
+
+   The Hero chases the Macguffin
+   Then the Hero finds the Macguffin
+     Or the Hero goes Home
+\end{lstlisting}
+
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-subtrope2}, caption={Trope containing a subtrope}]
+"Kill then Search" is a trope where:
+  Away is a place
+  The Hero is a role
+  The Villain is a role
+
+  The Hero goes Away
+  Then the Hero kills the Villain
+  Then the "Item Search" trope happens
+\end{lstlisting}
+
+\paragraph{Answer sets: 6}
+\paragraph{Time taken: 1681 msecs}
+
+In this example, as there is only one branch in the subtrope, there are two
+possible chains of events, each only four events long, meaning that not many
+answer sets are generated for this example.
+
+\subsection{Two Simultaneous Tropes (Without Branches)}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope1},
+caption={First of two simultaneous tropes (without branches)}]
+The Hero goes to the Land of Adventure
+Then the Hero finds the Sword
+Then the Hero kills the Villain
+Then the Hero goes Home
+\end{lstlisting}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope2},
+caption={Second of two simultaneous tropes (without branches)}]
+The Mentor goes to the Realm of Mystery
+Then the Villain goes to the Realm of Mystery
+Then the Villain kills the Mentor
+Then the Villain goes Home
+\end{lstlisting}
+
+\paragraph{Answer sets: 61}
+\paragraph{Time taken: 7979 msecs}
+
+This example shows that the answer set solver produces 61 different answer sets
+
+\subsection{Two Simultaneous Tropes (With Branches)}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope1a},
+caption={First of two simultaneous tropes (with branches)}]
+The Hero goes to the Land of Adventure
+Then the Hero finds the Sword
+  Or the Hero kills the Villain
+Then the Hero goes Home
+\end{lstlisting}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope2a},
+caption={Second of two simultaneous tropes (with branches)}]
+The Mentor goes to the Realm of Mystery
+Then the Villain goes to the Realm of Mystery
+Then the Villain kills the Mentor
+  Or the Villain goes Home
+\end{lstlisting}
+
+\paragraph{Answer sets: 109}
+\paragraph{Time taken: 13289 msecs}
+
+\subsection{Two Simultaneous Tropes (With Subtropes)}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope1b},
+caption={First of two simultaneous tropes (with subtropes)}]
+The Hero goes to the Land of Adventure
+Then the Hero finds the Sword
+Then the Hero goes Home
+Then the ``Item Search'' trope happens
+\end{lstlisting}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope2b},
+caption={Second of two simultaneous tropes (with subtropes)}]
+The Mentor goes to the Realm of Mystery
+Then the Villain goes to the Realm of Mystery
+Then the Villain kills the Mentor
+Then the ``Item Search'' trope happens
+\end{lstlisting}
+
+\paragraph{Answer sets: 69}
+\paragraph{Time taken: 10849 msecs}
+
+\subsection{Two Simultaneous Tropes (With Subtropes and Branches)}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope1b},
+caption={First of two simultaneous tropes (with subtropes and branches)}]
+The Hero goes to the Land of Adventure
+Then the Hero finds the Sword
+  Or the Hero kills the Villain
+Then the Hero goes Home
+Then the ``Item Search'' trope happens
+\end{lstlisting}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope2b},
+caption={Second of two simultaneous tropes (with subtropes and branches)}]
+The Mentor goes to the Realm of Mystery
+Then the Villain goes to the Realm of Mystery
+  Or the Villain goes Home
+Then the Villain kills the Mentor
+Then the ``Item Search'' trope happens
+\end{lstlisting}
+
+\paragraph{Answer sets: 125}
+\paragraph{Time taken: 34696 msecs}
+
+\subsection{Three Simultaneous Tropes (With Subtropes and Branches)}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:ex-simtrope3},
+caption={Third of three simultaneous tropes (with subtropes and branches)}]
+The Dog goes to the Forest
+Then the Bear goes to the Forest
+  Or the Bear goes to the Den
+Then the Bear kills the Dog
+Then the ``Item Search'' trope happens
+\end{lstlisting}
+
+\paragraph{Answer sets: > 500}
+\paragraph{Time taken: 156772 msecs}
+
+\subsection{Possible Optimisation}
+The major source of inefficiency here is the generation of \emph{null} events
+for every possible length of event chains. This could be made much more efficient by
+adding a constraint to the solver that cuts out any answer sets below the
+maximum length of each possible sequence of events. Nothing would be lost in
+doing this: we can already infer from the answer sets that the events could be
+shorter if we simply remove events from them.
 
 \chapter{Conclusions \& Future Work}
 \label{cha:conclusions}
@@ -7749,7 +8011,7 @@ More work is needed in refining the generated
 institutions, along with the constraint rules that are input into the solver, in
 order to make sure less answer sets are generated as a whole. An example of one
 way to approach this would be to remove the answer sets that contain any
-\emph{null} events. This means that only answer sets of length $n$ (where $n$ is
+\emph{null} events. This means that only answer sets of length n (where $n$ is
 the maximum time step specified) would be produced. Each of these answer sets
 would contain the answer sets that are shorter than $n$ as a subset of its events.
 
