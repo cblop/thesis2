@@ -6,15 +6,15 @@
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("changebar" "color") ("fontenc" "T2A") ("inputenc" "utf8") ("geometry" "hmargin=3cm" "vmargin=2cm") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("todonotes" "colorinlistoftodos")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-run-style-hooks
     "latex2e"
     "report"
@@ -100,9 +100,6 @@
     "sec:circumplex"
     "fig:circumplex"
     "sec:litrev-discussion"
-    "iss:freedom"
-    "iss:goals"
-    "iss:models"
     "cha:tropes"
     "fig:evil-empire"
     "fig:periodic-table"
@@ -110,30 +107,6 @@
     "sec:abstraction"
     "fig:freytag"
     "sec:tropes-simple"
-    "sec:tropes-as-insts"
-    "eq:eobs-hero"
-    "eq:einst-hero"
-    "fig:events"
-    "eq:tatooine"
-    "eq:hsnth"
-    "eq:cfirst-hero"
-    "eq:phaseb"
-    "eq:crt"
-    "eq:crst"
-    "fig:gen-hero"
-    "fig:init-hero"
-    "fig:term-hero"
-    "sec:punchjudy-tropes"
-    "sec:dont-touch-inst"
-    "sec:trope-phases"
-    "eq:phase-inactive"
-    "eq:phase-a"
-    "eq:phase-done"
-    "fig:pj-phase-inits"
-    "eq:phase-inactive-term"
-    "eq:phase-a-term"
-    "eq:phase-done-term"
-    "fig:pj-phase-terms"
     "cha:tropical"
     "sec:t-constrained"
     "sec:t-requirements"
@@ -186,6 +159,9 @@
     "lst:subtrope2"
     "lst:subtrope3"
     "sec:t-codegen"
+    "sec:why-asp-instal"
+    "lst:macguffin-listing"
+    "lst:macguffin-hashmap"
     "lne:inst-name"
     "lne:type-start"
     "lne:type-end"
@@ -264,6 +240,7 @@
     "lne:hj-ev3"
     "lst:hero-trace"
     "fig:hero-trace"
+    "sec:trope-combination-exp"
     "sec:tropical-summary"
     "cha:storybuilder"
     "fig:sb-start"
@@ -309,7 +286,6 @@
     "sec:sb-analysis"
     "cha:institutions"
     "sec:stories-logic"
-    "sec:pjexample"
     "sec:norms-and-institutions"
     "sec:pjexample-insts"
     "sec:inst-events"
@@ -330,6 +306,30 @@
     "eq:interm"
     "eq:clast"
     "fig:term"
+    "sec:tropes-as-insts"
+    "eq:eobs-hero"
+    "eq:einst-hero"
+    "fig:events"
+    "eq:tatooine"
+    "eq:hsnth"
+    "eq:cfirst-hero"
+    "eq:phaseb"
+    "eq:crt"
+    "eq:crst"
+    "fig:gen-hero"
+    "fig:init-hero"
+    "fig:term-hero"
+    "sec:punchjudy-tropes"
+    "sec:dont-touch-inst"
+    "sec:trope-phases"
+    "eq:phase-inactive"
+    "eq:phase-a"
+    "eq:phase-done"
+    "fig:pj-phase-inits"
+    "eq:phase-inactive-term"
+    "eq:phase-a-term"
+    "eq:phase-done-term"
+    "fig:pj-phase-terms"
     "sec:punchjudy"
     "sec:emotion"
     "fig:vad"

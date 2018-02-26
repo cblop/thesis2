@@ -131,9 +131,26 @@
 \listoftodos[List of Corrections]
 \clearpage
 \fi
+
 \clearpage
 \tableofcontents
 \clearpage
+
+\chapter*{Acknowledgments}
+I would like to thank the following people for helping make this thesis
+possible:
+
+Julian, for his always-patient and insightful supervision. Steve, for his
+industrial supervision and advice over pints and coffee. Andy for the
+partnership that made this EngD happen. Tobias and Dorothea for
+getting me to University and encouraging me to stop slacking. Sandra for
+teaching me the value of strength. Guillaume for a world-class education in
+cinema. Hashim, Dan and Milto for good times and moral support. Kwam for teaching me
+the transcendent nature of code. Richard for his advice on Clojure and
+testing. Finally, to my mother Janice and sister Natalie for all of their
+support and encouragement.
+
+
 
 
 % problem
@@ -274,7 +291,6 @@
 % ----------------------------------
 
 % intro
-
 \chapter{Introduction}
 \label{cha:introduction}
 
@@ -390,8 +406,20 @@ until the very end of the story. At the start of this top-level trope, progressi
 tropes.
 More detailed explanations appear in Section~\ref{sec:tropes-intro} and Chapter~\ref{cha:tropes}.
 
-The next Section of this introduction contains a high-level overview of
-interactive narrative, describing its past and future use in and beyond entertainment.
+\added{This dissertation proposes a method for authors to construct non-linear
+  stories for multi-agent systems using a controlled natural language syntax.
+  Our language, named \emph{TropICAL}, allows a non-programmer story author to
+  describe their stories in terms of re-usable tropes, which they can then
+  combine together to form the shape of a story. The TropICAL language, and its
+  development environment StoryBuilder, are described in
+  Chapters~\ref{cha:tropical} and~\ref{cha:storybuilder} respectively.}{2.2.1: Added
+  sentences about TropICAL being a contribution}
+
+\changed{In order to put our narrative authoring system into context, the next Section of this introduction contains a high-level overview of
+interactive narrative, describing its past and future use in and beyond
+entertainment. From this, we determine the criteria that make a story
+interactive, against which we evaluate our system in
+Chapter~\ref{cha:evaluation}.}{2.3.2c: Rephrased to explain why we're looking at interactive narrative}
 
 \section{Interactive Narrative}
 \label{sec:interactive-narrative}
@@ -1536,47 +1564,17 @@ investigating due to its tight coupling with belief desire intention
 psychological models used in agents.
 
 \subsection{Discussion}\label{sec:litrev-discussion}
-Through this literature review, we have identified these main issues in
-need of attention:
+\deleted{2.2.2: Removed critique of planner-based systems and the requirements
+  that emerged from that discussion}
 
-\begin{enumerate}[{Issue} 1:]
-\item\label{iss:freedom} Character agents need some freedom to generate story details
-\item\label{iss:goals} Story authors do not want to think in terms of goals.
-\item\label{iss:models} Most narrative systems use outdated, inflexible story models.
-\end{enumerate}
-
-\subsubsection{Character agents need some freedom to generate story details}
-In most of the systems described in this literature review, the agents in a
-story world are explicitly told what to do. Rather than being able to follow
-their own plans of behaviour, they must follow the actions given to them by a
-system such as a drama manager. This limits the potential for agents to behave
-with the autonomy they need to generate extra details of a story. If the actions
-of a character agent were governed rather than enforced, with the possibility
-for them to break away from a suggested course of action, this would give the
-agents the freedom needed for them to behave according to their character
-models. For example, if an agent with an emotional model becomes furious, their
-extreme state of emotion would enable them to break away from the narrative
-model, with potentially interesting results.
-
-% Based on the analysis above, we hypothesise that using social institutions to
-% govern the actions of character agents allows for more flexibility in the
-% agents' actions. By 
-
-\subsubsection{Story authors do not want to think in terms of goals}
-The current dominant paradigm in interactive narrative creation is to
-use planners to ``plan'' a narrative, and re-plan when a user interacts in
-an unexpected manner. This does not align well with non-programmer story
-authors, who are likely to be unfamiliar with planning systems. In order to
-create these stories with planners, they would have to think of the story in
-terms of story and character goals.
-\subsubsection{Most narrative systems use outdated, inflexible story models}
-There is an over-reliance on narrative formalisms such as
-Propp~\citep{propp1968morphology} even in recent narrative generation
-systems. Neither narrative nor AI research have produced a formalism for
-narrative components that has endured. This is likely because Propp's formalism
+\changed{Most narrative generation systems make use of formalisms such as
+Propp~\citep{propp1968morphology} in order to generate different parts of a
+story. Though Propp's system predates computational narrative generation by several decades, neither narrative nor AI research have produced a formalism for
+narrative components to replace it entirely. This is likely because Propp's formalism
 is ``good enough'', and has worked for most researchers that have used it. There
 is also likely to be a network effect, where Propp has become the formalism that
-most researchers have heard of, and therefore the one that they end up using.
+most researchers have heard of, and therefore the one that they end up
+using.}{2.2.2: Revised to give Propp the credit he deserves}
 
 Though there have been attempts to create more expressive formalisms as
 described in Section~\ref{sec:formalisms}, none have been expressive enough to
@@ -1694,27 +1692,13 @@ tropes. Though our use of tropes for the description of stories has many
 advantages, the main benefit is that they offer a simple means to compose and thereby
 reuse existing story fragments. We describe this is more detail in Section~\ref{sec:abstraction}.
 
-Returning again to Section~\ref{sec:litrev-discussion} of the literature review in
-Chapter~\ref{cha:literature-review}, the three issues we identify with current
-interactive storytelling systems are:
+\deleted{Three paragraphs that refer to deleted goals from the literature review}
 
-\begin{enumerate}[{Issue} 1:]
-\item Character agents need some freedom to generate story details
-\item Story authors do not want to think in terms of goals.
-\item Most narrative systems use outdated, inflexible story models.
-\end{enumerate}
-
-We address Issues~\ref{iss:goals} and~\ref{iss:models} by allowing creators to
-describe their narrative components informally, using the the concept of
-\emph{tropes} that we describe in this section. Tropes address
-Issue~\ref{iss:goals} by allowing an author to describe the events that occur at
-different parts in a story. As tropes can describe patterns that occur across
-stories, they can be re-used and combined together in a way that allows an
-author to think about the story structure rather than the goals and workings of
-a planner.
-
-Issue~\ref{iss:models} is addressed by using tropes to provide an expressive, informal alternative to a strict formalism such as Propp's ``Morphology''. Formalisms require their users to learn their constituent rules in order to be useful. Our trope-based approach aims to allow the user to describe the parts of their story in as close to natural language as possible, while still allowing for their translation to a formal representation.
-This is implemented through a controlled natural language approach to the specification of Tropes in our TropICAL programming language, described in Chapter~\ref{cha:tropical}.
+\changed{The literature review in Chapter~\ref{cha:literature-review} highlights the need
+for more flexible and intuitive formalisms of narrative. We address this by using tropes to provide an expressive, informal alternative to a strict formalism such as Propp's ``Morphology''. Formalisms require their users to learn their constituent rules in order to be useful. Our trope-based approach aims to allow the user to describe the parts of their story in as close to natural language as possible, while still allowing for their translation to a formal representation.
+This is implemented through a controlled natural language approach to the
+specification of Tropes in our TropICAL programming language, described in
+Chapter~\ref{cha:tropical}.}{Refers back to revised goals in the literature review}
 
 Story tropes are a familiar concept to many outside of the academic
 community, so their omission from the literature in either field of Computer
@@ -2027,13 +2011,13 @@ three-act structure:
 \begin{enumerate}
   \item The ``Exposition'' trope happens
   \item Then the ``Falling Action'' trope happens
-  \item Then the ``Zenith'' trope happens
+  \item Then the ``Nadir'' trope happens
   \item Then the ``Rising Action'' trope happens
   \item Then the ``Climax'' trope happens
   \item Then the ``Denouement'' trope happens
 \end{enumerate}
 
-Note that we added an additional trope, the ``Zenith'' trope to describe the
+Note that we added an additional trope, the ``Nadir'' trope to describe the
 lowest point in the story. Otherwise, the rest of the story ``shape'' is easily
 described in terms of tropes that we have defined already.
 
@@ -2117,565 +2101,6 @@ Meetup group are already familiar with them.
 
 % ACTUALLY DO THIS!
 
-\section{Describing Tropes as Institutions} % 1/2
-\label{sec:tropes-as-insts}
-Chapter~\ref{cha:institutions} makes the case for describing stories as social
-institutions in multi-agent systems: it allows an author to govern the
-behaviour of character agents in a story in a way that also allows them some
-autonomy to perform their own intended actions.
-This addresses the limitations of systems that make use of planners or drama
-managers, which tell the character agents precisely what to do,
-leaving them with no flexibility in their actions. The model
-that we propose views the narrative as a \emph{script}, and the telling as a
-\emph{performance}: the agents are encouraged to follow the script of the story,
-but are free to add their own ``improvisations'' while interacting with the player.
-
-Chapter~\ref{cha:institutions} describes how \emph{social institutions} can be
-used to govern the behaviours of story characters to conform to a narrative arc,
-without strictly controlling their behaviour, allowing the character autonomy
-that we wish to achieve. This section updates the work done in
-Chapter~\ref{cha:institutions} with the work described so far in this section, by using a institutional model to describe the tropes that occur within a story world.
-
-Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with the idea of tropes, we can create a narrative model in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story. In this way, the tropes are described as social norms which govern the character agents of a story, where an institution describes the norms that govern a certain trope, and a story is a collection of tropes.
-
-In order to describe story tropes in terms of social norms, we break them down into three components:
-
-\begin{enumerate}
-\item characters, which instantiate roles
-\item objects, which instantiate types
-\item places, which instantiate locations
-\end{enumerate}
-
-Characters' actions are described in terms of permissions and obligations. For example, a character in a certain role \emph{may} go to the cinema, or a character \emph{must} buy a ticket before the movie begins, otherwise they will not see it. Note that an obligation (which says that a character \emph{must} do something) can have a deadline (``before the movie begins'') and a consequence (``they will not see the movie''). These are both optional in our system.
-
-Returning to the tropes described in the introduction, we can express them in terms of social norms:
-
-\begin{itemize}
-  \item \textbf{The Hero's Journey}: The hero \emph{must} leave home when they receive the call to adventure. Then the hero \emph{may} kill the villain. Once this is done, the hero \emph{may} return home.
-  \item \textbf{The Evil Empire}: The villain has an empire, and \emph{may} kill the hero.
-  \item \textbf{MacGuffin}: The hero \emph{must} search for an object. However, the hero \emph{may} find it.
-  \item \textbf{Chekhov's Gun}: If a weapon appears in the beginning, it \emph{must} be used before the end of the story.
-\end{itemize}
-
-Describing tropes in terms of permissions and obligations is enough for us to be
-able to specify them as social norms, which allows us to represent them
-formally through the use of \emph{InstAL}~\citep{cliffe2007specifying}, the
-Institution Action Language, a language for describing social institutions which compiles to AnsProlog, an \emph{Answer Set Programming} (ASP) language.
-Once compiled to InstAL and AnsProlog, our tropes have a formal representation
-which (for example) allows us to use trope models and an ASP solver to determine
-which norms hold after agent or player actions have occurred in the story world.
-This means that we can use ASP to check whether certain sequences of events are possible within a story,
-given a set of trope descriptions.
-
-As Chapter~\ref{cha:institutions} explains, an institution describes the
-\emph{external} events that relate to actions in the agent's environment, and
-\emph{institutional} events that occur within the institution. The purpose of
-external events is to generate institutional events, which initiate and
-terminate social norms (permissions and obligations). When a trope is described
-as an institution, it must state which actions by the agents lead
-to the triggering of institutional events, and which norms these institutional
-events initiate or terminate.
-
-Take the case of a \emph{Star Wars} game, for example. Any agent has the ability
-to pick up a Lightsaber weapon. However, this action becomes institutionally
-meaningful if we state that it is the first event of the \emph{Hero's Journey}
-trope, where the Hero answers the Call to Adventure by obtaining a weapon.
-For example, an agent playing the role of Luke Skywalker in a Star Wars game may
-pick up a Lightsaber. If Luke Skywalker is a hero character, and a Lightsaber is
-a type of weapon, this would trigger an event inside the \emph{Hero's Journey}
-institution where a hero has
-picked up a weapon. As this corresponds to the first event in the \emph{Hero's
-  Journey} institution, it would initiate the norms for the next events in
-the institution to happen, which could be permission to use the weapon, or an obligation to go to the land of adventure.
-For more details on InstAL, social institutions, and the formalism in
-figures~\ref{fig:events} and~\ref{fig:term}, refer to
-Chapter~\ref{cha:institutions} and~\citep{cliffe2007specifying}.
-
-Using the same notation introduced in Chapter~\ref{cha:institutions}, Figure~\ref{fig:events} lists some external ($\mathcal{E}_{external}$) and institutional (internal, $\mathcal{E}_{internal}$) events for the \emph{Hero's Journey} trope. A wide range of external events such as \emph{go}, \emph{meet}, \emph{kill}, \emph{escape} generate the \emph{intHerosJourney} internal event, but only if the external event meets certain criteria. These criteria could be whether or not an agent fulfils a certain role, for example. Figure~\ref{fig:gen-hero} shows examples of such internal event generation ($\mathcal{G}$). In the first example (rule~\ref{eq:tatooine}), the \emph{intHerosJourney} event is generated when Luke Skywalker goes to Tatooine, but only if Luke has the role of \emph{hero}, and Tatooine's location is \emph{home}.
-Figure~\ref{fig:init-hero} shows how internal events initiate
-($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a
-trope. Because the \emph{Hero's Journey} trope has several stages, this example
-only shows the first two events of the trope (the \emph{phase} keywords are explained further in Section~\ref{sec:trope-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
-Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in Figure~\ref{fig:term-hero}.
-
-While InstAL allows us to express tropes as social institutions, it would be difficult to use for non-programmers who are unfamiliar with logic programming paradigms. In order for story authors to be able to create their own tropes, a much more user-friendly language is needed. This is the motivation for TropICAL, the domain specific language we describe in the next section.
-
-\begin{figure}[!t]\small
-\begin{align}
-  \mathcal{E}_{external} = & \left\{\begin{array}{c}
-\mathtt{go(Agent, Place)},\\
-\mathtt{meet(Agent, Agent)},\\
-\mathtt{kill(Agent, Agent)}\\
-\mathtt{escape(Agent)}
-\end{array}
-\right\}\label{eq:eobs-hero}\\
-  \mathcal{E}_{internal} = &\left\{\begin{array}{l}
-\mathtt{intHerosJourney(Agent,}\\
-\;\;\mathtt{Agent, Agent, Place, Place)}
-\end{array}\right\}
-\label{eq:einst-hero}
-\end{align}
-\caption{External and institutional events ($\mathcal{E}$) for the \emph{Hero's Journey} trope} \label{fig:events}
-\end{figure}
-
-\begin{figure*}[!t]
-\small
-%------------------------------------------------------------------------
-The generation relation $\mathcal{G}$ for trope state $\mathcal{X}$ and external event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\ 
-$\mathcal{G(X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-\begin{array}{r}
-\langle \{\mathit{role(lukeSkywalker, hero)},\\
-\mathit{location(tatooine, home)}\},\\
-\mathit{go}\mathtt{(lukeSkywalker, tatooine)} \rangle
-\end{array}
-&\rightarrow
-\begin{array}{l}
-\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{R, S, tatooine, T)}\}
-\end{array}\label{eq:tatooine}\\
-\begin{array}{r}
-                                 \langle \{\mathit{role(lukeSkywalker, hero)},\\
-  \mathit{role(obiWan, dispatcher)}\},\\
-\mathit{meet}\mathtt{(lukeSkywalker, obiWan)} \rangle
-\end{array}
-&\rightarrow
-\begin{array}{l}
-\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{obiWan, R, S, T)}\}
-\end{array}\label{eq:hsnth}
-\end{align}
-\end{minipage}
-}\right.$\smallskip
-
-%------------------------------------------------------------------------
-The fluent initiation relation $\mathcal{C^{\uparrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
-$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-\begin{array}{r}
-                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\
-\mathit{home, landOfAdventure)}\} \rangle
-\end{array}
-&\rightarrow
-\left\{\begin{array}{l}
-\text{perm}(\mathtt{meet(hero, dispatcher)})\\
-\text{phase}(\mathtt{herosJourney, phaseB})
-\end{array}\right\}\label{eq:cfirst-hero}\\
-\begin{array}{r}
-                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle\\
-  \end{array}
-&\rightarrow \left\{
-\begin{array}{l}
-  \text{perm}(\mathtt{kill(hero, villain)}) \\
-\text{obl}(\mathtt{go(hero, landOfAdventure),} \\
-\mathtt{kill(villain, victim)},\\
-\mathtt{viol(story, end)})\\
-\text{phase}(\mathtt{herosJourney, phaseC})
-\end{array}
-\right\}\label{eq:phaseb}
-\end{align}
-\end{minipage}
-}\right.$\smallskip
-
-%------------------------------------------------------------------------
-
-The fluent termination relation $\mathcal{C^{\downarrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
-$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-\begin{array}{r}
-                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
-  \end{array}
-&\rightarrow \left\{
-\begin{array}{l}\text{perm}(\mathtt{go(hero, home)}),\\
-\text{phase}(\mathtt{herosJourney, phaseA})
-\end{array}
-\right\}\label{eq:crt}\\
-\begin{array}{r}
-                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
-  \end{array}
-&\rightarrow \left\{
-\begin{array}{l}
-\text{perm}(\mathtt{meet(hero, dispatcher)})\\
-\text{phase}(\mathtt{herosJourney, phaseB})
-\end{array}
-\right\}\label{eq:crst}
-\end{align}
-\end{minipage}
-}\right.$
-\caption{Generation events, and fluent initation and termination for the Hero's Journey trope}
-\label{fig:gen-hero}
-\label{fig:init-hero}
-\label{fig:term-hero}
-\end{figure*}
-
-\section{Punch and Judy as Tropes}
-\label{sec:punchjudy-tropes}
-In Section~\ref{sec:pjexample}, we describe the \emph{sausages} scene of Punch
-and Judy in terms of Propp's story functions. We begin this section in the same
-way, by building up a scene description in terms of tropes. Then, as in
-section~\ref{sec:pjexample-insts}, we create an institution out of the scene we
-have described with our formalism. 
-
-On the TV Tropes page for Punch and Judy~\citep{pj-tropes}, the following tropes
-are listed (quoted
-directly from the site):
-
-\begin{itemize}
-  \item \textbf{Amusing Injuries}: People are often beaten up.
-  \item \textbf{Audience Participation}: The children are expected to reply to Mr. Punch's Catch Phrase, ``That's the way to do it'' with a shout of ``Oh no, it isn't!''
-  \item \textbf{Black Comedy}: So black that many modern versions are often heavily censored compared to more historical stagings.
-  \item \textbf{Catch Phrase}: ``That's the way to do it!'', ``HE'S BEHIND
-    YOU!'', etc.
-  \item \textbf{Comedic Sociopath}: Mr. Punch
-  \item \textbf{Commedia dell'Arte}: Punch is based on the \emph{Pulcinella} character.
-  \item \textbf{Crosses the Line Twice}: Good showings will definitely do this.
-  \item \textbf{Hand Puppet}: All of the characters, except the baby, are
-    puppets (though originally marionettes).
-  \item \textbf{Head Bob}: Traditionally the puppets don't have articulated mouths, and use head bobbing to indicate which one is speaking.
-  \item \textbf{Ironic Echo}: There's at least one rendition of the act where Punch ends up playing one trick too many on Snap the Crocodile, who promptly eats him (off-stage, of course) and returns repeating Mr Punch's ``da-da-da'' sound, culminating in a mock belch.
-  \item \textbf{Karma Houdini}: In many versions, Punch is a psychopath who kills his own baby by throwing it out of a window, beats his wife to death with a stick, kills several other characters whom he encounters and finally outwits the devil himself to get away completely scot free.
-  \item \textbf{Refuge in Audacity}: The entire show, especially the violence, is played as outrageous comedy.
-  \item \textbf{Slapstick}: The style of the show, even named after the type of stick Punch uses.
-  \item \textbf{Throw the Dog a Bone}: In some shows Judy will get her hands on Punch's stick and beat him with it. Though this is usually followed by Punch snatching it back and beating her with it.
-  \item \textbf{Unsympathetic Comedy Protagonist}: Mr. Punch
-  \item \textbf{Values Dissonance} Possibly the best example of this as Punch's domestic abuse of Judy is completely played for laughs.
-  \item \textbf{Villain Protagonist}: Mr. Punch
-\end{itemize}
-
-Some of these tropes are useful in our construction of the story as a whole in
-terms of tropes, while others are too general or abstract to express as agent behaviours. For example, the \emph{Commedia
-  dell'Arte} trope would be difficult to express in a way that would influence
-our interactive narrative. Instead of describing the entire story of Punch and
-Judy, we will describe the sausages scene first mentioned in
-section~\ref{sec:pjexample} in terms of tropes, using this one piece of the
-story as an illustrative example. To help with this translation,
-TV Tropes even has a page on Vladimir Propp which maps his story functions
-directly into tropes~\citep{propp-tropes}:
-
-\begin{enumerate}
-  \item Joey tells Punch to look after the sausages (\emph{Rule Number One}).
-  \item Joey has some reservations, but decides to trust Punch (\emph{Deal with
-      the Devil}).
-  \item Joey gives the sausages to Punch (\emph{Mentor Archetype}).
-  \item Joey leaves the stage (\emph{Parental Abandonment}).
-  \item A Crocodile enters the stage and eats the sausages (\emph{Don't Touch
-      It, You Idiot!}).
-  \item Punch fights with the Crocodile (\emph{Earn Your Happy Ending}).
-  \item Joey returns to find that the sausages are gone (\emph{Where It All Began}).
-\end{enumerate}
-
-Here are the tropes mentioned above, described in more detail:
-
-\paragraph{Rule Number One} (interdiction)
-
-TV Tropes actually describes two separate versions of this trope:
-
-\begin{itemize}
-  \item a situation where a character makes rules to govern a dangerous or
-    uncomfortable situation (one such example being ``The first rule of Fight
-    Club...'', which is in itself a trope of its own).
-  \item when a Mentor Archetype conveys advice or admonishments to another
-    character, such as ``Don't use the dangerous forbidden technique!'' or
-    ``Always believe in yourself!''.
-\end{itemize}
-
-In the case of our scene, the interdiction seems to be the second type listed
-here.
-
-\paragraph{Deal with the Devil} (complicity)
-
-The classic incarnation of this trope is the $16^{th}$ century legend of Faust
-selling his soul to Mephistopheles. It involves a desperate pawn (Faust) signing
-a magically binding contract with a corrupt, exploitative trickster
-(Mephistopheles, or any Satan-like character).
-
-In this scene, Punch would be the corrupt exploiter, with Joey the Clown as his pawn.
-
-\paragraph{Mentor Archetype} (Receipt / provision of a Magical Agent)
-
-TV Tropes describes this as ``A more experienced advisor or confidante to a
-young, inexperienced character, particularly to a hero.''.
-
-Due to our stretching of the original Propp function definition, this trope does
-not fit what we want to express: the simple act of Joey giving the sausages to
-Punch. Joey does not really fulfil the Mentor role. Additionally, TV Tropes'
-translation of ``Receipt of a Magical Agent'' from Propp to ``Mentor Archetype''
-is questionable: there is no mention of a Magical Agent in this trope, only of
-the Mentor who provides it. We must look for a better-fitting trope in this case.
-
-\paragraph{Parental Abandonment} (absentation)
-
-This trope is straightforward: the protagonist is abandoned by their parents
-(emotionally or physically). In the case of the trope, it is described as
-something that drives or influences the protagonist, such as in the case of
-the character Bruce Wayne: the death of his parents early on drove him to
-become the superhero Batman. This differs from Propp's function (and our Punch
-and Judy example), in which the absence of parental or supervisory characters
-leads to mischief from the protagonist, and the violation of the earlier
-interdiction. This trope appears to be defined flexibly enough to fit this
-interpretation as well, however.
-
-\paragraph{Don't Touch It, You Idiot!} (violation)
-
-The title of this trope does not entirely convey the nuance of its meaning: TV
-Tropes defines it as any order or interdiction that is inevitably violated at
-some point later in the story. This actually fits well with Propp's original
-definition, which stated that the ``interdiction'' and ``violation'' story
-functions must always go together, as one inevitably leads to the other.
-
-\paragraph{Earn Your Happy Ending} (struggle)
-
-This trope states that the characters in a story must face far more difficulty
-than usual, overcoming more obstacles than most characters would have to face.
-However, the characters get a happy ending as a result of their struggles.
-
-Again, this does not fit our scene where Punch fights the crocodile for the
-sausages. Though it does describe a struggle of sorts, it is more of a comedy
-fight than anything arduous for the characters involved. We can probably find a
-better match for this trope.
-
-\paragraph{Where It All Began} (return)
-
-This trope does not match the definition of ``return'' that we have used from
-Propp: in our case, it describes the return of a supervisory character some time
-after they went away during the \emph{absentation} function. TV Tropes'
-definition describes more the return of the protagonist to their hometown at the
-end of the \emph{Hero's Journey}. In this case, we need to find a trope that
-is the counterpart to the ``Parental Abandonment'' function from earlier, which
-describes the return of the ``parents'' of that particular trope. The problem is
-the slight mismatch in the definition of the trope against the Propp function we
-are using. In the most literal case of the trope, the ``parents'' cannot return:
-they are dead. Again, this indicates that perhaps we must find tropes
-that more closely match Propp's definitions of \emph{absentation} and \emph{return}.
-
-\subsection{Issues with Propp Mapping}
-From our deeper analysis of TV Tropes' mappings of Propp story functions to
-tropes, a number of issues have arisen:
-
-\begin{itemize}
-  \item Our use of Propp's story functions may be a little too ``flexible''.
-    This means that the mappings of the functions we have used add an extra
-    layer of interpretation to the translation, taking us away from the original
-    intended meaning.
-  \item Tropes, by their very nature, are a little ambiguous and open to
-    interpretation. The same trope could even be expressed in multiple different
-    ways, such as the ``Rule Number One'' trope.
-\end{itemize}
-
-In place of TV Trope's suggested ``struggle'' trope, \emph{Earn Your Happy
-  Ending}, a more suitable trope to use would be the \emph{Chase Fight}:
-
-\begin{quote}
-\textbf{Chase Fight}: An X meets Y cross between a Chase Scene and a Fight Scene.
-\end{quote}
-
-This is far more suited to our purposes, as the scene simply consists of the
-crocodile fighting Punch by chasing him around the stage.
-
-Similarly, in the place of the ``absentation'' and ``return'' tropes,
-\emph{Parental Abandonment} and \emph{Where It All Began}, TV Tropes has a more
-suitable pair to use:
-
-\begin{quote}
-\textbf{Put on a Bus}: a character is written out of a story so that they may
-(possibly) return later.
-\end{quote}
-
-\begin{quote}
-\textbf{The Bus Came Back}: when one of the (main) characters returns back into
-the story.
-\end{quote}
-
-Though this trope pair better captures the essence of the leaving and return of
-Joey, what if we also wanted some of the nuance of the \emph{Parental
-  Abandonment} trope? The beauty of the capturing tropes as institutions is that
-we can use both sets of tropes and let the player and character agents decide
-the outcome, which could be a set of actions from a mixture of both tropes.
-
-For simplicity, we can remove the ``Deal With The Devil'' trope, as well as
-``Rule Number One''. The ``Don't Touch It, You Idiot'' trope includes the
-interdiction that we wanted to express through the ``Rule Number One'' trope.
-Also, as the ``Deal With The Devil'' trope involves a lot more than the simple
-complicity with which Joey goes along with Punch's plans, it can be safely omitted.
-
-This leaves us with just four tropes that describe our scene:
-
-\begin{itemize}
-\item\textbf{Don't Touch It, You Idiot}: Joey gives the sausages to Punch,
-  telling him not to eat them
-\item\textbf{Put on a Bus}: Joey temporarily leaves the stage
-\item\textbf{Chase Fight}: The Crocodile appears and chases Punch around the stage
-\item\textbf{The Bus Came Back}: Joey returns to the stage to scold Punch
-\end{itemize}
-
-\subsubsection{Trope Roles}
-The character roles that appear in trope descriptions in TV Tropes differ
-greatly from the \emph{Dramatis Personae} defined in Propp's morphology. For
-each of the four tropes, we identify the following roles:
-
-\begin{itemize}
-\item \textbf{Don't Touch It, You Idiot}: the \emph{owner} (Joey) and the \emph{idiot} (Punch)
-\item \textbf{Put on a Bus}: the \emph{absentee} (Joey)
-\item \textbf{Chase Fight}: the \emph{chaser} (Crocodile) and the \emph{pursued} (Punch)
-\item \textbf{The Bus Came Back}: the \emph{returnee} (Joey)
-\end{itemize}
-
-Clearly, this means that each character must adopt multiple roles throughout the
-course of a narrative. In this scene alone, Joey the Clown plays the roles of
-\emph{owner}, \emph{absentee} and \emph{returnee}. Punch himself must be an
-\emph{idiot} and the \emph{pursued}.
-
-These roles are not strictly defined in the descriptions found in TV Tropes, and
-must be inferred by the reader. Furthermore, these roles do not describe
-character archetypes such as \emph{Hero} or \emph{Comedic Sociopath}. One
-interesting way to approach this issue could be to have an archetype inherit certain
-character roles. For example, a \emph{Comedic Sociopath} could automatically
-fill the roles of \emph{murderer}, \emph{idiot}, \emph{pursuer}, and
-\emph{chaser}. This idea, while promising, is outside the scope of this thesis,
-and so is discussed further only in the ``future work'' Section~\ref{sec:future}.
-
-\subsection{Return to the Sausages Scene}
-\label{sec:dont-touch-inst}
-
-Using the same process with which we described the \emph{Hero's Journey} in
-terms of an institution in Section~\ref{sec:tropes-as-insts}, this section shows
-the translation of the \emph{Don't Touch It, You Idiot} trope into a formal institution.
-
-First, we define the sequence of events that form the trope:
-
-\begin{itemize}
-% \item The \emph{owner} has an \emph{object}
-\item The \emph{owner} tells the \emph{idiot} to protect an \emph{item}
-\item Then the \emph{owner} goes away
-\item Then the \emph{idiot} breaks the \emph{item}
-\item Then the \emph{owner} returns
-\item Then the \emph{owner} fights the \emph{idiot}
-\end{itemize}
-
-This is the simplest possible interpretation of the trope. It is possible for
-other interpretations to exist: for example, rather than the \emph{owner} returning and
-fighting the \emph{idiot}, something bad might happen to the \emph{idiot}
-instead. In our TropICAL language, alternative outcomes can be expressed using
-the \emph{or} operator (Section~\ref{sec:branch-code}) allowing the creation of more flexible tropes
-which cater for branching story lines.
-
-Now that we have determined the events that occur as part of the trope, we can describe its domain fluents, which include all the
-actions of the characters, as well as their roles:
-\begin{align*}
-  \mathcal{D} =&\left\{\mathtt{owner, idiot, item, away, inactive, phaseA,}\right.\\\nonumber
-  &\left. {} \mathtt{phaseB, phaseC, phaseD, phaseE, done}\right\} %\label{eq:domain}
-\end{align*}
-
-Also based on the above sequence events is the list of actions that may be
-permitted to occur within the trope:
-\begin{align*}
-  \mathcal{P} =& \left\{\mathtt{perm(tellprotect(owner, idiot, item)), perm(go(owner, away)),}\right.\nonumber\\
-  &\left. {} \mathtt{perm(break(idiot, item)), perm(return(owner)),}\right.\nonumber\\
-             &\left. {} \mathtt{perm(fight(owner, idiot))}\right\} %\label{eq:perm}
-\end{align*}
-
-\subsubsection{Trope Phases}
-\label{sec:trope-phases}
-
-While arranging these four tropes in a linear sequence describes the
-\emph{sausages} scene for the most part, our use of the \emph{Don't Touch It, You Idiot} trope in place of both of
-Propp's \emph{interdiction} and \emph{violation} story functions introduces an
-extra challenge to its implementation as an institution: it has two different
-\emph{phases}. The first phase is triggered by one character warning another
-character not to do something, the second is when the warned character performs
-the forbidden action.
-
-In order to properly describe the scene in terms of the four tropes, we must
-first describe the mechanism by which we divide this trope into separate phases.
-This is done through the addition of a \emph{phase} fluent which takes a trope
-(institution) name and its current phase as parameters, such as:
-$\mathtt(phase(intHerosJourney, phaseA))$.
-
-At first, each trope is ``inactive'', reflected in the \emph{phase} fluent as
-$\mathtt(phase(intTropeName, inactive))$ After each event that occurs in the
-trope, its phase is updated, starting at \emph{phaseA}, then \emph{phaseB},
-through to \emph{phaseZ}. Once a trope has finished (its final event has
-happened), its \emph{phase} fluent is set to $\mathtt(phase(intTropeName,
-done))$. It is set to \emph{done} rather than \emph{inactive}, because there may
-be situations where we want to check whether or not a trope has already
-appeared, so that it may not be repeated for example.
-
-\begin{figure}[!t]
-\abovedisplayskip=0pt
-\abovedisplayshortskip=0pt
-$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
-  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA}), \nonumber\\
-  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{tellprotect(owner, idiot, item)})\}\label{eq:phase-inactive}\\
-  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
-  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB}), \nonumber\\
-  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{go(owner, away)})\}\label{eq:phase-a}\\
-  &\langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},\nonumber\\
-  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle \rightarrow \nonumber\\
- &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, done}\}\label{eq:phase-done}
-\end{align}
-\end{minipage}}\right.$
-\caption{Phase fluent initiation in the ``Don't Touch It, You Idiot'' trope} \label{fig:pj-phase-inits}
-\medskip
-\abovedisplayskip=0pt
-\abovedisplayshortskip=0pt
-$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \emptyset\label{eq:phase-inactive-term}\\
-  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
-  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle % \nonumber\\
-                                 % &\qquad\qquad
-&\rightarrow \emptyset\label{eq:phase-a-term}\\
-  \langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},
-  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
-                                 %&\qquad\qquad
-&\rightarrow \emptyset\label{eq:phase-done-term}
-\end{align}
-\end{minipage}}\right.$
-\caption{Phase fluent termination in the ``Don't Touch It, You Idiot'' trope} \label{fig:pj-phase-terms}
-\end{figure}
-
-Returning to our \emph{Don't Touch It, You Idiot} example,
-Figure~\ref{fig:pj-phase-inits} shows how a short version of the \emph{Dont Touch
-  It You Idiot} trope with just two phases would be described with \emph{phase}
-fluents that are initiated according to their corresponding events, with
-Figure~\ref{fig:pj-phase-terms}. The left side of Rule~\ref{eq:phase-inactive}
-shows a set of fluents that describe its initial state. In this case, the only
-fluent is $\text{phase}\mathtt{(dontTouchItYouIdiot, inactive)}$, which states
-that the \emph{Don't Touch It, You Idiot} trope is inactive. Beneath the set of
-state fluents is the institutional event that initiates the norms and fluents that appear
-to the right of the arrow. In the case of Rule~\ref{eq:phase-inactive}, the \emph{intDontTouchItYouIdiot}
-institutional event is initiating \emph{Phase A} of the trope
-($\text{phase}\mathtt{(dontTouchItYouIdiot, phaseA)}$), and the permission of
-the \emph{owner} agent to tell the \emph{idiot} agent to protect the \emph{item}
-($\text{perm}\mathtt{(tellprotect(owner, idiot, item))}$). Rule~\ref{eq:phase-a}
-shows that \emph{Phase B} and permission for the \emph{owner} to go \emph{away}
-are initiated by the \emph{intDontTouchItYouIdiot} institutional event if the
-\emph{dontTouchItYouIdiot} trope is in \emph{Phase A}. Rule~\ref{eq:phase-done}
-simply sets the trope's phase to \emph{done} if it is in \emph{Phase B}, without
-initiating any norms.
-
-The termination rules in Figure~\ref{fig:pj-phase-terms} simply terminate any
-phase fluents that hold (represented by the empty set in
-Rules~\ref{eq:phase-inactive-term}, \ref{eq:phase-a-term}
-and~\ref{eq:phase-done-term}), so that the new phase fluent replaces its predecessor.
-
-Extending this example to include all events, along with the corresponding
-permissions and obligations that they grant our story characters, results in the
-institution described in Appendix~\ref{appendix:sausages-full}.
 
 % \section{TropICAL: a DSL for Tropes} % 1
 % \label{sec:tropical}
@@ -3678,10 +3103,12 @@ of the TropICAL language, refer to Appendix~\ref{appendix:t-grammar}.
 \label{sec:t-codegen}
 % TODO intro: 1
 % TODO tech discussion: 1
-Once the tropes written in TropICAL have been parsed and converted into an
-intermediate hash map, this data structure is then used to generate InstAL code.
 This section describes how and why language features translate to
 InstAL, with fully translated examples of InstAL code appearing in Appendix~\ref{appendix:instal}.
+
+\subsection{Why use ASP and InstAL?}
+\label{sec:why-asp-instal}
+\added{}{2.4.2: A short introduction to ASP and InstAL including why I selected them}
 
 \subsection{Compilation Strategy}
 
@@ -3702,6 +3129,8 @@ following:
   The hash map representation of each TropICAL trope is converted into a corresponding InstAL institution.
 \end{enumerate}
 
+Once the tropes written in TropICAL have been parsed and converted into an
+intermediate hash map, this data structure is then used to generate InstAL code.
 Each TropICAL trope compiles to a separate InstAL institution, each of which is
 contained in its own file. Example pieces of code of the anatomy of an InstAL institution are
 shown in Listing~\ref{lst:instal-anatomy}. 
@@ -3748,6 +3177,72 @@ An InstAL institution contains the following parts:
   fluents that describe the role, object and place entities in the trope
   (lines~\ref{lne:initially-start} -~\ref{lne:initially-end}, described in Section~\ref{sec:anat-initial})
 \end{itemize}
+
+\subsubsection{Intermediate Hash Map Representation}
+\added{}{2.4.1: Added a new section to explain the hash map that TropICAL code compiles
+  to}
+
+Once a TropICAL definition of a trope has been parsed, its parse tree is
+converted into a hash map, which is used as an intermediate data structure from
+which different outputs can be produced. A hash map consists of key-value pairs,
+and is used as a table to look up values that correspond to certain keys.
+
+In our case, we are generating the
+InstAL code from this hash map, but the purpose of using this intermediate data
+structure is to simplify the process of compiling to other programming
+languages. This would make it easier, for example, to add code that generates
+AnsProlog code directly rather than compiling to InstAL first.
+
+The format of the hash map is as follows:
+
+\begin{itemize}
+  \item \textbf{Label}: A string representing the name of the trope
+  \item \textbf{Events}: A list of events that occur in the trope (see below for
+    a description of an event)
+  \item \textbf{Roles}: A list of strings describing character names for the trope
+  \item \textbf{Objects}: A list of strings that are names of objects in the trope
+  \item \textbf{Locations}: A list of strings naming places in the trope
+\end{itemize}
+
+Each event is a separate hash map consisting of a subject (which corresponds to a \emph{role} key), a
+predicate (a \emph{verb} key) and an object. The object key can be a
+\emph{role}, \emph{object} or \emph{place}. In the case where both subject and object are roles, the keys are renamed
+to \emph{role-a} and \emph{role-b}.
+In the case where branching events occur in a trope, the event's only key is
+\emph{or}, whose value is a list of alternative events that could happen.
+
+Listing~\ref{lst:macguffin-listing} shows a simplified ``MacGuffin'' trope in
+TropICAL. Once this trope has been parsed, its parse tree is processed and
+converted to the hash map representation shown in
+Listing~\ref{lst:macguffin-hashmap}. In the listing, a hash map is contained
+inside curly braces, with keys being unquoted words preceded by a colon and
+values immediately following keys. Lists of values
+are contained inside square brackets.
+
+\begin{lstlisting}[showstringspaces=false, label={lst:macguffin-listing},
+caption={A simplified example of the ``MacGuffin'' trope}]
+"MacGuffin" is a trope where:
+  The Macguffin is an object
+  The Hero is a role
+  The Villain is a role
+  Home is a place
+  The Hero chases the Macguffin
+  Then the Hero finds the Macguffin
+    Or the Villain finds the Macguffin
+  Then the Hero goes Home
+\end{lstlisting}
+
+\begin{lstlisting}[showstringspaces=false, label={lst:macguffin-hashmap},
+caption={Hash Map representation of the ``MacGuffin trope from Listing~\ref{lst:macguffin}''}]
+{:label "MacGuffin",
+ :events [{:role "Hero", :verb "chase", :object "Macguffin"},
+          {:or [{:role "Hero", :verb "find", :object "Macguffin"}
+                {:role "Villain", :verb "find", :object "Macguffin"}]}
+          {:role "Hero", :verb "go", :place "Home"}],
+ :roles ("The Hero" "The Villain"),
+ :objects ("The Macguffin"),
+ :locations ("Home")}
+\end{lstlisting}
 
 When a trope's hash map representation is converted into InstAL, each entity
 (role, place, object) is assigned a letter to be used as a variable in the
@@ -4618,6 +4113,10 @@ These trace outputs do not assist the reader in visualising the possible
 sequences of events that they represent. For this reason, we suggest that the
 reader refer to the visualisations produced by the StoryBuilder tool in Section~\ref{sec:trope-visualisation}.
 
+\subsection{Combining Tropes}
+\label{sec:trope-combination-exp}
+\added{}{2.3.3: Added a discussion on how to combine tropes}
+
 
 \section{Summary}
 \label{sec:tropical-summary}
@@ -4959,8 +4458,65 @@ of this subtrope, as described in Listing~\ref{lst:subtrope2}, and its resulting
 \caption{Trope containing a subtrope (from Listing~\ref{lst:subtrope2})}\label{fig:sb-subtrope2}
 \end{figure}
 
-\subsection{Creating a story with StoryBuilder: Punch and Judy}
+\subsection{Introducing ``Punch and Judy''}
+\changed{}{Moved this back here from its previous position in
+  Ch.\ref{cha:institutions}, as this is now the first mention of P\&J}
 
+Throughout this thesis we use the \emph{Punch and Judy} story world for our
+example narratives. \emph{Punch and Judy} is a traditional British-Italian
+puppet show often seen at seaside resorts. Its first recorded appearance in the
+UK is in Covent Garden, London in 1662, having been brought into the country by
+Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
+institution, delighting children and adults alike over the course of centuries.
+
+The show itself is an incredibly violent farce, where the titular character
+\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
+with him having an argument with another puppet, and end with Punch beating the
+other puppet to death. He starts by killing his wife and child, then the
+policeman that comes to arrest him, before finally murdering the Devil himself.
+
+Interestingly, there is no comeuppance for Punch's killing spree, as most modern
+audiences would expect. Instead, the story shows Punch as a buffoon, a
+ridiculous caricature of an angry man who blunders his way through life, yet is
+victorious nonetheless. The story has no moral message, only farcical violence.
+
+Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
+it a suitable narrative domain for the purposes of testing our research:
+
+\begin{itemize}
+\item It has many recognisable patterns, or \emph{tropes}. For example, most
+  scenes feature some kind of audience participation, and most end with
+  slapstick comedy.
+\item It can be as simple or sophisticated as we choose to make it. Some scenes
+  are relatively simple to model, such as the scene where Punch beats the
+  policeman. Others are more difficult, such as where Punch is asked to guard
+  some suasages, but then loses them to a crocodile. Combining several scenes
+  into a complete and recognisable \emph{Punch and Judy} narrative is, we
+  contend, a worthwhile challenge for a narrative generation system.
+\item Following from this, its scenes can either be self-contained and modelled
+  on their own, or can depend on the context of the previous scenes. For
+  example, Punch's foes increase in importance as his rampage progresses. In some
+  versions, he kills his wife, then a policeman, then the executioner sent to
+  hang him, then finally the Devil. This makes it useful for modelling a
+  narrative with a state that changes over time.
+\item Most (British) people know Punch and Judy when they see it. They are able
+  to recognise how characters in the story are supposed to behave, and what
+  should happen in each scene and in the story as a whole. This helps with
+  evaluation of the system: the audience will be able to say whether or not the
+  generated tropes are \emph{authentic} or not.
+\end{itemize}
+
+The minimal set of Punch and Judy characters would be Punch, his wife Judy,
+their baby, Joey the clown (who narrates the story and interacts with the
+audience, and is immune to Punch's attacks), a crocodile and a Policeman.
+Extended versions include other animals that Punch chases (such as a monkey or
+cat), and the previously mentioned hangman and Devil characters. These are not
+needed for a full Punch and Judy show, however. Indeed, many performers show
+just one or two scenes in a show, with the first featuring Punch, Judy and the
+baby, and then finishing with the scene where Punch wrestles with a crocodile
+for some sausages.
+
+\subsection{Creating a Punch and Judy story with StoryBuilder}
 The tropes that appear in Punch and Judy can be divided into two types: those
 that are present throughout the story, and those that describe particular scenes
 of the story. One trope that is a constant feature of Punch and Judy shows is
@@ -5131,6 +4687,8 @@ trope, redefined with a subtrope}]
 \end{lstlisting}
 \end{minipage}
 
+A full 
+
 \subsection{Combining Tropes Together}
 \label{sec:combining-tropes}
 
@@ -5173,11 +4731,13 @@ This corresponds to one of the permutations of combining the events of the
 ``Babysitting'' and ``Audience Participation'' tropes in different orders, and
 would be just one of the many paths through the visualised tree.
 
-
 Using this part of the StoryBuilder tool, the user is able to interactively
 explore the different combinations of events that different tropes add to their
 story. When these combinations of tropes are visualised, they are then able to
 refine their tropes further in order to build the non-linear narrative that they desire.
+
+\added{Further discussion on trope combination appears in Section~\ref{sec:trope-combination-exp}.}{2.3.3: Forward ref to discussion on
+  combining tropes together}
 
 \section{Design Justification}
 % Return to requirements, explain how they are met
@@ -6205,82 +5765,13 @@ to kill innocent civilians while the villain tries to rescue them, for example.
 Our approach is to model the story world using formal logic, which allows us to
 check whether or not actions that occur within the story are consistent with its description.
 
-Using the \emph{Punch and Judy} story world as our initial example, we formalise
-its narrative rules by describing them in terms of Propp's \emph{story
-  functions}. We do this as a basis of comparison for when we later redefine the
-story in terms of \emph{tropes}. For this section, the aim of which is to demonstrate the use of
-\emph{logic} for narrative rather than of tropes, Propp's formalism is used for
-simplicity and demonstrative purposes.
+\changed{Using the \emph{Punch and Judy} story world as our initial example, we formalise
+its narrative rules by describing them in terms of tropes. We then demonstrate
+how these tropes can then be expressed as social institutions to govern the
+intelligent agents in a multi-agent system.}{Describing P\&J in terms of just tropes,
+instead of Propp then tropes}
 
-\subsection{Introducing ``Punch and Judy''}
-Throughout this thesis we use the \emph{Punch and Judy} story world for our
-example narratives. \emph{Punch and Judy} is a traditional British-Italian
-puppet show often seen at seaside resorts. Its first recorded appearance in the
-UK is in Covent Garden, London in 1662, having been brought into the country by
-Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
-institution, delighting children and adults alike over the course of centuries.
-
-The show itself is an incredibly violent farce, where the titular character
-\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
-with him having an argument with another puppet, and end with Punch beating the
-other puppet to death. He starts by killing his wife and child, then the
-policeman that comes to arrest him, before finally murdering the Devil himself.
-
-Interestingly, there is no comeuppance for Punch's killing spree, as most modern
-audiences would expect. Instead, the story shows Punch as a buffoon, a
-ridiculous caricature of an angry man who blunders his way through life, yet is
-victorious nonetheless. The story has no moral message, only farcical violence.
-
-Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
-it a suitable narrative domain for the purposes of testing our research:
-
-\begin{itemize}
-\item It has many recognisable patterns, or \emph{tropes}. For example, most
-  scenes feature some kind of audience participation, and most end with
-  slapstick comedy.
-\item It can be as simple or sophisticated as we choose to make it. Some scenes
-  are relatively simple to model, such as the scene where Punch beats the
-  policeman. Others are more difficult, such as where Punch is asked to guard
-  some suasages, but then loses them to a crocodile. Combining several scenes
-  into a complete and recognisable \emph{Punch and Judy} narrative is, we
-  contend, a worthwhile challenge for a narrative generation system.
-\item Following from this, its scenes can either be self-contained and modelled
-  on their own, or can depend on the context of the previous scenes. For
-  example, Punch's foes increase in importance as his rampage progresses. In some
-  versions, he kills his wife, then a policeman, then the executioner sent to
-  hang him, then finally the Devil. This makes it useful for modelling a
-  narrative with a state that changes over time.
-\item Most (British) people know Punch and Judy when they see it. They are able
-  to recognise how characters in the story are supposed to behave, and what
-  should happen in each scene and in the story as a whole. This helps with
-  evaluation of the system: the audience will be able to say whether or not the
-  generated tropes are \emph{authentic} or not.
-\end{itemize}
-
-The minimal set of Punch and Judy characters would be Punch, his wife Judy,
-their baby, Joey the clown (who narrates the story and interacts with the
-audience, and is immune to Punch's attacks), a crocodile and a Policeman.
-Extended versions include other animals that Punch chases (such as a monkey or
-cat), and the previously mentioned hangman and Devil characters. These are not
-needed for a full Punch and Judy show, however. Indeed, many performers show
-just one or two scenes in a show, with the first featuring Punch, Judy and the
-baby, and then finishing with the scene where Punch wrestles with a crocodile
-for some sausages.
-
-\subsubsection{A Punch and Judy Scene Described as Propp Functions}\label{sec:pjexample}
-The common elements of Punch and Judy are easily described in terms of Propp's story functions. Here we pick one scene to use as an example: the scene where Punch battles a Crocodile in order to safeguard some sausages.  In this scene, Joey the clown (our narrator) asks Punch to guard the sausages. Once Joey has left the stage, a Crocodile appears and eats the sausages. Punch fights with the Crocodile, but it escapes. Joey then returns to find that his sausages are gone.
-The corresponding story functions are:
-\begin{enumerate}
-  \item Joey tells Punch to look after the sausages (\emph{interdiction}).
-  \item Joey has some reservations, but decides to trust Punch (\emph{complicity}).
-  \item Joey gives the sausages to Punch (\emph{provision or receipt of a magical agent}).
-  \item Joey leaves the stage (\emph{absentation}).
-  \item A Crocodile enters the stage and eats the sausages (\emph{violation}).
-  \item Punch fights with the Crocodile (\emph{struggle}).
-  \item Joey returns to find that the sausages are gone (\emph{return}).
-\end{enumerate}
-
-Some story functions map to Punch and Judy better than others (for example, it is debatable as to whether or not the sausages can be considered a ``magical agent''), but Propp's formalism seems well suited to Punch and Judy for the most part. The advantage of using Propp for the Punch and Judy story domain is that the story function concept maps well to the idea of internal events in institutional models.
+\deleted{Removed ``A Punch and Judy Scene Described as Propp Functions''}
 
 \section{Norms and Institutions}
 \label{sec:norms-and-institutions}
@@ -6472,6 +5963,558 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 Now that the components of our \emph{Punch and Judy} institution have been
 defined, the next section describes how this institution is used to govern the
 character agents in our story world.
+
+\section{Describing Tropes as Institutions} % 1/2
+\label{sec:tropes-as-insts}
+\deleted{2.3: Argument for institutions giving characters more autonomy}
+
+\changed{The previous section describes how \emph{social institutions} can be
+used to govern the behaviours of story characters to conform to a narrative
+arc.}{2.3: Removed autonomy argument}
+\changed{This section demonstrates how social institutions can be used to implement
+  story tropes in a multi-agent system.}{2.3.1d: Explains that institutions are our
+chosen way to implement tropes}
+
+Institutional models use concepts from deontic logic to provide obligations and permissions that act on interacting agents in an environment. By combining this approach with the idea of tropes, we can create a narrative model in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story. In this way, the tropes are described as social norms which govern the character agents of a story, where an institution describes the norms that govern a certain trope, and a story is a collection of tropes.
+
+In order to describe story tropes in terms of social norms, we break them down into three components:
+
+\begin{enumerate}
+\item characters, which instantiate roles
+\item objects, which instantiate types
+\item places, which instantiate locations
+\end{enumerate}
+
+Characters' actions are described in terms of permissions and obligations. For example, a character in a certain role \emph{may} go to the cinema, or a character \emph{must} buy a ticket before the movie begins, otherwise they will not see it. Note that an obligation (which says that a character \emph{must} do something) can have a deadline (``before the movie begins'') and a consequence (``they will not see the movie''). These are both optional in our system.
+
+Returning to the tropes described in the introduction, we can express them in terms of social norms:
+
+\begin{itemize}
+  \item \textbf{The Hero's Journey}: The hero \emph{must} leave home when they receive the call to adventure. Then the hero \emph{may} kill the villain. Once this is done, the hero \emph{may} return home.
+  \item \textbf{The Evil Empire}: The villain has an empire, and \emph{may} kill the hero.
+  \item \textbf{MacGuffin}: The hero \emph{must} search for an object. However, the hero \emph{may} find it.
+  \item \textbf{Chekhov's Gun}: If a weapon appears in the beginning, it \emph{must} be used before the end of the story.
+\end{itemize}
+
+Describing tropes in terms of permissions and obligations is enough for us to be
+able to specify them as social norms, which allows us to represent them
+formally through the use of \emph{InstAL}~\citep{cliffe2007specifying}, the
+Institution Action Language, a language for describing social institutions which compiles to AnsProlog, an \emph{Answer Set Programming} (ASP) language.
+Once compiled to InstAL and AnsProlog, our tropes have a formal representation
+which (for example) allows us to use trope models and an ASP solver to determine
+which norms hold after agent or player actions have occurred in the story world.
+This means that we can use ASP to check whether certain sequences of events are possible within a story,
+given a set of trope descriptions.
+
+As Chapter~\ref{cha:institutions} explains, an institution describes the
+\emph{external} events that relate to actions in the agent's environment, and
+\emph{institutional} events that occur within the institution. The purpose of
+external events is to generate institutional events, which initiate and
+terminate social norms (permissions and obligations). When a trope is described
+as an institution, it must state which actions by the agents lead
+to the triggering of institutional events, and which norms these institutional
+events initiate or terminate.
+
+Take the case of a \emph{Star Wars} game, for example. Any agent has the ability
+to pick up a Lightsaber weapon. However, this action becomes institutionally
+meaningful if we state that it is the first event of the \emph{Hero's Journey}
+trope, where the Hero answers the Call to Adventure by obtaining a weapon.
+For example, an agent playing the role of Luke Skywalker in a Star Wars game may
+pick up a Lightsaber. If Luke Skywalker is a hero character, and a Lightsaber is
+a type of weapon, this would trigger an event inside the \emph{Hero's Journey}
+institution where a hero has
+picked up a weapon. As this corresponds to the first event in the \emph{Hero's
+  Journey} institution, it would initiate the norms for the next events in
+the institution to happen, which could be permission to use the weapon, or an obligation to go to the land of adventure.
+For more details on InstAL, social institutions, and the formalism in
+figures~\ref{fig:events} and~\ref{fig:term}, refer to
+Chapter~\ref{cha:institutions} and~\citep{cliffe2007specifying}.
+
+Using the same notation introduced in Chapter~\ref{cha:institutions}, Figure~\ref{fig:events} lists some external ($\mathcal{E}_{external}$) and institutional (internal, $\mathcal{E}_{internal}$) events for the \emph{Hero's Journey} trope. A wide range of external events such as \emph{go}, \emph{meet}, \emph{kill}, \emph{escape} generate the \emph{intHerosJourney} internal event, but only if the external event meets certain criteria. These criteria could be whether or not an agent fulfils a certain role, for example. Figure~\ref{fig:gen-hero} shows examples of such internal event generation ($\mathcal{G}$). In the first example (rule~\ref{eq:tatooine}), the \emph{intHerosJourney} event is generated when Luke Skywalker goes to Tatooine, but only if Luke has the role of \emph{hero}, and Tatooine's location is \emph{home}.
+Figure~\ref{fig:init-hero} shows how internal events initiate
+($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a
+trope. Because the \emph{Hero's Journey} trope has several stages, this example
+only shows the first two events of the trope (the \emph{phase} keywords are explained further in Section~\ref{sec:trope-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
+Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in Figure~\ref{fig:term-hero}.
+
+While InstAL allows us to express tropes as social institutions, it would be difficult to use for non-programmers who are unfamiliar with logic programming paradigms. In order for story authors to be able to create their own tropes, a much more user-friendly language is needed. This is the motivation for TropICAL, the domain specific language we describe in the next section.
+
+\begin{figure}[!t]\small
+\begin{align}
+  \mathcal{E}_{external} = & \left\{\begin{array}{c}
+\mathtt{go(Agent, Place)},\\
+\mathtt{meet(Agent, Agent)},\\
+\mathtt{kill(Agent, Agent)}\\
+\mathtt{escape(Agent)}
+\end{array}
+\right\}\label{eq:eobs-hero}\\
+  \mathcal{E}_{internal} = &\left\{\begin{array}{l}
+\mathtt{intHerosJourney(Agent,}\\
+\;\;\mathtt{Agent, Agent, Place, Place)}
+\end{array}\right\}
+\label{eq:einst-hero}
+\end{align}
+\caption{External and institutional events ($\mathcal{E}$) for the \emph{Hero's Journey} trope} \label{fig:events}
+\end{figure}
+
+\begin{figure*}[!t]
+\small
+%------------------------------------------------------------------------
+The generation relation $\mathcal{G}$ for trope state $\mathcal{X}$ and external event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\ 
+$\mathcal{G(X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+\begin{array}{r}
+\langle \{\mathit{role(lukeSkywalker, hero)},\\
+\mathit{location(tatooine, home)}\},\\
+\mathit{go}\mathtt{(lukeSkywalker, tatooine)} \rangle
+\end{array}
+&\rightarrow
+\begin{array}{l}
+\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{R, S, tatooine, T)}\}
+\end{array}\label{eq:tatooine}\\
+\begin{array}{r}
+                                 \langle \{\mathit{role(lukeSkywalker, hero)},\\
+  \mathit{role(obiWan, dispatcher)}\},\\
+\mathit{meet}\mathtt{(lukeSkywalker, obiWan)} \rangle
+\end{array}
+&\rightarrow
+\begin{array}{l}
+\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{obiWan, R, S, T)}\}
+\end{array}\label{eq:hsnth}
+\end{align}
+\end{minipage}
+}\right.$\smallskip
+
+%------------------------------------------------------------------------
+The fluent initiation relation $\mathcal{C^{\uparrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
+$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+\begin{array}{r}
+                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\
+\mathit{home, landOfAdventure)}\} \rangle
+\end{array}
+&\rightarrow
+\left\{\begin{array}{l}
+\text{perm}(\mathtt{meet(hero, dispatcher)})\\
+\text{phase}(\mathtt{herosJourney, phaseB})
+\end{array}\right\}\label{eq:cfirst-hero}\\
+\begin{array}{r}
+                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle\\
+  \end{array}
+&\rightarrow \left\{
+\begin{array}{l}
+  \text{perm}(\mathtt{kill(hero, villain)}) \\
+\text{obl}(\mathtt{go(hero, landOfAdventure),} \\
+\mathtt{kill(villain, victim)},\\
+\mathtt{viol(story, end)})\\
+\text{phase}(\mathtt{herosJourney, phaseC})
+\end{array}
+\right\}\label{eq:phaseb}
+\end{align}
+\end{minipage}
+}\right.$\smallskip
+
+%------------------------------------------------------------------------
+
+The fluent termination relation $\mathcal{C^{\downarrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
+$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+\begin{array}{r}
+                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
+  \end{array}
+&\rightarrow \left\{
+\begin{array}{l}\text{perm}(\mathtt{go(hero, home)}),\\
+\text{phase}(\mathtt{herosJourney, phaseA})
+\end{array}
+\right\}\label{eq:crt}\\
+\begin{array}{r}
+                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
+  \end{array}
+&\rightarrow \left\{
+\begin{array}{l}
+\text{perm}(\mathtt{meet(hero, dispatcher)})\\
+\text{phase}(\mathtt{herosJourney, phaseB})
+\end{array}
+\right\}\label{eq:crst}
+\end{align}
+\end{minipage}
+}\right.$
+\caption{Generation events, and fluent initation and termination for the Hero's Journey trope}
+\label{fig:gen-hero}
+\label{fig:init-hero}
+\label{fig:term-hero}
+\end{figure*}
+
+\section{Punch and Judy as Tropes}
+\label{sec:punchjudy-tropes}
+In Section~\ref{sec:pjexample}, we describe the \emph{sausages} scene of Punch
+and Judy in terms of Propp's story functions. We begin this section in the same
+way, by building up a scene description in terms of tropes. Then, as in
+section~\ref{sec:pjexample-insts}, we create an institution out of the scene we
+have described with our formalism. 
+
+On the TV Tropes page for Punch and Judy~\citep{pj-tropes}, the following tropes
+are listed (quoted
+directly from the site):
+
+\begin{itemize}
+  \item \textbf{Amusing Injuries}: People are often beaten up.
+  \item \textbf{Audience Participation}: The children are expected to reply to Mr. Punch's Catch Phrase, ``That's the way to do it'' with a shout of ``Oh no, it isn't!''
+  \item \textbf{Black Comedy}: So black that many modern versions are often heavily censored compared to more historical stagings.
+  \item \textbf{Catch Phrase}: ``That's the way to do it!'', ``HE'S BEHIND
+    YOU!'', etc.
+  \item \textbf{Comedic Sociopath}: Mr. Punch
+  \item \textbf{Commedia dell'Arte}: Punch is based on the \emph{Pulcinella} character.
+  \item \textbf{Crosses the Line Twice}: Good showings will definitely do this.
+  \item \textbf{Hand Puppet}: All of the characters, except the baby, are
+    puppets (though originally marionettes).
+  \item \textbf{Head Bob}: Traditionally the puppets don't have articulated mouths, and use head bobbing to indicate which one is speaking.
+  \item \textbf{Ironic Echo}: There's at least one rendition of the act where Punch ends up playing one trick too many on Snap the Crocodile, who promptly eats him (off-stage, of course) and returns repeating Mr Punch's ``da-da-da'' sound, culminating in a mock belch.
+  \item \textbf{Karma Houdini}: In many versions, Punch is a psychopath who kills his own baby by throwing it out of a window, beats his wife to death with a stick, kills several other characters whom he encounters and finally outwits the devil himself to get away completely scot free.
+  \item \textbf{Refuge in Audacity}: The entire show, especially the violence, is played as outrageous comedy.
+  \item \textbf{Slapstick}: The style of the show, even named after the type of stick Punch uses.
+  \item \textbf{Throw the Dog a Bone}: In some shows Judy will get her hands on Punch's stick and beat him with it. Though this is usually followed by Punch snatching it back and beating her with it.
+  \item \textbf{Unsympathetic Comedy Protagonist}: Mr. Punch
+  \item \textbf{Values Dissonance} Possibly the best example of this as Punch's domestic abuse of Judy is completely played for laughs.
+  \item \textbf{Villain Protagonist}: Mr. Punch
+\end{itemize}
+
+Some of these tropes are useful in our construction of the story as a whole in
+terms of tropes, while others are too general or abstract to express as agent behaviours. For example, the \emph{Commedia
+  dell'Arte} trope would be difficult to express in a way that would influence
+our interactive narrative. Instead of describing the entire story of Punch and
+Judy, we will describe the sausages scene first mentioned in
+section~\ref{sec:pjexample} in terms of tropes, using this one piece of the
+story as an illustrative example. To help with this translation,
+TV Tropes even has a page on Vladimir Propp which maps his story functions
+directly into tropes~\citep{propp-tropes}:
+
+\begin{enumerate}
+  \item Joey tells Punch to look after the sausages (\emph{Rule Number One}).
+  \item Joey has some reservations, but decides to trust Punch (\emph{Deal with
+      the Devil}).
+  \item Joey gives the sausages to Punch (\emph{Mentor Archetype}).
+  \item Joey leaves the stage (\emph{Parental Abandonment}).
+  \item A Crocodile enters the stage and eats the sausages (\emph{Don't Touch
+      It, You Idiot!}).
+  \item Punch fights with the Crocodile (\emph{Earn Your Happy Ending}).
+  \item Joey returns to find that the sausages are gone (\emph{Where It All Began}).
+\end{enumerate}
+
+Here are the tropes mentioned above, described in more detail:
+
+\paragraph{Rule Number One} (interdiction)
+
+TV Tropes actually describes two separate versions of this trope:
+
+\begin{itemize}
+  \item a situation where a character makes rules to govern a dangerous or
+    uncomfortable situation (one such example being ``The first rule of Fight
+    Club...'', which is in itself a trope of its own).
+  \item when a Mentor Archetype conveys advice or admonishments to another
+    character, such as ``Don't use the dangerous forbidden technique!'' or
+    ``Always believe in yourself!''.
+\end{itemize}
+
+In the case of our scene, the interdiction seems to be the second type listed
+here.
+
+\paragraph{Deal with the Devil} (complicity)
+
+The classic incarnation of this trope is the $16^{th}$ century legend of Faust
+selling his soul to Mephistopheles. It involves a desperate pawn (Faust) signing
+a magically binding contract with a corrupt, exploitative trickster
+(Mephistopheles, or any Satan-like character).
+
+In this scene, Punch would be the corrupt exploiter, with Joey the Clown as his pawn.
+
+\paragraph{Mentor Archetype} (Receipt / provision of a Magical Agent)
+
+TV Tropes describes this as ``A more experienced advisor or confidante to a
+young, inexperienced character, particularly to a hero.''.
+
+Due to our stretching of the original Propp function definition, this trope does
+not fit what we want to express: the simple act of Joey giving the sausages to
+Punch. Joey does not really fulfil the Mentor role. Additionally, TV Tropes'
+translation of ``Receipt of a Magical Agent'' from Propp to ``Mentor Archetype''
+is questionable: there is no mention of a Magical Agent in this trope, only of
+the Mentor who provides it. We must look for a better-fitting trope in this case.
+
+\paragraph{Parental Abandonment} (absentation)
+
+This trope is straightforward: the protagonist is abandoned by their parents
+(emotionally or physically). In the case of the trope, it is described as
+something that drives or influences the protagonist, such as in the case of
+the character Bruce Wayne: the death of his parents early on drove him to
+become the superhero Batman. This differs from Propp's function (and our Punch
+and Judy example), in which the absence of parental or supervisory characters
+leads to mischief from the protagonist, and the violation of the earlier
+interdiction. This trope appears to be defined flexibly enough to fit this
+interpretation as well, however.
+
+\paragraph{Don't Touch It, You Idiot!} (violation)
+
+The title of this trope does not entirely convey the nuance of its meaning: TV
+Tropes defines it as any order or interdiction that is inevitably violated at
+some point later in the story. This actually fits well with Propp's original
+definition, which stated that the ``interdiction'' and ``violation'' story
+functions must always go together, as one inevitably leads to the other.
+
+\paragraph{Earn Your Happy Ending} (struggle)
+
+This trope states that the characters in a story must face far more difficulty
+than usual, overcoming more obstacles than most characters would have to face.
+However, the characters get a happy ending as a result of their struggles.
+
+Again, this does not fit our scene where Punch fights the crocodile for the
+sausages. Though it does describe a struggle of sorts, it is more of a comedy
+fight than anything arduous for the characters involved. We can probably find a
+better match for this trope.
+
+\paragraph{Where It All Began} (return)
+
+This trope does not match the definition of ``return'' that we have used from
+Propp: in our case, it describes the return of a supervisory character some time
+after they went away during the \emph{absentation} function. TV Tropes'
+definition describes more the return of the protagonist to their hometown at the
+end of the \emph{Hero's Journey}. In this case, we need to find a trope that
+is the counterpart to the ``Parental Abandonment'' function from earlier, which
+describes the return of the ``parents'' of that particular trope. The problem is
+the slight mismatch in the definition of the trope against the Propp function we
+are using. In the most literal case of the trope, the ``parents'' cannot return:
+they are dead. Again, this indicates that perhaps we must find tropes
+that more closely match Propp's definitions of \emph{absentation} and \emph{return}.
+
+\subsection{Issues with Propp Mapping}
+From our deeper analysis of TV Tropes' mappings of Propp story functions to
+tropes, a number of issues have arisen:
+
+\begin{itemize}
+  \item Our use of Propp's story functions may be a little too ``flexible''.
+    This means that the mappings of the functions we have used add an extra
+    layer of interpretation to the translation, taking us away from the original
+    intended meaning.
+  \item Tropes, by their very nature, are a little ambiguous and open to
+    interpretation. The same trope could even be expressed in multiple different
+    ways, such as the ``Rule Number One'' trope.
+\end{itemize}
+
+In place of TV Trope's suggested ``struggle'' trope, \emph{Earn Your Happy
+  Ending}, a more suitable trope to use would be the \emph{Chase Fight}:
+
+\begin{quote}
+\textbf{Chase Fight}: An X meets Y cross between a Chase Scene and a Fight Scene.
+\end{quote}
+
+This is far more suited to our purposes, as the scene simply consists of the
+crocodile fighting Punch by chasing him around the stage.
+
+Similarly, in the place of the ``absentation'' and ``return'' tropes,
+\emph{Parental Abandonment} and \emph{Where It All Began}, TV Tropes has a more
+suitable pair to use:
+
+\begin{quote}
+\textbf{Put on a Bus}: a character is written out of a story so that they may
+(possibly) return later.
+\end{quote}
+
+\begin{quote}
+\textbf{The Bus Came Back}: when one of the (main) characters returns back into
+the story.
+\end{quote}
+
+Though this trope pair better captures the essence of the leaving and return of
+Joey, what if we also wanted some of the nuance of the \emph{Parental
+  Abandonment} trope? The beauty of the capturing tropes as institutions is that
+we can use both sets of tropes and let the player and character agents decide
+the outcome, which could be a set of actions from a mixture of both tropes.
+
+For simplicity, we can remove the ``Deal With The Devil'' trope, as well as
+``Rule Number One''. The ``Don't Touch It, You Idiot'' trope includes the
+interdiction that we wanted to express through the ``Rule Number One'' trope.
+Also, as the ``Deal With The Devil'' trope involves a lot more than the simple
+complicity with which Joey goes along with Punch's plans, it can be safely omitted.
+
+This leaves us with just four tropes that describe our scene:
+
+\begin{itemize}
+\item\textbf{Don't Touch It, You Idiot}: Joey gives the sausages to Punch,
+  telling him not to eat them
+\item\textbf{Put on a Bus}: Joey temporarily leaves the stage
+\item\textbf{Chase Fight}: The Crocodile appears and chases Punch around the stage
+\item\textbf{The Bus Came Back}: Joey returns to the stage to scold Punch
+\end{itemize}
+
+\subsubsection{Trope Roles}
+The character roles that appear in trope descriptions in TV Tropes differ
+greatly from the \emph{Dramatis Personae} defined in Propp's morphology. For
+each of the four tropes, we identify the following roles:
+
+\begin{itemize}
+\item \textbf{Don't Touch It, You Idiot}: the \emph{owner} (Joey) and the \emph{idiot} (Punch)
+\item \textbf{Put on a Bus}: the \emph{absentee} (Joey)
+\item \textbf{Chase Fight}: the \emph{chaser} (Crocodile) and the \emph{pursued} (Punch)
+\item \textbf{The Bus Came Back}: the \emph{returnee} (Joey)
+\end{itemize}
+
+Clearly, this means that each character must adopt multiple roles throughout the
+course of a narrative. In this scene alone, Joey the Clown plays the roles of
+\emph{owner}, \emph{absentee} and \emph{returnee}. Punch himself must be an
+\emph{idiot} and the \emph{pursued}.
+
+These roles are not strictly defined in the descriptions found in TV Tropes, and
+must be inferred by the reader. Furthermore, these roles do not describe
+character archetypes such as \emph{Hero} or \emph{Comedic Sociopath}. One
+interesting way to approach this issue could be to have an archetype inherit certain
+character roles. For example, a \emph{Comedic Sociopath} could automatically
+fill the roles of \emph{murderer}, \emph{idiot}, \emph{pursuer}, and
+\emph{chaser}. This idea, while promising, is outside the scope of this thesis,
+and so is discussed further only in the ``future work'' Section~\ref{sec:future}.
+
+\subsection{Return to the Sausages Scene}
+\label{sec:dont-touch-inst}
+
+Using the same process with which we described the \emph{Hero's Journey} in
+terms of an institution in Section~\ref{sec:tropes-as-insts}, this section shows
+the translation of the \emph{Don't Touch It, You Idiot} trope into a formal institution.
+
+First, we define the sequence of events that form the trope:
+
+\begin{itemize}
+% \item The \emph{owner} has an \emph{object}
+\item The \emph{owner} tells the \emph{idiot} to protect an \emph{item}
+\item Then the \emph{owner} goes away
+\item Then the \emph{idiot} breaks the \emph{item}
+\item Then the \emph{owner} returns
+\item Then the \emph{owner} fights the \emph{idiot}
+\end{itemize}
+
+This is the simplest possible interpretation of the trope. It is possible for
+other interpretations to exist: for example, rather than the \emph{owner} returning and
+fighting the \emph{idiot}, something bad might happen to the \emph{idiot}
+instead. In our TropICAL language, alternative outcomes can be expressed using
+the \emph{or} operator (Section~\ref{sec:branch-code}) allowing the creation of more flexible tropes
+which cater for branching story lines.
+
+Now that we have determined the events that occur as part of the trope, we can describe its domain fluents, which include all the
+actions of the characters, as well as their roles:
+\begin{align*}
+  \mathcal{D} =&\left\{\mathtt{owner, idiot, item, away, inactive, phaseA,}\right.\\\nonumber
+  &\left. {} \mathtt{phaseB, phaseC, phaseD, phaseE, done}\right\} %\label{eq:domain}
+\end{align*}
+
+Also based on the above sequence events is the list of actions that may be
+permitted to occur within the trope:
+\begin{align*}
+  \mathcal{P} =& \left\{\mathtt{perm(tellprotect(owner, idiot, item)), perm(go(owner, away)),}\right.\nonumber\\
+  &\left. {} \mathtt{perm(break(idiot, item)), perm(return(owner)),}\right.\nonumber\\
+             &\left. {} \mathtt{perm(fight(owner, idiot))}\right\} %\label{eq:perm}
+\end{align*}
+
+\subsubsection{Trope Phases}
+\label{sec:trope-phases}
+
+While arranging these four tropes in a linear sequence describes the
+\emph{sausages} scene for the most part, our use of the \emph{Don't Touch It, You Idiot} trope in place of both of
+Propp's \emph{interdiction} and \emph{violation} story functions introduces an
+extra challenge to its implementation as an institution: it has two different
+\emph{phases}. The first phase is triggered by one character warning another
+character not to do something, the second is when the warned character performs
+the forbidden action.
+
+In order to properly describe the scene in terms of the four tropes, we must
+first describe the mechanism by which we divide this trope into separate phases.
+This is done through the addition of a \emph{phase} fluent which takes a trope
+(institution) name and its current phase as parameters, such as:
+$\mathtt(phase(intHerosJourney, phaseA))$.
+
+At first, each trope is ``inactive'', reflected in the \emph{phase} fluent as
+$\mathtt(phase(intTropeName, inactive))$ After each event that occurs in the
+trope, its phase is updated, starting at \emph{phaseA}, then \emph{phaseB},
+through to \emph{phaseZ}. Once a trope has finished (its final event has
+happened), its \emph{phase} fluent is set to $\mathtt(phase(intTropeName,
+done))$. It is set to \emph{done} rather than \emph{inactive}, because there may
+be situations where we want to check whether or not a trope has already
+appeared, so that it may not be repeated for example.
+
+\begin{figure}[!t]
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{tellprotect(owner, idiot, item)})\}\label{eq:phase-inactive}\\
+  &\langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle\rightarrow \nonumber\\
+  &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB}), \nonumber\\
+  &\qquad\qquad\qquad\qquad\text{perm}(\mathtt{go(owner, away)})\}\label{eq:phase-a}\\
+  &\langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},\nonumber\\
+  &\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle \rightarrow \nonumber\\
+ &\qquad\qquad\qquad\qquad\{\text{phase}(\mathtt{dontTouchItYouIdiot, done}\}\label{eq:phase-done}
+\end{align}
+\end{minipage}}\right.$
+\caption{Phase fluent initiation in the ``Don't Touch It, You Idiot'' trope} \label{fig:pj-phase-inits}
+\medskip
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, inactive})\},\nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
+                                 % &\qquad\qquad
+&\rightarrow \emptyset\label{eq:phase-inactive-term}\\
+  \langle \{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseA})\}, \nonumber\\
+  \mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle % \nonumber\\
+                                 % &\qquad\qquad
+&\rightarrow \emptyset\label{eq:phase-a-term}\\
+  \langle\{\text{phase}(\mathtt{dontTouchItYouIdiot, phaseB})\},
+  \nonumber\\\mathtt{intDontTouchItYouIdiot(owner, idiot, item, away)} \rangle %\nonumber\\
+                                 %&\qquad\qquad
+&\rightarrow \emptyset\label{eq:phase-done-term}
+\end{align}
+\end{minipage}}\right.$
+\caption{Phase fluent termination in the ``Don't Touch It, You Idiot'' trope} \label{fig:pj-phase-terms}
+\end{figure}
+
+Returning to our \emph{Don't Touch It, You Idiot} example,
+Figure~\ref{fig:pj-phase-inits} shows how a short version of the \emph{Dont Touch
+  It You Idiot} trope with just two phases would be described with \emph{phase}
+fluents that are initiated according to their corresponding events, with
+Figure~\ref{fig:pj-phase-terms}. The left side of Rule~\ref{eq:phase-inactive}
+shows a set of fluents that describe its initial state. In this case, the only
+fluent is $\text{phase}\mathtt{(dontTouchItYouIdiot, inactive)}$, which states
+that the \emph{Don't Touch It, You Idiot} trope is inactive. Beneath the set of
+state fluents is the institutional event that initiates the norms and fluents that appear
+to the right of the arrow. In the case of Rule~\ref{eq:phase-inactive}, the \emph{intDontTouchItYouIdiot}
+institutional event is initiating \emph{Phase A} of the trope
+($\text{phase}\mathtt{(dontTouchItYouIdiot, phaseA)}$), and the permission of
+the \emph{owner} agent to tell the \emph{idiot} agent to protect the \emph{item}
+($\text{perm}\mathtt{(tellprotect(owner, idiot, item))}$). Rule~\ref{eq:phase-a}
+shows that \emph{Phase B} and permission for the \emph{owner} to go \emph{away}
+are initiated by the \emph{intDontTouchItYouIdiot} institutional event if the
+\emph{dontTouchItYouIdiot} trope is in \emph{Phase A}. Rule~\ref{eq:phase-done}
+simply sets the trope's phase to \emph{done} if it is in \emph{Phase B}, without
+initiating any norms.
+
+The termination rules in Figure~\ref{fig:pj-phase-terms} simply terminate any
+phase fluents that hold (represented by the empty set in
+Rules~\ref{eq:phase-inactive-term}, \ref{eq:phase-a-term}
+and~\ref{eq:phase-done-term}), so that the new phase fluent replaces its predecessor.
+
+Extending this example to include all events, along with the corresponding
+permissions and obligations that they grant our story characters, results in the
+institution described in Appendix~\ref{appendix:sausages-full}.
 
 \section{An Interactive, Generative Punch and Judy Show with Institutions and
   Emotional Agents}
