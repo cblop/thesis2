@@ -1,0 +1,13 @@
+digraph G {
+  a [label="First Hero's Journey Event"];
+  b [label="First Evil Empire Event"];
+  c [label="First MacGuffin Event\n(We are here)"];
+  e [label="Second MacGuffin Event"];
+  d [label="Second Hero's Journey Event"];
+  rankdir=LR;
+  start -> a;
+  a -> c;
+  c -> b;
+  c -> d;
+  c -> e;
+}
