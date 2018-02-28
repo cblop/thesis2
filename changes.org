@@ -6,7 +6,7 @@ The contribution of the thesis, as reflected in the revised abstract (page TODO)
 *** 2.2.1
 Chapter 1 (introduction) has been rewritten to reflect the changed, humbler, objectives of the thesis. The new focus of the chapter is the providing of tools to make interactive story authoring easier for non-programmers, with tropes as the main contribution. See the "List of Corrections" on page 1 for specific changes.
 *** 2.2.2
-The literature review has been tidied up to take inspiration from, rather than criticise, the planner-based systems mentioned. Critique (especially of Propp) has been toned down. See the "List of Corrections" on page 1 for specific changes.
+The literature review has been tidied up to take inspiration from, rather than criticise, the planner-based systems mentioned. Critique (especially of Propp) has been toned down, and Propp is recognised as an influence on our model. See the "List of Corrections" on page 1 for specific changes.
 ** 2.3 Bringing the contribution to the forefront
 *** 2.3.1
 *(a - d)* The previous chapter 3 has been moved to chapter 6 (pages TODO), and renamed "Using TropICAL with a Multi-Agent System".
