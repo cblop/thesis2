@@ -6,15 +6,15 @@
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("changebar" "color") ("fontenc" "T2A") ("inputenc" "utf8") ("geometry" "hmargin=3cm" "vmargin=2cm") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("todonotes" "colorinlistoftodos")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
    (TeX-run-style-hooks
     "latex2e"
     "report"
@@ -29,6 +29,7 @@
     "inputenc"
     "caption"
     "textcomp"
+    "fancyref"
     "paralist"
     "amsmath"
     "latexsym"
@@ -243,10 +244,6 @@
     "lne:hj-ev3"
     "lst:hero-trace"
     "fig:hero-trace"
-    "sec:trope-combination-exp"
-    "fig:dot-combine1"
-    "fig:dot-combine2"
-    "fig:dot-combine3"
     "sec:tropical-summary"
     "cha:storybuilder"
     "fig:sb-start"
@@ -275,21 +272,6 @@
     "list:sausages-trope-subtrope"
     "sec:combining-tropes"
     "fig:combining-tropes"
-    "sec:sb-eval"
-    "req:tropes-natural"
-    "req:tropes-reusable"
-    "req:tropes-abstractions"
-    "req:tropes-vis"
-    "sec:user-tasks"
-    "sec:org14aee76"
-    "sec:org96a6276"
-    "sec:org9cb2b36"
-    "sec:org80c0de6"
-    "sec:orga5afeae"
-    "sec:orga5bc382"
-    "sec:orgeed4725"
-    "sec:limitations"
-    "sec:sb-analysis"
     "cha:institutions"
     "sec:norms-and-institutions"
     "sec:tropes-as-insts"
@@ -334,6 +316,21 @@
     "sec:demo"
     "sec:inst-summary"
     "cha:evaluation"
+    "sec:sb-eval"
+    "req:tropes-natural"
+    "req:tropes-reusable"
+    "req:tropes-abstractions"
+    "req:tropes-vis"
+    "sec:user-tasks"
+    "sec:org14aee76"
+    "sec:org96a6276"
+    "sec:org9cb2b36"
+    "sec:org80c0de6"
+    "sec:orga5afeae"
+    "sec:orga5bc382"
+    "sec:orgeed4725"
+    "sec:limitations"
+    "sec:sb-analysis"
     "sec:pj-fullspec"
     "sec:full-introduction"
     "lst:pjfull-narrator"
@@ -344,6 +341,10 @@
     "lst:pjfull-slapstick"
     "sec:croc-sausages-scene"
     "sec:put-together-pj"
+    "sec:trope-combination-exp"
+    "fig:dot-combine1"
+    "fig:dot-combine2"
+    "fig:dot-combine3"
     "sec:freedom-example"
     "cha:discussion"
     "sec:discussion-comparison"
@@ -365,9 +366,6 @@
     "lst:ex-simtrope3"
     "cha:conclusions"
     "sec:future"
-    "opp:limitations"
-    "opp:agents"
-    "opp:domains"
     "sec:future-address"
     "lim:five"
     "lim:branch"

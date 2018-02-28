@@ -11,6 +11,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{caption}
 \usepackage{textcomp}
+\usepackage[]{fancyref}
 \usepackage{paralist}
 \usepackage{amsmath}
 \usepackage{latexsym}
@@ -4253,82 +4254,6 @@ These trace outputs do not assist the reader in visualising the possible
 sequences of events that they represent. For this reason, we suggest that the
 reader refer to the visualisations produced by the StoryBuilder tool in Section~\ref{sec:trope-visualisation}.
 
-\subsection{Combining Tropes}
-\label{sec:trope-combination-exp}
-\added{
-  This section describes an example of a situation where a user wants to combine
-  multiple tropes together. There are two ways in which TropICAL and
-  StoryBuilder allow this: by allowing tropes to happen ``at the same time'',
-  and by sequencing tropes to occur at certain points in other tropes.
-  Section~\ref{sec:subtrope-code} describes the use of subtropes in TropICAL,
-  which are used to implement the latter case of sequencing tropes within
-  scenes. Their implementation through institutional bridges is described in
-  Section~\ref{sec:bridges}. This section examines how our system allows
-  multiple tropes to occur at once.
-
-  As an example, we can imagine that a user wants to use the following three
-  tropes in their story: the \emph{Hero's Journey}, the \emph{Evil Empire} and
-  the \emph{MacGuffin}. Using the StoryBuilder tool, the user can select all
-  three tropes to occur at once using the dropdown menus in the ``arrange tab''
-  (shown in Figure~\ref{fig:sb-combine-ann} on
-  page~\pageref{fig:sb-combine-ann}). Alternatively, if not using StoryBuilder,
-  the following code in Listing~\ref{lst:simultaneous-tropes} can be passed to
-  the TropICAL compiler along with the trope definition files.
-
-}{2.3.2b: Added a discussion on how to combine tropes}
-  
-\begin{lstlisting}[showstringspaces=false,
-label=lst:simultaneous-tropes,caption={Simultaneous tropes in TropICAL}]
-"Example Quest" is a scene where:
-  The "Hero's Journey" trope happens
-    And the "Evil Empire" trope happens
-    And the "MacGuffin" trope happens
-\end{lstlisting}
-
-  Due to the fact that each trope is expressed as a sequence of permissions and
-  obligations in an institution, a scene with multiple simultaneously active
-  tropes means that multiple institutions are active at once. This gives each
-  character the choice of participating in each institution in the order of
-  their choice.
-
-  Let us examine the ``Hero'' character role in this scene, for example. As all
-  three trope institutions are active from the start of the scene, the character
-  has permission to carry out the first event of any of the three tropes, as
-  long as the permission applies to that character.
-  Figure~\ref{fig:dot-combine1} shows an example where the first events of each
-  institution permit the agent to perform an action, and so the agent is able to
-  choose between these actions, in a similar manner to story branching.
-
-  If the first event of the ``Hero's Journey'' trope is for the Hero to leave
-  home, and the Hero does so, then the second event in the trope becomes
-  permitted or obliged to occur, as shown in Figure~\ref{fig:dot-combine2}. Now
-  we can see what happens if the Hero decides to follow the ``MacGuffin'' trope
-  next: the second events of both the Hero's Journey and MacGuffin tropes become
-  permitted, as well as the first event of the Evil Empire trope (as the Hero
-  has not chosen an action that follows that trope yet).
-  Figure~\ref{fig:dot-combine3} shows the situation after two choices from the Hero.
-
-  A trope ends when its final event has occurred. The scene will end when either
-  all the tropes have reached their points, or if the ``The story ends'' event occurs.
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=0.6\textwidth]{combine1.png}}
-\caption{An agent can choose between the events of all three tropes at the start
-of the scene.}\label{fig:dot-combine1}
-\end{figure}
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{combine2.png}}
-\caption{Now that the agent has chosen to perform the first event from the
-  \emph{Hero's Journey} trope, the second event from that trope is now
-  permitted, along with the first event of the other two tropes.}\label{fig:dot-combine2}
-\end{figure}
-
-\begin{figure}[!h]
-\centerline{\includegraphics[width=\textwidth]{combine3.png}}
-\caption{After following the \emph{Hero's Journey}, then the \emph{MacGuffin}
-  tropes, there are still three paths for us to choose from.}\label{fig:dot-combine3}
-\end{figure}
 
 \section{Summary}
 \label{sec:tropical-summary}
@@ -4974,938 +4899,6 @@ that the author creates in a database, so that they may be reused and amended if
 needed. Requirement R\ref{req:vis} is met through StoryBuilder's use of a tree
 visualisation that updates as the story author is editing the tropes in the tool.
 
-\section{Evaluation}
-\label{sec:sb-eval}
-% TODO intro: 2
-
-In order to evaluate the effectiveness of both TropICAL and StoryBuilder for the
-construction of tropes and nonlinear stories, we carried out a usability study,
-evaluated qualitatively through a thematic analysis (described
-by~\citet{clarke2014thematic}, and in Section~\ref{sec:sb-analysis}).
-
-The StoryBuilder tool is not integrated into a multi-agent system. This is due
-to its focus on story structure design and visualisation using tropes, rather
-than for the creation of the character agents themselves. For this reason, the
-analysis is not designed to evaluate requirements~\ref{req:agents},
-\ref{req:direct} and~\ref{req:norm} from Section~\ref{sec:requirements}, only
-those related to the use of tropes for story construction:
-
-\begin{enumerate}[R1.]
-  \setcounter{enumi}{2}
-  \item The user must be able to write and re-use
-    existing story components (from a library)
-  \item The components must be able to express sequences of
-    events
-  \item The components must be able to express branching
-    (diverging) events
-  \item The user must have the ability to nest existing
-    components inside new components
-  \item The user must be able to visualise the branches of the
-    story that result in the addition or modification of components to the
-    story
-\end{enumerate}
-
-Additionally, the study aims to examine the user experience of using tropes to
-construct stories in StoryBuilder with the following supplemental requirements:
-
-\begin{enumerate}[S1.]
-  \item\label{req:tropes-natural} To evaluate the suitability of TropICAL's controlled natural language
-    syntax for non-programmer story authors
-  \item\label{req:tropes-reusable} To examine the use of tropes as reusable story components
-  \item\label{req:tropes-abstractions} To see if tropes allow a natural means of creating abstractions of story patterns
-  \item\label{req:tropes-vis} To study whether the story tree visualisations
-    generated from the answer set solver output assists in non-linear story creation
-\end{enumerate}
-
-These requirements are difficult to measure compared to those described in
-Section~\ref{sec:requirements}, and so are used as the basis of the questions
-asked throughout the thematic analysis:
-
-\begin{itemize}
-  \item How easy or difficult did you find the language to learn? (Requirement~\ref{req:tropes-natural})
-  \item Could you create the story you wanted by combining tropes together? (Requirement~\ref{req:tropes-reusable})
-  \item Were you able to create the abstractions you wanted using subtropes? (Requirement~\ref{req:tropes-abstractions})
-  \item Did the visualisations assist you in the creation of tropes and stories? (Requirement~\ref{req:tropes-vis})
-\end{itemize}
-
-The aim of the thematic analysis is to identify themes that emerge from the participants' answers to these questions.
-
-\subsection{Procedure}
-% TODO explain the process: 3
-
-The study begins with a brief explanation of the syntax and features of the
-TropICAL language: entities (roles, places, objects), events (sequences and
-branches) and subtropes. Once they have become familiar with the language and
-seen some visualisations of example tropes, they are asked to complete seven
-tasks. The tasks start with the user making simple changes to existing tropes,
-and give the user increasing freedom, finally giving them the opportunity to
-create tropes for a story of their own. Detailed descriptions of the tasks are
-given in Section~\ref{sec:user-tasks}.
-
-\subsection{Participants}
-Eight participants were recruited for the study:
-
-\begin{itemize}
-\item \textbf{Participant A} is a computer science student,
-with good programming experience
-\item \textbf{Participant B} is an architect and former English teacher with a little programming experience
-\item \textbf{Participant C} is a creative writer with no programming experience
-\item \textbf{Participant D} is a computer science student with good programming experience
-\item \textbf{Participant E} is a computer science student with good programming experience
-\item \textbf{Participant F} is a creative computing student with some programming experience
-\item \textbf{Participant G} is a computer scientist that works on well-known
-interactive fiction tools
-\item \textbf{Participant H} is a computer science graduate student with good
-programming (and answer-set programming) experience
-\end{itemize}
-
-The studies were conducted using Google Hangouts, with each participant loading
-StoryBuilder by going to a web address
-(\url{http://mthompson.org/storybuilder}) and sharing a screen capture of their
-interactions with the system. Each study was recorded using screen capture
-software. The full transcripts, with annotations, are listed in
-Appendix~\ref{appendix:transcripts}.
-
-\subsection{User Tasks}
-\label{sec:user-tasks}
-This section describes the tasks that the users carried out as part of the study.
-
-\subsubsection*{Task 1: Edit an Existing Trope}
-\label{sec:org14aee76}
-The user is instructed to get a feel for the language by browsing through
-the examples provided, then presented with this task:
-
-\begin{framed}
-\begin{quote}
-In the 'edit' tab, select an existing trope from the dropdown box. Edit its text on the left, and then save it. Once this is done, check to see that the visualisation seems to be as expected.
-\end{quote}
-\end{framed}
-
-This task is designed to examine how easily the user is able to read and
-understand the TropICAL languages before making small changes to existing
-tropes, testing requirement R\ref{req:components}.
-
-\subsubsection*{Task 2: Create a Trope}
-\label{sec:org96a6276}
-
-The second task gives the user some specific character roles and places to use
-in their trope, and then instructs them to combine them together into a sequence
-of events:
-
-\begin{framed}
-\begin{quote}
-Given the following character roles:
-
-\begin{itemize}
-\item Hero
-\item Villain
-\item Mentor
-\end{itemize}
-
-And the following places:
-
-\begin{itemize}
-\item Home
-\item Evil Lair
-\item Land of Adventure
-\end{itemize}
-
-Construct a trope using Tropical. Your statements will be simple sequences at first, i.e:
-
-\begin{verbatim}
-The Hero goes home
-Then the Hero goes away
-Then the Villain kills the Hero
-\end{verbatim}
-
-Make sure to declare your roles and objects first.
-\end{quote}
-\end{framed}
-
-This task is designed to allow the users to gently begin creating their own
-tropes, by limiting their role and place choices at first, as well as limiting
-their trope complexity by only allowing sequences of events without branches.
-This also tests requirements R\ref{req:components} and R\ref{req:sequences}.
-
-\subsubsection*{Task 3: Adding objects to your trope}
-\label{sec:org9cb2b36}
-
-This task extends task 2 by allowing the user to add objects to their trope.
-
-\begin{framed}
-\begin{quote}
-Add the following objects to your trope:
-
-\begin{itemize}
-\item Weapon
-\item Evil Plan
-\end{itemize}
-
-For example:
-
-\begin{verbatim}
-The Hero takes the Weapon
-Then the Villain makes an Evil Plan
-\end{verbatim}
-\end{quote}
-\end{framed}
-
-\subsubsection*{Task 4: Add branches to your trope}
-\label{sec:org80c0de6}
-
-In task 4, the user is asked to add some branching points to the trope that they
-have made:
-
-\begin{framed}
-\begin{quote}
-Using the "Or" keyword, add branches to your story. For example:
-
-
-\begin{verbatim}
-The Hero goes to the Land of Adventure
-Then the Hero kills the Villain
-  Or the Villain kills the Mentor
-  Or the Mentor goes home
-\end{verbatim}
-\end{quote}
-\end{framed}
-
-This task introduces the concept of branches to the user for the first time,
-testing requirement R\ref{req:branches}.
-
-\subsubsection*{Task 5: Put two tropes into a story}
-\label{sec:orga5afeae}
-
-In this task, the user takes two existing tropes from the database, and combines
-them together with the ``arrange'' tab:
-
-\begin{framed}
-\begin{quote}
-Using the "Arrange" tab in Storybuilder, select two (or more) tropes from the dropdown boxes to visualise all the possible paths through a story with those tropes.
-\end{quote}
-\end{framed}
-
-Once this task is completed, the user is able to see a visualisation of all of the possible
-combinations of events that result from combining two tropes together. This task
-tests requirement R\ref{req:vis}.
-
-\subsubsection*{Task 6: Tropes within Tropes}
-\label{sec:orga5bc382}
-
-This task introduces the user to the concept of a \emph{subtrope}, asking them
-to embed an existing trope inside of a new one:
-
-\begin{framed}
-\begin{quote}
-Create a new trope that uses an existing trope as a "subtrope". For example:
-
-\begin{verbatim}
-"Hero May Leave" is a trope where:
-   The Hero is a role
-   Away is a place
-   Home is a place
-   The Hero goes Away
-     Or the Hero stays at Home
-
-"Crime Flee Dilemma" is a trope where:
-  The Hero is a role
-  The Puppy is a role
-  The Hero kills the Puppy
-  Then the Hero panics
-  Then the "Hero May Leave" trope happens
-\end{verbatim}
-
-In the above example, the first trope is used inside the second trope.
-\end{quote}
-\end{framed}
-
-As this task introduces the concept of \emph{subtropes} to the user, it tests
-requirement R\ref{req:subtropes}.
-
-\subsubsection*{Task 7: Free Story Creation}
-\label{sec:orgeed4725}
-
-Finally, the user is given the opportunity to create whatever they want. They
-can create new tropes, embed subtropes, and combine them into a story:
-
-\begin{framed}
-\begin{quote}
-Using a combination of the techniques learned up until now, please create a story of your own, using any combination of characters, places, objects, and subtropes.
-
-Once you have created the story, you can explore the possible paths through it with the tree visualisation.
-\end{quote}
-\end{framed}
-
-This task tests requirements R\ref{req:components} to R\ref{req:vis} by asking
-the user to use all of the components of TropICAL and StoryBuilder to freely
-create a story of their own.
-
-\subsection{Limitations of the System}
-\label{sec:limitations}
-
-Due to time restrictions and bugs in StoryBuilder, the following limitations
-applied to the participants' use of the software:
-
-\begin{itemize}
-  \item Tropes can have a maximum of five events in a sequence (not including
-    branches). This limitation is to prevent a combinatorial explosion from the
-    answer set solver when combining multiple complicated tropes together.
-  \item Subtropes must go at the end of a trope. This limitation is due to time
-    limitations in institutional bridge generation.
-  \item Branches cannot be extended beyond one event (as described by indenting
-    an extra level after an \emph{Or} statement, described in
-    Listing~\ref{lst:branch4} of Section~\ref{sec:branch-code}), again due to time
-    limitations and the combinatorial explosion this would introduce. Fluents
-    would need to be added to each trope's InstAL institution to track the state
-    of each branch, adding much complexity to the code generation process.
-  \item Branches cannot be cut off (by writing ``Then the story ends'', shown in
-    Listing~\ref{lst:branch5}), and so
-    always merge back into the main story. Omitted due to the same reasons as above.
-  \item The tropes must be event-based. This means that updating the state of
-    entities by writing statements such as ``The Hero has an Apple'', or ``The
-    Apple is in the Barn'' does not work. Verbs other than \emph{has} or
-    \emph{is} must be used in these cases, for example: ``The Hero takes the
-    Apple'' or ``The Apple rests in the Barn''. This would introduce complexity in
-    code generation due to the need to understand the meaning of certain verbs.
-    For example, if the Apple is in the Barn, and then the Hero takes the Apple,
-    this means that the Hero must have the Apple. In order for a fluent such as
-    \emph{has(R, S) if role(R, hero), object(S, apple)} to track the state of
-    the apple, the semantics of verbs such as \emph{take}, \emph{give} and
-    \emph{drop} would have to be understood by the system. This could be
-    achieved with the aid of libraries such as \emph{WordNet}, but would be out
-    of the scope of this dissertation.
-  \item Though the TropICAL parser can translate obligations, deadlines and
-    violation events, the participants were not asked to
-    test this due to the complexity that it would add. The aim of the study was
-    to examine the use of tropes as reusable story components, and teaching the
-    complexity of obligations with deadlines and consequences would have
-    introduced a steeper learning curve for the users.
-\end{itemize}
-
-Despite these limitations, enough of the TropICAL language and StoryBuilder
-interface were implemented to test the usage of building a story using tropes as
-re-usable components.
-
-\subsection{Analysis}
-\label{sec:sb-analysis}
-
-Transcripts for the interviews were analysed using the thematic analysis method
-described by~\citet{hayes2000doing} and~\citet{clarke2014thematic}. 
-This method involves careful reading of the transcripts and identification of
-categories (referred to as ``themes'') into which patterns identified in the
-responses can be organised.
-
-We identify twenty different themes from the participant transcripts listed in
-Appendix~\ref{appendix:transcripts}. These themes fall into four categories:
-
-\begin{enumerate}
-\item \textbf{Features}: what the user can or can't express with
-  TropICAL and StoryBuilder.
-\item \textbf{Syntax}: words and indentation used in the TropICAL language
-\item \textbf{Limitations}: things that the user wanted to do, but
-  couldn't, and any bugs in the system
-\item \textbf{Usability}: how user-friendly both the StoryBuilder
-  interface and TropICAL language are for story authors
-\end{enumerate}
-
-The full list of twenty themes is as follows:
-
-\subsubsection{Features}
-\begin{enumerate}
-\item {Different characters in different tropes}
-\item {State management}
-\item {Event with three entities}
-\item {Event semantics}
-\item {Other types of entities}
-\item {Subject must be an agent}
-\item {Story structure}
-\item {Conditionals}
-\end{enumerate}
-
-\subsubsection{Syntax}
-\begin{enumerate}
-\setcounter{enumi}{8}
-\item {Spaces in words}
-\item {Using any verb}
-\item {Use of ``the''}
-\item {Entity declarations}
-\item {Capitalisation}
-\end{enumerate}
-
-\subsubsection{Limitations}
-\begin{enumerate}
-\setcounter{enumi}{13}
-\item {Five event limit}
-\item {Branch length limit}
-\item {Subtrope at end}
-\item {Error messages}
-\end{enumerate}
-
-\subsubsection{Usability}
-\begin{enumerate}
-\setcounter{enumi}{17}
-\item {Ease of use}
-\item {Visualisation}
-\item {Tropes}
-\end{enumerate}
-
-The themes, identified when a pattern appears in the experiences of two or more
-participants, are explained in detail below:
-
-\subsubsection{Features}
-\begin{itemize}
-\item \textbf{Different characters in different tropes}
-
-This theme comes from participants asking questions such as ``what happens if I
-have two different heroes in two different tropes?''.
-
-For example, if there are two tropes active in one story, such as \emph{The
-  Hero's Journey} and \emph{The Chase Scene}, both tropes have Hero characters
-in them. Does our system allow us to use two different characters for each hero
-role, one per trope?
-
-This feature is present in an earlier
-version of StoryBuilder, but not included in the prototype. Its implementation
-in TropICAL is described in Section~\ref{sec:entity-instances}. The user was able to select named characters to fulfil
-roles. In this case, they could select (for example) ``Luke Skywalker'' to be
-the hero in the \emph{Hero's Journey}, and ``Harry Potter'' to be the hero in
-the \emph{Chase Scene}. In order to simplify the StoryBuilder interface for the
-study, this feature was removed. This means that the same character plays
-multiple roles in the system used for the study.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:feature1a}
-\item Participant D, line~\lref{lne:feature1d}
-\end{itemize}
-
-\item \textbf{State management}
-  Some participants wanted to be able to write statements such as these:
-
-  \begin{itemize}
-    \item ``The Hero is in the Barn''
-    \item ``The Villain has a Sword''
-    \item ``The Mentor is worried''
-  \end{itemize}
-
-  The intention is to update the state of these characters, objects and places.
-  Though this was not implemented at the time of the study, creating fluents in
-  InstAL to keep track of state would be simple:
-
-  \begin{itemize}
-    \item \texttt{in(hero, barn)}
-    \item \texttt{has(villain, sword)}
-    \item \texttt{is(mentor, worried)}
-  \end{itemize}
-
-  The only difficulty would be updating the state when changes occur later. For
-  example, if the hero has an apple, and then gives it to the villain, then the
-  \texttt{has(hero, apple)} fluent would have to be terminated.
-
-  This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, lines~\lref{lne:feature2a},~\lref{lne:feature2a2}~\lref{lne:feature2a3}
-\item Participant B, line~\lref{lne:feature2b}
-\item Participant D, line~\lref{lne:feature2d}
-\item Participant F, line~\lref{lne:feature2f}
-\end{itemize}
-
-\item \textbf{Event with three entities}
-
-Some participants in the study wanted to express events involving three
-entities, such as ``The Mentor gives the Sword to the Hero''. In this case, the
-three entities are \emph{Mentor}, \emph{Hero} and \emph{Sword}. The TropICAL
-parser was designed to handle statements such as these, but is not currently
-robust enough to handle some of the examples that the participants wanted to express.
-
-This introduces another question: how complex do we want statements to be? Would
-it be useful to allow events involving four entities, such as ``The Hero frees
-the Princess by giving the Sausages to the Dog''? The fact that no participants
-tried to enter statements with more than three entities indicates that this kind
-of event might be more complex than most users need, though further studies
-would be needed to determine if this is the case.
-
-  This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:feature3a}
-\item Participant D, line~\lref{lne:feature3d}
-\item Participant G, line~\lref{lne:feature3g}
-\end{itemize}
-
-\item \textbf{Event semantics}
-
-A common pattern in the study was the users expecting the language to have
-semantics beyond allowing the agents to carry out certain actions. The actions
-that TropICAL permits and obliges the agents to carry out are simply seen by the
-agents as keywords that they themselves have to interpret. This means that the
-semantics of the verbs that are permitted and obliged by the system must be
-described in the plans of the agent. For example, if an event states ``The Hero
-goes Home'', then the Hero agent only sees that it has permission to go home. It
-is up to the Hero to interpret this to mean that it physically has to move to
-another location, which should be described in a pre-existing plan.
-
-The expectation that the events would have semantics created surprising effects
-for the participants while visualising their tropes. One user (Participant A,
-line~\lref{lne:feature4a}) wrote a series of events where one character is killed, such as ``The Villain kills the Hero'',
-and expected all subsequent branches featuring the Hero to disappear after that
-event. This was not the case, as the solver has no way of knowing that the
-\emph{kill} verb should remove the Hero agent from the story.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:feature4a}
-\item Participant D, lines~\lref{lne:feature4d},~\lref{lne:feature4d2}
-\item Participant H, lines~\lref{lne:feature4h},~\lref{lne:feature4h2}
-\end{itemize}
-
-\item \textbf{Other types of entities}
-
-Some users felt constrained by the fact that entities could only be roles,
-objects or places. Participant B wanted to describe the health state of agents
-with statements such as ``Healthy is a Condition'' and ``David is Healthy''.
-Participant F expected to be able to define any type of entity at first, and had
-to be corrected.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant B, line~\lref{lne:feature5b}
-\item Participant F, line~\lref{lne:feature5f}
-\end{itemize}
-
-\item \textbf{Subject must be an agent}
-
-  There were users who wanted objects to be able to perform actions. For
-  example, Participant B wanted to be able to write ``The Sun is an object, The
-  Sun shines'', but had to define the Sun as a role rather than an object. This
-  constraint is due to the fact that TropICAL describes social
-  norms. This could be addressed by allowing objects to be simulated by agents in addition to roles.
-  
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant B, line~\lref{lne:feature6b}
-\item Participant D, lines~\lref{lne:feature6d},~\lref{lne:feature6d2}
-\end{itemize}
-
-
-\item \textbf{Story structure}
-
-Three users in the study stated that they would like to have more control over
-story structure. Participant C stated that she would like the character roles to
-be dynamic and changeable, so that (for example), a Princess character could
-later be revealed to be a Ninja.
-
-Participant F expressed a desire for the linear sequencing of tropes, rather
-than combining them together. This is possible if the tropes are sequenced as
-subtropes within another trope, that happen one after another. For example:
-
-\begin{verbatim}
-``Trope Sequence'' is a trope where:
-The ``Trope A'' trope happens
-Then the ``Trope B'' trope happens
-Then the ``Trope C'' trope happens
-Then the ``Trope D'' trope happens
-\end{verbatim}
-
-Participant G was concerned that the system was only able to express tropes at a
-certain level of abstraction, as it could only describe things that happen in
-terms of character actions, and could not describe changes in the abstract shape of the
-story. For example, TropICAL forces users to describe specific actions and
-events such as ``The Hero fights the Villain'', but cannot express that some
-kind of climactic scene happens in an abstract way. The participant wanted to be
-able to express tropes such as Vonnegut's ``Man In Hole'' described in
-Section~\ref{sec:structure}: ``Things are good, then things are bad, then things
-are good again''. To be able to express tropes at this level of abstraction,
-subtropes or events would have to be tagged with their level of ``drama''. This
-could perhaps be achieved through sentiment analysis, but this would be outside
-the scope of this work.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant C, line~\lref{lne:feature7c}
-\item Participant F, line~\lref{lne:feature7f}
-\item Participant G, line~\lref{lne:feature7g}
-\end{itemize}
-
-\item \textbf{Conditionals}
-
-A couple of participants stated that they would like to add some kind of
-conditional ``if'' statement to the language, so that the user may have
-preconditions for sequences of events. For example:
-
-\begin{verbatim}
-The Hero goes Home
-If the Villain goes Home:
-  The Hero fights the Villain
-  Then the Hero kills the Villain
-    Or the Villain escapes
-Then the Hero goes Away
-\end{verbatim}
-
-This would be a good feature to add to the language. In particular, if one could
-add several preconditions, the resulting tropes could become very expressive:
-
-\begin{verbatim}
-If the Hero meets the Mentor
-And the Hero finds the Sword
-And the Hero kills the Villain
-  Then the Hero goes Home
-  Then the Hero rests
-\end{verbatim}
-
-However, due to the event-based nature of TropICAL in its current form, this is
-not too dissimilar from different from simply chaining permitted events
-together. The only difference is that the preconditions above can occur in any
-order, while those below must happen in a strict sequence:
-
-\begin{verbatim}
-The Hero meets the Mentor
-Then the Hero finds the Sword
-Then the Hero kills the Villain
-Then the Hero goes Home
-Then the Hero rests
-\end{verbatim}
-
-For conditionals to be truly useful, we need to first implement ways to modify
-and check for changes in state for each entity (as described earlier under
-``State Management''). Then the preconditions can be rephrased in the following way:
-
-\begin{verbatim}
-If the Hero has met the Mentor
-And the Hero has the Sword
-And the Villain is dead
-  Then the Hero goes Home
-  Then the Hero rests
-\end{verbatim}
-
-These preconditions, while enabling the user to express new combinations of
-events, add extra complexity to the language that was not needed during the
-evaluation of the suitability of tropes as re-usable story components. This is
-the reason for its omission during the study.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant D, line~\lref{lne:feature8d}
-\item Participant H, line~\lref{lne:feature8h}
-\end{itemize}
-\end{itemize}
-
-\subsubsection{Syntax}
-\begin{itemize}
-\item \textbf{Spaces in words}
-
-Two participants were unsure if spaces were allowed in the names of entities of
-a trope. For example, ``Danger Mountain'' and ``Land of Adventure'' are both
-understood by the parser to be entity names. Participants (especially those
-familiar with programming) expected that the system would only be able to handle
-single-word entity names.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:syntax1a}
-\item Participant D, lines~\lref{lne:syntax1d},~\lref{lne:syntax1d2}
-\end{itemize}
-
-\item \textbf{Using any verb}
-
-This was another issue where users were confused by the parser being ``too
-clever''. Many users started writing their tropes with the assumption that only
-a restricted subset of verbs were permitted. In fact, any English-language verb
-is allowed by the parser, due to the fact that the verbs are fed into WordNet~\citep{miller1995wordnet} to
-be interpreted (as described in Section~\ref{sec:seq-code}). Once users were told this fact, they had no problem choosing
-their own verbs to use in their tropes.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:syntax2a}
-\item Participant B, line~\lref{lne:syntax2b}
-\item Participant F, lines~\lref{lne:syntax2f}
-\item Participant G, lines~\lref{lne:syntax2g}
-\end{itemize}
-
-\item \textbf{Use of ``the''}
-
-The TropICAL parser is designed to ignore any use of ``the'' in the name of an
-entity. For example, it will translate ``The Hero'' into just ``Hero''. This
-caused some confusion amongst users, especially when the parser would
-inconsistently ignore the ``the''s. Sometimes, for example, if a role was
-declared with a name starting with ``The'', the parser expected to see it
-referred to with the ``the'' later on, as though it were part of the name. This
-was not by design, however, and was the result of a bug in the parser.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:syntax3a}
-\item Participant B, lines~\lref{lne:syntax3b},~\lref{lne:syntax3b2}
-\item Participant C, line~\lref{lne:syntax3c}
-\item Participant D, line~\lref{lne:syntax3d}
-\item Participant E, lines~\lref{lne:syntax3e},~\lref{lne:syntax3e2}
-\item Participant F, line~\lref{lne:syntax3f}
-\item Participant H, line~\lref{lne:syntax3h}
-\end{itemize}
-
-\item \textbf{Entity declarations}
-
-Some users expected to be able to put their entity declarations (such as ``The
-Hero is a role'') at any point in the trope definition. However, the parser
-expects all of the entity declarations to be at the beginning. Though this was
-explained to users at the start of the study, some still wanted to be able to
-put the entity definitions anywhere in the text.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:syntax4a}
-\item Participant C, line~\lref{lne:syntax4c}
-\item Participant D, lines~\lref{lne:syntax4d},~\lref{lne:syntax4d2}
-\end{itemize}
-  
-\item \textbf{Capitalisation}
-
-Entity names must be capitalised in TropICAL. This was a point of confusion for
-many participants, who often forgot to capitalise their entity names. This theme
-occurred so often that it would be worth considering adapting the parser to
-allow for entity names with lowercase or flexible capitalisations.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant B, lines~\lref{lne:syntax5b},~\lref{lne:syntax5b2}
-\item Participant C, lines~\lref{lne:syntax5c},~\lref{lne:syntax5c2},~\lref{lne:syntax5c3},~\lref{lne:syntax5c4}
-\item Participant D, lines~\lref{lne:syntax5d},~\lref{lne:syntax5d2},~\lref{lne:syntax5d3},~\lref{lne:syntax5d4}
-\item Participant E, line~\lref{lne:syntax5e}
-\item Participant F, lines~\lref{lne:syntax5f},~\lref{lne:syntax5f2}
-\end{itemize}
-\end{itemize}
-
-\subsubsection{Limitations}
-\begin{itemize}
-\item \textbf{Five event limit}
-
-As explained above (Section~\ref{sec:limitations}), the \emph{clingo} answer-set solver that StoryBuilder uses
-was limited to producing answer sets of only five events in length for the
-duration of the study. This was done to reduce the amount of time that
-participants would have to wait when combining many tropes together. For
-individual tropes, the solver is quick to produce answer sets that are at least
-twenty events long, even with multiple branches. When multiple such tropes are
-fed as inputs into the solver, however, it may take some time to process.
-
-Since many users found the five-event limit too constraining, it would be a
-worthwhile exercise to find ways to refine the queries that are input into the
-answer-set solver so that it can return fewer results in the answer sets.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:bug1a}
-\item Participant C, line~\lref{lne:bug1c}
-\item Participant D, line~\lref{lne:bug1d}
-\item Participant E, lines~\lref{lne:bug1e},~\lref{lne:bug1e2}
-\item Participant G, lines~\lref{lne:bug1g},~\lref{lne:bug1g2}
-\item Participant H, lines~\lref{lne:bug1h},~\lref{lne:bug1h2}
-\end{itemize}
-
-\item \textbf{Branch length limit}
-
-In the prototype implementation used for the study, trope branches were limited
-to being only one event long. The path of a trope could only diverge for one
-event, before merging back into the main story path. Many participants wanted to
-be able to extend these branches so that the alternative story paths could be
-longer. This was included in the design of the language, but not implemented for
-this proof-of-concept version for the study.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:bug2a}
-\item Participant D, lines~\lref{lne:bug2d},~\lref{lne:bug2d2}
-\item Participant F, line~\lref{lne:bug2f}
-\item Participant G, line~\lref{lne:bug2g}
-\end{itemize}
-
-\item \textbf{Subtrope at end}
-
-Again, this was another limitation of the proof-of-concept prototype. Embedding
-subtropes inside a trope only worked with the answer-set solver if they were
-embedded as the very last event of the trope. A more complete implementation
-could allow subtropes to be embedded at any point in its parent trope.
-
-This theme appears in these lines of the transcript:
-  
-\begin{itemize}
-\item Participant A, line~\lref{lne:bug3a}
-\item Participant B, line~\lref{lne:bug3b}
-\item Participant C, line~\lref{lne:bug3c}
-\item Participant E, line~\lref{lne:bug3e}
-\item Participant H, lines~\lref{lne:bug3h}
-\end{itemize}
-
-\item \textbf{Error messages}
-
-When a piece of TropICAL code does not compile in StoryBuilder, of if zero
-answer sets are produced by the solver, the error message ``Compile Error''
-is displayed in place of the tree visualisation on the right. This is not very
-helpful to the user, as it does not give them enough detail to be able to
-identify the errors in their code in order to fix them. Solving this issue would
-require parsing the errors that come from the TropICAL parser, the InstAL
-compiler and the clingo answer set solver to identify the source of the error.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant B, lines~\lref{lne:bug4b}
-\item Participant G, line~\lref{lne:bug4g}
-\end{itemize}
-\end{itemize}
-
-\subsubsection{Usability}
-\begin{itemize}
-\item \textbf{Ease of use}
-
-Participants described the system as ``intuitive'' (Participant A,
-line~\lref{lne:use1a}), ``simple to use'' (Participant F,
-line~\lref{lne:use1f2}), and ``self-evident'' (Participant G, line~\lref{lne:use1g}). Features described as making the system easy to learn
-for non-programmers included the lack of a need for punctuation (Participant B, line~\lref{lne:use1b})
-
-A criticism of the language came from Participant D, describing the controlled
-natural language syntax as being perhaps counter-intuitive to users that are already programmers (Participant D,
-line~\lref{lne:use1d}). Participant E stated that the need to declare the
-entities in advance may be a barrier to learning for non-programmers
-(Participant E, line~\lref{lne:use1e}). The former issue is difficult to
-avoid when using a controlled natural language syntax targeted towards
-non-programmer users. The latter problem is difficult to address without
-developing an extremely sophisticated parser that is capable of identifying the
-subjects, verbs and objects in a natural language statement. The solution of
-requiring the user to define the subjects and objects up front (the entities)
-greatly simplifies the implementation and increases the predictability of the parser.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant A, line~\lref{lne:use1a}
-\item Participant B, line~\lref{lne:use1b}
-\item Participant D, lines~\lref{lne:use1d},~\lref{lne:use1d2}
-\item Participant E, line~\lref{lne:use1e}
-\item Participant F, lines~\lref{lne:use1f},~\lref{lne:use1f2}
-\item Participant G, lines~\lref{lne:use1g}
-\end{itemize}
-
-\item \textbf{Visualisation}
-
-Participants found the visualisation of all possible paths through the story
-useful. Participant B in particular praised the ability to be able to see all
-the permutations of the story, stating that such a visualisation could also be
-applicable to domains such as architecture (for visualising different
-combinations of building designs). Participant E stated that the visualisation
-helped him to understand what was happening in his TropICAL code.
-
-This theme appears in these lines of the transcript:
-
-\begin{itemize}
-\item Participant B, lines~\lref{lne:use2b},~\lref{lne:use2b2},~\lref{lne:use2b3}
-\item Participant E, lines~\lref{lne:use2e},~\lref{lne:use2e2},~\lref{lne:use2e3}
-\end{itemize}
-
-\item \textbf{Tropes}
-
-Participants found the use of tropes as story components to be useful.
-Participant C, as a story writer, found that it was a natural fit with the way
-that she thought about story structure (Participant C, lines~\lref{lne:use3c}
-and~\lref{lne:use3c2}). Participant E stated that tropes are a useful way to
-divide a story into modules (Particpant E, line~\lref{lne:use3e}).
-Participant F identified that the ability to embed tropes inside of other tropes
-prevented the problem of having unreasonable levels of nesting and indentation
-(Particpant F, line~\lref{lne:use3f}).
-
-This theme appears in these lines of the transcript:
-  
-\begin{itemize}
-\item Participant C, lines~\lref{lne:use3c},~\lref{lne:use3c2}
-\item Participant E, lines~\lref{lne:use3e},~\lref{lne:use3e2},~\lref{lne:use3e3}
-\item Participant F, line~\lref{lne:use3f}
-\end{itemize}
-\end{itemize}
-
-\section{Discussion}
-
-The purpose of this analysis is to evaluate the experience of authors using
-tropes as a reusable component for interactive story authoring. The assumption
-of existing interactive story authoring systems is that a narrative formalism is
-needed to be learned by the story author before they are able to describe a
-narrative in terms of machine-readable components.
-
-The most notable result of the study is that non-programmer story authors were able
-to become comfortable with the TropICAL language syntax and trope concept very
-easily (Participant B, line~\lref{lne:use1b}, Participant C,
-lines~\lref{lne:use3c} and~\lref{lne:use3c2}). In fact, a comment from one experienced programmer participant
-suggested that he had more difficulty learning the language
-\emph{because} of his programing experience (Participant D,
-line~\lref{lne:use1d}). This was an interesting theme that developed among
-the programmer group: they did not trust the ``cleverness'' of the language
-parser, preferring the lack of ambiguity that comes from a strictly defined
-programing language over the flexibility of the controlled natural language
-syntax that TropICAL uses.
-
-The participant with the most experience in creative writing, Participant C,
-praised the use of tropes the most, explaining that it matched the way that she
-thought of story structure when writing stories (Participant C,
-lines~\lref{lne:use3c} and~\lref{lne:use3c2}). Other users' comments were
-more focused on TropICAL's controlled natural language syntax, with Participant B
-(line~\lref{lne:use1b}) describing how its lack of ``punctuation'' (brackets
-and braces) eases the learning curve for non-programmers.
-
-Most of the frustrations that participants experienced when using StoryBuilder
-emerged from bugs or limitations from its implementation. The fact that tropes
-were limited to five events in length, and that branches could not be extended
-prevented most users from expressing the kinds of stories that they wanted to
-using the prototype. However, this is not due to the limitations of using tropes
-for the modelling of stories, but due to the incomplete nature of their
-implementation in StoryBuilder.
-
-The expression of tropes in terms of social norms was a limiting factor for some
-story authors, however, with Participant G explaining that it limited the level
-of abstraction at which he could describe story events (Participant G,
-line~\lref{lne:feature7g}). It is true that each trope must be defined in
-terms of agent actions and events, but these tropes can be inserted into a story
-as abstractions once they are defined. This allows a user to be able to describe
-a story more abstractly with statements such as ``If trope A happens, then trope
-B happens or Trope C happens''. Due to the fact that trope A, B and C can be
-pre-written tropes from a library, a story author would not have to worry about
-their implementation in terms of agent actions at the lower level of abstraction.
-
-Finally, the use of story visualisation alongside the controlled natural
-language syntax helped authors to understand the story structures that they were
-creating with the language. Participant B
-(lines~\lref{lne:use2b},~\lref{lne:use2b2} and~\lref{lne:use2b3}) describes
-how seeing all of the possible permutations could help story authors to refine
-the structure of their stories. Participant E
-(lines~\lref{lne:use2e},~\lref{lne:use2e2} and~\lref{lne:use2e3})
-stated that the visualisations helped him see how changes to the TropICAL code
-affected the resulting branches of the story he was creating.
-
-Our data demonstrate that authors can create complex branching stories in
-TropICAL and StoryBuilder with minimal instruction, regardless of their level of
-programming experience. All were able to create their own tropes and combine
-them into non-linear narratives, without the need to learn any kind of
-pre-defined formalism. Once the authors' stories are created, their compilation
-into a formal institutional representation allows for the use of an answer set
-solver to generate all of the possible paths through the story. This
-demonstrates that it is possible to allow the informal specification of stories
-through tropes and controlled natural language in a way that can be converted
-into a formal representation. The fact that the visual output of the formal translation
-of the tropes (the branching story tree visualisation that is generated by the
-answer set solver) matches the authors' expectations suggests that the
-translation from informal to formal is successful with this system.
 
 \chapter{Using TropICAL with a Multi-Agent System}
 \label{cha:institutions}
@@ -6997,6 +5990,957 @@ natural-language system for defining story components, which we describe in Chap
 \added{
 
 }{New chapter for Evaluation and Validation}
+
+This chapter provides a full evaluation of both the TropICAL and StoryBuilder
+tools. First, a user study of the StoryBuilder user interface, with discussion
+and a thematic analysis of user interview transcripts, appears in
+Section~\ref{sec:sb-eval}. Next, a validation of the TropICAL language is
+described through a complete description of a Punch and Judy story in
+Section~\ref{sec:pj-fullspec}. A discussion on how tropes are combined together
+is in Section~\ref{sec:trope-combination-exp}, and the chapter concludes with an
+examination of the extent to which ``character freedom'' has been achieved, and
+the potential benefits of this, in Section~\ref{sec:freedom-example}.
+
+\section{StoryBuilder Evaluation}
+\label{sec:sb-eval}
+% TODO intro: 2
+
+In order to evaluate the effectiveness of both TropICAL and StoryBuilder for the
+construction of tropes and nonlinear stories, we carried out a usability study,
+evaluated qualitatively through a thematic analysis (described
+by~\citet{clarke2014thematic}, and in Section~\ref{sec:sb-analysis}).
+
+The StoryBuilder tool is not integrated into a multi-agent system. This is due
+to its focus on story structure design and visualisation using tropes, rather
+than for the creation of the character agents themselves. For this reason, the
+analysis is not designed to evaluate requirements~\ref{req:agents},
+\ref{req:direct} and~\ref{req:norm} from Section~\ref{sec:requirements}, only
+those related to the use of tropes for story construction:
+
+\begin{enumerate}[R1.]
+  \setcounter{enumi}{2}
+  \item The user must be able to write and re-use
+    existing story components (from a library)
+  \item The components must be able to express sequences of
+    events
+  \item The components must be able to express branching
+    (diverging) events
+  \item The user must have the ability to nest existing
+    components inside new components
+  \item The user must be able to visualise the branches of the
+    story that result in the addition or modification of components to the
+    story
+\end{enumerate}
+
+Additionally, the study aims to examine the user experience of using tropes to
+construct stories in StoryBuilder with the following supplemental requirements:
+
+\begin{enumerate}[S1.]
+  \item\label{req:tropes-natural} To evaluate the suitability of TropICAL's controlled natural language
+    syntax for non-programmer story authors
+  \item\label{req:tropes-reusable} To examine the use of tropes as reusable story components
+  \item\label{req:tropes-abstractions} To see if tropes allow a natural means of creating abstractions of story patterns
+  \item\label{req:tropes-vis} To study whether the story tree visualisations
+    generated from the answer set solver output assists in non-linear story creation
+\end{enumerate}
+
+These requirements are difficult to measure compared to those described in
+Section~\ref{sec:requirements}, and so are used as the basis of the questions
+asked throughout the thematic analysis:
+
+\begin{itemize}
+  \item How easy or difficult did you find the language to learn? (Requirement~\ref{req:tropes-natural})
+  \item Could you create the story you wanted by combining tropes together? (Requirement~\ref{req:tropes-reusable})
+  \item Were you able to create the abstractions you wanted using subtropes? (Requirement~\ref{req:tropes-abstractions})
+  \item Did the visualisations assist you in the creation of tropes and stories? (Requirement~\ref{req:tropes-vis})
+\end{itemize}
+
+The aim of the thematic analysis is to identify themes that emerge from the participants' answers to these questions.
+
+\subsection{Procedure}
+% TODO explain the process: 3
+
+The study begins with a brief explanation of the syntax and features of the
+TropICAL language: entities (roles, places, objects), events (sequences and
+branches) and subtropes. Once they have become familiar with the language and
+seen some visualisations of example tropes, they are asked to complete seven
+tasks. The tasks start with the user making simple changes to existing tropes,
+and give the user increasing freedom, finally giving them the opportunity to
+create tropes for a story of their own. Detailed descriptions of the tasks are
+given in Section~\ref{sec:user-tasks}.
+
+\subsection{Participants}
+Eight participants were recruited for the study:
+
+\begin{itemize}
+\item \textbf{Participant A} is a computer science student,
+with good programming experience
+\item \textbf{Participant B} is an architect and former English teacher with a little programming experience
+\item \textbf{Participant C} is a creative writer with no programming experience
+\item \textbf{Participant D} is a computer science student with good programming experience
+\item \textbf{Participant E} is a computer science student with good programming experience
+\item \textbf{Participant F} is a creative computing student with some programming experience
+\item \textbf{Participant G} is a computer scientist that works on well-known
+interactive fiction tools
+\item \textbf{Participant H} is a computer science graduate student with good
+programming (and answer-set programming) experience
+\end{itemize}
+
+The studies were conducted using Google Hangouts, with each participant loading
+StoryBuilder by going to a web address
+(\url{http://mthompson.org/storybuilder}) and sharing a screen capture of their
+interactions with the system. Each study was recorded using screen capture
+software. The full transcripts, with annotations, are listed in
+Appendix~\ref{appendix:transcripts}.
+
+\subsection{User Tasks}
+\label{sec:user-tasks}
+This section describes the tasks that the users carried out as part of the study.
+
+\subsubsection*{Task 1: Edit an Existing Trope}
+\label{sec:org14aee76}
+The user is instructed to get a feel for the language by browsing through
+the examples provided, then presented with this task:
+
+\begin{framed}
+\begin{quote}
+In the 'edit' tab, select an existing trope from the dropdown box. Edit its text on the left, and then save it. Once this is done, check to see that the visualisation seems to be as expected.
+\end{quote}
+\end{framed}
+
+This task is designed to examine how easily the user is able to read and
+understand the TropICAL languages before making small changes to existing
+tropes, testing requirement R\ref{req:components}.
+
+\subsubsection*{Task 2: Create a Trope}
+\label{sec:org96a6276}
+
+The second task gives the user some specific character roles and places to use
+in their trope, and then instructs them to combine them together into a sequence
+of events:
+
+\begin{framed}
+\begin{quote}
+Given the following character roles:
+
+\begin{itemize}
+\item Hero
+\item Villain
+\item Mentor
+\end{itemize}
+
+And the following places:
+
+\begin{itemize}
+\item Home
+\item Evil Lair
+\item Land of Adventure
+\end{itemize}
+
+Construct a trope using Tropical. Your statements will be simple sequences at first, i.e:
+
+\begin{verbatim}
+The Hero goes home
+Then the Hero goes away
+Then the Villain kills the Hero
+\end{verbatim}
+
+Make sure to declare your roles and objects first.
+\end{quote}
+\end{framed}
+
+This task is designed to allow the users to gently begin creating their own
+tropes, by limiting their role and place choices at first, as well as limiting
+their trope complexity by only allowing sequences of events without branches.
+This also tests requirements R\ref{req:components} and R\ref{req:sequences}.
+
+\subsubsection*{Task 3: Adding objects to your trope}
+\label{sec:org9cb2b36}
+
+This task extends task 2 by allowing the user to add objects to their trope.
+
+\begin{framed}
+\begin{quote}
+Add the following objects to your trope:
+
+\begin{itemize}
+\item Weapon
+\item Evil Plan
+\end{itemize}
+
+For example:
+
+\begin{verbatim}
+The Hero takes the Weapon
+Then the Villain makes an Evil Plan
+\end{verbatim}
+\end{quote}
+\end{framed}
+
+\subsubsection*{Task 4: Add branches to your trope}
+\label{sec:org80c0de6}
+
+In task 4, the user is asked to add some branching points to the trope that they
+have made:
+
+\begin{framed}
+\begin{quote}
+Using the "Or" keyword, add branches to your story. For example:
+
+
+\begin{verbatim}
+The Hero goes to the Land of Adventure
+Then the Hero kills the Villain
+  Or the Villain kills the Mentor
+  Or the Mentor goes home
+\end{verbatim}
+\end{quote}
+\end{framed}
+
+This task introduces the concept of branches to the user for the first time,
+testing requirement R\ref{req:branches}.
+
+\subsubsection*{Task 5: Put two tropes into a story}
+\label{sec:orga5afeae}
+
+In this task, the user takes two existing tropes from the database, and combines
+them together with the ``arrange'' tab:
+
+\begin{framed}
+\begin{quote}
+Using the "Arrange" tab in Storybuilder, select two (or more) tropes from the dropdown boxes to visualise all the possible paths through a story with those tropes.
+\end{quote}
+\end{framed}
+
+Once this task is completed, the user is able to see a visualisation of all of the possible
+combinations of events that result from combining two tropes together. This task
+tests requirement R\ref{req:vis}.
+
+\subsubsection*{Task 6: Tropes within Tropes}
+\label{sec:orga5bc382}
+
+This task introduces the user to the concept of a \emph{subtrope}, asking them
+to embed an existing trope inside of a new one:
+
+\begin{framed}
+\begin{quote}
+Create a new trope that uses an existing trope as a "subtrope". For example:
+
+\begin{verbatim}
+"Hero May Leave" is a trope where:
+   The Hero is a role
+   Away is a place
+   Home is a place
+   The Hero goes Away
+     Or the Hero stays at Home
+
+"Crime Flee Dilemma" is a trope where:
+  The Hero is a role
+  The Puppy is a role
+  The Hero kills the Puppy
+  Then the Hero panics
+  Then the "Hero May Leave" trope happens
+\end{verbatim}
+
+In the above example, the first trope is used inside the second trope.
+\end{quote}
+\end{framed}
+
+As this task introduces the concept of \emph{subtropes} to the user, it tests
+requirement R\ref{req:subtropes}.
+
+\subsubsection*{Task 7: Free Story Creation}
+\label{sec:orgeed4725}
+
+Finally, the user is given the opportunity to create whatever they want. They
+can create new tropes, embed subtropes, and combine them into a story:
+
+\begin{framed}
+\begin{quote}
+Using a combination of the techniques learned up until now, please create a story of your own, using any combination of characters, places, objects, and subtropes.
+
+Once you have created the story, you can explore the possible paths through it with the tree visualisation.
+\end{quote}
+\end{framed}
+
+This task tests requirements R\ref{req:components} to R\ref{req:vis} by asking
+the user to use all of the components of TropICAL and StoryBuilder to freely
+create a story of their own.
+
+\subsection{Limitations of the System}
+\label{sec:limitations}
+
+Due to time restrictions and bugs in StoryBuilder, the following limitations
+applied to the participants' use of the software:
+
+\begin{itemize}
+  \item Tropes can have a maximum of five events in a sequence (not including
+    branches). This limitation is to prevent a combinatorial explosion from the
+    answer set solver when combining multiple complicated tropes together.
+  \item Subtropes must go at the end of a trope. This limitation is due to time
+    limitations in institutional bridge generation.
+  \item Branches cannot be extended beyond one event (as described by indenting
+    an extra level after an \emph{Or} statement, described in
+    Listing~\ref{lst:branch4} of Section~\ref{sec:branch-code}), again due to time
+    limitations and the combinatorial explosion this would introduce. Fluents
+    would need to be added to each trope's InstAL institution to track the state
+    of each branch, adding much complexity to the code generation process.
+  \item Branches cannot be cut off (by writing ``Then the story ends'', shown in
+    Listing~\ref{lst:branch5}), and so
+    always merge back into the main story. Omitted due to the same reasons as above.
+  \item The tropes must be event-based. This means that updating the state of
+    entities by writing statements such as ``The Hero has an Apple'', or ``The
+    Apple is in the Barn'' does not work. Verbs other than \emph{has} or
+    \emph{is} must be used in these cases, for example: ``The Hero takes the
+    Apple'' or ``The Apple rests in the Barn''. This would introduce complexity in
+    code generation due to the need to understand the meaning of certain verbs.
+    For example, if the Apple is in the Barn, and then the Hero takes the Apple,
+    this means that the Hero must have the Apple. In order for a fluent such as
+    \emph{has(R, S) if role(R, hero), object(S, apple)} to track the state of
+    the apple, the semantics of verbs such as \emph{take}, \emph{give} and
+    \emph{drop} would have to be understood by the system. This could be
+    achieved with the aid of libraries such as \emph{WordNet}, but would be out
+    of the scope of this dissertation.
+  \item Though the TropICAL parser can translate obligations, deadlines and
+    violation events, the participants were not asked to
+    test this due to the complexity that it would add. The aim of the study was
+    to examine the use of tropes as reusable story components, and teaching the
+    complexity of obligations with deadlines and consequences would have
+    introduced a steeper learning curve for the users.
+\end{itemize}
+
+Despite these limitations, enough of the TropICAL language and StoryBuilder
+interface were implemented to test the usage of building a story using tropes as
+re-usable components.
+
+\subsection{Analysis}
+\label{sec:sb-analysis}
+
+Transcripts for the interviews were analysed using the thematic analysis method
+described by~\citet{hayes2000doing} and~\citet{clarke2014thematic}. 
+This method involves careful reading of the transcripts and identification of
+categories (referred to as ``themes'') into which patterns identified in the
+responses can be organised.
+
+We identify twenty different themes from the participant transcripts listed in
+Appendix~\ref{appendix:transcripts}. These themes fall into four categories:
+
+\begin{enumerate}
+\item \textbf{Features}: what the user can or can't express with
+  TropICAL and StoryBuilder.
+\item \textbf{Syntax}: words and indentation used in the TropICAL language
+\item \textbf{Limitations}: things that the user wanted to do, but
+  couldn't, and any bugs in the system
+\item \textbf{Usability}: how user-friendly both the StoryBuilder
+  interface and TropICAL language are for story authors
+\end{enumerate}
+
+The full list of twenty themes is as follows:
+
+\subsubsection{Features}
+\begin{enumerate}
+\item {Different characters in different tropes}
+\item {State management}
+\item {Event with three entities}
+\item {Event semantics}
+\item {Other types of entities}
+\item {Subject must be an agent}
+\item {Story structure}
+\item {Conditionals}
+\end{enumerate}
+
+\subsubsection{Syntax}
+\begin{enumerate}
+\setcounter{enumi}{8}
+\item {Spaces in words}
+\item {Using any verb}
+\item {Use of ``the''}
+\item {Entity declarations}
+\item {Capitalisation}
+\end{enumerate}
+
+\subsubsection{Limitations}
+\begin{enumerate}
+\setcounter{enumi}{13}
+\item {Five event limit}
+\item {Branch length limit}
+\item {Subtrope at end}
+\item {Error messages}
+\end{enumerate}
+
+\subsubsection{Usability}
+\begin{enumerate}
+\setcounter{enumi}{17}
+\item {Ease of use}
+\item {Visualisation}
+\item {Tropes}
+\end{enumerate}
+
+The themes, identified when a pattern appears in the experiences of two or more
+participants, are explained in detail below:
+
+\subsubsection{Features}
+\begin{itemize}
+\item \textbf{Different characters in different tropes}
+
+This theme comes from participants asking questions such as ``what happens if I
+have two different heroes in two different tropes?''.
+
+For example, if there are two tropes active in one story, such as \emph{The
+  Hero's Journey} and \emph{The Chase Scene}, both tropes have Hero characters
+in them. Does our system allow us to use two different characters for each hero
+role, one per trope?
+
+This feature is present in an earlier
+version of StoryBuilder, but not included in the prototype. Its implementation
+in TropICAL is described in Section~\ref{sec:entity-instances}. The user was able to select named characters to fulfil
+roles. In this case, they could select (for example) ``Luke Skywalker'' to be
+the hero in the \emph{Hero's Journey}, and ``Harry Potter'' to be the hero in
+the \emph{Chase Scene}. In order to simplify the StoryBuilder interface for the
+study, this feature was removed. This means that the same character plays
+multiple roles in the system used for the study.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:feature1a}
+\item Participant D, line~\lref{lne:feature1d}
+\end{itemize}
+
+\item \textbf{State management}
+  Some participants wanted to be able to write statements such as these:
+
+  \begin{itemize}
+    \item ``The Hero is in the Barn''
+    \item ``The Villain has a Sword''
+    \item ``The Mentor is worried''
+  \end{itemize}
+
+  The intention is to update the state of these characters, objects and places.
+  Though this was not implemented at the time of the study, creating fluents in
+  InstAL to keep track of state would be simple:
+
+  \begin{itemize}
+    \item \texttt{in(hero, barn)}
+    \item \texttt{has(villain, sword)}
+    \item \texttt{is(mentor, worried)}
+  \end{itemize}
+
+  The only difficulty would be updating the state when changes occur later. For
+  example, if the hero has an apple, and then gives it to the villain, then the
+  \texttt{has(hero, apple)} fluent would have to be terminated.
+
+  This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, lines~\lref{lne:feature2a},~\lref{lne:feature2a2}~\lref{lne:feature2a3}
+\item Participant B, line~\lref{lne:feature2b}
+\item Participant D, line~\lref{lne:feature2d}
+\item Participant F, line~\lref{lne:feature2f}
+\end{itemize}
+
+\item \textbf{Event with three entities}
+
+Some participants in the study wanted to express events involving three
+entities, such as ``The Mentor gives the Sword to the Hero''. In this case, the
+three entities are \emph{Mentor}, \emph{Hero} and \emph{Sword}. The TropICAL
+parser was designed to handle statements such as these, but is not currently
+robust enough to handle some of the examples that the participants wanted to express.
+
+This introduces another question: how complex do we want statements to be? Would
+it be useful to allow events involving four entities, such as ``The Hero frees
+the Princess by giving the Sausages to the Dog''? The fact that no participants
+tried to enter statements with more than three entities indicates that this kind
+of event might be more complex than most users need, though further studies
+would be needed to determine if this is the case.
+
+  This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:feature3a}
+\item Participant D, line~\lref{lne:feature3d}
+\item Participant G, line~\lref{lne:feature3g}
+\end{itemize}
+
+\item \textbf{Event semantics}
+
+A common pattern in the study was the users expecting the language to have
+semantics beyond allowing the agents to carry out certain actions. The actions
+that TropICAL permits and obliges the agents to carry out are simply seen by the
+agents as keywords that they themselves have to interpret. This means that the
+semantics of the verbs that are permitted and obliged by the system must be
+described in the plans of the agent. For example, if an event states ``The Hero
+goes Home'', then the Hero agent only sees that it has permission to go home. It
+is up to the Hero to interpret this to mean that it physically has to move to
+another location, which should be described in a pre-existing plan.
+
+The expectation that the events would have semantics created surprising effects
+for the participants while visualising their tropes. One user (Participant A,
+line~\lref{lne:feature4a}) wrote a series of events where one character is killed, such as ``The Villain kills the Hero'',
+and expected all subsequent branches featuring the Hero to disappear after that
+event. This was not the case, as the solver has no way of knowing that the
+\emph{kill} verb should remove the Hero agent from the story.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:feature4a}
+\item Participant D, lines~\lref{lne:feature4d},~\lref{lne:feature4d2}
+\item Participant H, lines~\lref{lne:feature4h},~\lref{lne:feature4h2}
+\end{itemize}
+
+\item \textbf{Other types of entities}
+
+Some users felt constrained by the fact that entities could only be roles,
+objects or places. Participant B wanted to describe the health state of agents
+with statements such as ``Healthy is a Condition'' and ``David is Healthy''.
+Participant F expected to be able to define any type of entity at first, and had
+to be corrected.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant B, line~\lref{lne:feature5b}
+\item Participant F, line~\lref{lne:feature5f}
+\end{itemize}
+
+\item \textbf{Subject must be an agent}
+
+  There were users who wanted objects to be able to perform actions. For
+  example, Participant B wanted to be able to write ``The Sun is an object, The
+  Sun shines'', but had to define the Sun as a role rather than an object. This
+  constraint is due to the fact that TropICAL describes social
+  norms. This could be addressed by allowing objects to be simulated by agents in addition to roles.
+  
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant B, line~\lref{lne:feature6b}
+\item Participant D, lines~\lref{lne:feature6d},~\lref{lne:feature6d2}
+\end{itemize}
+
+
+\item \textbf{Story structure}
+
+Three users in the study stated that they would like to have more control over
+story structure. Participant C stated that she would like the character roles to
+be dynamic and changeable, so that (for example), a Princess character could
+later be revealed to be a Ninja.
+
+Participant F expressed a desire for the linear sequencing of tropes, rather
+than combining them together. This is possible if the tropes are sequenced as
+subtropes within another trope, that happen one after another. For example:
+
+\begin{verbatim}
+``Trope Sequence'' is a trope where:
+The ``Trope A'' trope happens
+Then the ``Trope B'' trope happens
+Then the ``Trope C'' trope happens
+Then the ``Trope D'' trope happens
+\end{verbatim}
+
+Participant G was concerned that the system was only able to express tropes at a
+certain level of abstraction, as it could only describe things that happen in
+terms of character actions, and could not describe changes in the abstract shape of the
+story. For example, TropICAL forces users to describe specific actions and
+events such as ``The Hero fights the Villain'', but cannot express that some
+kind of climactic scene happens in an abstract way. The participant wanted to be
+able to express tropes such as Vonnegut's ``Man In Hole'' described in
+Section~\ref{sec:structure}: ``Things are good, then things are bad, then things
+are good again''. To be able to express tropes at this level of abstraction,
+subtropes or events would have to be tagged with their level of ``drama''. This
+could perhaps be achieved through sentiment analysis, but this would be outside
+the scope of this work.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant C, line~\lref{lne:feature7c}
+\item Participant F, line~\lref{lne:feature7f}
+\item Participant G, line~\lref{lne:feature7g}
+\end{itemize}
+
+\item \textbf{Conditionals}
+
+A couple of participants stated that they would like to add some kind of
+conditional ``if'' statement to the language, so that the user may have
+preconditions for sequences of events. For example:
+
+\begin{verbatim}
+The Hero goes Home
+If the Villain goes Home:
+  The Hero fights the Villain
+  Then the Hero kills the Villain
+    Or the Villain escapes
+Then the Hero goes Away
+\end{verbatim}
+
+This would be a good feature to add to the language. In particular, if one could
+add several preconditions, the resulting tropes could become very expressive:
+
+\begin{verbatim}
+If the Hero meets the Mentor
+And the Hero finds the Sword
+And the Hero kills the Villain
+  Then the Hero goes Home
+  Then the Hero rests
+\end{verbatim}
+
+However, due to the event-based nature of TropICAL in its current form, this is
+not too dissimilar from different from simply chaining permitted events
+together. The only difference is that the preconditions above can occur in any
+order, while those below must happen in a strict sequence:
+
+\begin{verbatim}
+The Hero meets the Mentor
+Then the Hero finds the Sword
+Then the Hero kills the Villain
+Then the Hero goes Home
+Then the Hero rests
+\end{verbatim}
+
+For conditionals to be truly useful, we need to first implement ways to modify
+and check for changes in state for each entity (as described earlier under
+``State Management''). Then the preconditions can be rephrased in the following way:
+
+\begin{verbatim}
+If the Hero has met the Mentor
+And the Hero has the Sword
+And the Villain is dead
+  Then the Hero goes Home
+  Then the Hero rests
+\end{verbatim}
+
+These preconditions, while enabling the user to express new combinations of
+events, add extra complexity to the language that was not needed during the
+evaluation of the suitability of tropes as re-usable story components. This is
+the reason for its omission during the study.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant D, line~\lref{lne:feature8d}
+\item Participant H, line~\lref{lne:feature8h}
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Syntax}
+\begin{itemize}
+\item \textbf{Spaces in words}
+
+Two participants were unsure if spaces were allowed in the names of entities of
+a trope. For example, ``Danger Mountain'' and ``Land of Adventure'' are both
+understood by the parser to be entity names. Participants (especially those
+familiar with programming) expected that the system would only be able to handle
+single-word entity names.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:syntax1a}
+\item Participant D, lines~\lref{lne:syntax1d},~\lref{lne:syntax1d2}
+\end{itemize}
+
+\item \textbf{Using any verb}
+
+This was another issue where users were confused by the parser being ``too
+clever''. Many users started writing their tropes with the assumption that only
+a restricted subset of verbs were permitted. In fact, any English-language verb
+is allowed by the parser, due to the fact that the verbs are fed into WordNet~\citep{miller1995wordnet} to
+be interpreted (as described in Section~\ref{sec:seq-code}). Once users were told this fact, they had no problem choosing
+their own verbs to use in their tropes.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:syntax2a}
+\item Participant B, line~\lref{lne:syntax2b}
+\item Participant F, lines~\lref{lne:syntax2f}
+\item Participant G, lines~\lref{lne:syntax2g}
+\end{itemize}
+
+\item \textbf{Use of ``the''}
+
+The TropICAL parser is designed to ignore any use of ``the'' in the name of an
+entity. For example, it will translate ``The Hero'' into just ``Hero''. This
+caused some confusion amongst users, especially when the parser would
+inconsistently ignore the ``the''s. Sometimes, for example, if a role was
+declared with a name starting with ``The'', the parser expected to see it
+referred to with the ``the'' later on, as though it were part of the name. This
+was not by design, however, and was the result of a bug in the parser.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:syntax3a}
+\item Participant B, lines~\lref{lne:syntax3b},~\lref{lne:syntax3b2}
+\item Participant C, line~\lref{lne:syntax3c}
+\item Participant D, line~\lref{lne:syntax3d}
+\item Participant E, lines~\lref{lne:syntax3e},~\lref{lne:syntax3e2}
+\item Participant F, line~\lref{lne:syntax3f}
+\item Participant H, line~\lref{lne:syntax3h}
+\end{itemize}
+
+\item \textbf{Entity declarations}
+
+Some users expected to be able to put their entity declarations (such as ``The
+Hero is a role'') at any point in the trope definition. However, the parser
+expects all of the entity declarations to be at the beginning. Though this was
+explained to users at the start of the study, some still wanted to be able to
+put the entity definitions anywhere in the text.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:syntax4a}
+\item Participant C, line~\lref{lne:syntax4c}
+\item Participant D, lines~\lref{lne:syntax4d},~\lref{lne:syntax4d2}
+\end{itemize}
+  
+\item \textbf{Capitalisation}
+
+Entity names must be capitalised in TropICAL. This was a point of confusion for
+many participants, who often forgot to capitalise their entity names. This theme
+occurred so often that it would be worth considering adapting the parser to
+allow for entity names with lowercase or flexible capitalisations.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant B, lines~\lref{lne:syntax5b},~\lref{lne:syntax5b2}
+\item Participant C, lines~\lref{lne:syntax5c},~\lref{lne:syntax5c2},~\lref{lne:syntax5c3},~\lref{lne:syntax5c4}
+\item Participant D, lines~\lref{lne:syntax5d},~\lref{lne:syntax5d2},~\lref{lne:syntax5d3},~\lref{lne:syntax5d4}
+\item Participant E, line~\lref{lne:syntax5e}
+\item Participant F, lines~\lref{lne:syntax5f},~\lref{lne:syntax5f2}
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Limitations}
+\begin{itemize}
+\item \textbf{Five event limit}
+
+As explained above (Section~\ref{sec:limitations}), the \emph{clingo} answer-set solver that StoryBuilder uses
+was limited to producing answer sets of only five events in length for the
+duration of the study. This was done to reduce the amount of time that
+participants would have to wait when combining many tropes together. For
+individual tropes, the solver is quick to produce answer sets that are at least
+twenty events long, even with multiple branches. When multiple such tropes are
+fed as inputs into the solver, however, it may take some time to process.
+
+Since many users found the five-event limit too constraining, it would be a
+worthwhile exercise to find ways to refine the queries that are input into the
+answer-set solver so that it can return fewer results in the answer sets.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:bug1a}
+\item Participant C, line~\lref{lne:bug1c}
+\item Participant D, line~\lref{lne:bug1d}
+\item Participant E, lines~\lref{lne:bug1e},~\lref{lne:bug1e2}
+\item Participant G, lines~\lref{lne:bug1g},~\lref{lne:bug1g2}
+\item Participant H, lines~\lref{lne:bug1h},~\lref{lne:bug1h2}
+\end{itemize}
+
+\item \textbf{Branch length limit}
+
+In the prototype implementation used for the study, trope branches were limited
+to being only one event long. The path of a trope could only diverge for one
+event, before merging back into the main story path. Many participants wanted to
+be able to extend these branches so that the alternative story paths could be
+longer. This was included in the design of the language, but not implemented for
+this proof-of-concept version for the study.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:bug2a}
+\item Participant D, lines~\lref{lne:bug2d},~\lref{lne:bug2d2}
+\item Participant F, line~\lref{lne:bug2f}
+\item Participant G, line~\lref{lne:bug2g}
+\end{itemize}
+
+\item \textbf{Subtrope at end}
+
+Again, this was another limitation of the proof-of-concept prototype. Embedding
+subtropes inside a trope only worked with the answer-set solver if they were
+embedded as the very last event of the trope. A more complete implementation
+could allow subtropes to be embedded at any point in its parent trope.
+
+This theme appears in these lines of the transcript:
+  
+\begin{itemize}
+\item Participant A, line~\lref{lne:bug3a}
+\item Participant B, line~\lref{lne:bug3b}
+\item Participant C, line~\lref{lne:bug3c}
+\item Participant E, line~\lref{lne:bug3e}
+\item Participant H, lines~\lref{lne:bug3h}
+\end{itemize}
+
+\item \textbf{Error messages}
+
+When a piece of TropICAL code does not compile in StoryBuilder, of if zero
+answer sets are produced by the solver, the error message ``Compile Error''
+is displayed in place of the tree visualisation on the right. This is not very
+helpful to the user, as it does not give them enough detail to be able to
+identify the errors in their code in order to fix them. Solving this issue would
+require parsing the errors that come from the TropICAL parser, the InstAL
+compiler and the clingo answer set solver to identify the source of the error.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant B, lines~\lref{lne:bug4b}
+\item Participant G, line~\lref{lne:bug4g}
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Usability}
+\begin{itemize}
+\item \textbf{Ease of use}
+
+Participants described the system as ``intuitive'' (Participant A,
+line~\lref{lne:use1a}), ``simple to use'' (Participant F,
+line~\lref{lne:use1f2}), and ``self-evident'' (Participant G, line~\lref{lne:use1g}). Features described as making the system easy to learn
+for non-programmers included the lack of a need for punctuation (Participant B, line~\lref{lne:use1b})
+
+A criticism of the language came from Participant D, describing the controlled
+natural language syntax as being perhaps counter-intuitive to users that are already programmers (Participant D,
+line~\lref{lne:use1d}). Participant E stated that the need to declare the
+entities in advance may be a barrier to learning for non-programmers
+(Participant E, line~\lref{lne:use1e}). The former issue is difficult to
+avoid when using a controlled natural language syntax targeted towards
+non-programmer users. The latter problem is difficult to address without
+developing an extremely sophisticated parser that is capable of identifying the
+subjects, verbs and objects in a natural language statement. The solution of
+requiring the user to define the subjects and objects up front (the entities)
+greatly simplifies the implementation and increases the predictability of the parser.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant A, line~\lref{lne:use1a}
+\item Participant B, line~\lref{lne:use1b}
+\item Participant D, lines~\lref{lne:use1d},~\lref{lne:use1d2}
+\item Participant E, line~\lref{lne:use1e}
+\item Participant F, lines~\lref{lne:use1f},~\lref{lne:use1f2}
+\item Participant G, lines~\lref{lne:use1g}
+\end{itemize}
+
+\item \textbf{Visualisation}
+
+Participants found the visualisation of all possible paths through the story
+useful. Participant B in particular praised the ability to be able to see all
+the permutations of the story, stating that such a visualisation could also be
+applicable to domains such as architecture (for visualising different
+combinations of building designs). Participant E stated that the visualisation
+helped him to understand what was happening in his TropICAL code.
+
+This theme appears in these lines of the transcript:
+
+\begin{itemize}
+\item Participant B, lines~\lref{lne:use2b},~\lref{lne:use2b2},~\lref{lne:use2b3}
+\item Participant E, lines~\lref{lne:use2e},~\lref{lne:use2e2},~\lref{lne:use2e3}
+\end{itemize}
+
+\item \textbf{Tropes}
+
+Participants found the use of tropes as story components to be useful.
+Participant C, as a story writer, found that it was a natural fit with the way
+that she thought about story structure (Participant C, lines~\lref{lne:use3c}
+and~\lref{lne:use3c2}). Participant E stated that tropes are a useful way to
+divide a story into modules (Particpant E, line~\lref{lne:use3e}).
+Participant F identified that the ability to embed tropes inside of other tropes
+prevented the problem of having unreasonable levels of nesting and indentation
+(Particpant F, line~\lref{lne:use3f}).
+
+This theme appears in these lines of the transcript:
+  
+\begin{itemize}
+\item Participant C, lines~\lref{lne:use3c},~\lref{lne:use3c2}
+\item Participant E, lines~\lref{lne:use3e},~\lref{lne:use3e2},~\lref{lne:use3e3}
+\item Participant F, line~\lref{lne:use3f}
+\end{itemize}
+\end{itemize}
+
+\subsection{Discussion of StoryBuilder Evaluation}
+
+The purpose of this analysis is to evaluate the experience of authors using
+tropes as a reusable component for interactive story authoring. The assumption
+of existing interactive story authoring systems is that a narrative formalism is
+needed to be learned by the story author before they are able to describe a
+narrative in terms of machine-readable components.
+
+The most notable result of the study is that non-programmer story authors were able
+to become comfortable with the TropICAL language syntax and trope concept very
+easily (Participant B, line~\lref{lne:use1b}, Participant C,
+lines~\lref{lne:use3c} and~\lref{lne:use3c2}). In fact, a comment from one experienced programmer participant
+suggested that he had more difficulty learning the language
+\emph{because} of his programing experience (Participant D,
+line~\lref{lne:use1d}). This was an interesting theme that developed among
+the programmer group: they did not trust the ``cleverness'' of the language
+parser, preferring the lack of ambiguity that comes from a strictly defined
+programing language over the flexibility of the controlled natural language
+syntax that TropICAL uses.
+
+The participant with the most experience in creative writing, Participant C,
+praised the use of tropes the most, explaining that it matched the way that she
+thought of story structure when writing stories (Participant C,
+lines~\lref{lne:use3c} and~\lref{lne:use3c2}). Other users' comments were
+more focused on TropICAL's controlled natural language syntax, with Participant B
+(line~\lref{lne:use1b}) describing how its lack of ``punctuation'' (brackets
+and braces) eases the learning curve for non-programmers.
+
+Most of the frustrations that participants experienced when using StoryBuilder
+emerged from bugs or limitations from its implementation. The fact that tropes
+were limited to five events in length, and that branches could not be extended
+prevented most users from expressing the kinds of stories that they wanted to
+using the prototype. However, this is not due to the limitations of using tropes
+for the modelling of stories, but due to the incomplete nature of their
+implementation in StoryBuilder.
+
+The expression of tropes in terms of social norms was a limiting factor for some
+story authors, however, with Participant G explaining that it limited the level
+of abstraction at which he could describe story events (Participant G,
+line~\lref{lne:feature7g}). It is true that each trope must be defined in
+terms of agent actions and events, but these tropes can be inserted into a story
+as abstractions once they are defined. This allows a user to be able to describe
+a story more abstractly with statements such as ``If trope A happens, then trope
+B happens or Trope C happens''. Due to the fact that trope A, B and C can be
+pre-written tropes from a library, a story author would not have to worry about
+their implementation in terms of agent actions at the lower level of abstraction.
+
+Finally, the use of story visualisation alongside the controlled natural
+language syntax helped authors to understand the story structures that they were
+creating with the language. Participant B
+(lines~\lref{lne:use2b},~\lref{lne:use2b2} and~\lref{lne:use2b3}) describes
+how seeing all of the possible permutations could help story authors to refine
+the structure of their stories. Participant E
+(lines~\lref{lne:use2e},~\lref{lne:use2e2} and~\lref{lne:use2e3})
+stated that the visualisations helped him see how changes to the TropICAL code
+affected the resulting branches of the story he was creating.
+
+Our data demonstrate that authors can create complex branching stories in
+TropICAL and StoryBuilder with minimal instruction, regardless of their level of
+programming experience. All were able to create their own tropes and combine
+them into non-linear narratives, without the need to learn any kind of
+pre-defined formalism. Once the authors' stories are created, their compilation
+into a formal institutional representation allows for the use of an answer set
+solver to generate all of the possible paths through the story. This
+demonstrates that it is possible to allow the informal specification of stories
+through tropes and controlled natural language in a way that can be converted
+into a formal representation. The fact that the visual output of the formal translation
+of the tropes (the branching story tree visualisation that is generated by the
+answer set solver) matches the authors' expectations suggests that the
+translation from informal to formal is successful with this system.
+
+Though this section has evaluated the usability of the StoryBuilder tool through
+a user study, the next section provides a more technical validation of the
+TropICAL language by providing a fully worked example of the Punch and Judy
+story, including the TropICAL code needed for each trope, their compiled InstAL
+institutions, how the tropes can be combined together, and the AgentSpeak code to control the agents that interact with the
+compiled institutions.
+
 \section{A Full Specification of Punch and Judy}
 \label{sec:pj-fullspec}
 In section~\ref{sec:punchjudy-tropes}, we describe one scene from Punch and Judy
@@ -7570,6 +7514,83 @@ AgentSpeak plan libraries that his character's plan library is composed from.
 The code for each of the plan libraries for each of these roles is listed in
 Section~\ref{sec:asl-character-roles} of the appendix.
 
+\subsection{Combining Tropes}
+\label{sec:trope-combination-exp}
+\added{
+  This section describes an example of a situation where a user wants to combine
+  multiple tropes together. There are two ways in which TropICAL and
+  StoryBuilder allow this: by allowing tropes to happen ``at the same time'',
+  and by sequencing tropes to occur at certain points in other tropes.
+  Section~\ref{sec:subtrope-code} describes the use of subtropes in TropICAL,
+  which are used to implement the latter case of sequencing tropes within
+  scenes. Their implementation through institutional bridges is described in
+  Section~\ref{sec:bridges}. This section examines how our system allows
+  multiple tropes to occur at once.
+
+  As an example, we can imagine that a user wants to use the following three
+  tropes in their story: the \emph{Hero's Journey}, the \emph{Evil Empire} and
+  the \emph{MacGuffin}. Using the StoryBuilder tool, the user can select all
+  three tropes to occur at once using the dropdown menus in the ``arrange tab''
+  (shown in Figure~\ref{fig:sb-combine-ann} on
+  page~\pageref{fig:sb-combine-ann}). Alternatively, if not using StoryBuilder,
+  the following code in Listing~\ref{lst:simultaneous-tropes} can be passed to
+  the TropICAL compiler along with the trope definition files.
+
+}{2.3.2b: Added a discussion on how to combine tropes}
+  
+\begin{lstlisting}[showstringspaces=false,
+label=lst:simultaneous-tropes,caption={Simultaneous tropes in TropICAL}]
+"Example Quest" is a scene where:
+  The "Hero's Journey" trope happens
+    And the "Evil Empire" trope happens
+    And the "MacGuffin" trope happens
+\end{lstlisting}
+
+  Due to the fact that each trope is expressed as a sequence of permissions and
+  obligations in an institution, a scene with multiple simultaneously active
+  tropes means that multiple institutions are active at once. This gives each
+  character the choice of participating in each institution in the order of
+  their choice.
+
+  Let us examine the ``Hero'' character role in this scene, for example. As all
+  three trope institutions are active from the start of the scene, the character
+  has permission to carry out the first event of any of the three tropes, as
+  long as the permission applies to that character.
+  Figure~\ref{fig:dot-combine1} shows an example where the first events of each
+  institution permit the agent to perform an action, and so the agent is able to
+  choose between these actions, in a similar manner to story branching.
+
+  If the first event of the ``Hero's Journey'' trope is for the Hero to leave
+  home, and the Hero does so, then the second event in the trope becomes
+  permitted or obliged to occur, as shown in Figure~\ref{fig:dot-combine2}. Now
+  we can see what happens if the Hero decides to follow the ``MacGuffin'' trope
+  next: the second events of both the Hero's Journey and MacGuffin tropes become
+  permitted, as well as the first event of the Evil Empire trope (as the Hero
+  has not chosen an action that follows that trope yet).
+  Figure~\ref{fig:dot-combine3} shows the situation after two choices from the Hero.
+
+  A trope ends when its final event has occurred. The scene will end when either
+  all the tropes have reached their points, or if the ``The story ends'' event occurs.
+
+\begin{figure}[!h]
+\centerline{\includegraphics[width=0.6\textwidth]{combine1.png}}
+\caption{An agent can choose between the events of all three tropes at the start
+of the scene.}\label{fig:dot-combine1}
+\end{figure}
+
+\begin{figure}[!h]
+\centerline{\includegraphics[width=\textwidth]{combine2.png}}
+\caption{Now that the agent has chosen to perform the first event from the
+  \emph{Hero's Journey} trope, the second event from that trope is now
+  permitted, along with the first event of the other two tropes.}\label{fig:dot-combine2}
+\end{figure}
+
+\begin{figure}[!h]
+\centerline{\includegraphics[width=\textwidth]{combine3.png}}
+\caption{After following the \emph{Hero's Journey}, then the \emph{MacGuffin}
+  tropes, there are still three paths for us to choose from.}\label{fig:dot-combine3}
+\end{figure}
+
 \section{An Example of ``Character Freedom''}
 \label{sec:freedom-example}
 % Use the sausages scene
@@ -7648,9 +7669,38 @@ Once a new trope has been activated, the agents get permission to perform the
 events it describes. The trope that has been violated can then be deactivated by
 removing permission for any of its events to occur.
 
+This evaluation of StoryBuilder and TropICAL has shown that while users of the
+StoryBuilder system were able to use it for story construction, some
+improvements to usability, discoverability, and user feedback (such as helpful
+error messages) could be made. The
+validation of the TropICAL language showed that it has the flexibility to
+describe a full story (in this case, Punch and Judy) using controlled natural
+language trope descriptions, and an example of how the system could potentially
+enable character freedom is described.
+
+The next chapter discusses the issues and limitations that arise from this
+evaluation in more depth, comparing our system with the existing planner-based
+approaches that appear in the literature, discussing the extent to which
+``character freedom'' has been achieved, and analysing the levels of
+interactivity achieved against criteria based on narrative theory.
+
 \chapter{Discussion}
 \label{cha:discussion}
 \added{}{2.3.4: New ``Discussion'' chapter}
+Following the evaluation of the StoryBuilder and TropICAL systems for authoring
+interactive narrative, this section discusses the relative merits and
+limitations of these systems against existing approaches in agent-based story
+systems, and guidelines from narratology. The chapter begins with a comparison
+with the planning systems for interactive storytelling described in
+Section~\ref{sec:planner-systems}, noting the similarities and comparative
+benefits and drawbacks our approach provides. Next follows a discussion in
+Section~\ref{sec:discussion-freedom} of the extent of ``character freedom'' our
+system provides, noting the limitations of our system in this respect, and the
+possible benefits of extending the system to provide more freedom for the agents
+to break away from the story. The chapter concludes with an analysis based on
+interactive criteria from narratology, and an examination of the complexity of
+the branching stories produced by using an answer set solver on the ASP
+translations of different trope examples.
 
 \section{Comparison with Planning Approaches}
 \label{sec:discussion-comparison}

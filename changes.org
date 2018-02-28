@@ -1,10 +1,40 @@
-* Matt Thompson: Corrections
-** Preamble
-*** Changed "Digital Media" to "Digital Entertainment"
-** Moved chapter three to chapter six and renamed
-Chapter three ("Logic, Norms and Institutions as Story Worlds") has been moved from after the "Literature Review" chapter to after the "StoryBuilder" chapter, so that it is now chapter six.
+* Matt Thompson: Thesis Corrections
+The "List of corrections" section on page 1 of the thesis contains a list of the main revisions, along with numbers referring to the relevant sections of the corrections document (where appropriate) and the page numbers where the corrections appear. Red squares next to the corrections indicate deletions, yellow squares indicate amendments and green squares indicate parts that have been added.
+** 2.1 Contribution of the dissertation
+The contribution of the thesis, as reflected in the revised abstract (page TODO) and conclusions (page TODO), has been updated to be an interpretation of Propp using tropes and a normative multi-agent system.
+** 2.2 Revise the introductory chapters
+*** 2.2.1
+Chapter 1 (introduction) has been rewritten to reflect the changed, humbler, objectives of the thesis. The new focus of the chapter is the providing of tools to make interactive story authoring easier for non-programmers, with tropes as the main contribution. See the "List of Corrections" on page 1 for specific changes.
+*** 2.2.2
+The literature review has been tidied up to take inspiration from, rather than criticise, the planner-based systems mentioned. Critique (especially of Propp) has been toned down. See the "List of Corrections" on page 1 for specific changes.
+** 2.3 Bringing the contribution to the forefront
+*** 2.3.1
+*(a - d)* The previous chapter 3 has been moved to chapter 6 (pages TODO), and renamed "Using TropICAL with a Multi-Agent System".
+*(e)* A new chapter 7 has been added for "Evaluation and Validation" (pages TODO). The evaluation section from the StoryBuilder chapter (previously chapter 4) has been moved to this chapter, and it also includes the work described in 2.3.2.
 
-The chapter has also been renamed to "Using TropICAL with a Multi-Agent System"
-** Removed section on modelling Punch and Judy with modal logic and Kripke structures
-# TODO: page number
+*** 2.3.2
+The new Chapter 7 includes:
 
+*(a)* a full specification of Punch and Judy (pages TODO)
+*(b)* a discussion on how to combine tropes (pages TODO)
+*(c)* an example of "Character freedom" (pages TODO)
+
+*** 2.3.3
+A new Chapter 8 has been added, titled "Discussion", on pages TODO, which includes:
+
+*(a)* a comparison with planning approaches mentioned in the literature review on pages TODO
+*(b)* a discussion on whether "Character Freedom" has been achieved on pages TODO
+*(c)* comparison of the final prototype against the material in the literature review (pages TODO) and an analysis of trope complexity (pages TODO)
+
+*** 2.3.4
+The corrections in 2.3.3 have been put into a "Discussions" chapter (Chapter 8, pages TODO).
+
+** 2.4 Other additions and changes
+*** 2.4.1
+An explanation of the hash maps now appears in Section 4.4.4 of the thesis (pages TODO)
+*** 2.4.2
+Introductions to ASP and Instal, along with reasons why they were chosen, appear in pages TODO in section 4.4.
+*** 2.4.3
+The "future work" chapter (chapter 9) has been expanded to include new research challenges that emerge from the work in this thesis, along with ideas for how to tackle them (pages TODO)
+*** 2.4.4
+TODO
