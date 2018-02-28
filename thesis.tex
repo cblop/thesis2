@@ -7183,6 +7183,7 @@ The translation of the ``Mini-boss'' trope into TropICAL code is shown in Listin
 
 \subsection{``Crocodile and Sausages'' Scene}
 % Tropes: set the scene for mischief (see above)
+\label{sec:croc-sausages-scene}
 
 This scene can simply re-use the ``Setting the Scene for Mischief'' trope from
 the previous scene with Punch, Judy and the baby. In this case, Joey the Clown
@@ -7572,10 +7573,60 @@ Section~\ref{sec:asl-character-roles} of the appendix.
 \section{An Example of ``Character Freedom''}
 \label{sec:freedom-example}
 % Use the sausages scene
+Here is an example where a character has the freedom to escape the main story
+path, and the potential consequences of such a scenario.
+
+Imagine a run-through of the ``Sausages scene'' from Punch and Judy (described
+in Section~\ref{sec:croc-sausages-scene}), where Punch has been given the
+sausages to look after, and Joey has left the stage. Now, the crocodile appears
+on stage and starts to chase Punch. As Punch is being pursued by the crocodile,
+his emotional state deteriorates, until his emotional state is ``scared''. This
+ads the ``desperate'' belief to the Punch agent, which allows him to execute
+plans containing actions that he is not permitted to perform.
+
+As well as being an ``Idiot'' in the ``Mishandling of an Item'' trope from the
+``Sausages'' scene, Punch can have many other roles. In order to encourage as
+wide a variety of behaviours from Punch as possible, an author can choose to
+attach extra roles to him. We could say that, in addition to everything else,
+Punch is also a ``Thief''. When the ``Thief'' role code is included in Punch's
+plan library, it adds the plans corresponding to the tropes that contain
+``Thief'' character roles, such as the one shown in Listing~\ref{lst:thief-trope}.
+
+\begin{lstlisting}[showstringspaces=false,
+label=lst:thief-trope,caption={``Theft of an Item'' trope}]
+"Theft of an Item" is a trope where:
+  The Owner is a role
+  The Thief is a role
+  The Item is an object
+  Away is a place
+  The Owner gives the Item to the Thief
+  Then the Thief goes Away
+  Then the Thief sells the Item
+\end{lstlisting}
+
+As Punch is also a ``Thief'', he plans to steal the Item and escape. Until now,
+he has not been permitted to do so. However, now that he is in a ``desperate''
+emotional state, he can carry out the actions from the ``Theft of an Item'' trope.
 
 \subsection{Handling Trope Violations: The Director Agent}
+Another, more flexible, way to enable character freedom would be through the use
+of a ``director'' agent. This agent can watch for violation events that occur,
+and activate tropes that closely match the roles, objects and places currently
+participating in the story.
+
+So, in the ``Sausages scene'' example, once Punch becomes distressed, he can
+perform \emph{any} of the actions described in \emph{any} of the plans in his
+libraray. Once performed, this action would generate a violation event,
+and would be observed by the ``director'' agent. This agent can then decide
+which trope to activate by choosing a trope that has the same (or similar)
+character roles, objects and places as the currently active trope. An example of
+how this could be achieved is shown in the AgentSpeak code shown in
+Listing~\ref{lst:pjfull-directoragent}. The director agent could even make use
+of more advanced techniques such as case-based reasoning to help find a suitable
+trope to activate, in case no exact match can be found.
+
 \begin{lstlisting}[showstringspaces=false,
-label=lst:pjfull-heroagent,caption={AgentSpeak code for the ``Director'' agent}]
+label=lst:pjfull-directoragent,caption={AgentSpeak code for the ``Director'' agent}]
 trope(herosJourney);
 role(hero, herosJourney);
 place(landOfAdventure, herosJourney);
@@ -7592,6 +7643,10 @@ getSimilarTropes(X, T)
     place(P, T)}1;
 
 \end{lstlisting}
+
+Once a new trope has been activated, the agents get permission to perform the
+events it describes. The trope that has been violated can then be deactivated by
+removing permission for any of its events to occur.
 
 \chapter{Discussion}
 \label{cha:discussion}
