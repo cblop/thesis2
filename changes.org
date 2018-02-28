@@ -37,4 +37,4 @@ Introductions to ASP and Instal, along with reasons why they were chosen, appear
 *** 2.4.3
 The "future work" chapter (chapter 9) has been expanded to include new research challenges that emerge from the work in this thesis, along with ideas for how to tackle them (pages TODO)
 *** 2.4.4
-TODO
+Changed references to refer to page numbers using the fancyref package.

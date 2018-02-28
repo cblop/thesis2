@@ -649,17 +649,17 @@ The structure of this thesis is as follows:
   We approach the literature survey from two perspectives: those of \emph{narratology},
   and \emph{interactive narrative}.
   In order to evaluate the current state of narrative formalisms, the literature review first covers narrative research
-  (narratology) from social science (section~\Fref{sec:narratology}), before
+  (narratology) from social science (\Fref{sec:narratology}), before
   examining existing implementations of interactive narrative and narrative
   generation systems from computer science
-  (section~\Fref{sec:implementations}).
+  (\Fref{sec:implementations}).
 \item The use of \textbf{Institutions as Story Worlds} is described in
   this chapter, exploring the theory and research behind
   social institutions. It discusses the merit of their use for describing
   stories, comparing their use against other logics and planner-based systems
   from the previous section. This chapter is a development of \emph{Governing
     Narrative Events with Institutional Norms}, which is listed as
-  the \textbf{[CMN 2015]} conference paper in the list of papers below (section~\Fref{sec:papers}).
+  the \textbf{[CMN 2015]} conference paper in the list of papers below (\Fref{sec:papers}).
 \item Using \textbf{Tropes as Story Components}
   examines the use of \emph{tropes} as story components, analysing the process
   of turning an informal trope description into something more formal that can improve
@@ -1735,8 +1735,8 @@ described in Chapters~\Fref{cha:tropes} and~\Fref{cha:tropical} of this disserta
 % explains how these tropes are used to govern agents in a multi-agent system. We
 % describe TropICAL, our domain-specific language for tropes, in
 % \Fref{cha:tropical}. \Fref{sec:library} describes our creation of
-% a library of tropes and section~ The thesis concludes with an evaluation
-% in section~\Fref{sec:evaluation} and conclusions in section~\Fref{sec:conclusions}.
+% a library of tropes and  The thesis concludes with an evaluation
+% in \Fref{sec:evaluation} and conclusions in \Fref{sec:conclusions}.
 
 % insts
 
@@ -1763,7 +1763,7 @@ description of what a story trope is, along with several examples.
 Tropes are patterns that appear throughout various different media. Once one is familiar
 with a trope, it becomes easy to identify its use in any story. Take, for
 example, the \emph{Hero's Journey} trope first described in
-chapter~\Fref{cha:introduction}. It is a template which is repeated so often in
+\Fref{cha:introduction}. It is a template which is repeated so often in
 many different media, stories and contexts that it is instantly recognised even
 by those that are completely unfamiliar with the concept of tropes.
 
@@ -1994,7 +1994,7 @@ logical, reusable components for the formal description of stories.
 % This is pretty much covered in the lit review
 
 Returning to the shortcomings of existing narrative formalisms we describe in
-section~\Fref{sec:litrev-discussion}, we now describe how tropes are suitable for use
+\Fref{sec:litrev-discussion}, we now describe how tropes are suitable for use
 as a narrative formalism that is able to overcome these limitations.
 
 \subsection{A Means of Abstraction}
@@ -2058,7 +2058,7 @@ it in the following way:
 \end{enumerate}
 
 Returning to the concept of ``story structure'' described in
-section~\Fref{sec:structure}, we can use the ``subtropes'' we just identified to
+\Fref{sec:structure}, we can use the ``subtropes'' we just identified to
 define other ``story shapes'' as described by~\citet{vonnegut2009palm}. For example, the ``man
 in hole'' story shape described in \Fref{sec:structure} could simply be described as a rearrangement of the
 three-act structure:
@@ -2135,7 +2135,7 @@ their stories.
 
 To summarise: tropes have the potential to be a useful model to use for story
 components, as they fulfil the criteria we lay out in
-section~\Fref{sec:litrev-discussion}:
+\Fref{sec:litrev-discussion}:
 
 \begin{itemize}
 \item They provide a \emph{means of abstraction} through subtropes as well as parent and child
@@ -2148,7 +2148,7 @@ Meetup group are already familiar with them.
 \end{itemize}
 
 % \section{Using Tropes with Modal Logic}
-% In section~\Fref{sec:pjexample}, we described the ``sausages'' scene from
+% In \Fref{sec:pjexample}, we described the ``sausages'' scene from
 % \emph{Punch and Judy} by combining Propp's story functions with modal operators
 % to create Kripke structures to visualise the paths through the scene. In order
 % to compare the expressiveness of tropes as a story formalism, this section
@@ -2307,7 +2307,7 @@ to use. Inform 7~\citep{reed2010creating} enables non-programmers to create
 interactive fiction, but not in a way that can be integrated into a multi-agent
 system.
 The systems described in the literature review in
-chapter~\Fref{cha:literature-review}, such as those using the Mimesis
+\Fref{cha:literature-review}, such as those using the Mimesis
 architecture~\citep{young2004architecture}, a drama manager and planner such as
 in Fa\c{c}ade's system~\citep{mateas2003faccade}, or linear logic as in Ceptre's
 system~\citep{martens2015ceptre}, all require the story author to be familiar with
@@ -2348,9 +2348,9 @@ a set of requirements from them. Based upon these requirements, the features and
 design of the language are described in \Fref{sec:language-design}.
 The translation of TropICAL to InstAL code is demonstrated in \Fref{sec:t-codegen}, with samples of generated InstAL
 institutions, Answer Set
-generation (section~\Fref{sec:t-asp}), constraints
-(section~\Fref{sec:t-constraints}), and output traces (section~\Fref{sec:example-traces}). Finally, we show its extension for
-the description of legal policies (section~\Fref{sec:t-legal}). The chapter
+generation (\Fref{sec:t-asp}), constraints
+(\Fref{sec:t-constraints}), and output traces (\Fref{sec:example-traces}). Finally, we show its extension for
+the description of legal policies (\Fref{sec:t-legal}). The chapter
 concludes with a summary in \Fref{sec:tropical-summary}, describing how
 some requirements from \Fref{sec:requirements} were met, while others are
 addressed through the \emph{StoryBuilder} tool described in \Fref{cha:storybuilder}.
@@ -2727,7 +2727,7 @@ Charlie's only unique requirement is:
 \subsection{Requirement Specification}
 \label{sec:requirements}
 
-Based on the use cases above (section~\Fref{sec:use-cases}), we can create the
+Based on the use cases above (\Fref{sec:use-cases}), we can create the
 following requirements:
 
 \begin{enumerate}[R1.]
@@ -2783,7 +2783,7 @@ In cases where multiple story paths may be taken, TropICAL allows for the
 description of alternative narrative branches, the syntax for which is described
 in \Fref{sec:branch-code}. Finally, the means for creating trope
 abstractions by embedding existing tropes into new ones is demonstrated in
-section~\Fref{sec:subtrope-code}.
+\Fref{sec:subtrope-code}.
 
 \subsection{Entity Declarations}
 \label{sec:dec-code}
@@ -2958,7 +2958,7 @@ The Hero must go to the Land of Adventure before the Villain kills the Mentor
 This mechanism could be used as a method of creating branches in the story. If the
 specified event happens before the deadline event, the path of the trope goes
 one way. If it doesn't, the story follows the path of the consequence event.
-Section~\ref{sec:instal-obl} on page~\pageref{sec:instal-obj} explains in detail how obligations, deadlines and
+\ref{sec:instal-obl} on page~\pageref{sec:instal-obj} explains in detail how obligations, deadlines and
 consequences are compiled to InstAL code.
 
 \subsection{Branching Events}
@@ -3147,7 +3147,7 @@ nested branches of its story:
 
 An author can create complex branching narrative by combining these tropes together. To see
 visualisations of the story paths of multiple tropes combined, see
-section~\Fref{sec:combining-tropes} of \Fref{cha:storybuilder}.
+\Fref{sec:combining-tropes} of \Fref{cha:storybuilder}.
 
 For technical details of the parser implementation, including the EBNF grammar
 of the TropICAL language, refer to Appendix~\Fref{appendix:t-grammar}.
@@ -3670,7 +3670,7 @@ external events, which is named after the trope itself (in this case, the event
 is named \emph{intSequence3} after the trope name ``Sequence 3''). The
 permissions and obligations that this institutional event initiates depend on
 the \emph{phase} of the trope that is currently active (see
-section~\Fref{sec:event-phases}) below.
+\Fref{sec:event-phases}) below.
 
 \subsection{Initiation}
 % TODO before / after snippets: 2
@@ -3691,7 +3691,7 @@ active)}.
 Once the first event has occurred, the trope enters \emph{phase A}, which means
 that the fluent \emph{phase(tropeName, phaseA)} then holds, and the
 \emph{phase(tropeName, active} fluent is terminated (this is described in
-section~\Fref{sec:termination}). This initiation and termination process then
+\Fref{sec:termination}). This initiation and termination process then
 repeats through all phases of the trope, through phases B, C and D if they
 exist, until the final event occurs and the last phase is terminated.
 
@@ -4936,7 +4936,7 @@ refine their tropes further in order to build the non-linear narrative that they
 
 In the introduction to this chapter, we describe how the StoryBuilder tool
 addresses requirements R\ref{req:components} and R\ref{req:vis} in the
-requirements shown in section~\Fref{sec:requirements}:
+requirements shown in \Fref{sec:requirements}:
 
 \begin{enumerate}[R1.]
   \setcounter{enumi}{2}
@@ -5241,7 +5241,7 @@ $\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
 In \Fref{sec:pjexample}, we describe the \emph{sausages} scene of Punch
 and Judy in terms of Propp's story functions. We begin this section in the same
 way, by building up a scene description in terms of tropes. Then, as in
-section~\Fref{sec:pjexample-insts}, we create an institution out of the scene we
+\Fref{sec:pjexample-insts}, we create an institution out of the scene we
 have described with our formalism. 
 
 On the TV Tropes page for Punch and Judy~\citep{pj-tropes}, the following tropes
@@ -5275,7 +5275,7 @@ terms of tropes, while others are too general or abstract to express as agent be
   dell'Arte} trope would be difficult to express in a way that would influence
 our interactive narrative. Instead of describing the entire story of Punch and
 Judy, we will describe the sausages scene first mentioned in
-section~\Fref{sec:pjexample} in terms of tropes, using this one piece of the
+\Fref{sec:pjexample} in terms of tropes, using this one piece of the
 story as an illustrative example. To help with this translation,
 TV Tropes even has a page on Vladimir Propp which maps his story functions
 directly into tropes~\citep{propp-tropes}:
@@ -5665,7 +5665,7 @@ model that take the actions of other agents into account.
 \subsection{VAD emotions in Jason}
 Emotions are implemented as beliefs inside an agent. An agent believes it has a certain level of valence, arousal and dominance, and it works out its emotional state based on a combination of these three factors. When the audience cheers or boos them, this changes the belief holding the relevant emotional variable, and their emotional state as a whole is recalculated.
 
-Valence, arousal and dominance values can take values of -1 (low), 0 (medium) or 1 (high). \Fref{lst:emotions} shows the emotional belief rules for an agent with medium dominance (a dominance level of 0). Note that an agent maintains beliefs about both its current emotion label (such as sleepy or happy) and the separate valence, arousal and dominance values at the same time.  Similar sets of rules handle the belief emotion for the other dominance levels.  %We address the matter of how external stimuli affect dominance in section~\Fref{sec:norms as percepts}.\jnote{still needs doing}
+Valence, arousal and dominance values can take values of -1 (low), 0 (medium) or 1 (high). \Fref{lst:emotions} shows the emotional belief rules for an agent with medium dominance (a dominance level of 0). Note that an agent maintains beliefs about both its current emotion label (such as sleepy or happy) and the separate valence, arousal and dominance values at the same time.  Similar sets of rules handle the belief emotion for the other dominance levels.  %We address the matter of how external stimuli affect dominance in \Fref{sec:norms as percepts}.\jnote{still needs doing}
 
 Every time an emotional variable (valence, arousal, or dominance) changes, an agent's emotion is changed according to the rules in \Fref{lst:emotions}. While an agent's valence, arousal and dominance belief values affect the way it makes decisions internally, the results of combinations of these values (sleepy, happy, etc) are broadcast as external actions. The reason for this is that an agent's emotional state may affect the way in which the character is animated: changing the speed at which they move or turning their smile into a frown, for example. For this reason, whenever an emotional change takes place, the new emotion is published as an external action of the agent so that observing entities may perceive it. The Bath sensor framework described in \Fref{sec:arch} provides the means for this evidence of the agent's internal state change to be received by the animation system and reflected accordingly in the display.
 
@@ -6997,7 +6997,7 @@ compiled institutions.
 
 \section{A Full Specification of Punch and Judy}
 \label{sec:pj-fullspec}
-In section~\Fref{sec:punchjudy-tropes}, we describe one scene from Punch and Judy
+In \Fref{sec:punchjudy-tropes}, we describe one scene from Punch and Judy
 in terms of tropes. The scene chosen in this example is one where a crocodile
 appears on stage to steal some sausages that Punch is guarding. This section
 gives an example of a \emph{full} Punch and Judy show described in terms of
