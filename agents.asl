@@ -75,7 +75,9 @@
 
 +startTrope(mishandling)
   <- !breakItem;
-     !loseItem;
+
++startTrope(mishandling)
+  <- !loseItem;
 
 +!breakItem : not (desperate | perm(break(X))) & type(X, item)
   <- !breakItem;
