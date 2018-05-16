@@ -3178,7 +3178,6 @@ This section describes how and why language features translate to
 InstAL, with fully translated examples of InstAL code appearing in \Fref{appendix:instal}.
 
 \subsection{Answer Set Programming (ASP)}
-\added{
 Answer Set Programming (ASP) uses a \emph{declarative} programming paradigm, meaning
 that programs described in an ASP language (such as AnsProlog) describe the
 problem to be solved, as well as its solution in terms of success criteria.
@@ -3196,13 +3195,13 @@ that can be generated.
 \subsubsection{ASP Example: A Sudoku Puzzle}
 \begin{figure}[!t]
 \centerline{\includegraphics[width=\textwidth]{sudoku.png}}
-\caption{Left: an unsolved Sudoku puzzle. Right: The solution to the puzzle. (Images from~\citep{aspsudoku})}\label{fig:sudoku-grid}
+\caption{Left: an unsolved Sudoku puzzle. Right: The solution to the puzzle. (Images from~\citet{aspsudoku})}\label{fig:sudoku-grid}
 \end{figure}
 As an example, we describe the creation of a Sudoku puzzle game in AnsProlog.
-The code for this example is taken from~\citep{aspsudoku}.
+The code for this example is taken from~\citet{aspsudoku}.
 
 ``Sudoku'' is a famous number puzzle where numbers 1-9 are arranged on a $9
-\times 9$ grid. Fig.~\Fref{fig:sudoku-grid} shows an example of a Sudoku grid. The
+\times 9$ grid. \Fref{fig:sudoku-grid} shows an example of a Sudoku grid. The
 $9 \times 9$ board consists of 9 squares of $3 \times 3$ cells. The aim of
 Sudoku is to put numbers into each cell so that each row, column and square
 contains no duplicate numbers (numbers 1-9 appear only once).
@@ -3216,7 +3215,7 @@ along with the constraints of the game:
 \item No number can be in the same column or row
 \end{itemize}
 
-Listing~\Fref{lst:sudoku-numbers} shows AnsProlog facts that describe the layout
+\Fref{lst:sudoku-numbers} shows AnsProlog facts that describe the layout
 of a Sudoku board. Line~\ref{lne:s-numbers} states that the board contains
 numbers from 1 to 9, rows numbered 0 to 8 and columns also numbered 0 to 8.
 Lines~\ref{lne:s-square1} to \ref{lne:s-squaren} describe the nine squares of the
@@ -3233,16 +3232,16 @@ square(3, 3..5, 0..2). square(4, 3..5, 3..5). square(5, 3..5, 6..8).
 square(6, 6..8, 0..2). square(7, 6..8, 3..5). square(8, 6..8, 6..8).~\label{lne:s-squaren}~
 \end{lstlisting}
 
-Once the layout of the Sudoku board has been described, we can begin describing
+Once the layout of the Sudoku board has been defined, we can begin describing
 the rules of the game through \emph{constraints}. A constraint limits the search
 space of possible solutions by describing behaviour that is not allowed as part
-of the system. For example, Listing~\Fref{lst:sudoku-unique} shows the AnsProlog
+of the system. For example, \Fref{lst:sudoku-unique} shows the AnsProlog
 rules that state that a number can only appear on a grid cell once. This works
 by stating that each number from 1 to 9 can only appear at location $X, Y$ in
 the grid if no other number is already there. The listing omits numbers 3 to 8
 to save space.
 
-The constraints in Listing~\Fref{lst:sudoku-constraints} describe the rules of the
+The constraints in \Fref{lst:sudoku-constraints} describe the rules of the
 game itself. Lines~\ref{lne:s-cellconst1} and~\ref{lne:s-cellconst2} state that
 each number can occur only once in each row and column on the board, and
 lines~\ref{lne:s-squareconst1} to~\ref{lne:s-squareconstn} describe how each
@@ -3295,12 +3294,11 @@ sets for all possible combinations of numbers in the Sudoku board. However, a
 Sudoku game begins with some of the numbers of the board already filled in. It
 is up to the player to determine which numbers can fill in the rest of the grid.
 In order to do this, we must add facts that describe the initial conditions of a Sudoku game: the
-numbers that are filled in already. Listing~\Fref{lst:sudoku-game} shows facts
+numbers that are filled in already. \Fref{lst:sudoku-game} shows facts
 that represent a specific game of Sudoku by describing the cells that already
 contain numbers. When the solver is run with this input, the resulting answer
-set (shown in Listing~\Fref{lst:sudoku-solution}) consists of the game solution
-in terms of numbers and the cells they are located in.
-Figure~\Fref{fig:sudoku-solved} shows the Sudoku game with the solutions from
+set (shown in \Fref{lst:sudoku-solution}) consists of the game solution
+in terms of numbers and the cells they are located in. \Fref{fig:sudoku-solved} shows the Sudoku game with the solutions from
 the answer set as blue numbers.
 
 \begin{lstlisting}[showstringspaces=false, label={lst:sudoku-game},
@@ -3317,7 +3315,7 @@ cell(8, 1, 8). cell(8, 2, 6). cell(8, 4, 3). cell(8, 6, 1).
 \end{lstlisting}
 
 
-\begin{lstlisting}[showstringspaces=false, label={lst:sudoku-game},
+\begin{lstlisting}[showstringspaces=false, label={lst:sudoku-solution},
 escapechar=\~, caption={Answer set corresponding to a particular Sudoku solution}]
 cell(0,0,3) cell(0,1,2) cell(0,4,8) cell(0,3,9) cell(0,5,1) cell(0,8,7)
 cell(0,6,6) cell(0,2,4) cell(0,7,5)
@@ -3348,7 +3346,7 @@ cell(8,5,9) cell(8,7,7) cell(8,8,4)
 \end{lstlisting}
 
 \begin{figure}[!t]
-\centerline{\includegraphics[width=\textwidth]{sudoku-solved.png}}
+\centerline{\includegraphics[width=0.5\textwidth]{sudoku-solved.png}}
 \caption{The solved Sudoku board for our example. Numbers from the input are
   black, solutions are blue.}\label{fig:sudoku-solved}
 \end{figure}
@@ -3361,7 +3359,6 @@ without the risk of an ASP program getting stuck in an infinite loop. As each
 free variable is \emph{grounded} (the space of all possible values for a
 variable is generated), a search for solutions should terminate even when
 negation is used.
-}{2.4.2: Brief introduction to ASP}
 
 \subsection{InstAL: The Institution Action Language}
 \label{sec:instal-intro}
@@ -4014,7 +4011,7 @@ termination event in the institution.
 In our tropes, obligations have optional deadline events and consequences. At
 the time of implementation, both of these were mandatory in InstAL, and so it
 was necessary to add ``dummy'' events for both if they were not specified in TropICAL.
-Returning to \Fref{lst:obl1} of \Fref{sec:obl-code}, which
+Returning to listing~\ref{lst:obl1} on page~\pageref{lst:obl1} of Section~\ref{sec:obl-code}, which
 specifies an obligation without a deadline or a consequence:
 
 \begin{lstlisting}
@@ -4022,7 +4019,7 @@ The Hero goes Home
 Then the Hero must go to the Land of Adventure
 \end{lstlisting}
 
-Line~\ref{line:obl1-oblev} of \Fref{lst:obl1-init} shows the
+Line~\ref{line:obl1-oblev} of \ref{lst:obl1-init} on page~\pageref{lst:obl1-init} shows the
 initiation rule for an obligation event with no deadline or consequence, and
 listing~\Fref{lst:obl1-fluent} shows the fluent declaration for the obligation
 fluent. The \emph{intNoDeadline} and \emph{noViolation} events are dummy events

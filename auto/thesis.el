@@ -6,15 +6,15 @@
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("changebar" "color") ("fontenc" "T2A") ("inputenc" "utf8") ("geometry" "hmargin=3cm" "vmargin=2cm") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("todonotes" "colorinlistoftodos")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
    (TeX-run-style-hooks
     "latex2e"
     "report"
@@ -186,6 +186,7 @@
     "lne:s-squareconst1"
     "lne:s-squareconstn"
     "lst:sudoku-game"
+    "lst:sudoku-solution"
     "fig:sudoku-solved"
     "sec:instal-intro"
     "sec:inst-events"
@@ -336,12 +337,9 @@
     "lne:response2-end"
     "sec:decisions"
     "sec:norms-as-percepts"
-    "sec:norms as percepts"
     "sec:arch"
     "sec:arch-mas"
-    "sec:inst"
     "lst:idiot-generate"
-    "lst:idiot-initiate"
     "fig:tracevis"
     "fig:pjshow"
     "sec:demo"
