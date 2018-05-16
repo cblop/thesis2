@@ -4805,6 +4805,31 @@ of this subtrope, as described in \Fref{lst:subtrope2}, and its resulting visual
 \caption{Trope containing a subtrope (from \Fref{lst:subtrope2})}\label{fig:sb-subtrope2}
 \end{figure}
 
+\section{Design Justification}
+% Return to requirements, explain how they are met
+
+% TODO intro: 1
+% TODO explain how requirements have been met: 4
+
+In the introduction to this chapter, we describe how the StoryBuilder tool
+addresses requirements R\ref{req:components} and R\ref{req:vis} in the
+requirements shown in \Fref{sec:requirements}:
+
+\begin{enumerate}[R1.]
+  \setcounter{enumi}{2}
+  \item The user should be able to write and re-use
+    existing story components (from a library)
+  \setcounter{enumi}{6}
+  \item The user should be able to visualise the branches of the
+    story that result in the addition or modification of components to the story.
+\end{enumerate}
+
+StoryBuilder fulfills requirement R\ref{req:components} by storing every trope
+that the author creates in a database, so that they may be reused and amended if
+needed. Requirement R\ref{req:vis} is met through StoryBuilder's use of a tree
+visualisation that updates as the story author is editing the tropes in the tool.
+
+
 \subsection{Introducing ``Punch and Judy''}
 \changed{}{Moved this back here from its previous position in Ch.\Fref{cha:institutions}, as this is now the first mention of P\&J}
 
@@ -5084,30 +5109,6 @@ refine their tropes further in order to build the non-linear narrative that they
 
 \added{Further discussion on trope combination appears in \Fref{sec:trope-combination-exp}.}{2.3.2b: Forward ref to discussion on
   combining tropes together}
-
-\section{Design Justification}
-% Return to requirements, explain how they are met
-
-% TODO intro: 1
-% TODO explain how requirements have been met: 4
-
-In the introduction to this chapter, we describe how the StoryBuilder tool
-addresses requirements R\ref{req:components} and R\ref{req:vis} in the
-requirements shown in \Fref{sec:requirements}:
-
-\begin{enumerate}[R1.]
-  \setcounter{enumi}{2}
-  \item The user should be able to write and re-use
-    existing story components (from a library)
-  \setcounter{enumi}{6}
-  \item The user should be able to visualise the branches of the
-    story that result in the addition or modification of components to the story.
-\end{enumerate}
-
-StoryBuilder fulfills requirement R\ref{req:components} by storing every trope
-that the author creates in a database, so that they may be reused and amended if
-needed. Requirement R\ref{req:vis} is met through StoryBuilder's use of a tree
-visualisation that updates as the story author is editing the tropes in the tool.
 
 
 \chapter{Using TropICAL with a Normative Multi-Agent System}
@@ -7183,7 +7184,7 @@ compiled institutions.
 \section{A Full Specification of Punch and Judy}
 \label{sec:pj-fullspec}
 \added{}{2.3.2a: Added a full specification of Punch and Judy}
-In \Fref{sec:punchjudy-tropes}, we describe one scene from Punch and Judy
+In \Fref{sec:punchjudy-tropes}, we described one scene from Punch and Judy
 in terms of tropes. The scene chosen in this example is one where a crocodile
 appears on stage to steal some sausages that Punch is guarding. This section
 gives an example of a \emph{full} Punch and Judy show described in terms of
@@ -7834,7 +7835,7 @@ of the scene.}\label{fig:dot-combine1}
 \label{sec:freedom-example}
 \added{}{2.3.2c: An example of ``Character Freedom''}
 % Use the sausages scene
-Here is an example where a character has the freedom to escape the main story
+In this section we show an example where a character has the freedom to escape the main story
 path, and the potential consequences of such a scenario.
 
 Imagine a run-through of the ``Sausages scene'' from Punch and Judy (described
@@ -7909,6 +7910,7 @@ Once a new trope has been activated, the agents get permission to perform the
 events it describes. The trope that has been violated can then be deactivated by
 removing permission for any of its events to occur.
 
+\section{Summary}
 This evaluation of StoryBuilder and TropICAL has shown that while users of the
 StoryBuilder system were able to use it for story construction, some
 improvements to usability, discoverability, and user feedback (such as helpful
@@ -8514,7 +8516,7 @@ these results are (from most to least significant):
   \item Sequences of events
 \end{enumerate}
 
-\subsection{Possible Optimisation}
+\subsection{Analysis}
 The major source of inefficiency here is the generation of \emph{null} events
 for every possible length of event chains. This could be made much more efficient by
 adding a constraint to the solver that cuts out any answer sets below the
