@@ -67,7 +67,7 @@
   \else
   \newcommand{\added}[2]{#1}
   \newcommand{\changed}[2]{#1}
-  \newcommand{\deleted}[1]{#1}
+  \newcommand{\deleted}[1]{}
 
 \fi
 
@@ -4464,6 +4464,62 @@ These trace outputs do not assist the reader in visualising the possible
 sequences of events that they represent. For this reason, we suggest that the
 reader refer to the visualisations produced by the StoryBuilder tool in \Fref{sec:trope-visualisation}.
 
+\subsection{Introducing ``Punch and Judy''}
+\changed{}{Moved this back here from its previous position in Ch.\Fref{cha:institutions}, as this is now the first mention of P\&J}
+
+From this point in the thesis, we use the \emph{Punch and Judy} story world for our
+example narratives. \emph{Punch and Judy} is a traditional British-Italian
+puppet show often seen at seaside resorts. Its first recorded appearance in the
+UK is in Covent Garden, London in 1662, having been brought into the country by
+Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
+institution, delighting children and adults alike over the course of centuries.
+
+The show itself is an incredibly violent farce, where the titular character
+\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
+with him having an argument with another puppet, and end with Punch beating the
+other puppet to death. He starts by killing his wife and child, then the
+policeman that comes to arrest him, before finally murdering the Devil himself.
+
+Interestingly, there is no comeuppance for Punch's killing spree, as most modern
+audiences would expect. Instead, the story shows Punch as a buffoon, a
+ridiculous caricature of an angry man who blunders his way through life, yet is
+victorious nonetheless. The story has no moral message, only farcical violence.
+
+Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
+it a suitable narrative domain for the purposes of testing our research:
+
+\begin{itemize}
+\item It has many recognisable patterns, or \emph{tropes}. For example, most
+  scenes feature some kind of audience participation, and most end with
+  slapstick comedy.
+\item It can be as simple or sophisticated as we choose to make it. Some scenes
+  are relatively simple to model, such as the scene where Punch beats the
+  policeman. Others are more difficult, such as where Punch is asked to guard
+  some suasages, but then loses them to a crocodile. Combining several scenes
+  into a complete and recognisable \emph{Punch and Judy} narrative is, we
+  contend, a worthwhile challenge for a narrative generation system.
+\item Following from this, its scenes can either be self-contained and modelled
+  on their own, or can depend on the context of the previous scenes. For
+  example, Punch's foes increase in importance as his rampage progresses. In some
+  versions, he kills his wife, then a policeman, then the executioner sent to
+  hang him, then finally the Devil. This makes it useful for modelling a
+  narrative with a state that changes over time.
+\item Most (British) people know Punch and Judy when they see it. They are able
+  to recognise how characters in the story are supposed to behave, and what
+  should happen in each scene and in the story as a whole. This helps with
+  evaluation of the system: the audience will be able to say whether or not the
+  generated tropes are \emph{authentic} or not.
+\end{itemize}
+
+The minimal set of Punch and Judy characters would be Punch, his wife Judy,
+their baby, Joey the clown (who narrates the story and interacts with the
+audience, and is immune to Punch's attacks), a crocodile and a Policeman.
+Extended versions include other animals that Punch chases (such as a monkey or
+cat), and the previously mentioned hangman and Devil characters. These are not
+needed for a full Punch and Judy show, however. Indeed, many performers show
+just one or two scenes in a show, with the first featuring Punch, Judy and the
+baby, and then finishing with the scene where Punch wrestles with a crocodile
+for some sausages.
 
 \section{Summary}
 \label{sec:tropical-summary}
@@ -4805,7 +4861,7 @@ of this subtrope, as described in \Fref{lst:subtrope2}, and its resulting visual
 \caption{Trope containing a subtrope (from \Fref{lst:subtrope2})}\label{fig:sb-subtrope2}
 \end{figure}
 
-\section{Design Justification}
+\subsection{Design Justification}
 % Return to requirements, explain how they are met
 
 % TODO intro: 1
@@ -4830,62 +4886,6 @@ needed. Requirement R\ref{req:vis} is met through StoryBuilder's use of a tree
 visualisation that updates as the story author is editing the tropes in the tool.
 
 
-\subsection{Introducing ``Punch and Judy''}
-\changed{}{Moved this back here from its previous position in Ch.\Fref{cha:institutions}, as this is now the first mention of P\&J}
-
-From this point in the thesis, we use the \emph{Punch and Judy} story world for our
-example narratives. \emph{Punch and Judy} is a traditional British-Italian
-puppet show often seen at seaside resorts. Its first recorded appearance in the
-UK is in Covent Garden, London in 1662, having been brought into the country by
-Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
-institution, delighting children and adults alike over the course of centuries.
-
-The show itself is an incredibly violent farce, where the titular character
-\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
-with him having an argument with another puppet, and end with Punch beating the
-other puppet to death. He starts by killing his wife and child, then the
-policeman that comes to arrest him, before finally murdering the Devil himself.
-
-Interestingly, there is no comeuppance for Punch's killing spree, as most modern
-audiences would expect. Instead, the story shows Punch as a buffoon, a
-ridiculous caricature of an angry man who blunders his way through life, yet is
-victorious nonetheless. The story has no moral message, only farcical violence.
-
-Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
-it a suitable narrative domain for the purposes of testing our research:
-
-\begin{itemize}
-\item It has many recognisable patterns, or \emph{tropes}. For example, most
-  scenes feature some kind of audience participation, and most end with
-  slapstick comedy.
-\item It can be as simple or sophisticated as we choose to make it. Some scenes
-  are relatively simple to model, such as the scene where Punch beats the
-  policeman. Others are more difficult, such as where Punch is asked to guard
-  some suasages, but then loses them to a crocodile. Combining several scenes
-  into a complete and recognisable \emph{Punch and Judy} narrative is, we
-  contend, a worthwhile challenge for a narrative generation system.
-\item Following from this, its scenes can either be self-contained and modelled
-  on their own, or can depend on the context of the previous scenes. For
-  example, Punch's foes increase in importance as his rampage progresses. In some
-  versions, he kills his wife, then a policeman, then the executioner sent to
-  hang him, then finally the Devil. This makes it useful for modelling a
-  narrative with a state that changes over time.
-\item Most (British) people know Punch and Judy when they see it. They are able
-  to recognise how characters in the story are supposed to behave, and what
-  should happen in each scene and in the story as a whole. This helps with
-  evaluation of the system: the audience will be able to say whether or not the
-  generated tropes are \emph{authentic} or not.
-\end{itemize}
-
-The minimal set of Punch and Judy characters would be Punch, his wife Judy,
-their baby, Joey the clown (who narrates the story and interacts with the
-audience, and is immune to Punch's attacks), a crocodile and a Policeman.
-Extended versions include other animals that Punch chases (such as a monkey or
-cat), and the previously mentioned hangman and Devil characters. These are not
-needed for a full Punch and Judy show, however. Indeed, many performers show
-just one or two scenes in a show, with the first featuring Punch, Judy and the
-baby, and then finishing with the scene where Punch wrestles with a crocodile
-for some sausages.
 
 \subsection{Creating a Punch and Judy story with StoryBuilder}
 The tropes that appear in Punch and Judy can be divided into two types: those
