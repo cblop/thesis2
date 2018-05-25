@@ -170,6 +170,8 @@
     "lst:subtrope2"
     "lst:subtrope3"
     "sec:t-codegen"
+    "lst:asp-rule"
+    "lst:asp-fact"
     "fig:sudoku-grid"
     "lst:sudoku-numbers"
     "lne:s-numbers"

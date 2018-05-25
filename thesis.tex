@@ -3192,6 +3192,24 @@ An ASP program consists of three elements: a knowledge base of ``facts'', rules
 for generating sets, and constraints that limit the sets output from the
 solver to only ``answer'' sets.
 
+The rules of an ASP program are of the following form:
+
+\begin{lstlisting}[showstringspaces=false, label={lst:asp-rule}]
+<head> :- <body> .
+\end{lstlisting}
+
+This can be read as ``head is true if body is true''. If the body part of a
+clause is empty, then the clause is a fact rather than a rule. This is the
+equivalent of just the head of a rule with no conditional body following it. For example:
+
+\begin{lstlisting}[showstringspaces=false, label={lst:asp-fact}]
+hero(charlie).
+\end{lstlisting}
+
+An answer set is the minimal set of atoms that satisfy the rules of the
+program. These atoms only appear in the answer set if a rule or fact from the program
+justifies its inclusion.
+
 \subsubsection{ASP Example: A Sudoku Puzzle}
 \begin{figure}[!t]
 \centerline{\includegraphics[width=\textwidth]{sudoku.png}}
