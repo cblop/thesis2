@@ -3181,16 +3181,16 @@ InstAL, with fully translated examples of InstAL code appearing in \Fref{appendi
 Answer Set Programming (ASP) uses a \emph{declarative} programming paradigm, meaning
 that programs described in an ASP language (such as AnsProlog) describe the
 problem to be solved, as well as its solution in terms of success criteria.
-Traditional programming languages (such as Java or
-Python) require the user to describe \emph{how} to solve the problem. For example, a \emph{Sudoku} game
-would be created by logically describing the rules of the game, which are used
-to search for potential solutions when given number grids as input. Contrast
-this with the traditional programming approach, which would be to describe the
-steps that are taken when a Sudoku game is played.
+Procedural programming languages (such as Java or
+Python) require the user to describe \emph{how} to solve the problem. With the
+procedural approach, a \emph{Sudoku} program would consist of the steps that are taken
+when a Sudoku game is played. Contrast this with the declarative programming approach,
+where the program would be created by logically describing the rules of the game, which are used
+to search for potential solutions when given number grids as input.
 
 An ASP program consists of three elements: a knowledge base of ``facts'', rules
-for generating new facts, and constraints that limit the number of new facts
-that can be generated.
+for generating sets, and constraints that limit the sets output from the
+solver to only ``answer'' sets.
 
 \subsubsection{ASP Example: A Sudoku Puzzle}
 \begin{figure}[!t]

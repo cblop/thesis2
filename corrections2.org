@@ -139,3 +139,42 @@ Just to let you know, I am not available Thursday and Friday next week.
 
 Ciao,
 Marina
+
+* Email 4 
+Some comments:
+The first paragraph of 4.4.1 is a bit messy:You mix traditional (I 
+would say procedural) and declarative: 
+"Traditional programming languages 
+(such as Java or Python) require the user to describe how to solve the 
+problem. For example, 
+a Sudoku game would be created by logically describing the rules of the 
+game, which are used 
+to search for potential solutions when given number grids as input. 
+Contrast this with the 
+traditional programming approach, which would be to describe the steps 
+that are taken when a Sudoku game is played" 
+
+"An ASP program consists of three elements: a knowledge base of 
+“facts”, rules for generating 
+new facts, and constraints that limit the number of new facts that can 
+be generated.": this is wrong 
+
+Facts are not created. Constraints block sets to be answer sets but do 
+not create anything.  
+
+Please include a definition of what an answer set is and define what a 
+fact and a rule is.  
+
+
+"The benefit of using ASP over Prolog comes 
+from its use of the stable model semantics, which allows for the use of 
+negation as failure with- 
+out the risk of an ASP program getting stuck in an infinite loop. As 
+each free variable is 
+grounded (the space of all possible values for a variable is 
+generated), a search for solutions 
+should terminate even when negation is used." 
+
+Theoretically Prolog also uses the stable model semantics, The problem 
+is that its implementation is not fully declarative, hence the order of 
+rules being important and the lack of completeness. 
