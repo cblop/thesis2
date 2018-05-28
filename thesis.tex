@@ -3199,16 +3199,16 @@ The rules of an ASP program are of the following form:
 \end{lstlisting}
 
 This can be read as ``head is true if body is true''. If the body part of a
-clause is empty, then the clause is a fact rather than a rule. This is the
+clause is empty, then the clause is known as a \emph{fact}. This is the
 equivalent of just the head of a rule with no conditional body following it. For example:
 
 \begin{lstlisting}[showstringspaces=false, label={lst:asp-fact}]
 hero(charlie).
 \end{lstlisting}
 
-An answer set is the minimal set of atoms that satisfy the rules of the
-program. These atoms only appear in the answer set if a rule or fact from the program
-justifies its inclusion.
+An answer set is the minimal set of atoms that satisfy the rules 
+program in an consistent manner. These atoms only appear in the answer set if a
+rule or fact from the program justifies its inclusion, without relying on the answer set itself.
 
 \subsubsection{ASP Example: A Sudoku Puzzle}
 \begin{figure}[!t]
@@ -3371,12 +3371,9 @@ cell(8,5,9) cell(8,7,7) cell(8,8,4)
 
 Prolog~\citep{clocksin2003programming} is another well-known language for
 declarative programming, widely used in academia and industry.
-The benefit of using ASP over Prolog comes from its use of the \emph{stable
-  model semantics}, which allows for the use of \emph{negation as failure}
-without the risk of an ASP program getting stuck in an infinite loop. As each
-free variable is \emph{grounded} (the space of all possible values for a
-variable is generated), a search for solutions should terminate even when
-negation is used.
+The benefit of using ASP over Prolog comes from the fact that it is fully
+declarative. This means that the ordering of rules in AnsProlog programs do not
+change the meaning of the program, whereas they do in Prolog.
 
 \subsection{InstAL: The Institution Action Language}
 \label{sec:instal-intro}
