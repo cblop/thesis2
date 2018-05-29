@@ -3387,6 +3387,260 @@ of an answer set solver to generate answer sets corresponding to permitted and
 obliged agent actions. This section provides a brief introduction to the InstAL
 institutional model.
 
+An institution is a
+collection of social norms that govern the behaviour of a set of interacting
+agents. In the real world, social norms encourage certain behaviours and
+discourage others. However, people are still able to carry out the discouraged
+behaviours, as there is no physical barrier preventing them. Instead, the
+discouraged behaviours are punished with \emph{social} consequences such as
+shaming or expulsion from a social group.
+
+For example, when a teacher is
+lecturing a class, there is an implicit social contract for the students to
+remain silent while the teacher is talking. Though it is physically possible for
+a student to interrupt the teacher, they face the possibility of being told to
+leave the class if they do so. The institutions we describe in this chapter
+follow the same model: behaviours are permitted or obliged to happen in a
+contract that all agents follow. When the agents perform actions that are not
+permitted, or do not perform obliged actions before their deadline, they
+\emph{violate} the norms in the institution. As a consequence, a punishment
+corresponding to the violated norm is applied to the offending agent.
+
+\changed{
+Using a social institution as a story model governs character agents' actions instead of enforcing them. This allows
+agents to be guided by the norms described in the
+story model, but also allows them to break away from the model at times. An
+agent could either plan to break the norms of the story if it is willing to face
+the consequences, or it could deviate from the story in extreme situations (such
+as in times of extreme emotion). This potentially gives agents more autonomy to act within the guidelines of a story,
+so that their actions may generate a wider range of interesting scenarios. The
+extent to which our system achieves this ``character freedom'' (if at all) is
+discussed in \Fref{sec:discussion-freedom}.
+}{2.1: Rephrased this to describe character freedom as interesting, but not the
+  focus of the dissertation, with a
+  reference to the discussion section.}
+
+\subsubsection{Norms and Institutions}
+\label{sec:norms-and-institutions}
+\changed{As we describe in \Fref{sec:lit-insts} of the literature review,
+  an institution consists of a set of `social' norms describing the permitted
+  and obliged behaviour of interacting agents. Noriega's ``Fish Market''
+  thesis~\citep{noriega1999agent} describes how an institutional model can be
+  used to govern the actions of agents in a fish market auction.
+  Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional}
+  extend this idea to build systems where institutions actively regulate the
+  actions of agents, while still allowing them to decide what to do. We build on
+  the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to
+  adapt it for the world of narrative, using an institutional model to describe
+  story worlds in terms of tropes, through which the actors
+  acquire powers and permissions appropriate to the character and the story
+  function in which they are participating.
+
+Institutional models use concepts from deontic logic to provide obligations and
+permissions that act on interacting agents in an environment. By combining this
+approach with our concept of \emph{story tropes}, we can describe a Propp-style formalism of narrative in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.}{Propp -> tropes}
+
+% For example, in one Punch and Judy scene, a policeman enters the stage and attempts to apprehend Punch. According to the rules of the Punch and Judy world, Punch has an obligation to kill the policeman by the end of the scene (as this is what the audience expects to happen, having seen other Punch and Judy shows). The policeman has an obligation to try his best to catch Punch. Both agents have permission to be on the stage during the scene. The policeman only has permission to chase Punch if he can see him (Punch is obliged to hide from him at the start of the scene).
+
+The permissions an agent has, on the one hand, constrain the choices of actions
+available to them at any given moment. Obligations, on the other hand, affect
+the goals of an agent. Whether or not an agent actively tries to fulfil an
+obligation depends on the plan they are following, and their emotional state.
+
+\subsubsection{Describing Tropes as Institutions} % 1/2
+\label{sec:tropes-as-insts}
+\deleted{2.1: Argument for institutions giving characters more autonomy}
+
+\changed{The previous section describes how \emph{social institutions} can be
+used to govern the behaviours of story characters to conform to a narrative
+arc.}{2.1: Removed autonomy argument}
+\changed{This section demonstrates how social institutions can be used to implement
+  story tropes in a multi-agent system. Using this method, the tropes are
+  described as social norms which govern the character agents of a story, where
+  an institution describes the norms that govern a certain trope, and a story is
+a collection of tropes.}{Explains that institutions are our
+chosen way to implement tropes}
+
+In order to describe story tropes in terms of social norms, we break them down into three components:
+
+\begin{enumerate}
+\item characters, which instantiate roles
+\item objects, which instantiate types
+\item places, which instantiate locations
+\end{enumerate}
+
+Characters' actions are described in terms of permissions and obligations. For example, a character in a certain role \emph{may} go to the cinema, or a character \emph{must} buy a ticket before the movie begins, otherwise they will not see it. Note that an obligation (which says that a character \emph{must} do something) can have a deadline (``before the movie begins'') and a consequence (``they will not see the movie''). These are both optional in our system.
+
+Returning to the tropes described in the introduction, we can express them in terms of social norms:
+
+\begin{itemize}
+  \item \textbf{The Hero's Journey}: The hero \emph{must} leave home when they receive the call to adventure. Then the hero \emph{may} kill the villain. Once this is done, the hero \emph{may} return home.
+  \item \textbf{The Evil Empire}: The villain has an empire, and \emph{may} kill the hero.
+  \item \textbf{MacGuffin}: The hero \emph{must} search for an object. However, the hero \emph{may} find it.
+  \item \textbf{Chekhov's Gun}: If a weapon appears in the beginning, it \emph{must} be used before the end of the story.
+\end{itemize}
+
+Describing tropes in terms of permissions and obligations is enough for us to be
+able to specify them as social norms, which allows us to represent them
+formally through the use of \emph{InstAL}~\citep{cliffe2007specifying}, the
+Institution Action Language, a language for describing social institutions which compiles to AnsProlog, an \emph{Answer Set Programming} (ASP) language.
+Once compiled to InstAL and AnsProlog, our tropes have a formal representation
+which (for example) allows us to use trope models and an ASP solver to determine
+which norms hold after agent or player actions have occurred in the story world.
+This means that we can use ASP to check whether certain sequences of events are possible within a story,
+given a set of trope descriptions.
+
+As \Fref{sec:instal-intro} explains, an institution describes the
+\emph{external} events that relate to actions in the agent's environment, and
+\emph{institutional} events that occur within the institution. The purpose of
+external events is to generate institutional events, which initiate and
+terminate social norms (permissions and obligations). When a trope is described
+as an institution, it must state which actions by the agents lead
+to the triggering of institutional events, and which norms these institutional
+events initiate or terminate.
+
+Take the case of a \emph{Star Wars} game, for example. Any agent has the ability
+to pick up a Lightsaber weapon. However, this action becomes institutionally
+meaningful if we state that it is the first event of the \emph{Hero's Journey}
+trope, where the Hero answers the Call to Adventure by obtaining a weapon.
+For example, an agent playing the role of Luke Skywalker in a Star Wars game may
+pick up a Lightsaber. If Luke Skywalker is a hero character, and a Lightsaber is
+a type of weapon, this would trigger an event inside the \emph{Hero's Journey}
+institution where a hero has
+picked up a weapon. As this corresponds to the first event in the \emph{Hero's
+  Journey} institution, it would initiate the norms for the next events in
+the institution to happen, which could be permission to use the weapon, or an obligation to go to the land of adventure.
+For more details on InstAL, social institutions, and the formalism in ~\Fref{fig:events}, refer to
+\Fref{sec:instal-intro} and~\citep{cliffe2007specifying}.
+
+Using the same notation introduced in \Fref{sec:instal-intro}, \Fref{fig:events} lists some external ($\mathcal{E}_{external}$) and institutional (internal, $\mathcal{E}_{internal}$) events for the \emph{Hero's Journey} trope. A wide range of external events such as \emph{go}, \emph{meet}, \emph{kill}, \emph{escape} generate the \emph{intHerosJourney} internal event, but only if the external event meets certain criteria. These criteria could be whether or not an agent fulfils a certain role, for example. \Fref{fig:gen-hero} shows examples of such internal event generation ($\mathcal{G}$). In the first example (rule~\ref{eq:tatooine}), the \emph{intHerosJourney} event is generated when Luke Skywalker goes to Tatooine, but only if Luke has the role of \emph{hero}, and Tatooine's location is \emph{home}.
+\Fref{fig:init-hero} shows how internal events initiate
+($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a
+trope. Because the \emph{Hero's Journey} trope has several stages, this example
+only shows the first two events of the trope (the \emph{phase} keywords are explained further in \Fref{sec:trope-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
+Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in \Fref{fig:term-hero}.
+
+While InstAL allows us to express tropes as social institutions, it would be
+difficult to use for non-programmers who are unfamiliar with logic programming
+paradigms. In order for story authors to be able to create their own tropes, a
+much more user-friendly language is needed. This is the motivation for TropICAL,
+and the reason we are describing tropes in that language rather than having
+users write InstAL code directly.
+
+\begin{figure}[!t]\small
+\begin{align}
+  \mathcal{E}_{external} = & \left\{\begin{array}{c}
+\mathtt{go(Agent, Place)},\\
+\mathtt{meet(Agent, Agent)},\\
+\mathtt{kill(Agent, Agent)}\\
+\mathtt{escape(Agent)}
+\end{array}
+\right\}\label{eq:eobs-hero}\\
+  \mathcal{E}_{internal} = &\left\{\begin{array}{l}
+\mathtt{intHerosJourney(Agent,}\\
+\;\;\mathtt{Agent, Agent, Place, Place)}
+\end{array}\right\}
+\label{eq:einst-hero}
+\end{align}
+\caption{External and institutional events ($\mathcal{E}$) for the \emph{Hero's Journey} trope} \label{fig:events}
+\end{figure}
+
+\begin{figure*}[!t]
+\small
+%------------------------------------------------------------------------
+The generation relation $\mathcal{G}$ for trope state $\mathcal{X}$ and external event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\ 
+$\mathcal{G(X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+\begin{array}{r}
+\langle \{\mathit{role(lukeSkywalker, hero)},\\
+\mathit{location(tatooine, home)}\},\\
+\mathit{go}\mathtt{(lukeSkywalker, tatooine)} \rangle
+\end{array}
+&\rightarrow
+\begin{array}{l}
+\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{R, S, tatooine, T)}\}
+\end{array}\label{eq:tatooine}\\
+\begin{array}{r}
+                                 \langle \{\mathit{role(lukeSkywalker, hero)},\\
+  \mathit{role(obiWan, dispatcher)}\},\\
+\mathit{meet}\mathtt{(lukeSkywalker, obiWan)} \rangle
+\end{array}
+&\rightarrow
+\begin{array}{l}
+\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{obiWan, R, S, T)}\}
+\end{array}\label{eq:hsnth}
+\end{align}
+\end{minipage}
+}\right.$\smallskip
+
+%------------------------------------------------------------------------
+The fluent initiation relation $\mathcal{C^{\uparrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
+$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+\begin{array}{r}
+                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\
+\mathit{home, landOfAdventure)}\} \rangle
+\end{array}
+&\rightarrow
+\left\{\begin{array}{l}
+\text{perm}(\mathtt{meet(hero, dispatcher)})\\
+\text{phase}(\mathtt{herosJourney, phaseB})
+\end{array}\right\}\label{eq:cfirst-hero}\\
+\begin{array}{r}
+                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle\\
+  \end{array}
+&\rightarrow \left\{
+\begin{array}{l}
+  \text{perm}(\mathtt{kill(hero, villain)}) \\
+\text{obl}(\mathtt{go(hero, landOfAdventure),} \\
+\mathtt{kill(villain, victim)},\\
+\mathtt{viol(story, end)})\\
+\text{phase}(\mathtt{herosJourney, phaseC})
+\end{array}
+\right\}\label{eq:phaseb}
+\end{align}
+\end{minipage}
+}\right.$\smallskip
+
+%------------------------------------------------------------------------
+
+The fluent termination relation $\mathcal{C^{\downarrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
+$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
+\begin{minipage}[c]{0.85\textwidth}
+\begin{align}
+\begin{array}{r}
+                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
+  \end{array}
+&\rightarrow \left\{
+\begin{array}{l}\text{perm}(\mathtt{go(hero, home)}),\\
+\text{phase}(\mathtt{herosJourney, phaseA})
+\end{array}
+\right\}\label{eq:crt}\\
+\begin{array}{r}
+                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
+  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
+  \end{array}
+&\rightarrow \left\{
+\begin{array}{l}
+\text{perm}(\mathtt{meet(hero, dispatcher)})\\
+\text{phase}(\mathtt{herosJourney, phaseB})
+\end{array}
+\right\}\label{eq:crst}
+\end{align}
+\end{minipage}
+}\right.$
+\caption{Generation events, and fluent initation and termination for the Hero's Journey trope}
+\label{fig:gen-hero}
+\label{fig:init-hero}
+\label{fig:term-hero}
+\end{figure*}
+
+
 \subsubsection{Fluents}
 These are properties that may or may not hold true at some instant in time, and that change over the course of time. \emph{Institutional events} are able to \emph{initiate} or \emph{terminate} fluents at points in time. A fluent could describe whether a character is currently on stage, the scene of the story that is currently being acted out, or whether or not the character is happy at that moment in time.
 Domain fluents ($\mathcal{D}$) describe domain-specific properties that can hold at a certain point in time. 
@@ -4479,62 +4733,6 @@ These trace outputs do not assist the reader in visualising the possible
 sequences of events that they represent. For this reason, we suggest that the
 reader refer to the visualisations produced by the StoryBuilder tool in \Fref{sec:trope-visualisation}.
 
-\subsection{Introducing ``Punch and Judy''}
-\changed{}{Moved this back here from its previous position in Ch.\Fref{cha:institutions}, as this is now the first mention of P\&J}
-
-From this point in the thesis, we use the \emph{Punch and Judy} story world for our
-example narratives. \emph{Punch and Judy} is a traditional British-Italian
-puppet show often seen at seaside resorts. Its first recorded appearance in the
-UK is in Covent Garden, London in 1662, having been brought into the country by
-Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
-institution, delighting children and adults alike over the course of centuries.
-
-The show itself is an incredibly violent farce, where the titular character
-\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
-with him having an argument with another puppet, and end with Punch beating the
-other puppet to death. He starts by killing his wife and child, then the
-policeman that comes to arrest him, before finally murdering the Devil himself.
-
-Interestingly, there is no comeuppance for Punch's killing spree, as most modern
-audiences would expect. Instead, the story shows Punch as a buffoon, a
-ridiculous caricature of an angry man who blunders his way through life, yet is
-victorious nonetheless. The story has no moral message, only farcical violence.
-
-Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
-it a suitable narrative domain for the purposes of testing our research:
-
-\begin{itemize}
-\item It has many recognisable patterns, or \emph{tropes}. For example, most
-  scenes feature some kind of audience participation, and most end with
-  slapstick comedy.
-\item It can be as simple or sophisticated as we choose to make it. Some scenes
-  are relatively simple to model, such as the scene where Punch beats the
-  policeman. Others are more difficult, such as where Punch is asked to guard
-  some suasages, but then loses them to a crocodile. Combining several scenes
-  into a complete and recognisable \emph{Punch and Judy} narrative is, we
-  contend, a worthwhile challenge for a narrative generation system.
-\item Following from this, its scenes can either be self-contained and modelled
-  on their own, or can depend on the context of the previous scenes. For
-  example, Punch's foes increase in importance as his rampage progresses. In some
-  versions, he kills his wife, then a policeman, then the executioner sent to
-  hang him, then finally the Devil. This makes it useful for modelling a
-  narrative with a state that changes over time.
-\item Most (British) people know Punch and Judy when they see it. They are able
-  to recognise how characters in the story are supposed to behave, and what
-  should happen in each scene and in the story as a whole. This helps with
-  evaluation of the system: the audience will be able to say whether or not the
-  generated tropes are \emph{authentic} or not.
-\end{itemize}
-
-The minimal set of Punch and Judy characters would be Punch, his wife Judy,
-their baby, Joey the clown (who narrates the story and interacts with the
-audience, and is immune to Punch's attacks), a crocodile and a Policeman.
-Extended versions include other animals that Punch chases (such as a monkey or
-cat), and the previously mentioned hangman and Devil characters. These are not
-needed for a full Punch and Judy show, however. Indeed, many performers show
-just one or two scenes in a show, with the first featuring Punch, Judy and the
-baby, and then finishing with the scene where Punch wrestles with a crocodile
-for some sausages.
 
 \section{Summary}
 \label{sec:tropical-summary}
@@ -4903,6 +5101,61 @@ visualisation that updates as the story author is editing the tropes in the tool
 
 
 \subsection{Creating a Punch and Judy story with StoryBuilder}
+\changed{}{Moved this back here from its previous position in Ch.\Fref{cha:institutions}, as this is now the first mention of P\&J}
+
+From this point in the thesis, we use the \emph{Punch and Judy} story world for our
+example narratives. \emph{Punch and Judy} is a traditional British-Italian
+puppet show often seen at seaside resorts. Its first recorded appearance in the
+UK is in Covent Garden, London in 1662, having been brought into the country by
+Italian puppeteer Pietro Gimonde. Since then it has become a British cultural
+institution, delighting children and adults alike over the course of centuries.
+
+The show itself is an incredibly violent farce, where the titular character
+\emph{Punch} is a homicidal maniac with a hair-trigger temper. Most scenes start
+with him having an argument with another puppet, and end with Punch beating the
+other puppet to death. He starts by killing his wife and child, then the
+policeman that comes to arrest him, before finally murdering the Devil himself.
+
+Interestingly, there is no comeuppance for Punch's killing spree, as most modern
+audiences would expect. Instead, the story shows Punch as a buffoon, a
+ridiculous caricature of an angry man who blunders his way through life, yet is
+victorious nonetheless. The story has no moral message, only farcical violence.
+
+Despite its arguable nihilism, \emph{Punch and Judy} has many features that make
+it a suitable narrative domain for the purposes of testing our research:
+
+\begin{itemize}
+\item It has many recognisable patterns, or \emph{tropes}. For example, most
+  scenes feature some kind of audience participation, and most end with
+  slapstick comedy.
+\item It can be as simple or sophisticated as we choose to make it. Some scenes
+  are relatively simple to model, such as the scene where Punch beats the
+  policeman. Others are more difficult, such as where Punch is asked to guard
+  some suasages, but then loses them to a crocodile. Combining several scenes
+  into a complete and recognisable \emph{Punch and Judy} narrative is, we
+  contend, a worthwhile challenge for a narrative generation system.
+\item Following from this, its scenes can either be self-contained and modelled
+  on their own, or can depend on the context of the previous scenes. For
+  example, Punch's foes increase in importance as his rampage progresses. In some
+  versions, he kills his wife, then a policeman, then the executioner sent to
+  hang him, then finally the Devil. This makes it useful for modelling a
+  narrative with a state that changes over time.
+\item Most (British) people know Punch and Judy when they see it. They are able
+  to recognise how characters in the story are supposed to behave, and what
+  should happen in each scene and in the story as a whole. This helps with
+  evaluation of the system: the audience will be able to say whether or not the
+  generated tropes are \emph{authentic} or not.
+\end{itemize}
+
+The minimal set of Punch and Judy characters would be Punch, his wife Judy,
+their baby, Joey the clown (who narrates the story and interacts with the
+audience, and is immune to Punch's attacks), a crocodile and a Policeman.
+Extended versions include other animals that Punch chases (such as a monkey or
+cat), and the previously mentioned hangman and Devil characters. These are not
+needed for a full Punch and Judy show, however. Indeed, many performers show
+just one or two scenes in a show, with the first featuring Punch, Judy and the
+baby, and then finishing with the scene where Punch wrestles with a crocodile
+for some sausages.
 The tropes that appear in Punch and Judy can be divided into two types: those
 that are present throughout the story, and those that describe particular scenes
 of the story. One trope that is a constant feature of Punch and Judy shows is
@@ -5073,8 +5326,6 @@ trope, redefined with a subtrope}]
 \end{lstlisting}
 \end{minipage}
 
-A full 
-
 \subsection{Combining Tropes Together}
 \label{sec:combining-tropes}
 
@@ -5139,283 +5390,21 @@ refine their tropes further in order to build the non-linear narrative that they
 % \item Story authors do not want to think in terms of goals.
 % \item Most narrative systems use outdated, inflexible story models.
 % \end{enumerate}
-\deleted{2.1: Removed reference to ``character freedom'' goals from original
-  literature review}
-
-This chapter describes the use of \emph{Social Institutions} (also referred to as
-\emph{Institutions} or \emph{Normative Frameworks}) to implement trope
-descriptions in TropICAL in a multi-agent system. An institution is a
-collection of social norms that govern the behaviour of a set of interacting
-agents. In the real world, social norms encourage certain behaviours and
-discourage others. However, people are still able to carry out the discouraged
-behaviours, as there is no physical barrier preventing them. Instead, the
-discouraged behaviours are punished with \emph{social} consequences such as
-shaming or expulsion from a social group.
-
-For example, when a teacher is
-lecturing a class, there is an implicit social contract for the students to
-remain silent while the teacher is talking. Though it is physically possible for
-a student to interrupt the teacher, they face the possibility of being told to
-leave the class if they do so. The institutions we describe in this chapter
-follow the same model: behaviours are permitted or obliged to happen in a
-contract that all agents follow. When the agents perform actions that are not
-permitted, or do not perform obliged actions before their deadline, they
-\emph{violate} the norms in the institution. As a consequence, a punishment
-corresponding to the violated norm is applied to the offending agent.
-
-\changed{
-Using a social institution as a story model governs character agents' actions instead of enforcing them. This allows
-agents to be guided by the norms described in the
-story model, but also allows them to break away from the model at times. An
-agent could either plan to break the norms of the story if it is willing to face
-the consequences, or it could deviate from the story in extreme situations (such
-as in times of extreme emotion). This potentially gives agents more autonomy to act within the guidelines of a story,
-so that their actions may generate a wider range of interesting scenarios. The
-extent to which our system achieves this ``character freedom'' (if at all) is
-discussed in \Fref{sec:discussion-freedom}.
-}{2.1: Rephrased this to describe character freedom as interesting, but not the
-  focus of the dissertation, with a
-  reference to the discussion section.}
-
-\changed{
-This chapter begins by describing a scene from ``Punch and Judy'' as a set of norms in an institution in
-\Fref{sec:norms-and-institutions}. \Fref{sec:punchjudy} describes
-an implementation of this system using the InstAL~\citep{cliffe2007specifying} language for institutions
-combined with agents with emotional models written using the
-Jason~\citep{bordini2007programming} framework. The chapter concludes with a
-summary in \Fref{sec:inst-summary}.
-}{Removed reference to Kripke section}
-
-
-\section{Norms and Institutions}
-\label{sec:norms-and-institutions}
+This chapter describes the integration of TropICAL into a multi-agent system
+consisting of multiple intelligent agents with character models.
 \changed{Using the \emph{Punch and Judy} story world as our initial example, we formalise
 its narrative rules by describing them in terms of tropes. We then demonstrate
 how these tropes can then be expressed as social institutions to govern the
 intelligent agents in a multi-agent system.}{Describing P\&J in terms of just tropes,
 instead of Propp then tropes}
 
-\deleted{Removed ``A Punch and Judy Scene Described as Propp Functions''}
-
-\changed{As we describe in \Fref{sec:lit-insts} of the literature review,
-  an institution consists of a set of `social' norms describing the permitted
-  and obliged behaviour of interacting agents. Noriega's ``Fish Market''
-  thesis~\citep{noriega1999agent} describes how an institutional model can be
-  used to govern the actions of agents in a fish market auction.
-  Several~\citep{artikis2009specifying,fornara2007agent,cardoso2007institutional}
-  extend this idea to build systems where institutions actively regulate the
-  actions of agents, while still allowing them to decide what to do. We build on
-  the work of~\citet{cliffe2007specifying} and~\citet{lee2013decoupling} to
-  adapt it for the world of narrative, using an institutional model to describe
-  the story world of Punch and Judy in terms of tropes, through which the actors
-  acquire powers and permissions appropriate to the character and the story
-  function in which they are participating.
-
-Institutional models use concepts from deontic logic to provide obligations and
-permissions that act on interacting agents in an environment. By combining this
-approach with our concept of \emph{story tropes}, we describe a Propp-style formalism of Punch and Judy in terms of what agents are \emph{obliged} and \emph{permitted} to do at certain points in the story.}{Propp -> tropes}
-
-For example, in one Punch and Judy scene, a policeman enters the stage and attempts to apprehend Punch. According to the rules of the Punch and Judy world, Punch has an obligation to kill the policeman by the end of the scene (as this is what the audience expects to happen, having seen other Punch and Judy shows). The policeman has an obligation to try his best to catch Punch. Both agents have permission to be on the stage during the scene. The policeman only has permission to chase Punch if he can see him (Punch is obliged to hide from him at the start of the scene).
-
-The permissions an agent has, on the one hand, constrain the choices of actions
-available to them at any given moment. Obligations, on the other hand, affect
-the goals of an agent. Whether or not an agent actively tries to fulfil an
-obligation depends on the plan they are following, and their emotional state.
-
-
-
-\section{Describing Tropes as Institutions} % 1/2
-\label{sec:tropes-as-insts}
-\deleted{2.1: Argument for institutions giving characters more autonomy}
-
-\changed{The previous section describes how \emph{social institutions} can be
-used to govern the behaviours of story characters to conform to a narrative
-arc.}{2.1: Removed autonomy argument}
-\changed{This section demonstrates how social institutions can be used to implement
-  story tropes in a multi-agent system. Using this method, the tropes are
-  described as social norms which govern the character agents of a story, where
-  an institution describes the norms that govern a certain trope, and a story is
-a collection of tropes.}{Explains that institutions are our
-chosen way to implement tropes}
-
-In order to describe story tropes in terms of social norms, we break them down into three components:
-
-\begin{enumerate}
-\item characters, which instantiate roles
-\item objects, which instantiate types
-\item places, which instantiate locations
-\end{enumerate}
-
-Characters' actions are described in terms of permissions and obligations. For example, a character in a certain role \emph{may} go to the cinema, or a character \emph{must} buy a ticket before the movie begins, otherwise they will not see it. Note that an obligation (which says that a character \emph{must} do something) can have a deadline (``before the movie begins'') and a consequence (``they will not see the movie''). These are both optional in our system.
-
-Returning to the tropes described in the introduction, we can express them in terms of social norms:
-
-\begin{itemize}
-  \item \textbf{The Hero's Journey}: The hero \emph{must} leave home when they receive the call to adventure. Then the hero \emph{may} kill the villain. Once this is done, the hero \emph{may} return home.
-  \item \textbf{The Evil Empire}: The villain has an empire, and \emph{may} kill the hero.
-  \item \textbf{MacGuffin}: The hero \emph{must} search for an object. However, the hero \emph{may} find it.
-  \item \textbf{Chekhov's Gun}: If a weapon appears in the beginning, it \emph{must} be used before the end of the story.
-\end{itemize}
-
-Describing tropes in terms of permissions and obligations is enough for us to be
-able to specify them as social norms, which allows us to represent them
-formally through the use of \emph{InstAL}~\citep{cliffe2007specifying}, the
-Institution Action Language, a language for describing social institutions which compiles to AnsProlog, an \emph{Answer Set Programming} (ASP) language.
-Once compiled to InstAL and AnsProlog, our tropes have a formal representation
-which (for example) allows us to use trope models and an ASP solver to determine
-which norms hold after agent or player actions have occurred in the story world.
-This means that we can use ASP to check whether certain sequences of events are possible within a story,
-given a set of trope descriptions.
-
-As \Fref{sec:instal-intro} explains, an institution describes the
-\emph{external} events that relate to actions in the agent's environment, and
-\emph{institutional} events that occur within the institution. The purpose of
-external events is to generate institutional events, which initiate and
-terminate social norms (permissions and obligations). When a trope is described
-as an institution, it must state which actions by the agents lead
-to the triggering of institutional events, and which norms these institutional
-events initiate or terminate.
-
-Take the case of a \emph{Star Wars} game, for example. Any agent has the ability
-to pick up a Lightsaber weapon. However, this action becomes institutionally
-meaningful if we state that it is the first event of the \emph{Hero's Journey}
-trope, where the Hero answers the Call to Adventure by obtaining a weapon.
-For example, an agent playing the role of Luke Skywalker in a Star Wars game may
-pick up a Lightsaber. If Luke Skywalker is a hero character, and a Lightsaber is
-a type of weapon, this would trigger an event inside the \emph{Hero's Journey}
-institution where a hero has
-picked up a weapon. As this corresponds to the first event in the \emph{Hero's
-  Journey} institution, it would initiate the norms for the next events in
-the institution to happen, which could be permission to use the weapon, or an obligation to go to the land of adventure.
-For more details on InstAL, social institutions, and the formalism in ~\Fref{fig:events}, refer to
-\Fref{sec:instal-intro} and~\citep{cliffe2007specifying}.
-
-Using the same notation introduced in \Fref{sec:instal-intro}, \Fref{fig:events} lists some external ($\mathcal{E}_{external}$) and institutional (internal, $\mathcal{E}_{internal}$) events for the \emph{Hero's Journey} trope. A wide range of external events such as \emph{go}, \emph{meet}, \emph{kill}, \emph{escape} generate the \emph{intHerosJourney} internal event, but only if the external event meets certain criteria. These criteria could be whether or not an agent fulfils a certain role, for example. \Fref{fig:gen-hero} shows examples of such internal event generation ($\mathcal{G}$). In the first example (rule~\ref{eq:tatooine}), the \emph{intHerosJourney} event is generated when Luke Skywalker goes to Tatooine, but only if Luke has the role of \emph{hero}, and Tatooine's location is \emph{home}.
-\Fref{fig:init-hero} shows how internal events initiate
-($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a
-trope. Because the \emph{Hero's Journey} trope has several stages, this example
-only shows the first two events of the trope (the \emph{phase} keywords are explained further in \Fref{sec:trope-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
-Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in \Fref{fig:term-hero}.
-
-While InstAL allows us to express tropes as social institutions, it would be
-difficult to use for non-programmers who are unfamiliar with logic programming
-paradigms. In order for story authors to be able to create their own tropes, a
-much more user-friendly language is needed. This is the motivation for TropICAL,
-and the reason we are describing tropes in that language rather than having
-users write InstAL code directly.
-
-\begin{figure}[!t]\small
-\begin{align}
-  \mathcal{E}_{external} = & \left\{\begin{array}{c}
-\mathtt{go(Agent, Place)},\\
-\mathtt{meet(Agent, Agent)},\\
-\mathtt{kill(Agent, Agent)}\\
-\mathtt{escape(Agent)}
-\end{array}
-\right\}\label{eq:eobs-hero}\\
-  \mathcal{E}_{internal} = &\left\{\begin{array}{l}
-\mathtt{intHerosJourney(Agent,}\\
-\;\;\mathtt{Agent, Agent, Place, Place)}
-\end{array}\right\}
-\label{eq:einst-hero}
-\end{align}
-\caption{External and institutional events ($\mathcal{E}$) for the \emph{Hero's Journey} trope} \label{fig:events}
-\end{figure}
-
-\begin{figure*}[!t]
-\small
-%------------------------------------------------------------------------
-The generation relation $\mathcal{G}$ for trope state $\mathcal{X}$ and external event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\ 
-$\mathcal{G(X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-\begin{array}{r}
-\langle \{\mathit{role(lukeSkywalker, hero)},\\
-\mathit{location(tatooine, home)}\},\\
-\mathit{go}\mathtt{(lukeSkywalker, tatooine)} \rangle
-\end{array}
-&\rightarrow
-\begin{array}{l}
-\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{R, S, tatooine, T)}\}
-\end{array}\label{eq:tatooine}\\
-\begin{array}{r}
-                                 \langle \{\mathit{role(lukeSkywalker, hero)},\\
-  \mathit{role(obiWan, dispatcher)}\},\\
-\mathit{meet}\mathtt{(lukeSkywalker, obiWan)} \rangle
-\end{array}
-&\rightarrow
-\begin{array}{l}
-\{\mathit{intHerosJourney}\mathtt{(lukeSkywalker,}\\\;\;\;\;\mathtt{obiWan, R, S, T)}\}
-\end{array}\label{eq:hsnth}
-\end{align}
-\end{minipage}
-}\right.$\smallskip
-
-%------------------------------------------------------------------------
-The fluent initiation relation $\mathcal{C^{\uparrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
-$\mathcal{C^{\uparrow}(X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-\begin{array}{r}
-                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\
-\mathit{home, landOfAdventure)}\} \rangle
-\end{array}
-&\rightarrow
-\left\{\begin{array}{l}
-\text{perm}(\mathtt{meet(hero, dispatcher)})\\
-\text{phase}(\mathtt{herosJourney, phaseB})
-\end{array}\right\}\label{eq:cfirst-hero}\\
-\begin{array}{r}
-                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle\\
-  \end{array}
-&\rightarrow \left\{
-\begin{array}{l}
-  \text{perm}(\mathtt{kill(hero, villain)}) \\
-\text{obl}(\mathtt{go(hero, landOfAdventure),} \\
-\mathtt{kill(villain, victim)},\\
-\mathtt{viol(story, end)})\\
-\text{phase}(\mathtt{herosJourney, phaseC})
-\end{array}
-\right\}\label{eq:phaseb}
-\end{align}
-\end{minipage}
-}\right.$\smallskip
-
-%------------------------------------------------------------------------
-
-The fluent termination relation $\mathcal{C^{\downarrow}}$ for trope state $\mathcal{X}$ and internal event $\mathcal{E}$ in the \emph{Hero's Journey} trope:\\
-$\mathcal{C^{\downarrow} (X, E)}:\left\{\mbox{%
-\begin{minipage}[c]{0.85\textwidth}
-\begin{align}
-\begin{array}{r}
-                                 \langle \{\mathit{phase(herosJourney, phaseA)}\},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
-  \end{array}
-&\rightarrow \left\{
-\begin{array}{l}\text{perm}(\mathtt{go(hero, home)}),\\
-\text{phase}(\mathtt{herosJourney, phaseA})
-\end{array}
-\right\}\label{eq:crt}\\
-\begin{array}{r}
-                                 \langle\{\mathit{phase(herosJourney, phaseB)},\\
-  \mathit{intHerosJourney(hero, dispatcher, villain},\\ \mathit{home, landOfAdventure)}\} \rangle
-  \end{array}
-&\rightarrow \left\{
-\begin{array}{l}
-\text{perm}(\mathtt{meet(hero, dispatcher)})\\
-\text{phase}(\mathtt{herosJourney, phaseB})
-\end{array}
-\right\}\label{eq:crst}
-\end{align}
-\end{minipage}
-}\right.$
-\caption{Generation events, and fluent initation and termination for the Hero's Journey trope}
-\label{fig:gen-hero}
-\label{fig:init-hero}
-\label{fig:term-hero}
-\end{figure*}
+This chapter begins by describing a scene from ``Punch and Judy'' in terms of
+story tropes in \Fref{sec:punchjudy-tropes}. These tropes are then translated
+into institutions through their expression in terms of norms (\Fref{sec:dont-touch-inst}). \Fref{sec:punchjudy} describes
+an implementation of this scene using the InstAL~\citep{cliffe2007specifying} language for institutions
+combined with agents with emotional models written using the
+Jason~\citep{bordini2007programming} framework. The chapter concludes with a
+summary in \Fref{sec:inst-summary}.
 
 \section{Punch and Judy as Tropes}
 \label{sec:punchjudy-tropes}
