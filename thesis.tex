@@ -32,7 +32,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage[]{todonotes}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 % \usepackage{float}
 \usepackage{listings}
 
@@ -171,7 +171,7 @@
 \author{Matt Thompson}
 \degree{Doctor of Engineering (EngD) Digital Media}
 \department{Department of Computer Science}
-\degreemonthyear{September 2017}
+\degreemonthyear{May 2018}
 \norestrictions
 
 
@@ -251,7 +251,7 @@ support and encouragement.
 
   We evaluate the suitability of these tools for interactive story construction through a
   thematic analysis of story authors’ completion of story-authoring tasks using
-  the TropICAL and StoryBuilder.
+  TropICAL and StoryBuilder.
   The participants complete tasks in which they have to describe stories with different degrees
   of complexity, finally requiring them to reuse existing tropes in their own trope abstractions.
   The thematic analysis identifies and examines the themes and patterns that emerge from the
@@ -684,14 +684,10 @@ The structure of this thesis is as follows:
   through a thematic analysis of eight participants building their own stories
   with the tool.
 \item This chapter, \textbf{Using TropICAL with a Multi-Agent System}, describes the integration of the stories described with
-  TropICAL and StoryBuilder into a story simulation environment with multiple
-  agents. The use of social institutions as story worlds is described in
-  this chapter, exploring the theory and research behind
-  social institutions. It discusses the merit of their use for describing
-  stories, comparing their use against other logics and planner-based systems
-  from the previous section. The chapter gives an examples of converting tropes
+  TropICAL into a working story simulation environment with multiple
+  agents. The chapter gives examples of converting tropes
   to social institutions in terms of norms, and how these norms would be used to
-  govern a multi-agent systems containing agents that have emotional models. This chapter is a development of \emph{Governing
+  govern a multi-agent system containing agents that have emotional models. This chapter is a development of \emph{Governing
     Narrative Events with Institutional Norms}, which is listed as
   the \textbf{[CMN 2015]} conference paper in the list of papers below (\Fref{sec:papers}).
 \item This chapter describes the \textbf{Evaluation and Validation} work done on
@@ -3517,7 +3513,7 @@ Using the same notation introduced in \Fref{sec:instal-intro}, \Fref{fig:events}
 \Fref{fig:init-hero} shows how internal events initiate
 ($\mathcal{C^{\uparrow}}$) fluents and norms (permissions and obligations) in a
 trope. Because the \emph{Hero's Journey} trope has several stages, this example
-only shows the first two events of the trope (the \emph{phase} keywords are explained further in \Fref{sec:trope-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
+only shows the first two events of the trope (the \emph{phase} keywords are explained further in \Fref{sec:event-phases}). Rule~\ref{eq:phaseb} shows how the \emph{intHerosJourney} internal event initiates the hero's permission to kill the villain, an obligation for the hero to go to the Land of Adventure before the villain kills the victim, and the next phase (phase C) of the \emph{Hero's Journey} trope. These fluents are only initiated if the \emph{intHerosJourney} internal event happens while the trope is in phase B (when \emph{phase(herosJourney, phaseB)} holds), however.
 Fluent termination ($\mathcal{C^{\downarrow}}$) works in a similar manner to initiation, with permissions and obligations for previous trope phases being terminated once the next phase of a trope has been entered. Examples for the first two phases of the \emph{Hero's Journey} trope are shown in \Fref{fig:term-hero}.
 
 While InstAL allows us to express tropes as social institutions, it would be
@@ -3676,8 +3672,8 @@ Event generation functions follow a $\langle \mathtt{preconditions} \rangle \rig
 
 \textbf{Consequences} consist of fluents, permissions and obligations that are \emph{initiated} ($\mathcal{C}^{\uparrow}$) or \emph{terminated} ($\mathcal{C}^{\downarrow}$) by institutional events. 
 
-A full example of an institution for the ``Punch and Judy'' story world,
-described in terms of story tropes, appears in \Fref{sec:tropes-as-insts}.
+A more elaborate example of an institution for the ``Punch and Judy'' story world,
+described in terms of story tropes, appears in \Fref{cha:institutions}.
 
 \subsection{Why use ASP and InstAL?}
 \label{sec:why-asp-instal}
@@ -4025,13 +4021,23 @@ institution, inside the \emph{initially} clause. In combination with the above
 entity declarations, this results in the following code being generated
 (omitting the type and fluent declarations this time):
 
-\begin{lstlisting}
-initially:
-  perm(go(X, Y)) if role(X, hero), place(Y, landOfAdventure),
-  role(lukeSkywalker, hero),
-  object(lightSaber, sword),
-  place(deathStar, landOfAdventure);
+\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[caption={},escapechar=\%]
+initially:%\mylabel{t1}%
+  perm(go(X, Y)) if role(X, hero),
+                 place(Y, landOfAdventure),%\mylabel{t2}%
+  role(lukeSkywalker, hero),%\mylabel{t3}%
+  object(lightSaber, sword),%\mylabel{t4}%
+  place(deathStar, landOfAdventure);%\mylabel{t5}%
 \end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The following rules apply as soon as the institution is active:}
+  \myref{t2}{s2}{The Hero may go to the Land of Adventure}
+  \myref{t3}{s3}{``Luke Skywalker'' is a hero}
+  \myref{t4}{s4}{``Lightsaber'' is a sword}
+  \myref{t5}{s5}{``Death Star'' is a Land of Adventure}
+\end{minipage}\\
 
 This means that the Luke Skywalker character is able to go to the Death Star at the beginning
 of the institution, as is specified in the trope.
@@ -4067,29 +4073,48 @@ generate the required institutional events (denoted with an ``int''
 prefix, following the naming convention introduced in
 \Fref{sec:inst-events}):
 
+\begin{minipage}{0.6\textwidth}
 \begin{lstlisting}[showstringspaces=false, label={lst:instal-generates},
-caption={InstAL code resulting from the compilation of \Fref{lst:seq4}}]
-find(R, T) generates
-    intSequence3(R, S, T, U, V) if
-        role(R, hero),
-        object(T, sword);
-kill(R, S) generates
-    intSequence3(R, S, T, U, V) if
-        role(S, villain),
-        role(R, hero);
-meet(R, S) generates
-    intSequence3(R, S, T, U, V) if
-        role(S, villain),
-        role(R, hero);
-go(R, V) generates
-    intSequence3(R, S, T, U, V) if
-        role(R, hero),
-        place(V, landOfAdventure);
-return(R, U) generates
-    intSequence3(R, S, T, U, V) if
-        role(R, hero),
-        place(U, home);
+caption={InstAL code resulting from the compilation of \Fref{lst:seq4}},escapechar=\%]
+find(R, T) generates%\mylabel{t1}%
+    intSequence3(R, S, T, U, V) if%\mylabel{t2}%
+        role(R, hero),%\mylabel{t3}%
+        object(T, sword);%\mylabel{t4}%
+kill(R, S) generates%\mylabel{t5}%
+    intSequence3(R, S, T, U, V) if%\mylabel{t6}%
+        role(S, villain),%\mylabel{t7}%
+        role(R, hero);%\mylabel{t8}%
+meet(R, S) generates%\mylabel{t9}%
+    intSequence3(R, S, T, U, V) if%\mylabel{t10}%
+        role(S, villain),%\mylabel{t11}%
+        role(R, hero);%\mylabel{t12}%
+go(R, V) generates%\mylabel{t13}%
+    intSequence3(R, S, T, U, V) if%\mylabel{t14}%
+        role(R, hero),%\mylabel{t15}%
+        place(V, landOfAdventure);%\mylabel{t16}%
+return(R, U) generates%\mylabel{t17}%
+    intSequence3(R, S, T, U, V) if%\mylabel{t18}%
+        role(R, hero),%\mylabel{t19}%
+        place(U, home);%\mylabel{t20}%
 \end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The \emph{find} external event generates...}
+  \myref{t2}{s2}{...the \emph{intSequence3} institutional event if...}
+  \myref{t4}{s4}{...it is the \emph{hero} that finds a \emph{sword}.}
+  % \myref{t5}{s5}{The \emph{kill} external event generates...}
+  % \myref{t6}{s6}{...the \emph{intSequence3} institutional event if...}
+  % \myref{t8}{s8}{...it is the \emph{hero} that kills the \emph{villain}.}
+  % \myref{t9}{s9}{The \emph{meet} external event generates...}
+  % \myref{t10}{s10}{...the \emph{intSequence3} institutional event if...}
+  % \myref{t12}{s12}{...it is the \emph{hero} that meets the \emph{villain}.}
+  % \myref{t13}{s13}{The \emph{go} external event generates...}
+  % \myref{t14}{s14}{...the \emph{intSequence3} institutional event if...}
+  % \myref{t16}{s16}{...it is the \emph{hero} that goes to the \emph{land of adventure}.}
+  % \myref{t17}{s17}{The \emph{return} external event generates...}
+  % \myref{t18}{s18}{...the \emph{intSequence3} institutional event if...}
+  % \myref{t20}{s20}{...it is the \emph{hero} that goes \emph{home}.}
+\end{minipage}\\
 
 Each institution only has one institutional event that is triggered by the
 external events, which is named after the trope itself (in this case, the event
@@ -4111,7 +4136,7 @@ mechanism called \emph{event phases}.
 \subsubsection{Event Phases}
 \label{sec:event-phases}
 An \emph{event phase} is a fluent that holds the state of the current
-institution (described previously in \Fref{sec:trope-phases}). At the beginning of the trope, its state is simply \emph{active}.
+institution. At the beginning of the trope, its state is simply \emph{active}.
 This is represented in the institution through the fluent \emph{phase(tropeName,
 active)}.
 Once the first event has occurred, the trope enters \emph{phase A}, which means
@@ -4135,14 +4160,15 @@ are five phases in total:
 The events and phases of this trope are initiated in InstAL through the
 following generated code:
 
+\begin{minipage}{0.6\textwidth}
 \begin{lstlisting}[label={lst:initiates}, caption={Institutional event
-initiation code for \Fref{lst:seq4}}]
-intSequence3(R, S, T, U, V) initiates
-    phase(sequence3, phaseA),
-    perm(find(R, T)) if
-        phase(sequence3, active),
-        role(R, hero),
-        object(T, sword);
+initiation code for \Fref{lst:seq4}}, escapechar=\%]
+intSequence3(R, S, T, U, V) initiates%\mylabel{t1}%
+    phase(sequence3, phaseA),%\mylabel{t2}%
+    perm(find(R, T)) if%\mylabel{t3}%
+        phase(sequence3, active),%\mylabel{t4}%
+        role(R, hero),%\mylabel{t5}%
+        object(T, sword);%\mylabel{t6}%
 intSequence3(R, S, T, U, V) initiates
     phase(sequence3, phaseB),
     perm(meet(R, S)) if
@@ -4162,6 +4188,16 @@ intSequence3(R, S, T, U, V) initiates
         role(R, hero),
         place(U, home);
 \end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The \emph{intSequence3} institutional event initiates the
+    following:}
+  \myref{t2}{s2}{The fact that we are in \emph{phase A} of the trope}
+  \myref{t3}{s3}{It gives permission for the \emph{hero} to find the \emph{sword}}
+  \myref{t4}{s4}{If the trope is active...}
+  \myref{t6}{s6}{...and we have both a \emph{hero} and a \emph{sword} as part of
+  the event.}
+\end{minipage}\\
 
 
 \subsection{Termination}
@@ -4174,14 +4210,15 @@ those initiated in \Fref{lst:initiates} is shown in
 listing~\Fref{lst:terminates} below. Once an external event occurs, its
 permission to occur again is terminated along with the phase in which it occurred:
 
+\begin{minipage}{0.6\textwidth}
 \begin{lstlisting}[label={lst:terminates}, caption={Institutional event
-termination code for \Fref{lst:seq4}}]
-intSequence3(R, S, T, U, V) terminates
-    phase(sequence3, active),
-    perm(go(R, V)) if
-        phase(sequence3, active),
-        role(R, hero),
-        place(V, landOfAdventure);
+termination code for \Fref{lst:seq4}}, escapechar=\%]
+intSequence3(R, S, T, U, V) terminates%\mylabel{t1}%
+    phase(sequence3, active),%\mylabel{t2}%
+    perm(go(R, V)) if%\mylabel{t3}%
+        phase(sequence3, active),%\mylabel{t4}%
+        role(R, hero),%\mylabel{t5}%
+        place(V, landOfAdventure);%\mylabel{t6}%
 intSequence3(R, S, T, U, V) terminates
     phase(sequence3, phaseA),
     perm(find(R, T)) if
@@ -4207,6 +4244,15 @@ intSequence3(R, S, T, U, V) terminates
         role(R, hero),
         place(U, home);
 \end{lstlisting}
+\end{minipage}\hspace{0.08\textwidth}%\hfill
+\begin{minipage}{0.3\textwidth}\scriptsize
+  \myref{t1}{s1}{The \emph{intSequence3} institutional event terminates the following:}
+  \myref{t2}{s2}{The fact that the trope has just become active}
+  \myref{t3}{s3}{Permission for the \emph{hero} to go to the \emph{land of adventure}}
+  \myref{t4}{s4}{If the trope is already active...}
+  \myref{t6}{s6}{...and there is a \emph{hero} and \emph{land of adventure} as
+    part of the event.}
+\end{minipage}\\
 
 \subsection{Branches}
 % TODO before / after snippets: 2
@@ -4225,8 +4271,7 @@ Then the Hero meets the Mentor
   Or the Hero goes to the Realm of Mystery
 \end{lstlisting}
 
-A fully compiled institution appears in \Fref{appendix:branch3} of
-\Fref{appendix:instal}, which uses the following entity instances:
+A fully compiled institution appears in \Fref{appendix:branch3}, which uses the following entity instances:
 
 \begin{lstlisting}
 Harry Potter is a Hero
@@ -4238,7 +4283,7 @@ The Chamber of Secrets is a Realm of Mystery
 \end{lstlisting}
 
 The branching events are implemented in the \emph{initiates} and
-\emph{terminates} clauses. In \Fref{lst:branch-init} below, we see that three possible events are given
+\emph{terminates} clauses. In Listing~\ref{lst:branch-init} below, we see that three possible events are given
 permission to occur as part of Phase A: \emph{The Hero finds a Sword}, \emph{The
   Hero goes to the Land of Adventure}, and \emph{The Hero kills the Villain}. In
 Phase B, two events corresponding to the possible branches are given permission
@@ -4313,7 +4358,8 @@ obligation fluent obl(intGo(Agent, PlaceName), intNoDeadline, noViolation);
 second (obligation) event of the trope in \Fref{lst:obl1}}, escapechar=|]
 intObligation1(R, S, T) initiates
     phase(obligation1, phaseA),
-    obl(intGo(R,T), intNoDeadline, noViolation), perm(go(R, T)), perm(intGo(R,T)), pow(intGo(R,T)) if|\label{line:obl1-oblev}|
+    obl(intGo(R,T), intNoDeadline, noViolation), perm(go(R, T)),
+                    perm(intGo(R,T)), pow(intGo(R,T)) if|\label{line:obl1-oblev}|
         phase(obligation1, active),
         role(R, hero),
         place(T, landOfAdventure);
@@ -4344,7 +4390,7 @@ event in \Fref{lst:obl2-trope}. The deadline event \emph{intKill(villain,
   mentor)} is an institutional event, and so is generated by the
 \emph{kill(villain, mentor)} external event on
 lines~\ref{line:obl2-deadline1} to~\ref{line:obl2-deadline2} of
-listing~\Fref{lst:obl2-gen}. \Fref{lst:obl2-init} shows the obligation
+listing~\ref{lst:obl2-gen} on page~\pageref{lst:obl2-gen}. \Fref{lst:obl2-init} shows the obligation
 fluent itself. As this obligation is the first event to occur in this trope,
 it appears in the \emph{initially} clause of the InstAL code, rather than as an
 initiation event.
@@ -5688,8 +5734,8 @@ caption={The ``Don't Touch it, You Idiot!'' trope in TropICAL}]
   Then the Owner fights the Idiot
 \end{lstlisting}
 
-Now that we have determined the events that occur as part of the trope, and have
-a TropICAL definition of it, we can describe its domain fluents, which include all the
+The following listing shows the domain fluents in the institution
+for the above TropICAL code, which include all the
 actions of the characters, as well as their roles:
 \begin{align*}
   \mathcal{D} =&\left\{\mathtt{owner, idiot, item, away, inactive, phaseA,}\right.\\\nonumber
@@ -5707,19 +5753,13 @@ permitted to occur within the trope:
 \subsubsection{Trope Phases}
 \label{sec:trope-phases}
 
-While arranging these four tropes in a linear sequence describes the
-\emph{sausages} scene for the most part, our use of the \emph{Don't Touch It, You Idiot} trope in place of both of
-Propp's \emph{interdiction} and \emph{violation} story functions introduces an
-extra challenge to its implementation as an institution: it has two different
-\emph{phases}. The first phase is triggered by one character warning another
+Arranging these four tropes in a linear sequence describes the
+\emph{sausages} scene for the most part, though our use of the \emph{Don't Touch It, You Idiot} trope in place of both of
+Propp's \emph{interdiction} and \emph{violation} story functions introduces a
+need to have two different
+\emph{phases}, as explained in \Fref{sec:event-phases}. The first phase is triggered by one character warning another
 character not to do something, the second is when the warned character performs
 the forbidden action.
-
-In order to properly describe the scene in terms of the four tropes, we must
-first describe the mechanism by which we divide this trope into separate phases.
-This is done through the addition of a \emph{phase} fluent which takes a trope
-(institution) name and its current phase as parameters, such as:
-$\mathtt(phase(intHerosJourney, phaseA))$.
 
 At first, each trope is ``inactive'', reflected in the \emph{phase} fluent as
 $\mathtt(phase(intTropeName, inactive))$ After each event that occurs in the
@@ -6002,7 +6042,7 @@ occurred(intDontTouchItYouIdiot(R,S,T,U),dontTouchIt,I) :-%\mylabel{t1}%
 \myref{t6}{s6}{The \emph{phaseA} phase is active}
 \myref{t7}{s7}{$R$ is an agent, $U$ is a place, dontTouchIt is an institution, $I$ is an instant}
 \end{minipage}\\
-The \emph{intDontTouchIt\/} institutional event gives idiot permission to break
+The \emph{intDontTouchIt\/} institutional event gives the idiot permission to break
 the item if there is one. It also terminates the permission of the absented
 agent to leave the stage, as they have already done so. This is described
 in~\Fref{lst:idiot-initiate}. The AnsProlog generated by the InstAL code is
@@ -6063,11 +6103,11 @@ initiated(phase(dontTouchIt, phaseB)) :-%\mylabel{t2}%
 %% \end{comment}
 By combining statements such as these, we can build a complete description
 of the sausages scene in terms of agent norms. A full listing is shown
-in~\Fref{lst:donttouch-instal-full} of~\Fref{appendix:sausages-full}. InstAL rules like those shown here are compiled into AnsProlog, then we use the \emph{clingo} answer set solver~\citep{gebser2011potassco} to ground the program, and `solve' queries by finding all permissions and obligations that apply to any agents, given a sequence of events as the query input. The agents' percepts are then updated with their permitted and obliged actions from that time instant onwards.  Thus, the institutional model acts as a social narrative sensor, interpreting actors' actions in the context of the combination of the concrete narrative and the abstract story moves which detach (instantiate) the norms that guide the actors in the direction of the conclusion of the story arc.
+in~\Fref{lst:donttouch-instal-full} of Appendix~\ref{appendix:sausages-full} on page~\pageref{appendix:sausages-full}. InstAL rules like those shown here are compiled into AnsProlog, then we use the \emph{clingo} answer set solver~\citep{gebser2011potassco} to ground the program, and `solve' queries by finding all permissions and obligations that apply to any agents, given a sequence of events as the query input. The agents' percepts are then updated with their permitted and obliged actions from that time instant onwards.  Thus, the institutional model acts as a social narrative sensor, interpreting actors' actions in the context of the combination of the concrete narrative and the abstract story moves which detach (instantiate) the norms that guide the actors in the direction of the conclusion of the story arc.
 
 A query is simply a list of external events in chronological order, also called
 a \emph{trace}. A possible trace describing the actions of agents acting out the
-\emph{sausages} is described in \Fref{lst:trace}. The `pj' in the trace
+\emph{sausages} is described in Listing~\ref{lst:trace} on page~\pageref{lst:trace}. The `pj' in the trace
 is the name of the institution that observes the events, while the
 number is the enumeration of events in the sequence.
 
@@ -6227,7 +6267,8 @@ There are many different ways in which the audience's responses can affect the o
 Our implementation of the interactive Punch and Judy show demonstrates the use
 of social institutions to model narrative. 
 
-However, this section only describes one scene of the Punch and Judy show. ~\Fref{sec:pj-fullspec} describes how the full Punch and Judy story world
+However, this section only describes one scene of the Punch and Judy show.
+Section~\Fref{sec:pj-fullspec} on page~\pageref{sec:pj-fullspec} describes how the full Punch and Judy story world
 would be implemented using TropICAL, InstAL and AgentSpeak.
 
 \chapter{Evaluation \& Validation}
@@ -8521,7 +8562,8 @@ these results are (from most to least significant):
 \end{enumerate}
 
 \subsection{Analysis}
-The major source of inefficiency here is the generation of \emph{null} events
+Based on the experiments above, the current implementation of the system is too
+slow for practical usage. The major source of inefficiency that emerges from this evaluation is the generation of \emph{null} events
 for every possible length of event chains. This could be made much more efficient by
 adding a constraint to the solver that cuts out any answer sets below the
 maximum length of each possible sequence of events. Nothing would be lost in
